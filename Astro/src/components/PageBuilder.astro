@@ -1,0 +1,95 @@
+---
+
+export interface Props {
+	pageContent: {
+        _type: string;
+        heading?: string;
+        title?: string;
+        tagline?: string;
+        image?: any;
+        text?: string;
+        excerpt?: string;
+        switchImageToRightSide?: boolean;
+    }
+};
+
+const data = Astro.props as Props;
+
+// URL builder
+import { urlFor } from '../lib/sanityApi.js';
+
+---
+
+<section>
+
+    <h2>Testing GitHub and Netlify</h2>
+
+    {data.pageContent._type === 'hero' && 
+        <div class={data.pageContent._type} style={{backgroundImage: `url(${urlFor(data.pageContent.image).url()})`}}>
+            <h1>{data.pageContent.heading}</h1>
+            <h3>{data.pageContent.tagline}</h3>
+        </div>
+    }
+    
+    {data.pageContent._type === 'textWithIllustration' &&  
+        <div class="flexbox column">
+            <img src={urlFor(data.pageContent.image).width(590).height(300).format('webp').url()}/>
+            <div class="text-content">
+                <h2>{data.pageContent.heading}</h2>
+                <h3>{data.pageContent.tagline}</h3>
+                <p>{data.pageContent.text}</p>
+                <p>{data.pageContent.excerpt}</p>
+                <p>{data.pageContent.switchImageToRightSide}</p>
+            </div>
+        </div>
+    }
+    
+    {data.pageContent._type === 'gallery' &&  
+        <h3> {JSON.stringify(data.pageContent)}</h3>
+    }
+    
+    {data.pageContent._type === 'form' &&  
+        <h3> {JSON.stringify(data.pageContent)}</h3>
+    }
+    <!-- && form == 'newsletter' -->
+
+    <script>
+        let contentWidth = document.querySelector('main').style.width
+        console.log(contentWidth)
+    </script>
+
+</section>
+
+<style>
+    section {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center;
+        align-items: center; */
+        width: 100%;
+        height: auto;
+        padding: 2rem 0;
+    }
+
+    .hero {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero h3 {
+        font-size: 1.5rem;
+    }
+</style>

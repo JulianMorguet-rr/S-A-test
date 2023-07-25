@@ -1,0 +1,24 @@
+.flexbox {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    
+    &.column {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    div, img {
+        flex: 1 1 0;
+    }
+    div:first-child {
+        margin-right: 30px;
+    }
+    div:last-child {
+        margin-left: 30px;
+    }
+}
+
+
+.text-content {
+    color: #73b740;
+}
