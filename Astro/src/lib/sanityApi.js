@@ -20,15 +20,21 @@ export async function getFirstBlogPost() {
 export async function getSiteSettings() {
   const query = groq`*[_type == "siteSettings"][0]`; // siteSettings is the name of the schema from '/scr/structure/index.js'
   const siteSettings = await useSanityClient().fetch(query);
-  console.log('siteSettings: ', siteSettings);
+  // console.log('siteSettings: ', siteSettings);
   return siteSettings;
 }
 
+export async function getHomePage() {
+  const query = groq`*[_type == "page" && slug == "/"][0]`; // "page" is the name of the schema from '/scr/structure/index.js'
+  const page = await useSanityClient().fetch(query);
+  // console.log('page: ', page);
+  return page;
+}
 
 export async function getPages() {
   const query = groq`*[_type == "page"][0]`; // "page" is the name of the schema from '/scr/structure/index.js'
   const pages = await useSanityClient().fetch(query);
-  console.log('pages: ', pages);
+  // console.log('pages: ', pages);
   return pages;
 }
 
@@ -55,7 +61,7 @@ function urlFor(source) {
 
 /* Image-URL */
 
-// import { createClient } from '@sanity/client'
+import { createClient } from '@sanity/client'
 
 /* Image-URL */ 
 import createImageUrlBuilder from '@sanity/image-url'

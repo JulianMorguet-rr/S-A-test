@@ -50,7 +50,7 @@ export const textWithIllustrationType = defineType({
     prepare({title, image}) {
       return {
         title: title || 'Untitled',
-        subtitle: 'Hero',
+        subtitle: 'Text width Illustration',
         media: image || DocumentTextIcon,
       }
     },

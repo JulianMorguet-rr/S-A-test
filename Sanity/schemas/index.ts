@@ -2,6 +2,7 @@ import siteSettings from "./siteSettings";
 import blockContent from "./blockContent";
 import pet from './pet'
 import post from './post'
+import author from './author'
 import {pageType} from './page'
 
 // Page Sections 
@@ -15,7 +16,7 @@ export const schemaTypes = [
   textWithIllustrationType,
   imageGalleryType,
   formType,
-  pet, post, pageType, blockContent, siteSettings
+  pet, post, author, pageType, blockContent, siteSettings
 ]
 
 // export const schemaTypes = [pet, post, pageType, blockContent, siteSettings]

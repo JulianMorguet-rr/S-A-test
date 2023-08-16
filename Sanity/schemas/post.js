@@ -1,15 +1,19 @@
 import {defineField, defineType} from 'sanity'
 
 // Import custom jsx components
-import TwitterUrl from '../components/TwitterUrl'
+import {TwitterUrl} from '../components/TwitterUrl'
 import { MyCustomStringInput } from '../components/MyCustomStringInput'
-
 
 export default {
     name: 'post',
     type: 'document',
     title: 'Post',
+    description: 'Blog posts',
+    // languages: [],
     fields: [
+      // {
+      //   language: 'de',
+      // },
       {
         name: 'title',
         type: 'string',
@@ -27,12 +31,16 @@ export default {
         {
         name: 'author',
         title: 'Author',
-        type: 'string'
+        // type: 'string'
+        type: 'reference',
+        title: 'Author',
+        to: [{type: 'author' }]
         },
         {
         name: 'mainImage',
         title: 'Main image',
         type: 'image',
+        options: {hotspot: true},
         // options: {
         //     hotspot: true
         // }
@@ -50,13 +58,15 @@ export default {
         },
 
         {
-            name: 'twitter',
-            title: 'Twitter URL',
-            type: 'url',
-            components: {
-              input: TwitterUrl
-            },
+          name: 'twitter',
+          title: 'Twitter URL',
+          type: 'url',
+          description: 'Die URL des Twitter-Accounts',
+          components: {
+            input: TwitterUrl
+          }
         },
+
         {
           name: 'customString',
           title: 'Custom String',
@@ -65,14 +75,22 @@ export default {
             input: MyCustomStringInput
           }
         },
+
         defineField({
           name: 'body',
           title: 'Body',
           type: 'blockContent',
+        }),   
+
+        defineField({
+          name: 'greeting',
+          type: 'internationalizedArrayString',
         }),
 
-        
-        
+        defineField({
+          name: 'language',
+          type: 'string',
+        }),
         
     ]
   }

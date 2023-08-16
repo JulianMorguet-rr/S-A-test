@@ -7,6 +7,14 @@ export const imageGalleryType = defineType({
   title: 'Gallery',
   fields: [
     {
+      name: 'heading',
+      type: 'string',
+    },
+    {
+      name: 'subheading',
+      type: 'string',
+    },
+    {
       name: 'images',
       type: 'array',
       of: [

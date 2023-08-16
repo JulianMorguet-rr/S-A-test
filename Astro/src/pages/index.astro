@@ -2,10 +2,11 @@
 import Layout from '../layouts/Page.astro';
 import Card from '../components/Card.astro';
 import PageBuilder from '../components/PageBuilder.astro';
+import JobList from '../components/personio/JobList.vue';
 
-import { getFirstBlogPost } from '../lib/sanityApi.js';
-import { getSiteSettings } from '../lib/sanityApi.js';
-import { getPages } from '../lib/sanityApi.js';
+// import { getFirstBlogPost, getSiteSettings } from '../lib/sanityApi.js';
+import { getFirstBlogPost, getSiteSettings } from '../lib/sanityApi.js';
+import { getHomePage, getPages } from '../lib/sanityApi.js';
 
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
@@ -16,8 +17,8 @@ const firstPostJSON = JSON.stringify(firstPost);
 const siteSettings = await getSiteSettings();
 const siteSettingsJSON = JSON.stringify(siteSettings);
 
-const pages = await getPages();
-const pagesJSON = JSON.stringify(pages);
+const page = await getHomePage();
+const pageJSON = JSON.stringify(page);
 
 
 // import imageUrlBuilder from '@sanity/image-url'
@@ -27,24 +28,24 @@ const pagesJSON = JSON.stringify(pages);
 <!-- <Layout title="Welcome to Astro."> -->
 <Layout>
 
+	<!-- 
 	<div class="hero" style={ `background-image: url(${firstPost[0].imageUrl}); background-size: 100%;`}>
 		<h2>
 			{ firstPost[0].title }
 		</h2>
 		<p style="color: aliceblue; background: #000;">
 			{ firstPost[0].mainImage.asset._ref } <br>
-
-			<!-- { firstPostJSON } -->
 		</p>
 		<img src={urlFor(firstPost[0].mainImage.asset._ref).width(200).height(200).format('webp').url()} style="border: solid 3px #000;"/>
-	</div>
+	</div> 
+	-->
 
 	<main>
-		<h1>Welcome to <span class="text-gradient">Sanity + Astro</span></h1>
+		<!-- <h1>Welcome to <span class="text-gradient">Sanity + Astro</span></h1> -->
 
-		<!-- <p>{ JSON.stringify(pages) }</p> -->
+		<!-- <p>{ JSON.stringify(page[0].pageBuilder) }</p> -->
 
-		{pages.pageBuilder.map(pageContent => (
+		{page.pageBuilder.map(pageContent => (
 			// pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br><br>
 			<PageBuilder pageContent={pageContent} />
 			// <p>{JSON.stringify(pageContent)}</p>
@@ -54,8 +55,15 @@ const pagesJSON = JSON.stringify(pages);
 		</p> -->
 
 		<br>
+
+		<JobList client:load />
+
 		<br>
 		
+		<hr>
+
+		<br>
+
 		<p>
 			{ firstPost[0].title } <br>
 			{ JSON.stringify(firstPost[0].body) } <br> <br>
@@ -118,9 +126,10 @@ const pagesJSON = JSON.stringify(pages);
 
 	main {
 		margin: auto;
-		padding: 1.5rem;
+		padding: 0 0 1.5rem 0;
 		max-width: 1240px;
 	}
+	
 	h1 {
 		font-size: 3rem;
 		font-weight: 800;

@@ -9,16 +9,32 @@
     }
     div, img {
         flex: 1 1 0;
+        width: 100%;
+    }
+    
+    div:last-child {
+        margin-left: 30px;
     }
     div:first-child {
         margin-right: 30px;
+        margin-left: 0px;
     }
-    div:last-child {
-        margin-left: 30px;
+
+    .galleryItem {
+        max-width: calc(33.33% - 15px);
     }
 }
 
 
 .text-content {
     color: #73b740;
+}
+
+
+.text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
 }
