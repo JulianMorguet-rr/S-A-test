@@ -5,6 +5,7 @@ export const imageGalleryType = defineType({
   name: 'gallery',
   type: 'object',
   title: 'Gallery',
+  icon: ImagesIcon,
   fields: [
     {
       name: 'heading',
@@ -36,7 +37,6 @@ export const imageGalleryType = defineType({
       },
     },
   ],
-  icon: ImagesIcon,
   preview: {
     select: {
       title: 'heading',

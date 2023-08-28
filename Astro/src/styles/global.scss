@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box 
+ }
+
 .flexbox {
     display: flex;
     align-items: flex-start;
@@ -12,7 +16,7 @@
         width: 100%;
     }
     
-    div:last-child {
+    > div:last-child {
         margin-left: 30px;
     }
     div:first-child {
@@ -27,7 +31,20 @@
 
 
 .text-content {
-    color: #73b740;
+    color: #272727;
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #047484;
+    }
+    .tagline {
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 20px;
+        color: #047484;
+    }
 }
 
 
@@ -37,4 +54,40 @@
     -webkit-text-fill-color: transparent;
     background-size: 400%;
     background-position: 0%;
+}
+
+
+// IntersectionObserver style
+mark {
+    --color1: #e5d75a;
+    --color2: #e5d75a;
+    --bg-height: 40%;
+        
+    all: unset;
+    background-image: linear-gradient(var(--color1), var(--color2));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 var(--bg-height);
+    animation: highlight 800ms 240ms ease-out;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+
+mark.highlight {
+    color: #fff !important;
+
+    --color1: #272727;
+    --color2: #047484;
+    --bg-height: 180%;
+        
+    all: unset;
+    background-image: linear-gradient(to right, var(--color1), var(--color2));
+    background-size: 100% var(--bg-height);
+}
+
+@keyframes highlight {
+    to {
+        background-size: 100% var(--bg-height);
+    }
 }

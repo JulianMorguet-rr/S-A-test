@@ -3,23 +3,66 @@ import {visionTool} from '@sanity/vision'
 import {deskTool} from 'sanity/desk'
 import {schemaTypes} from './schemas'
 import {getStartedPlugin} from './plugins/sanity-plugin-tutorial'
-import { structure } from './src/structure/index.js'
+
+
+import { structure  } from './src/structure/index.js'
+
 import {documentInternationalization} from '@sanity/document-internationalization'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
+import category from './schemas/category'
 
 const devOnlyPlugins = [getStartedPlugin()]
 
 export default defineConfig({
   name: 'default',
-  title: 'plum-chough',
+  title: 'rr Schaltzentrale',
 
   projectId: 'tz4j4rda',
   dataset: 'production',
 
   plugins: [
+    
+    // deskTool({
+    //   // name: 'siteSettings',
+    //   // title: 'Site Settings',
+    //   structure: (S, context) => (
+    //     S.list()
+    //       .title('Site Content')
+    //       .items([
+    //       S.listItem()
+    //           .title('Site Settings')
+    //           .child(
+    //               S.editor()
+    //                   .id('siteSettings')
+    //                   .schemaType('siteSettings')
+    //                   .documentId('siteSettings')
+    //                   .title('siteSettings')
+    //           ), 
+    //       ...S.documentTypeListItems().filter(
+    //           (listItem) => 
+    //           // Everything that doesn't match the conditions shows up in the default apperence
+    //               ![
+    //                   'siteSettings'
+    //               ].includes(listItem.getId())
+    //       ),
+    //     ])
+    //   )
+    //   // structure: (S, context) => {
+    //   //   console.log(context) // returns { currentUser, dataset, projectId, schema, getClient, documentStore }
+    //   //   return S.documentTypeList('post')
+    //   // },
+    // }), 
     deskTool({
-      structure: structure
+      // name: 'category',
+      // title: 'Category',
+      structure: structure,
+      // defaultDocumentNode: documentNodeResolver,
+      // structure: (S, context) => {
+      //   console.log(context) // returns { currentUser, dataset, projectId, schema, getClient, documentStore }
+      //   return S.documentTypeList('post')
+      // },
     }), 
+
     visionTool(), 
     internationalizedArray({
       languages: [
@@ -37,7 +80,9 @@ export default defineConfig({
         {id: 'es', title: 'Spanish'},
         {id: 'en', title: 'English'},
       ],
-      schemaTypes: ['post'],
+      schemaTypes: [
+        'post'
+      ],
 
       // Customizes the name of the language field
       languageField: `language`,
@@ -63,6 +108,22 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
+
+    // Add this 'category child' template
+    // templates: (prev) => {
+    //   const categoryChild = {
+    //     id: 'category-child',
+    //     title: 'Category: Child',
+    //     schemaType: 'category',
+    //     parameters: [{name: `parentId`, title: `Parent ID`, type: `string`}],
+    //     // This value will be passed-in from desk structure
+    //     value: ({parentId}: {parentId: string}) => ({
+    //       parent: {_type: 'reference', _ref: parentId},
+    //     }),
+    //   }
+  
+    //   return [...prev, categoryChild]
+    // },
   },
 })
 

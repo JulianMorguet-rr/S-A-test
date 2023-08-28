@@ -8,10 +8,12 @@ export interface Props {
         tagline?: string;
         image?: any;
         text?: string;
+        blockContent?: Array<any>;
         excerpt?: string;
         switchImageToRightSide?: boolean;
         images?: Array<any>;
         subheading?: string;
+        fullwidth?: boolean;
     }
 };
 
@@ -20,9 +22,59 @@ const data = Astro.props as Props;
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
 
+import TextWidthImage from '../components/TextWidthImage.vue';
+import ContactForm from '../components/contactForm/ContactForm.vue';
+
 // Calc ImageGallerie width
 let imageGalleryWidth = 1092 / 3 - 15;
 let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
+
+
+// Convert blockContent to HTML
+// import { blocksToHtml }  from '@sanity/block-content-to-html'
+// console.log('blocksToHtml: ', blocksToHtml)
+
+// const h = blocksToHtml.h
+
+// const serializers = {
+//   types: {
+//     code: props => (
+//       h('pre', {className: props.node.language},
+//         h('code', props.node.code)
+//       )
+//     )
+//   }
+// }
+
+// let blockContentHTML = blocksToHtml({
+//     blocks: data.pageContent.blockContent,
+//     serializers: serializers
+// })
+
+// console.log('blockContentHTML: ', blockContentHTML)
+
+// Intersection Observer API
+// better place in component? 
+// (function (document) {
+//   const markers = [...document.querySelectorAll('mark')];
+  
+//   const observer = new IntersectionObserver(entries => {
+//     entries.forEach((entry) => {
+//       if (entry.intersectionRatio > 0) {
+//         entry.target.style.animationPlayState = 'running';
+//         observer.unobserve(entry.target);
+//       }
+//     });
+//   }, {
+//     threshold: 0.8
+//   });
+  
+//   markers.forEach(mark => {
+//     observer.observe(mark);
+//   });
+// })(document);
+
+
 
 ---
 
@@ -36,32 +88,10 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     }
     
     {data.pageContent._type === 'textWithIllustration' &&  
-        <div>
-            {data.pageContent.switchImageToRightSide === false && 
-                <div class="flexbox column">
-                    <img src={urlFor(data.pageContent.image).width(590).height(300).format('webp').url()}/>
-                    <div class="text-content">
-                        <h2>{data.pageContent.heading}</h2>
-                        <h3>{data.pageContent.tagline}</h3>
-                        <p>{data.pageContent.text}</p>
-                        <p>{data.pageContent.excerpt}</p>
-                        <p>{data.pageContent.switchImageToRightSide}</p>
-                    </div>
-                </div>
-            }
-            {data.pageContent.switchImageToRightSide === true && 
-                <div class="flexbox column">
-                    <div class="text-content">
-                        <h2>{data.pageContent.heading}</h2>
-                        <h3>{data.pageContent.tagline}</h3>
-                        <p>{data.pageContent.text}</p>
-                        <p>{data.pageContent.excerpt}</p>
-                        <p>{data.pageContent.switchImageToRightSide}</p>
-                    </div>
-                    <img src={urlFor(data.pageContent.image).width(590).height(300).format('webp').url()}/>
-                </div>
-            }
-        </div>
+        <TextWidthImage 
+            data={data.pageContent}
+            client:load
+        />
     }
     
     {data.pageContent._type === 'gallery' &&  
@@ -95,18 +125,45 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     }
     
     {data.pageContent._type === 'form' &&  
-        <h3> {JSON.stringify(data.pageContent)}</h3>
+        <div>
+            <ContactForm data={data.pageContent} client:load />
+            <h3> {JSON.stringify(data.pageContent)}</h3>
+        </div>
     }
     <!-- && form == 'newsletter' -->
 
     <script>
-        let contentWidth = document.querySelector('main').style.width
-        console.log(contentWidth)
+        // let contentWidth = document.querySelector('main').style.width
+        // console.log(contentWidth)
+
+
+        // Observer 
+        const myMarkers = [...document.querySelectorAll('mark')];
+        console.log('/// OBSERVER ///')
+        
+        const intersectionObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                // if (entry.intersectionRatio > 0) {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    intersectionObserver.unobserve(entry.target);
+                }
+                console.log(entry)
+            });
+        }, {
+            threshold: 0.8
+        });
+
+        // intersectionObserver.observe(myMarkers[0]);
+        myMarkers.forEach(mark => {
+            intersectionObserver.observe(mark);
+        });
     </script>
 
 </section>
 
-<style>
+<style lang="scss">
+
     main section:first-child {
 		margin-top: 0 !important;
 	}
@@ -152,7 +209,5 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     .hero h3 {
         font-size: 1.5rem;
     }
-
-    
 
 </style>

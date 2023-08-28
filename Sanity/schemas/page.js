@@ -66,4 +66,30 @@ export const pageType = defineType({
       type: 'boolean'
     }),
   ],
+
+
+  // Sollte die Reihenfolge der Pages in der Übersicht bestimmen
+  orderings: [
+    {
+      title: 'Sort by Title | desc',
+      name: 'sortbyTitleDesc',
+      by: [
+        {field: 'title', direction: 'desc'}
+      ]
+    },
+    {
+      title: 'Sort by Title | asc',
+      name: 'sortbyTitleAsc',
+      by: [
+        {field: 'title', direction: 'asc'}
+      ]
+    },
+    // {
+    //   title: 'Popularity',
+    //   name: 'popularityDesc',
+    //   by: [
+    //     {field: 'popularity', direction: 'desc'}
+    //   ]
+    // }
+  ]
 })

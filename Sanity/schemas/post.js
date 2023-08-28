@@ -33,7 +33,6 @@ export default {
         title: 'Author',
         // type: 'string'
         type: 'reference',
-        title: 'Author',
         to: [{type: 'author' }]
         },
         {

@@ -1,5 +1,5 @@
 {
-  "name": "plum-chough",
+  "name": "rr-schaltzentrale",
   "private": true,
   "version": "1.0.0",
   "main": "package.json",
@@ -15,10 +15,12 @@
     "sanity"
   ],
   "dependencies": {
+    "@sanity/client": "^6.4.9",
     "@sanity/document-internationalization": "^2.0.1",
     "@sanity/icons": "^2.1.0",
     "@sanity/ui": "^1.2.0",
     "@sanity/vision": "^3.14.1",
+    "lucide-react": "^0.268.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",

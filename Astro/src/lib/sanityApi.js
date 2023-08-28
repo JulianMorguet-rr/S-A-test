@@ -38,6 +38,13 @@ export async function getPages() {
   return pages;
 }
 
+export async function getRecruitingData() {
+  const query = groq`*[_type == "recruiting"][0]`; // "page" is the name of the schema from '/scr/structure/index.js'
+  const pages = await useSanityClient().fetch(query);
+  // console.log('pages: ', pages);
+  return pages;
+}
+
 
 
 /* End of normal Sanity + Astro API Calls */
@@ -62,6 +69,20 @@ function urlFor(source) {
 /* Image-URL */
 
 import { createClient } from '@sanity/client'
+
+const client = createClient({
+  projectId: 'tz4j4rda',
+  dataset: 'production',
+  apiVersion: 'v2021-03-25', // use current UTC date - see "specifying API version"!
+  useCdn: true // `false` if you want to ensure fresh data
+})
+
+// projectId: "tz4j4rda",
+// dataset: "production",
+// apiVersion: "v2021-03-25",
+// useCdn: true
+
+console.log('Sanity – client: ', client)
 
 /* Image-URL */ 
 import createImageUrlBuilder from '@sanity/image-url'

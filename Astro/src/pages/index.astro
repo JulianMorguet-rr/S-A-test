@@ -6,7 +6,7 @@ import JobList from '../components/personio/JobList.vue';
 
 // import { getFirstBlogPost, getSiteSettings } from '../lib/sanityApi.js';
 import { getFirstBlogPost, getSiteSettings } from '../lib/sanityApi.js';
-import { getHomePage, getPages } from '../lib/sanityApi.js';
+import { getHomePage, getPages, getRecruitingData } from '../lib/sanityApi.js';
 
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
@@ -17,9 +17,11 @@ const firstPostJSON = JSON.stringify(firstPost);
 const siteSettings = await getSiteSettings();
 const siteSettingsJSON = JSON.stringify(siteSettings);
 
-const page = await getHomePage();
-const pageJSON = JSON.stringify(page);
+const homePage = await getHomePage();
+const pageJSON = JSON.stringify(homePage);
 
+const recruitingData = await getRecruitingData();
+const recruitingDataJSON = JSON.stringify(recruitingData);
 
 // import imageUrlBuilder from '@sanity/image-url'
 
@@ -45,9 +47,9 @@ const pageJSON = JSON.stringify(page);
 
 		<!-- <p>{ JSON.stringify(page[0].pageBuilder) }</p> -->
 
-		{page.pageBuilder.map(pageContent => (
+		{homePage.pageBuilder.map(pageContent => (
 			// pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br><br>
-			<PageBuilder pageContent={pageContent} />
+			<PageBuilder pageContent={pageContent}/>
 			// <p>{JSON.stringify(pageContent)}</p>
         ))}
 		<!-- <p>
@@ -56,7 +58,8 @@ const pageJSON = JSON.stringify(page);
 
 		<br>
 
-		<JobList client:load />
+		<!-- <p>recruitingData: {{recruitingData}}</p> -->
+		<JobList recruitingData={recruitingData} client:load/>
 
 		<br>
 		
