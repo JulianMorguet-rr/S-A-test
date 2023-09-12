@@ -1,0 +1,68 @@
+---
+
+
+import Layout from "../../layouts/Base.astro";
+// export async function getStaticPaths() {
+//     return [
+//         { params: { page: 'testpage' }, props: { /* optional */ } },
+//     ]
+// }
+
+import { urlFor } from '../../lib/sanityApi.js';
+
+const { page } =  Astro.params
+
+const pageJSON = JSON.stringify(page)
+
+import { getCurrentPage } from '../../lib/sanityApi.js';
+
+
+import PageBuilder from '../../components/PageBuilder.astro'
+const pageContent = await getCurrentPage(`/${page}`);
+
+console.log('pageContent: ', pageContent)
+---
+
+<Layout>
+
+
+    <!-- <p>pageContent: { JSON.stringify(pageContent.heroImage) }</p> -->
+
+    <div class="hero" style={{backgroundImage: `url(${urlFor(pageContent.heroImage.asset._ref).width(1920).format('webp').url()})`}}>
+		{ 
+			pageContent.heroBackgroundVideo && ( 
+				<div>
+					<video autoplay loop muted playsinline class="hero-background-video">
+						<source src={`http://localhost:1001/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
+						<source src={`${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+					</video> 
+				</div>
+			)
+		}
+	</div> 
+    
+    
+    <main>
+
+        <p>{ page }</p>
+        
+        <!-- <p>{ JSON.stringify(pageContent) }</p> -->
+        <!-- <p>{ JSON.stringify(pageContent.pageBuilder) }</p> -->
+
+		<!-- <p>{ JSON.stringify(page.pageBuilder) }</p> -->
+
+        {pageContent.pageBuilder.map(pageContent => (
+            // pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br><br>
+            <PageBuilder pageContent={pageContent}/>
+            // <p>{JSON.stringify(pageContent)}</p>
+        ))}
+
+	</main>
+</Layout>
+
+
+<style lang="scss">
+    main {
+        padding: 2rem 0;
+    }
+</style>

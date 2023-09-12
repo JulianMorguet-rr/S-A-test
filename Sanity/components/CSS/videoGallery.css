@@ -1,0 +1,24 @@
+/* videoGallery.css */
+.video-gallery {
+    text-align: center;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2-Spalten-Anordnung */
+    gap: 20px; /* Abstand zwischen den Videos */
+}
+
+.video-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.video-thumbnail {
+    cursor: pointer;
+}
+
+video {
+    max-width: 100%;
+}
+  

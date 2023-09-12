@@ -6,6 +6,18 @@ export default defineType({
     type: 'document',
     fields: [
         defineField({
+            title: 'Main Navigation',
+            name: 'mainNav',
+            description: 'Select pages for the top menu',
+            type: 'array',
+            of: [
+              {
+                type: 'reference',
+                to: [{ type: 'page' }],
+              },
+            ],
+        }),
+        defineField({
             name: 'title',
             title: 'Site Title',
             type: 'string',
@@ -14,6 +26,11 @@ export default defineType({
             name: 'description',
             title: 'Site Description',
             type: 'text',
+        }),
+        defineField({
+            name: 'siteLogo',
+            title: 'Logo for header',
+            type: 'image',
         }),
         defineField({
             name: 'ogImage',

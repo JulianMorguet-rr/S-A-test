@@ -1,4 +1,5 @@
 import siteSettings from "./siteSettings";
+
 import blockContent from "./blockContent";
 import pet from './pet'
 import post from './post'
@@ -12,6 +13,10 @@ import {textWithIllustrationType} from  './textWithIllustrationType'
 import {imageGalleryType} from  './imageGallerieType'
 import {form} from  './formType'
 
+// Mediathek
+import videoMediathek from "./videoMediathek";
+import {uploadedVideo} from "./uploadedVideos";
+
 // Multi Step Form
 import multistep from './multistep'
 import multistepQuestions from './multistepQuestions'
@@ -23,6 +28,9 @@ import category from "./category"
 export const schemaTypes = [
   // Site Settings
   siteSettings,
+  // Mediathek
+  videoMediathek,
+  uploadedVideo,
   // Custom Types 
   pet, post, pageType, author, recruiting,
   // Page Sections

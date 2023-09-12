@@ -1,23 +1,49 @@
 ---
 
+
+
+type PageContent = 
+    |   { _type: 'hero'; 
+            heading?: string;
+            subtitle?: string 
+            title?: string;
+            tagline?: string;
+            image?: any;
+            text?: string;
+            blockContent?: Array<any>;
+            excerpt?: string;
+            switchImageToRightSide?: boolean;
+            images?: Array<any>;   
+            pageContent: any;
+        }
+    |   { _type: 'gallery'; 
+            heading: string; 
+            subheading: string;
+            images: any[] 
+        }
+    |   { _type: 'form'; 
+            heading: string
+            subtitle?: string 
+            placeholderName?: string | undefined
+            placeholderEmail?: string | undefined
+            placeholderTextarea?: string | undefined
+            buttonText?: string | undefined 
+        }
+    |   { _type: 'textWithIllustration'; 
+            heading: string; 
+            text: string; 
+            image: any; 
+            switchImageToRightSide: boolean 
+        }
+
 export interface Props {
-	pageContent: {
-        _type: string;
-        heading?: string;
-        title?: string;
-        tagline?: string;
-        image?: any;
-        text?: string;
-        blockContent?: Array<any>;
-        excerpt?: string;
-        switchImageToRightSide?: boolean;
-        images?: Array<any>;
-        subheading?: string;
-        fullwidth?: boolean;
-    }
+	pageContent: PageContent
 };
 
-const data = Astro.props as Props;
+ 
+  
+
+const data = Astro.props as Props // PageContent; // Props
 
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
@@ -84,6 +110,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         <div class={data.pageContent._type} style={{backgroundImage: `url(${urlFor(data.pageContent.image).width(2400).format('webp').url()})`}}>
             <h1><span class="text-gradient">{data.pageContent.heading}</span></h1>
             <h3>{data.pageContent.tagline}</h3>
+            {/* <p>{JSON.stringify(data.pageContent)}</p> */}
         </div>
     }
     
@@ -110,6 +137,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
             */}
             <div class="flexbox column">
                 {
+                    data.pageContent.images ?
                     data.pageContent.images.map(image => {
                         return <div class="galleryItem">
                                 <img src={urlFor(image).width(roundetImageGalleryWidth).height(300).format('webp').url()} alt={image.alt}/>
@@ -118,7 +146,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
                         // console.log('image.asset: ', image.asset._ref)
                         // <p>Image:</p>
                         // <p>image.asset</p>
-                    })
+                    }) : null
                 }
             </div>
         </div>
@@ -126,6 +154,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     
     {data.pageContent._type === 'form' &&  
         <div>
+            // @ts-ignore
             <ContactForm data={data.pageContent} client:load />
             <h3> {JSON.stringify(data.pageContent)}</h3>
         </div>

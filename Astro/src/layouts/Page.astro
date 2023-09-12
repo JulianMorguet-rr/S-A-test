@@ -1,5 +1,5 @@
 ---
-import Layout from './Base.astro';
+import Base from './Base.astro';
 import type { Props as BaseHeadProps } from '../components/BaseHead.astro';
 
 export interface Props {
@@ -9,9 +9,9 @@ export interface Props {
 const { seo } = Astro.props as Props;
 ---
 
-<Layout seo={seo}>
+<Base seo={seo}>
 		<slot />
-</Layout>
+</Base>
 
 <style is:global>
 	:root {

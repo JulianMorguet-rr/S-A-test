@@ -1,5 +1,14 @@
 import { useSanityClient, groq } from 'astro-sanity';
 
+/*
+export async function getSiteSettings() {
+  const query = groq`*[_type == "siteSettings"][0]`; // siteSettings is the name of the schema from '/scr/structure/index.js'
+  const siteSettings = await useSanityClient().fetch(query);
+  // console.log('siteSettings: ', siteSettings);
+  return siteSettings;
+}
+*/
+
 export async function getFirstBlogPost() {
   const query = groq`*[_type == "post"]{
     title,
@@ -7,7 +16,7 @@ export async function getFirstBlogPost() {
     'imageUrl': mainImage.asset->url,
     body,
     categories, 
-    author,
+    author->,
   }`;
   const firstPost = await useSanityClient().fetch(query);
   return firstPost;
@@ -18,14 +27,23 @@ export async function getFirstBlogPost() {
 // Dabei ist 0 für "Pages" und 1 für "Posts" (siehe Sanity Studio)
 
 export async function getSiteSettings() {
-  const query = groq`*[_type == "siteSettings"][0]`; // siteSettings is the name of the schema from '/scr/structure/index.js'
+  const query = groq`*[_type == "siteSettings"][0]{
+    ..., 
+    'mainNav': mainNav[]->{
+      title,
+      slug,
+    },
+  }`; // siteSettings is the name of the schema from '/scr/structure/index.js'
   const siteSettings = await useSanityClient().fetch(query);
   // console.log('siteSettings: ', siteSettings);
   return siteSettings;
 }
 
 export async function getHomePage() {
-  const query = groq`*[_type == "page" && slug == "/"][0]`; // "page" is the name of the schema from '/scr/structure/index.js'
+  const query = groq`*[_type == "page" && slug == "/"][0]{
+    ...,
+    heroBackgroundVideo->,
+  }`; // "page" is the name of the schema from '/scr/structure/index.js'
   const page = await useSanityClient().fetch(query);
   // console.log('page: ', page);
   return page;
@@ -38,12 +56,24 @@ export async function getPages() {
   return pages;
 }
 
+export async function getCurrentPage(pageSlug) {
+  const query = groq`*[_type == "page" && slug == "${pageSlug}"][0]{
+    ...,
+    images[]->,
+  }`; // "page" is the name of the schema from '/scr/structure/index.js'
+  const pages = await useSanityClient().fetch(query);
+  // console.log('pages: ', pages);
+  return pages;
+}
+
 export async function getRecruitingData() {
   const query = groq`*[_type == "recruiting"][0]`; // "page" is the name of the schema from '/scr/structure/index.js'
   const pages = await useSanityClient().fetch(query);
   // console.log('pages: ', pages);
   return pages;
 }
+
+
 
 
 

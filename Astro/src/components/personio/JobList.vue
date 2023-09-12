@@ -1,8 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
 
+
+interface RecruitingData {
+    _updatedAt: string;
+    _createdAt: string;
+    personioXMLFeed: string;
+    heading: string;
+    _rev: string;
+    _type: string;
+    _id: string;
+}
 const props = defineProps({
-  recruitingData: Object
+  recruitingData: Object as () => RecruitingData
 })
 
 /**
@@ -40,6 +50,7 @@ onMounted(async () => {
     const XMLParser = new fastXmlParser.XMLParser();
 
     // console.log('fastXmlParser: ', fastXmlParser)
+    // @ts-ignore
     personioJSON.value = XMLParser.parse(xmlString, options);
 
     console.log('personioJSON.value: ', personioJSON.value)
@@ -63,20 +74,30 @@ onMounted(async () => {
 
 <template>
     <div>
-        <h2>JobList.vue</h2>
+        <h2>JobList.vue!!!</h2>
 
         <!-- <p>URL: {{ personioURL }}</p> -->
 
         <br>
+
+        <div>
+            <p>personioJSON</p>
+            <pre>
+                <!-- {{ props.recruitingData }} -->
+                <!-- {{ personioJSON }} -->
+            </pre>
+        </div>
 
         <!-- <p>personioJSON: {{ personioJSON }}</p> -->
 
         <!-- <div>raw XML data: {{ data }}</div> -->
         <!-- <div v-html="personioHTML" /> -->
         <div v-for="(job, index) in personioJSON" :key="index" >
-            <!-- {{ job }}
-            {{ job.position }} -->
-            <div v-for="(position, index) in job.position" :key="index" class="job-position-wrapper box-shadow margin-bottom-1u">
+            <!-- {{ job }} -->
+            <!-- {{ job.position }} -->
+            
+            <!-- Wenn mehrere Jobs in XML, dann "v-for="(position, index) in job.position" -->
+            <div v-for="(position, index) in job" :key="index" class="job-position-wrapper box-shadow margin-bottom-1u"> 
                 
                 <div class="flex">
                     <div class="flex-child position-name">
@@ -111,20 +132,22 @@ onMounted(async () => {
                 </div>
 
                 <!-- <div>
-                    <p>{{ position.jobDescriptions.jobDescription }}</p>
+                    <p>{{ position }}</p>
                 </div> -->
+                
                 <div v-for="(description, index) in position.jobDescriptions.jobDescription" :key="index">
                     <hr>
                     <div  v-html="description.value">
                     </div>
                 </div>
+               
             </div>
         </div>
         <br>
-        <div>
+        <!-- <div>
             <p>personioJSON:</p>
             {{ personioJSON }}
-        </div>
+        </div> -->
     </div>
 </template>
 

@@ -14,6 +14,7 @@
 // import { StructureResolver } from 'sanity/desk'
 
 import multistepFormStructure from '../multistep-structure/multistepFormStructure'
+import videothekFormStructure from '../videothek-structure/videothekFormStructure'
 
 export const documentNodeResolver = (S, {schemaType}) => {
     if(schemaType == 'test') {
@@ -27,73 +28,6 @@ export const documentNodeResolver = (S, {schemaType}) => {
   }
 
 export const structure = (S, context) => (
-    // S.list()
-    //     .title('Site Content')
-    //     .items([
-    //     S.listItem()
-    //         .title('Site Settings')
-    //         .child(
-    //             S.editor()
-    //                 .id('siteSettings')
-    //                 .schemaType('siteSettings')
-    //                 .documentId('siteSettings')
-    //                 .title('siteSettings')
-    //         ), 
-    //     ...S.documentTypeListItems().filter(
-    //         (listItem) => 
-    //         // Everything that doesn't match the conditions shows up in the default apperence
-    //             ![
-    //                 'siteSettings'
-    //             ].includes(listItem.getId())
-    //     ),
-
-        // S.listItem()
-        //     .title('Pages')
-        //     .child(
-        //         S.editor()
-        //             .id('post')
-        //             .schemaType('post')
-        //             .title('post')
-        //             .documentId('post')
-        //     ), 
-        // S.listItem()
-        //     .title('Pets')
-        //     .child(
-        //         S.editor()
-        //             .id('pet') 
-        //             .schemaType('pet')
-        //             .title('pet')
-        //             .documentId('pet')
-        //     ),
-        // ]),
-
-    // S.list()
-    //     .title('Recruiting')
-    //     .items([
-    //     S.listItem()
-    //         .title('Recruiting')
-    //         .child(
-    //             S.editor()
-    //                 .id('recruiting')
-    //                 .schemaType('recruiting')
-    //                 .documentId('recruiting')
-    //                 .title('recruiting')
-    //         ), 
-    //     ...S.documentTypeListItems().filter(
-    //         (listItem) => 
-    //         // Everything that doesn't match the conditions shows up in the default apperence
-    //             ![
-    //                 'recruiting'
-    //             ].includes(listItem.getId())
-    //     ),
-    //     ]),
-        // S.document().schemaType('recruiting').documentId('unique-page-id')
-        // S.list()
-        //     .title('Content')
-        //     .items([
-        //     multistepFormStructure('category', S, context.documentStore),
-        //     S.divider(),
-        //     ]),
         S.list()
             .title('Content')
             .items([
@@ -119,8 +53,14 @@ export const structure = (S, context) => (
                             'siteSettings',
                             'multistepQuestions',
                             'multistepComposition',
+                            'uploadedVideo',
+                            'videoMediathek',
                         ].includes(listItem.getId())
                 ),
+
+                S.divider(),
+
+                videothekFormStructure('category', S, context.documentStore),
 
                 S.divider(),
 
@@ -151,29 +91,7 @@ export const structure = (S, context) => (
                             .documentId('siteSettings')
                             .title('siteSettings')
                     ), 
-                
-                
 
-                // S.listItem()
-                //     .title('Content')
-                //     .child(
-                //         S.editor()
-                //             .id('content')
-                //             .schemaType('content')
-                //             .documentId('content')
-                //             .title('content')
-                //     ), 
-                // ...S.documentTypeListItems().filter(
-                //     (listItem) => 
-                //     // Everything that doesn't match the conditions shows up in the default apperence
-                //         ![
-                //             'content'
-                //         ].includes(listItem.getId())
-                // ),
-                
-                
-
-                
             ])
 )
     

@@ -4,11 +4,11 @@ import { ref, onMounted } from 'vue'
 interface Props {
   data: {
     heading: string
-    subtitle: string
-    placeholderName: string
-    placeholderEmail: string
-    placeholderMessage: string
-    buttonText?: string
+    subtitle?: string 
+    placeholderName?: string | undefined
+    placeholderEmail?: string | undefined
+    placeholderTextarea?: string | undefined
+    buttonText?: string | undefined
   }
 }
 const props = defineProps<Props>()
@@ -38,7 +38,7 @@ const waiting = ref(false)
 
 const handleSubmit = async () => {
     console.log('handleSubmit fired: ', formData)
-    const response = await fetch('http://localhost:1234/send-email', {
+    const response = await fetch('http://localhost:1000/send-email', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

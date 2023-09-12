@@ -1,0 +1,27 @@
+---
+
+export interface Props {
+	recruitingData: {
+        _updatedAt: string;
+        _createdAt: string;
+        personioXMLFeed: string;
+        heading: string;
+        _rev: string;
+        _type: string;
+        _id: string;
+    }
+};
+
+const data = Astro.props as Props;
+
+const personioURL = data.recruitingData.personioXMLFeed
+console.log('personioURL from JobList.vue: ', personioURL)
+
+---
+
+
+<section>
+    <div>
+        <h1>hello Astro Jobs</h1>
+    </div>
+</section>

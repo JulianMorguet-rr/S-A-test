@@ -4,7 +4,7 @@ const cors = require('cors'); // Import das CORS-Paket
 
 const app = express(); 
 
-const whitelist = ['http://localhost:3000']; // Füge hier deine erlaubten Ursprünge hinzu
+const whitelist = ['http://localhost:3000', 'http://localhost:3333']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -52,7 +52,7 @@ app.post('/send-email', (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT || 1000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

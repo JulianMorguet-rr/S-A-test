@@ -1,4 +1,6 @@
 <script setup>
+
+import { ref } from 'vue'
 const props = defineProps({
     data: Object
 })
@@ -38,11 +40,28 @@ const serializers = {
   },
 }
 
-let blockContentHTML = blocksToHtml({
-    blocks: props.data.blockContent,
-    serializers: serializers
-    // serializers: {marks: {highlight}}
-})
+
+const blockContentHTML = ref(null)
+const convertBlockContentToHTML = () => {
+    if(props.data.blockContent) {
+        blockContentHTML.value = blocksToHtml({
+            blocks: props.data.blockContent,
+            serializers: serializers
+        })
+        return blocksToHtml({
+            blocks: props.data.blockContent,
+            serializers: serializers
+        })
+    } else {
+        return ''
+    }
+}
+convertBlockContentToHTML()
+// let blockContentHTML = blocksToHtml({
+//         blocks: props.data.blockContent,
+//         serializers: serializers
+//     // serializers: {marks: {highlight}}
+// })
 
 // console.log('blockContentHTML: ', blockContentHTML)
 
@@ -60,7 +79,7 @@ let blockContentHTML = blocksToHtml({
             <div class="text-content">
                 <h3 class="tagline">{{data.tagline}}</h3>
                 <h2>{{data.heading}}</h2>
-                <div v-html="blockContentHTML"></div>
+                <div v-if="data.blockContent" v-html="blockContentHTML"></div>
                 <!-- <div>{{data.blockContent}}</div> -->
                 <!-- <br>
                 <p>switchImage: {{data.switchImageToRightSide}}</p>
@@ -75,7 +94,7 @@ let blockContentHTML = blocksToHtml({
             <div class="text-content">
                 <h3 class="tagline">{{data.tagline}}</h3>
                 <h2>{{data.heading}}</h2>
-                <div v-html="blockContentHTML"></div>
+                <div v-if="data.blockContent" v-html="blockContentHTML"></div>
                 <!-- <div>{{data.blockContent}}</div> -->
                 <!-- <br>
                 <p>switchImage: {{data.switchImageToRightSide}}</p>

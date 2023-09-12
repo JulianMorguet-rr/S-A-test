@@ -13,6 +13,13 @@ export const pageType = defineType({
           hotspot: true
       }
     }),
+    {
+      name: 'heroBackgroundVideo',
+      title: 'Hero Background Video',
+      // type: 'string'
+      type: 'reference',
+      to: [{type: 'uploadedVideo' }]
+    },
     defineField({
       name: 'title', 
       type: 'string'
