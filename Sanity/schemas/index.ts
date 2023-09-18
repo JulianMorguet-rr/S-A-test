@@ -1,3 +1,11 @@
+/*
+  * This is the main schema file. It is used to import all the other schemas
+  * The schema is exported as an array of objects. Each object represents a schema type
+  * 
+  * The imports are imported as default (e.g. import siteSettings from "./siteSettings";)
+  * Or as named imports (e.g. import {pageType} from './page')  -> e.g. "export const uploadedVideo = defineType({ ... })"
+*/
+
 import siteSettings from "./siteSettings";
 
 import blockContent from "./blockContent";
@@ -22,6 +30,8 @@ import multistep from './multistep'
 import multistepQuestions from './multistepQuestions'
 import multistepComposition from './multistepComposition'
 
+import { justAnImage } from './justAnImage'
+
 // Testing Categories in Sanity (übergeordnete Kategorien)
 import category from "./category"
 
@@ -39,12 +49,16 @@ export const schemaTypes = [
   textWithIllustrationType,
   imageGalleryType,
   form,
+  justAnImage,
   // Multistep Form 
   // multistep,
   multistepQuestions,
   multistepComposition,
   // Categoriy
-  category
+  category,
+
+
+
 ]
 
 // export const schemaTypes = [pet, post, pageType, blockContent, siteSettings]

@@ -43,6 +43,14 @@ export async function getHomePage() {
   const query = groq`*[_type == "page" && slug == "/"][0]{
     ...,
     heroBackgroundVideo->,
+    pageBuilder[]{
+      ...,
+      cta {
+        ...,
+        ctaReferenz->,
+      }, 
+      referenceToPage->,
+    }
   }`; // "page" is the name of the schema from '/scr/structure/index.js'
   const page = await useSanityClient().fetch(query);
   // console.log('page: ', page);

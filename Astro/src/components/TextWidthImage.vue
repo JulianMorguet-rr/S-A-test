@@ -74,12 +74,31 @@ convertBlockContentToHTML()
             :class="`flexbox column fullwidth-${data.fullwidth}`"
         >
             <div class="image-wrapper">
-                <img :src="urlFor(data.image).width(1240).height(640).format('webp').url()"/>
+                <div v-if="data.cta?.ctaReferenz" class="reference-image">
+                    <img 
+                        :src="urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()"
+                    />
+                </div>
+                <div v-if="!data.cta?.ctaReferenz" class="custom-image">
+                    <img 
+                        :src="urlFor(data.image).width(1240).height(640).format('webp').url()"
+                    />
+                </div>
             </div>
             <div class="text-content">
                 <h3 class="tagline">{{data.tagline}}</h3>
                 <h2>{{data.heading}}</h2>
                 <div v-if="data.blockContent" v-html="blockContentHTML"></div>
+                
+                <!-- <p>{{JSON.stringify(data.cta.ctaReferenz.heroImage)}}</p> -->
+                <!-- <p>{{JSON.stringify(data.cta)}}</p> -->
+
+                <div v-if="data.cta" class="button-wrapper">
+                    <a v-if="data.cta.ctaReferenz" :href="`/page/${data.cta.ctaReferenz.slug}`">
+                        <button v-if="data.cta">{{ data.cta.ctaText }}</button>
+                    </a>
+                </div>
+                
                 <!-- <div>{{data.blockContent}}</div> -->
                 <!-- <br>
                 <p>switchImage: {{data.switchImageToRightSide}}</p>
@@ -95,6 +114,11 @@ convertBlockContentToHTML()
                 <h3 class="tagline">{{data.tagline}}</h3>
                 <h2>{{data.heading}}</h2>
                 <div v-if="data.blockContent" v-html="blockContentHTML"></div>
+                <div v-if="data.cta" class="button-wrapper">
+                    <a v-if="data.cta.ctaReferenz" :href="`/page/${data.cta.ctaReferenz.slug}`">
+                        <button v-if="data.cta">{{ data.cta.ctaText }}</button>
+                    </a>
+                </div>
                 <!-- <div>{{data.blockContent}}</div> -->
                 <!-- <br>
                 <p>switchImage: {{data.switchImageToRightSide}}</p>

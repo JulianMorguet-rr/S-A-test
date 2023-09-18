@@ -25,7 +25,7 @@ const computedMainNav = () => {
         if(navItem.slug === '/') {
             mainNav.value.push(navItem)
         } else {
-            navItem.slug = '/pages' + navItem.slug
+            navItem.slug = '/page' + navItem.slug
             mainNav.value.push(navItem)
         }
     })
@@ -36,7 +36,9 @@ computedMainNav()
 <template>
     <header>
         <div class="inner">
-            <img :src="urlFor(siteSettings.siteLogo).format('webp').url()"/>
+            <a href="/">
+                <img :src="urlFor(siteSettings.siteLogo).format('webp').url()"/>
+            </a>
             
             <nav>
                 <a 
@@ -52,10 +54,14 @@ computedMainNav()
         <br>
         <!-- <p>{{ siteSettings }}</p> -->
     </header>
+    <div class="header-space"></div>
 </template>
 
 <style lang="scss" scoped>
 header {
+    position: fixed;
+    z-index: 9;
+    background: #fff;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -87,7 +93,8 @@ header {
             }
         }
     }
-
-
+}
+.header-space {
+    height: 96px;
 }
 </style>

@@ -78,6 +78,34 @@ export const textWithIllustrationType = defineType({
       ],
     }),
     defineField({
+      name: 'cta',
+      title: 'Call to action',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'ctaText',
+          type: 'string',
+        }),
+        defineField({
+          name: 'isCTACustomURL',
+          type: 'boolean',
+        }),
+        defineField({
+          name: 'ctaReferenz',
+          title: 'Referenz to page',
+          type: 'reference',
+          to: [{type: 'page'}],
+          hidden: ({parent, value}) => !parent?.isCTACustomURL !== true,
+        }),
+        defineField({
+          name: 'customCtaURL',
+          title: 'Custom URL',
+          type: 'string',
+          hidden: ({parent, value}) => !parent?.isCTACustomURL !== false,
+        }),
+      ],
+    }),
+    defineField({
       name: 'switchImageToRightSide',
       title: 'Switch image to right side',
       type: 'boolean',

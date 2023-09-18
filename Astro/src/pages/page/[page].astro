@@ -1,5 +1,5 @@
 ---
-
+import { fade, slide  } from 'astro:transitions';
 
 import Layout from "../../layouts/Base.astro";
 // export async function getStaticPaths() {
@@ -28,7 +28,26 @@ console.log('pageContent: ', pageContent)
 
     <!-- <p>pageContent: { JSON.stringify(pageContent.heroImage) }</p> -->
 
-    <div class="hero" style={{backgroundImage: `url(${urlFor(pageContent.heroImage.asset._ref).width(1920).format('webp').url()})`}}>
+    <!-- <div class="z-front">
+        <img 
+            width={600}
+            height={200}
+            src=`${urlFor(pageContent.heroImage).width(600).height(200).format('webp').url()}` 
+        />
+    </div> -->
+
+    <!-- <img 
+        src=`${urlFor(pageContent.heroImage).width(600).height(200).format('webp').url()}` 
+        transition:name={`image-test-${pageContent.heroImage.asset._id}`}
+    /> -->
+
+    <!-- <p>PageContent: {JSON.stringify(pageContent)}</p> -->
+
+    <div 
+        class="hero" style={{backgroundImage: `url(${urlFor(pageContent.heroImage).width(1920).height(640).format('webp').url()})`}}
+        transition:name={"image-test-1234"}
+        transition:animate={fade({ duration: '0.3s' })}
+    >
 		{ 
 			pageContent.heroBackgroundVideo && ( 
 				<div>
@@ -64,5 +83,9 @@ console.log('pageContent: ', pageContent)
 <style lang="scss">
     main {
         padding: 2rem 0;
+    }
+
+    .z-front {
+        z-index: 999;
     }
 </style>

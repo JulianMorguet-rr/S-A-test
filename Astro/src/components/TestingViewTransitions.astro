@@ -1,0 +1,87 @@
+---
+
+import { fade, slide  } from 'astro:transitions';
+
+export interface TransitionAnimation {
+  name: string; // The name of the keyframe
+  delay?: number | string;
+  duration?: number | string;
+  easing?: string;
+  fillMode?: string;
+  direction?: string;
+}
+
+export interface TransitionAnimationPair {
+  old: TransitionAnimation | TransitionAnimation[];
+  new: TransitionAnimation | TransitionAnimation[];
+}
+
+export interface TransitionDirectionalAnimations {
+  forwards: TransitionAnimationPair;
+  backwards: TransitionAnimationPair;
+}
+
+const anim = {
+  old: {
+    name: 'fadeIn',
+    duration: '7.2s',
+    easing: 'linear',
+    // fillMode: 'forwards',
+  },
+  new: {
+    name: 'fadeOut',
+    duration: '4.3s',
+    easing: 'linear',
+    // fillMode: 'backwards',
+  }
+};
+
+const myFade = {
+  forwards: anim,
+  backwards: anim,
+};
+
+// URL builder
+import { urlFor } from '../lib/sanityApi.js';
+
+
+type HeroImage = {
+    heroImage: {
+        _type: 'image';
+        asset: {
+            _ref: string;
+        }
+    }
+}
+type JustAnImage =  { 
+    _type: 'justAnImage'; 
+    heading: string; 
+    text: string; 
+    image: any;
+    referenceToPage: HeroImage;
+}
+
+
+export interface Props {
+	data: JustAnImage
+};
+const data = Astro.props as Props
+
+---
+
+
+<div>
+
+    <h1>Just An Image</h1>
+    <p>{JSON.stringify(data.data.referenceToPage.heroImage)}</p>
+    <a href="/page/testpage">
+        <img 
+            width={600}
+            height={200}
+            src={urlFor(data.data.referenceToPage.heroImage).width(600).height(200).format('webp').url()} alt={data.data.image.alt}
+            transition:name={"image-test-1234"}
+            transition:animate={fade({ duration: '0.3s' })}
+        />
+    </a>
+
+</div>

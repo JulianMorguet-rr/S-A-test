@@ -50,6 +50,10 @@ export const pageType = defineType({
         name: 'form',
         type: 'form',
       }),
+      defineArrayMember({
+        name: 'justAnImage',
+        type: 'justAnImage',
+      }),
       // defineArrayMember({
       //   name: 'video',
       //   type: 'video',

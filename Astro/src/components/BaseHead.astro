@@ -2,6 +2,7 @@
 import '../styles/reset.css';
 import '../styles/global.scss';
 import { getSiteSettings } from '../lib/sanityApi';
+import { ViewTransitions, slide } from 'astro:transitions';
 
 export interface Props {
 	title?: string;
@@ -29,6 +30,8 @@ const description = Astro.props.description || siteSettings.description;
 <title>{title || siteSettings.title}</title>
 <meta name="title" content={title || siteSettings.title} />
 <meta name="description" content={description || siteSettings.description} />
+
+<ViewTransitions/>
 
 <!-- Canonical -->
 <!-- <link rel="canonical" href={canonicalURL}> -->

@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "Astro"
+		},
+		{
+			"path": "Sanity"
+		},
+		{
+			"path": "BackendServices"
+		}
+	],
+	"settings": {}
+}

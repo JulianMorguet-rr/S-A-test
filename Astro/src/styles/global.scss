@@ -32,6 +32,7 @@ h1 {
 }
 .text-gradient {
     background-image: var(--accent-gradient);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 400%;
@@ -131,7 +132,7 @@ mark.highlight {
 .hero {
 width: 100%;
 min-height: 440px;
-height: 100vh;
+height: 50vh;
 position: relative;
 overflow: hidden;
 

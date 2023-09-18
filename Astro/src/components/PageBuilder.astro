@@ -1,6 +1,13 @@
 ---
 
-
+type HeroImage = {
+    heroImage: {
+        _type: 'image';
+        asset: {
+            _ref: string;
+        }
+    }
+}
 
 type PageContent = 
     |   { _type: 'hero'; 
@@ -35,6 +42,16 @@ type PageContent =
             image: any; 
             switchImageToRightSide: boolean 
         }
+    |   { 
+            _type: 'justAnImage'; 
+            heading: string; 
+            text: string; 
+            image: any; 
+            referenceToPage: HeroImage;
+        }
+
+
+
 
 export interface Props {
 	pageContent: PageContent
@@ -50,6 +67,7 @@ import { urlFor } from '../lib/sanityApi.js';
 
 import TextWidthImage from '../components/TextWidthImage.vue';
 import ContactForm from '../components/contactForm/ContactForm.vue';
+import JustAnImage from '../components/TestingViewTransitions.astro';
 
 // Calc ImageGallerie width
 let imageGalleryWidth = 1092 / 3 - 15;
@@ -106,6 +124,8 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 
 <section>
 
+    <!-- {JSON.stringify(data)} -->
+
     {data.pageContent._type === 'hero' && 
         <div class={data.pageContent._type} style={{backgroundImage: `url(${urlFor(data.pageContent.image).width(2400).format('webp').url()})`}}>
             <h1><span class="text-gradient">{data.pageContent.heading}</span></h1>
@@ -118,6 +138,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         <TextWidthImage 
             data={data.pageContent}
             client:load
+            transition:persist
         />
     }
     
@@ -159,6 +180,16 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
             <h3> {JSON.stringify(data.pageContent)}</h3>
         </div>
     }
+
+
+    {data.pageContent._type === 'justAnImage' && 
+        <div class="z-front">
+            <JustAnImage data={data.pageContent}/>
+        </div>
+    }
+
+
+
     <!-- && form == 'newsletter' -->
 
     <script>
@@ -192,6 +223,10 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 </section>
 
 <style lang="scss">
+
+    .z-front {
+        z-index: 999;
+    }
 
     main section:first-child {
 		margin-top: 0 !important;
