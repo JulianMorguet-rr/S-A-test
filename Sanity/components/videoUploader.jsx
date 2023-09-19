@@ -39,7 +39,7 @@ export function VideoGallery() {
     // // TODO: hier Sanity Daten laden statt Express Endpoint. So habe ich nur ein Datensatz pro Video statt aktuell mp4, webm und thumbnail
     const fetchVideos = async () => {
         // try {
-        //     const response = await fetch('http://localhost:1001/get-videos');
+        //     const response = await fetch('http://localhost:2001/get-videos');
         //     const data = await response.json();
         //     setVideos(data);
         // } catch (error) {
@@ -88,7 +88,7 @@ export function VideoGallery() {
                         <p>{video.description}</p>
                         <div className="video-thumbnail" onClick={() => openVideoLightbox(video.path)}>
                             <video controls>
-                            <source src={`http://localhost:1001/${video.path}`} type="video/mp4" />
+                            <source src={`http://localhost:2001/${video.path}`} type="video/mp4" />
                             Your browser does not support the video tag.
                             </video>
                         </div>
@@ -116,7 +116,7 @@ export function VideoUploader() {
     formData.append('description', description);
 
     try {
-      await fetch('http://localhost:1001/save-video', {
+      await fetch('http://localhost:2001/save-video', {
         method: 'POST',
         body: formData,
       });

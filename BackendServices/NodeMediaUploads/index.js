@@ -27,7 +27,7 @@ const app = express();
  * Set Cors
  */
 const cors = require('cors');
-const whitelist = ['http://localhost:1001', 'http://localhost:3000', 'http://localhost:3333']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
+const whitelist = ['http://localhost:2001', 'http://localhost:3000', 'http://localhost:3333']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
 
 const corsOptions = {
     origin: true, // Erlaube allen Ursprüngen vorübergehend
@@ -144,7 +144,7 @@ app.post('/save-video', upload.single('video'), async (req, res) => {
                                     "mp4Path": videoPath, // Replace with the desired field values
                                     "mp4Path": mp4Path, // Replace with the desired field values
                                     "webmPath": webmPath, // Replace with the desired field values
-                                    "thumbnailPath": `http://localhost:1001/get-videos${thumbnailPath}`, // Replace with the desired field values
+                                    "thumbnailPath": `http://localhost:2001/get-videos${thumbnailPath}`, // Replace with the desired field values
                                     "webmConversionStatus": "pending" // Replace with the desired field values
                                     // Add other fields here
                                 }
@@ -254,7 +254,7 @@ app.use('/uploads/videos', express.static(path.join(__dirname, 'uploads', 'video
 
 
 // Set port for server
-const port = process.env.PORT || 1001;
+const port = process.env.PORT || 2001;
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
