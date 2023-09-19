@@ -60,7 +60,7 @@ computedMainNav()
 <style lang="scss" scoped>
 header {
     position: fixed;
-    z-index: 9;
+    z-index: 9999;
     background: #fff;
     width: 100%;
     display: flex;

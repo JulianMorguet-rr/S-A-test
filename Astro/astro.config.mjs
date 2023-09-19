@@ -1,7 +1,8 @@
 import { defineConfig } from 'astro/config';
-import sanity from "astro-sanity";
-import vue from "@astrojs/vue";
 
+import sanity from "astro-sanity";
+
+import vue from "@astrojs/vue";
 import node from "@astrojs/node";
 
 // https://astro.build/config

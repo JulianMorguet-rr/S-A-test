@@ -1,0 +1,46 @@
+--- 
+import { fade  } from 'astro:transitions';
+import { urlFor } from '../lib/sanityApi.js';
+
+import { PageContent } from '../types/PageContent';
+
+// Destrukturieren Sie Astro.props in eine andere Variable
+const { pageContent } = Astro.props as { pageContent: PageContent };
+
+---
+
+<div class="hero">
+    { 
+        pageContent.heroBackgroundVideo && ( 
+            <div>
+                <video autoplay loop muted playsinline class="hero-background-video">
+                    <source src={`http://localhost:1001/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
+                    <source src={`${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+                </video> 
+            </div>
+        )
+    }
+    <!-- { pageContent.heroImage && -->
+        <img 
+            src={urlFor(pageContent.heroImage).width(1920).height(640).format('webp').url()} 
+            transition:name={"image-test-1234"}
+        />
+    <!-- } -->
+</div> 
+<div class="spacing"></div>
+
+
+<style lang="scss">
+    .hero {
+        img {
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            contain: paint;
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+    
+</style>

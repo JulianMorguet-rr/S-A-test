@@ -10,24 +10,31 @@ const { seo } = Astro.props;
 
 const { page } =  Astro.params
 
-import Header from "../components/header/Header.vue";
+import Header from "../components/header/Header.astro";
 
 import { getSiteSettings } from '../lib/sanityApi.js';
 const siteSettings = await getSiteSettings();
 ---
 
-<html lang="de" transition:animate="none">
+<!-- transition:animate="none" -->
+<html lang="de" >
   <head>
     <BaseHead {...seo} />
   </head>
   <body>
-    <slot name="header" />
-    <Header siteSettings={siteSettings} slug={page} />
+    <!-- <slot name="header" /> -->
+    <Header siteSettings={siteSettings} slug={page} transition:persist/>
     <!-- <div transition:animate="slide"> -->
-    <div transition:animate={fade({ duration: '0.0s' })}>
+    <!-- <div transition:animate={fade({ duration: '0.3s' })}> -->
       <slot />
-    </div>
+    <!-- </div> -->
     <slot name="footer" />
   </body>
 </html>
 
+
+<style>
+.header-wrapper {
+  z-index: 999;
+}
+</style>

@@ -3,6 +3,7 @@ import '../styles/reset.css';
 import '../styles/global.scss';
 import { getSiteSettings } from '../lib/sanityApi';
 import { ViewTransitions, slide } from 'astro:transitions';
+import { NoClientOnlyHint } from 'astro/dist/core/errors/errors-data';
 
 export interface Props {
 	title?: string;
@@ -22,7 +23,6 @@ const description = Astro.props.description || siteSettings.description;
 ---
 
 
-
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
@@ -31,6 +31,7 @@ const description = Astro.props.description || siteSettings.description;
 <meta name="title" content={title || siteSettings.title} />
 <meta name="description" content={description || siteSettings.description} />
 
+<!-- <meta name="view-transition" content="same-origin" /> -->
 <ViewTransitions/>
 
 <!-- Canonical -->

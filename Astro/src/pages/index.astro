@@ -79,7 +79,7 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 		<div class="hero-wrapper">
 			<div class="hero" style={{backgroundImage: `url(${urlFor(homePage.heroImage.asset._ref).width(1920).format('webp').url()})`}}>
 			
-				{ homePage.heroBackgroundVideo && ( 
+				{ homePage?.heroBackgroundVideo && ( 
 					<div>
 						<video autoplay loop muted playsinline class="hero-background-video">
 							<source src={`http://localhost:1001/${homePage.heroBackgroundVideo.webmPath}`} type="video/webm">
@@ -130,9 +130,9 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 
 		<!-- <p>{ JSON.stringify(page[0].pageBuilder) }</p> -->
 
-		{homePage.pageBuilder.map(pageContent => (
+		{homePage.pageBuilder.map(contentItem => (
 			// pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br/><br/>
-			<PageBuilder pageContent={pageContent}/>
+			<PageBuilder contentItem={contentItem}/>
 			// <p>{JSON.stringify(pageContent)}</p>
         ))}
 		<!-- <p>
@@ -140,14 +140,11 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 		</p> -->
 
 
-		<hr>
+		
+		
 		<JobList recruitingData={recruitingData} client:load/>
 
 		
-		<hr>
-
-
-
 		<div>
 			<p>{ firstPost[0].title }</p>
 			<p>{ JSON.stringify(firstPost[0].body) }</p>
@@ -184,7 +181,9 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 				title="Community"
 				body="Come say hi to our amazing Discord community. ❤️"
 			/>
-		</ul> -->
+		</ul> 
+		
+		-->
 	</main>
 </Layout>
 

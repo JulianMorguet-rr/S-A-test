@@ -9,7 +9,7 @@ type HeroImage = {
     }
 }
 
-type PageContent = 
+type PageBuilderContent = 
     |   { _type: 'hero'; 
             heading?: string;
             subtitle?: string 
@@ -53,14 +53,14 @@ type PageContent =
 
 
 
-export interface Props {
-	pageContent: PageContent
+interface Props {
+	contentItem: PageBuilderContent
 };
 
  
   
 
-const data = Astro.props as Props // PageContent; // Props
+const { contentItem } = Astro.props as Props // PageContent; // Props
 
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
@@ -124,70 +124,57 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 
 <section>
 
-    <!-- {JSON.stringify(data)} -->
+    <!-- <p>{JSON.stringify(contentItem)}</p> -->
 
-    {data.pageContent._type === 'hero' && 
-        <div class={data.pageContent._type} style={{backgroundImage: `url(${urlFor(data.pageContent.image).width(2400).format('webp').url()})`}}>
-            <h1><span class="text-gradient">{data.pageContent.heading}</span></h1>
-            <h3>{data.pageContent.tagline}</h3>
-            {/* <p>{JSON.stringify(data.pageContent)}</p> */}
+
+    
+    {contentItem._type === 'hero' && 
+        <div class={contentItem._type} style={{backgroundImage: `url(${urlFor(contentItem.image).width(2400).format('webp').url()})`}}>
+            <h1><span class="text-gradient">{contentItem.heading}</span></h1>
+            <h3>{contentItem.tagline}</h3>
         </div>
     }
     
-    {data.pageContent._type === 'textWithIllustration' &&  
+    {contentItem._type === 'textWithIllustration' &&  
         <TextWidthImage 
-            data={data.pageContent}
+            data={contentItem}
             client:load
             transition:persist
         />
     }
     
-    {data.pageContent._type === 'gallery' &&  
+    {contentItem._type === 'gallery' &&  
         <div> 
-            <h2>{(data.pageContent.heading)}</h2>
-            <h4>{data.pageContent.subheading}</h4>
-            {/* <p>{JSON.stringify(data.pageContent)}</p> */}
-            {/* <pan>imageGalleryWidth: {imageGalleryWidth}</pan> 
-            <span>
-                {
-                    data.pageContent.images.map(image => (
-                        image.asset._ref
-                    ))
-                }
-            </span>
-            */}
+            <h2>{(contentItem.heading)}</h2>
+            <h4>{contentItem.subheading}</h4>
+
             <div class="flexbox column">
                 {
-                    data.pageContent.images ?
-                    data.pageContent.images.map(image => {
+                    contentItem.images ?
+                    contentItem.images.map(image => {
                         return <div class="galleryItem">
                                 <img src={urlFor(image).width(roundetImageGalleryWidth).height(300).format('webp').url()} alt={image.alt}/>
                             </div>
-                        
-                        // console.log('image.asset: ', image.asset._ref)
-                        // <p>Image:</p>
-                        // <p>image.asset</p>
                     }) : null
                 }
             </div>
         </div>
     }
     
-    {data.pageContent._type === 'form' &&  
+    {contentItem._type === 'form' &&  
         <div>
-            // @ts-ignore
-            <ContactForm data={data.pageContent} client:load />
-            <h3> {JSON.stringify(data.pageContent)}</h3>
+            <ContactForm data={contentItem} client:load />
+            <h3> {JSON.stringify(contentItem)}</h3>
         </div>
     }
 
 
-    {data.pageContent._type === 'justAnImage' && 
+    {contentItem._type === 'justAnImage' && 
         <div class="z-front">
-            <JustAnImage data={data.pageContent}/>
+            <JustAnImage data={contentItem}/>
         </div>
     }
-
+    
 
 
     <!-- && form == 'newsletter' -->

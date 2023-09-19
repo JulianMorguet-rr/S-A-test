@@ -1,0 +1,82 @@
+---
+/*
+Einige Dinge zu beachten:
+
+Ich habe den <template>-Tag entfernt, da er in Astro nicht benötigt wird.
+Ich habe die v-for-Schleife durch die JavaScript map-Funktion ersetzt.
+Ich habe die :key, :href und :class Direktiven durch die entsprechenden JSX-Attribute ersetzt.
+Ich habe den <style>-Block beibehalten, aber das scoped-Attribut entfernt, da Astro keine native Unterstützung für scoped Styles bietet. Du könntest jedoch eine CSS-Modul-Lösung verwenden, wenn du das benötigst.
+Ich habe den Code für die Daten und Funktionen im Frontmatter-Bereich (zwischen den --- Zeilen) als Kommentar eingefügt. Du müsstest deine eigenen Daten und Funktionen importieren.
+Hoffentlich hilft dir das weiter!
+
+*/ 
+
+import { urlFor } from '../../lib/sanityApi.js';
+
+interface NavItem {
+    title: string
+    slug: string
+}
+interface SiteSettings {
+    mainNav: Array<NavItem>
+    footerNav: Array<any>
+    siteLogo?: Object
+}
+interface Props {
+    siteSettings: SiteSettings
+    slug: string | undefined
+}
+// const props = defineProps({
+//     siteSettings: Object as () => SiteSettings,
+//     slug: String
+// })
+
+const data = Astro.props as Props
+
+const mainNav: Array<NavItem> = []
+const computedMainNav = () => {
+    // console.log('props.siteSettings.mainNav: ', props.siteSettings.mainNav)
+    data.siteSettings.mainNav.map((navItem: NavItem) => {
+        if(navItem.slug === '/') {
+            mainNav.push(navItem)
+        } else {
+            navItem.slug = '/page' + navItem.slug
+            mainNav.push(navItem)
+        }
+    })
+}
+computedMainNav()
+---
+
+
+<header>
+    <div class="inner">
+        <a href="/">
+            <img src={urlFor(data.siteSettings.siteLogo).format('webp').url()} />
+        </a>
+        
+        <nav>
+            {mainNav.map((nav, index) => (
+                <a
+                    href={nav.slug}
+                    class={nav.slug === data.slug ? 'active' : ''}
+                >
+                    {nav.title}
+                </a>
+            ))}
+             <a href="/page/ueber-uns">Über uns</a>
+        </nav>
+    </div>
+    <br />
+    <!-- <p>{JSON.stringify(siteSettings)}</p> -->
+</header>
+<div class="header-space"></div>
+
+
+
+
+
+
+
+
+
