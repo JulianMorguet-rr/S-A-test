@@ -12,18 +12,24 @@ const { page } =  Astro.params
 
 import Header from "../components/header/Header.astro";
 
+import AltHeader from "../components/header/AltHeader.astro";
+
 import { getSiteSettings } from '../lib/sanityApi.js';
 const siteSettings = await getSiteSettings();
 ---
 
 <!-- transition:animate="none" -->
-<html lang="de" >
+<!-- fade({ duration: '1.4s' }) -->
+<html lang="de" transition:animate={"none"}>
   <head>
     <BaseHead {...seo} />
   </head>
   <body>
     <!-- <slot name="header" /> -->
+    
     <Header siteSettings={siteSettings} slug={page} transition:persist/>
+    <!-- <AltHeader /> -->
+
     <!-- <div transition:animate="slide"> -->
     <!-- <div transition:animate={fade({ duration: '0.3s' })}> -->
       <slot />

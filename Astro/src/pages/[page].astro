@@ -1,18 +1,18 @@
 ---
 // Import Node Modules
-import { urlFor } from '../../lib/sanityApi.js';
+import { urlFor } from '../lib/sanityApi.js';
 import { fade, slide  } from 'astro:transitions';
 
 // Import API functions
-import { getCurrentPage } from '../../lib/sanityApi.js';
+import { getCurrentPage } from '../lib/sanityApi.js';
 
 // Import Types
-import { PageContent } from '../../types/PageContent';
+import { PageContent } from '../types/PageContent';
 
 // Import Components
-import Layout from "../../layouts/Base.astro";
-import Hero from '../../components/Hero.astro'
-import PageBuilder from '../../components/PageBuilder.astro'
+import Layout from "../layouts/Base.astro";
+import Hero from '../components/Hero.astro'
+import PageBuilder from '../components/PageBuilder.astro'
 
 // "getStaticPaths()" is only required for SSG pages
 // export async function getStaticPaths() {
@@ -31,15 +31,20 @@ const pageContent: PageContent = await getCurrentPage(`/${page}`);
 <Layout>
     
     <Hero pageContent={pageContent} />
+
     
     <main>
-        {pageContent.pageBuilder.map(pageBuilder => (
-            // pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br><br>
-            <PageBuilder pageBuilder={pageBuilder}/>
-            // <p>{JSON.stringify(pageContent)}</p>
-        ))}
+        <h2>Page ohne unterverzeichnis</h2>
+        
+        { pageContent &&
+            pageContent.pageBuilder.map(pageBuilder => (
+                // pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br><br>
+                <PageBuilder pageBuilder={pageBuilder}/>
+                // <p>{JSON.stringify(pageContent)}</p>
+            ))
+        }
 
-	</main>
+	</main> 
 </Layout>
 
 

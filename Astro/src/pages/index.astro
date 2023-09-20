@@ -128,13 +128,15 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 	<main>
 		<!-- <h1>Welcome to <span class="text-gradient">Sanity + Astro</span></h1> -->
 
-		<!-- <p>{ JSON.stringify(page[0].pageBuilder) }</p> -->
+		<!-- <p>{ JSON.stringify(homePage.pageBuilder) }</p> -->
 
-		{homePage.pageBuilder.map(contentItem => (
+
+		{homePage.pageBuilder.map(pageBuilder => (
 			// pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br/><br/>
-			<PageBuilder contentItem={contentItem}/>
+			<PageBuilder pageBuilder={pageBuilder}/>
 			// <p>{JSON.stringify(pageContent)}</p>
         ))}
+
 		<!-- <p>
 			{ pagesJSON }
 		</p> -->
@@ -142,7 +144,7 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 
 		
 		
-		<JobList recruitingData={recruitingData} client:load/>
+		<!-- <JobList recruitingData={recruitingData} client:load/> -->
 
 		
 		<div>
@@ -191,84 +193,5 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 
 
 <style lang="scss">
-	.hero-wrapper {
-		padding-bottom: 4rem;
 
-		.hero {
-			width: 100%;
-			min-height: 440px;
-			height: calc(100vh - 96px - 200px);
-			position: relative;
-			overflow: hidden;
-			
-
-			.hero-background-video {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			object-fit: cover; /* Skaliert das Video, um das gesamte Element zu füllen */
-			}
-
-			.hero-content {
-			z-index: 2;
-				position: relative;
-			padding: 12vh;
-			text-align: center;
-			color: white;
-			}
-			h2 {
-			color: white;
-			font-size: 2rem;
-			font-weight: 800;
-			margin: 0;
-			}
-		}
-	}
-
-
-  main {
-    margin: auto;
-    padding: 0 0 1.5rem 0;
-    max-width: 1240px;
-  }
-  
-  h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin: 0;
-  }
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
-  }
-  .instructions {
-    line-height: 1.6;
-    margin: 1rem 0;
-    border: 1px solid rgba(var(--accent), 25%);
-    background-color: white;
-    padding: 1rem;
-    border-radius: 0.4rem;
-  }
-  .instructions code {
-    font-size: 0.875em;
-    font-weight: bold;
-    background: rgba(var(--accent), 12%);
-    color: rgb(var(--accent));
-    border-radius: 4px;
-    padding: 0.3em 0.45em;
-  }
-  .instructions strong {
-    color: rgb(var(--accent));
-  }
-  .link-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-    gap: 1rem;
-    padding: 0;
-  }
 </style>

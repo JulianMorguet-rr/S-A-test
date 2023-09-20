@@ -163,4 +163,9 @@ convertBlockContentToHTML()
             flex-grow: 0;
         }
     }
+
+    button {
+        background-color: #73b740;
+        padding: 20px;
+    }
 </style>

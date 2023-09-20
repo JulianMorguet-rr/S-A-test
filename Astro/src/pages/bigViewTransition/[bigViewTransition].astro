@@ -1,0 +1,32 @@
+---
+
+// Import Components
+import Layout from "../../layouts/Base.astro";
+
+
+export async function getStaticPaths() {
+    return [
+        { params: { page: 'testpage' }, props: { /* optional */ } },
+    ]
+}
+
+const { page } =  Astro.params
+
+---
+
+
+<Layout>
+
+    <h2>View Transition Test</h2>
+
+    <a href="/viewTransition/test">
+        <img
+            width="800px"
+            height="auto"
+            src="../../../public/assets/hero-test.png" alt="Astro Logo" 
+            transition:name="testanimation"
+            transition:animate="initial"
+        />
+    </a>
+
+</Layout>

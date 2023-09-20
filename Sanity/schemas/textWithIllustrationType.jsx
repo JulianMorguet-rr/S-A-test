@@ -103,6 +103,11 @@ export const textWithIllustrationType = defineType({
           type: 'string',
           hidden: ({parent, value}) => !parent?.isCTACustomURL !== false,
         }),
+        defineField({
+          name: 'openInNewTab',
+          title: 'Open URL in new Tab',
+          type: 'boolean',
+        }),
       ],
     }),
     defineField({

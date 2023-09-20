@@ -1,66 +1,8 @@
 ---
-
-type HeroImage = {
-    heroImage: {
-        _type: 'image';
-        asset: {
-            _ref: string;
-        }
-    }
-}
-
-type PageBuilderContent = 
-    |   { _type: 'hero'; 
-            heading?: string;
-            subtitle?: string 
-            title?: string;
-            tagline?: string;
-            image?: any;
-            text?: string;
-            blockContent?: Array<any>;
-            excerpt?: string;
-            switchImageToRightSide?: boolean;
-            images?: Array<any>;   
-            pageContent: any;
-        }
-    |   { _type: 'gallery'; 
-            heading: string; 
-            subheading: string;
-            images: any[] 
-        }
-    |   { _type: 'form'; 
-            heading: string
-            subtitle?: string 
-            placeholderName?: string | undefined
-            placeholderEmail?: string | undefined
-            placeholderTextarea?: string | undefined
-            buttonText?: string | undefined 
-        }
-    |   { _type: 'textWithIllustration'; 
-            heading: string; 
-            text: string; 
-            image: any; 
-            switchImageToRightSide: boolean 
-        }
-    |   { 
-            _type: 'justAnImage'; 
-            heading: string; 
-            text: string; 
-            image: any; 
-            referenceToPage: HeroImage;
-        }
-
-
-
-
-interface Props {
-	contentItem: PageBuilderContent
-};
-
- 
+import { ContentItem } from '../types/PageContent';
   
-
-const { contentItem } = Astro.props as Props // PageContent; // Props
+const props = Astro.props // as PageContent // as Props // PageContent; // Props
+const { pageBuilder } = props as { pageBuilder: ContentItem };
 
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
@@ -68,6 +10,7 @@ import { urlFor } from '../lib/sanityApi.js';
 import TextWidthImage from '../components/TextWidthImage.vue';
 import ContactForm from '../components/contactForm/ContactForm.vue';
 import JustAnImage from '../components/TestingViewTransitions.astro';
+import TextAndImage from './TextAndImage.astro';
 
 // Calc ImageGallerie width
 let imageGalleryWidth = 1092 / 3 - 15;
@@ -124,34 +67,42 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 
 <section>
 
-    <!-- <p>{JSON.stringify(contentItem)}</p> -->
-
+    <!-- <h2>Page Builder Section</h2> -->
 
     
-    {contentItem._type === 'hero' && 
-        <div class={contentItem._type} style={{backgroundImage: `url(${urlFor(contentItem.image).width(2400).format('webp').url()})`}}>
-            <h1><span class="text-gradient">{contentItem.heading}</span></h1>
-            <h3>{contentItem.tagline}</h3>
+    {pageBuilder._type === 'hero' && 
+        <div class={pageBuilder._type} style={{backgroundImage: `url(${urlFor(pageBuilder.image).width(2400).format('webp').url()})`}}>
+            <h1><span class="text-gradient">{pageBuilder.heading}</span></h1>
+            <h3>{pageBuilder.tagline}</h3>
         </div>
     }
     
-    {contentItem._type === 'textWithIllustration' &&  
+    <!--
+    {pageBuilder._type === 'textWithIllustration' &&  
         <TextWidthImage 
-            data={contentItem}
+            data={pageBuilder}
             client:load
             transition:persist
         />
     }
+    -->
     
-    {contentItem._type === 'gallery' &&  
+
+    {pageBuilder._type === 'textWithIllustration' &&  
+        <TextAndImage 
+            data={pageBuilder}
+        />
+    }
+    
+    {pageBuilder._type === 'gallery' &&  
         <div> 
-            <h2>{(contentItem.heading)}</h2>
-            <h4>{contentItem.subheading}</h4>
+            <h2>{(pageBuilder.heading)}</h2>
+            <h4>{pageBuilder.subheading}</h4>
 
             <div class="flexbox column">
                 {
-                    contentItem.images ?
-                    contentItem.images.map(image => {
+                    pageBuilder.images ?
+                    pageBuilder.images.map(image => {
                         return <div class="galleryItem">
                                 <img src={urlFor(image).width(roundetImageGalleryWidth).height(300).format('webp').url()} alt={image.alt}/>
                             </div>
@@ -161,19 +112,20 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         </div>
     }
     
-    {contentItem._type === 'form' &&  
+    {pageBuilder._type === 'form' &&  
         <div>
-            <ContactForm data={contentItem} client:load />
-            <h3> {JSON.stringify(contentItem)}</h3>
+            <ContactForm data={pageBuilder} client:load />
+            {/*  <h3> {JSON.stringify(pageBuilder)}</h3> */}
         </div>
     }
 
 
-    {contentItem._type === 'justAnImage' && 
+    {pageBuilder._type === 'justAnImage' && 
         <div class="z-front">
-            <JustAnImage data={contentItem}/>
+            <JustAnImage data={pageBuilder}/>
         </div>
     }
+
     
 
 
@@ -231,7 +183,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         align-items: center; */
         width: 100%;
         height: auto;
-        padding: 2rem 0;
+        // padding: 2rem 0;
     }
 
     .hero {

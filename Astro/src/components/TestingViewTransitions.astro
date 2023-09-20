@@ -26,13 +26,13 @@ const anim = {
     name: 'fadeIn',
     duration: '7.2s',
     easing: 'linear',
-    // fillMode: 'forwards',
+    fillMode: 'forwards',
   },
   new: {
     name: 'fadeOut',
     duration: '4.3s',
     easing: 'linear',
-    // fillMode: 'backwards',
+    fillMode: 'backwards',
   }
 };
 
@@ -80,7 +80,9 @@ const data = Astro.props as Props
             height={200}
             src={urlFor(data.data.referenceToPage.heroImage).width(600).height(200).format('webp').url()} alt={data.data.image.alt}
             transition:name={"image-test-1234"}
+            transition:animate={myFade}
         />
     </a>
+    <!-- transition:animate="initial" -->
 
 </div>

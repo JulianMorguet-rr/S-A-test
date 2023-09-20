@@ -1,0 +1,80 @@
+---
+// Import Node Modules
+import { urlFor } from '../lib/sanityApi.js';
+import { marked } from 'marked';
+
+// Import Types
+import { ContentItem } from '../types/PageContent';
+
+// Import Composables 
+import { convertBlockContentToHTML } from '../composables/blockContentToHTML';
+
+const { data } = Astro.props // as { pageBuilder: ContentItem };
+
+const content = convertBlockContentToHTML(data.blockContent);
+
+// const content = marked.parse(data.blockContent);
+const test = 10;
+---
+
+
+<!-- <h2>Test: {JSON.stringify(data)}</h2> -->
+<!-- <h2>Test: {JSON.stringify(data.blockContent)}</h2> -->
+
+<section class="dark:bg-gray-900 md:grid">
+    <div class={`gap-8 items-center py-8 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 fullwidth-${data.fullwidth} switch-sides-${data.switchImageToRightSide}`}>
+        <div>
+            { data.cta?.ctaReferenz?.heroImage ? 
+                <>
+                    <img class="w-full dark:hidden" src={urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()} alt="dashboard image">
+                    <img class="w-full hidden dark:block" src={urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()} alt="dashboard image">
+                </>
+            : data.image ? (
+                <>
+                    <img class="w-full dark:hidden" src={urlFor(data.image).width(1240).height(640).format('webp').url()} alt="dashboard image" />
+                    <img class="w-full hidden dark:block" src={urlFor(data.image).width(1240).height(640).format('webp').url()} alt="dashboard image" />
+                </>
+                ) : null
+            }
+        </div>
+        
+        <div class="mt-4 md:mt-0">
+            { data.tagline &&
+                <h3 class="mb-4">
+                    {data.tagline}
+                </h3>
+            }
+            { data.heading &&
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    {data.heading}
+                </h2>
+            }
+
+            { content &&
+                <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400" set:html={content}></p>
+            }
+
+            { data.cta?.ctaReferenz?.slug &&
+                <a href={`/page${data.cta.ctaReferenz.slug}`} class="inline-flex items-center mt-6 text-white bg-orange-400 hover:bg-slate-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                {data.cta.ctaText}
+                <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+
+<style lang="scss">
+// .fullwidth-true {
+//     grid-template-columns: 1fr;
+// }
+
+
+@media (min-width: 768px) {
+    .switch-sides-true {
+        grid-template-rows: repeat(1, 1fr);
+    }
+    .switch-sides-true > :nth-child(2) { grid-row: 1; }
+}
+</style>

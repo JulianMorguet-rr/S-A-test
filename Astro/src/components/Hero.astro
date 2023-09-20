@@ -11,7 +11,7 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
 
 <div class="hero">
     { 
-        pageContent.heroBackgroundVideo && ( 
+        pageContent?.heroBackgroundVideo && ( 
             <div>
                 <video autoplay loop muted playsinline class="hero-background-video">
                     <source src={`http://localhost:2001/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
@@ -20,12 +20,15 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
             </div>
         )
     }
-    <!-- { pageContent.heroImage && -->
+    { pageContent?.heroImage &&
         <img 
+            width="1920"
+            height="640"
             src={urlFor(pageContent.heroImage).width(1920).height(640).format('webp').url()} 
             transition:name={"image-test-1234"}
+            transition:animate="initial"
         />
-    <!-- } -->
+    } 
 </div> 
 <div class="spacing"></div>
 

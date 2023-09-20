@@ -38,7 +38,7 @@ const waiting = ref(false)
 
 const handleSubmit = async () => {
     console.log('handleSubmit fired: ', formData)
-    const response = await fetch('http://localhost:1000/send-email', {
+    const response = await fetch('http://localhost:2000/send-email', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

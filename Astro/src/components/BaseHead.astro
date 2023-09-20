@@ -2,7 +2,7 @@
 import '../styles/reset.css';
 import '../styles/global.scss';
 import { getSiteSettings } from '../lib/sanityApi';
-import { ViewTransitions, slide } from 'astro:transitions';
+import { ViewTransitions } from 'astro:transitions';
 import { NoClientOnlyHint } from 'astro/dist/core/errors/errors-data';
 
 export interface Props {
@@ -38,15 +38,21 @@ const description = Astro.props.description || siteSettings.description;
 <!-- <link rel="canonical" href={canonicalURL}> -->
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<!-- <meta property="og:type" content="website" /> -->
 <!-- <meta property="og:url" content={canonicalURL} /> -->
+
+<!-- funktionierte
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
+-->
+
 <!-- <meta property="og:image" content={image} /> -->
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
 <!-- <meta property="twitter:url" content={canonicalURL} /> -->
+<!-- funktionierte
+<meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
+-->
 <!-- <meta property="twitter:image" content={image} /> -->
