@@ -18,11 +18,11 @@
             </a>
             <!-- <p style="color: #fff;">Media: {{ media }}</p> -->
             <!-- <p style="color: #fff;">BrowserName: {{browserName}}</p> -->
-            <!-- <img :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.thumbnailPath}`"> -->
-            <video class="hero-background-video">
+            <img width="1600" height="900" :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.thumbnailPath}`">
+            <!-- <video class="hero-background-video">
                 <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.webmPath}`" type="video/webm">
                 <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.mp4Path}`" type="video/mp4">
-            </video>  
+            </video>   -->
         </div>
         <!-- No View Transition API if not "chrome" -->
         <div v-else class="image-wrapper base-shadow">
@@ -89,7 +89,7 @@ function fnBrowserDetect(){
 $base-shadow: 0px 4px 12px rgba(0,0,0,0.1), 0px 8px 24px rgba(0,0,0,0.1);
 
 .image-wrapper {
-    background: #000;
+    // background: #000;
     display: flex;
     justify-content: space-around;
     align-items: center;

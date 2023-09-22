@@ -103,7 +103,7 @@ app.get('/video-api/port-test', (req, res) => {
 });
 
 
-app.post('/save-video', upload.single('video'), async (req, res) => {
+app.post('/video-api/save-video', upload.single('video'), async (req, res) => {
        
     // console.log('req: ', req)
     // if (!req || !req.file || req.file.mimetype !== 'video/mp4') {
@@ -239,7 +239,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * Get Video for Sanity Backend and Astro Frontend
  */
-app.get('/get-videos', (req, res) => {
+app.get('/video-api/get-videos', (req, res) => {
     const videoFolder = path.join(__dirname, 'uploads', 'videos');
     fs.readdir(videoFolder, (err, files) => {
         if (err) {
@@ -258,7 +258,7 @@ app.get('/get-videos', (req, res) => {
 
 // expose Video Folder
 // app.use('/uploads/videos', express.static('uploads/videos'));
-app.use('/uploads/videos', express.static(path.join(__dirname, 'uploads', 'videos')));
+app.use('/video-api/uploads/videos', express.static(path.join(__dirname, 'uploads', 'videos')));
 
 
 // Set port for server

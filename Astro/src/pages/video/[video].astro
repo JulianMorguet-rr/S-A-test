@@ -2,6 +2,7 @@
 import LightboxLayout from "../../layouts/BaseLightbox.astro";
 import Hero from '../../components/Hero.astro'
 import VideoWithControls from '../../components/media/VideoWithControls.vue'
+import VideoWithControlsNav from '../../components/media/VideoWithControlsNav.vue'
 
 // Import API functions
 import { getSingleVideo } from '../../lib/sanityApi.js';
@@ -19,7 +20,10 @@ const videoData = await getSingleVideo(`${video}`);
 
     <div class="lightbox-background">
         <main>
-            <VideoWithControls videoData={videoData} transition:name={`video-${videoData._id}`} client:load/>
+
+            <VideoWithControlsNav client:load />
+
+            <VideoWithControls videoData={videoData} transition:name={`video-${videoData._id}`} />
 
             <p class="text-white">{JSON.stringify(videoData)}</p>
 
