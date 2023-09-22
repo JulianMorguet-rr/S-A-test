@@ -4,16 +4,17 @@ const cors = require('cors'); // Import das CORS-Paket
 
 const app = express(); 
 
-const whitelist = ['http://localhost:3000', 'http://localhost:3333']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
+const whitelist = ['http://localhost:4321', 'http://127.0.0.1:4321', 'http://localhost:3333', 'http://127.0.0.1:3333', 'https://geschmaecker-sind-verschieden.com']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
 
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    }
+    origin: true
+    // origin: function (origin, callback) {
+    //     if (whitelist.indexOf(origin) !== -1 || !origin) {
+    //         callback(null, true);
+    //     } else {
+    //         callback(new Error('Not allowed by CORS'));
+    //     }
+    // }
 };
 app.use(cors(corsOptions)); // Verwende CORS Middleware
 
@@ -27,6 +28,13 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+
+app.get('/mail-api', (req, res) => {
+    res.send('Hallo, ich bin der richtige Port/URL auf "/"!');
+});
+app.get('/mail-api/port-test', (req, res) => {
+    res.send('Hallo, ich bin der richtige Port/URL!');
+});
 
 app.post('/send-email', (req, res) => {
     const { name, email, message } = req.body;
@@ -53,6 +61,6 @@ app.post('/send-email', (req, res) => {
 
 
 const PORT = process.env.PORT || 2000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });

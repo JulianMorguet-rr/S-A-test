@@ -1,0 +1,41 @@
+---
+import LightboxLayout from "../../layouts/BaseLightbox.astro";
+import Hero from '../../components/Hero.astro'
+import VideoWithControls from '../../components/media/VideoWithControls.vue'
+
+// Import API functions
+import { getSingleVideo } from '../../lib/sanityApi.js';
+
+const { video } =  Astro.params
+
+console.log('video from Video', video)
+
+const videoData = await getSingleVideo(`${video}`);
+
+---
+
+
+<LightboxLayout>
+
+    <div class="lightbox-background">
+        <main>
+            <VideoWithControls videoData={videoData} transition:name={`video-${videoData._id}`} client:load/>
+
+            <p class="text-white">{JSON.stringify(videoData)}</p>
+
+            <h2 class="text-white" transition:name="title">Video Section</h2>
+
+        </main>
+    </div>
+
+</LightboxLayout>
+
+
+<style lang="scss">
+.lightbox-background {
+    background-color: #232323;
+    color: #fff;
+    min-height: 100vh;
+}
+
+</style>

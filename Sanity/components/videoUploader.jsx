@@ -73,11 +73,11 @@ export function VideoGallery() {
             <div className="video-gallery">
                     <h1>Video Gallery</h1>
 
-                    { 
+                    {/* { 
                         referenceData.map((ref, index) => (
                             <div key={index}><p>{JSON.stringify(ref)}</p></div>
                         )) 
-                    }
+                    } */}
 
                     <div className="video-grid">
                     
@@ -99,8 +99,14 @@ export function VideoGallery() {
         </>
     );
   }
-  
+
+const saveVideoAPIEndpoint = 'https://geschmaecker-sind-verschieden.com/video-api/save-video';
+// const saveVideoAPIEndpoint = 'http://localhost:2001/save-video'  
+
 export function VideoUploader() {
+  console.log('VideoUploader wurde aufgerufen')
+  console.log('saveVideoAPIEndpoint: ', saveVideoAPIEndpoint)
+
   const [video, setVideo] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -116,7 +122,8 @@ export function VideoUploader() {
     formData.append('description', description);
 
     try {
-      await fetch('http://localhost:2001/save-video', {
+      await fetch(saveVideoAPIEndpoint, {
+      // await fetch(saveVideoAPIEndpoint, {
         method: 'POST',
         body: formData,
       });
@@ -129,7 +136,7 @@ export function VideoUploader() {
 
   return (
     <div>
-        <h2>Upload Video</h2>
+        <h2>Upload Video (now on remote Server)</h2>
         <input type="file" accept="video/*" onChange={handleVideoChange} />
         <input
             type="text"

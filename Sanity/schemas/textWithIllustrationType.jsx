@@ -66,14 +66,33 @@ export const textWithIllustrationType = defineType({
       ]
     }),
     defineField({
-      name: 'image',
-      type: 'image',
-      options: {hotspot: true},
+      name: 'media',
+      title: 'Attach media',
+      type: 'object',
       fields: [
         defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
+          name: 'isVideo',
+          title: 'Attach Video instead of image',
+          type: 'boolean',
+        }),
+        defineField({
+          name: 'image',
+          type: 'image',
+          options: {hotspot: true},
+          hidden: ({parent, value}) => !parent?.isVideo !== true,
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+            }),
+          ],
+        }),
+        defineField({
+          name: 'video',
+          type: 'reference',
+          to: [{type: 'uploadedVideo'}],
+          hidden: ({parent, value}) => !parent?.isVideo !== false,
         }),
       ],
     }),
@@ -120,16 +139,37 @@ export const textWithIllustrationType = defineType({
       title: 'Is row fullwidth? (image will be in the corner of the screen)',
       type: 'boolean',
     }),
+    defineField({
+      name: 'sectionType',
+      type: 'string',
+      initialValue: 'standard',
+      options: {
+        list: [
+          { 
+            title: "standard", 
+            value: "standard" 
+          },
+          { 
+            title: "Fullwidth Background", 
+            value: "fullwidthBackground" 
+          },
+          { 
+            title: "Fullwidth Content", 
+            value: "fullwidthContent" 
+          },
+        ],
+      },
+    }),
   ],
   preview: {
     select: {
       title: 'heading',
-      image: 'image',
+      image: 'media.image' || 'media.video',
     },
     prepare({title, image}) {
       return {
         title: title || 'Untitled',
-        subtitle: 'Text width Illustration',
+        subtitle: 'Text width Media',
         media: image || DocumentTextIcon,
       }
     },

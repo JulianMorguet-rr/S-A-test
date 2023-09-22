@@ -45,6 +45,10 @@ export async function getHomePage() {
     heroBackgroundVideo->,
     pageBuilder[]{
       ...,
+      media {
+        ...,
+        video->
+      },
       cta {
         ...,
         ctaReferenz->,
@@ -73,6 +77,16 @@ export async function getCurrentPage(pageSlug) {
   // console.log('pages: ', pages);
   return pages;
 }
+
+
+export async function getSingleVideo(_id) {
+  const query = groq`*[_type == "uploadedVideo" && _id == "${_id}"][0]{
+    ...
+  }`;
+  const siteSettings = await useSanityClient().fetch(query);
+  return siteSettings;
+}
+
 
 export async function getRecruitingData() {
   const query = groq`*[_type == "recruiting"][0]`; // "page" is the name of the schema from '/scr/structure/index.js'

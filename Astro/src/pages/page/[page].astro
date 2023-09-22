@@ -15,11 +15,12 @@ import Hero from '../../components/Hero.astro'
 import PageBuilder from '../../components/PageBuilder.astro'
 
 // "getStaticPaths()" is only required for SSG pages
-// export async function getStaticPaths() {
-//     return [
-//         { params: { page: 'testpage' }, props: { /* optional */ } },
-//     ]
-// }
+export async function getStaticPaths() {
+    return [
+        { params: { page: 'testpage' }, props: { /* optional */ } },
+        { params: { page: 'no-transition' }, props: { /* optional */ } },
+    ]
+}
 
 const { page } =  Astro.params
 
@@ -33,7 +34,7 @@ const pageContent: PageContent = await getCurrentPage(`/${page}`);
     <Hero pageContent={pageContent} />
     
     <main>
-        {pageContent.pageBuilder.map(pageBuilder => (
+        {pageContent?.pageBuilder.map(pageBuilder => (
             // pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br><br>
             <PageBuilder pageBuilder={pageBuilder}/>
             // <p>{JSON.stringify(pageContent)}</p>

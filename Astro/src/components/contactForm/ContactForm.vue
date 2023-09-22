@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { defineProps } from 'vue';
 
 interface Props {
   data: {
@@ -9,22 +10,11 @@ interface Props {
     placeholderEmail?: string | undefined
     placeholderTextarea?: string | undefined
     buttonText?: string | undefined
-  }
+  },
+  nodemailerBaseURL: string,
+  nodemailerContactFormPath: string
 }
 const props = defineProps<Props>()
-
-
-// interface Props {
-//     data: {
-//         heading: string
-//         subtitle: string
-//         placeholderName: string
-//         placeholderEmail: string
-//         placeholderMessage: string
-//         buttonText?: string
-//     }
-// }
-// const { data } = defineProps<Props>()
 
 const formData = ref({
     name: '',
@@ -36,9 +26,32 @@ const errors = ref(false)
 const success = ref(false)
 const waiting = ref(false)
 
+
+// !!! ENV VARIABLES !!! //
+// const environment = import.meta.env.NODE_ENV || 'development';
+// console.log('environment: ', environment)
+
+// loading whole .env file
+let env = import.meta.env
+console.log('env: ', env)
+
+// const nodemailerURL = ref(import.meta.env.VITE_NODEMAILER_URL)
+// nodemailerURL.value = import.meta.env.VITE_NODEMAILER_URL;
+// console.log('nodemailerURL:', nodemailerURL.value)
+
+const nodemailerBaseURL = ref(props.nodemailerBaseURL)
+const nodemailerContactFormPath = ref(props.nodemailerContactFormPath)
+
+// const getNodeMailer = async () => {
+//   nodemailerURL.value = await import.meta.env.NODEMAILER_URL
+//   console.log('nodemailerURL: ', nodemailerURL.value)
+// } 
+// getNodeMailer()
+
+
 const handleSubmit = async () => {
     console.log('handleSubmit fired: ', formData)
-    const response = await fetch('http://localhost:2000/send-email', {
+    const response = await fetch(`${nodemailerBaseURL.value}/${nodemailerContactFormPath}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -57,7 +70,11 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-    <div class="container">
+  <div class="container">
+        <div>
+          nodemailerBaseURL: {{nodemailerBaseURL}}<br>
+          nodemailerContactFormPath: {{nodemailerContactFormPath}}<br>
+        </div>
         <form @submit.prevent="handleSubmit()">
             <h3>{{ data.subtitle }}</h3>
             <h2>{{ data.heading }}</h2>

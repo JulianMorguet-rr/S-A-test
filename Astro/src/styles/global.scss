@@ -1,6 +1,28 @@
+
+$base-color: rgb(251 146 60);
+$base-shadow: 0px 4px 12px rgba(0,0,0,0.1), 0px 8px 24px rgba(0,0,0,0.1);
+
 * {
     box-sizing: border-box 
 }
+
+::-webkit-scrollbar {
+    width: 12px; /* Breite der Scrollleiste */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Hintergrund der Scrollleiste */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888; /* Farbe des Scrollbalkens */
+    border-radius: 6px; /* Runde Ecken */
+    background: $base-color;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: $base-color; /* Farbänderung beim Hovern */
+  }
 
 body {
     font-size: 1rem;
@@ -14,10 +36,21 @@ h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote {
     color: #272727;
 }
 
+@media (prefers-color-scheme: dark) {
+    h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote {
+        color: white;
+    }
+}
+
+
 a {
     text-decoration: none;
 }
 
+
+.base-shadow {
+    box-shadow: $base-shadow;
+}
 
 header {
     position: fixed;
@@ -33,7 +66,7 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 1240px;
+        width: 1280px;
         padding: 20px 0px;
 
         img {
@@ -68,7 +101,7 @@ header {
 main {
     margin: auto;
     padding: 0 0 1.5rem 0;
-    max-width: 1240px;
+    max-width: 1280px;
 }
 
 h1 {

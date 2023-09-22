@@ -14,8 +14,8 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
         pageContent?.heroBackgroundVideo && ( 
             <div>
                 <video autoplay loop muted playsinline class="hero-background-video">
-                    <source src={`http://localhost:2001/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
-                    <source src={`${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+                    <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
+                    <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
                 </video> 
             </div>
         )

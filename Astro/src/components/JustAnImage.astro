@@ -2,24 +2,24 @@
 
 import { fade, slide  } from 'astro:transitions';
 
-export interface TransitionAnimation {
-  name: string; // The name of the keyframe
-  delay?: number | string;
-  duration?: number | string;
-  easing?: string;
-  fillMode?: string;
-  direction?: string;
-}
+// export interface TransitionAnimation {
+//   name: string; // The name of the keyframe
+//   delay?: number | string;
+//   duration?: number | string;
+//   easing?: string;
+//   fillMode?: string;
+//   direction?: string;
+// }
 
-export interface TransitionAnimationPair {
-  old: TransitionAnimation | TransitionAnimation[];
-  new: TransitionAnimation | TransitionAnimation[];
-}
+// export interface TransitionAnimationPair {
+//   old: TransitionAnimation | TransitionAnimation[];
+//   new: TransitionAnimation | TransitionAnimation[];
+// }
 
-export interface TransitionDirectionalAnimations {
-  forwards: TransitionAnimationPair;
-  backwards: TransitionAnimationPair;
-}
+// export interface TransitionDirectionalAnimations {
+//   forwards: TransitionAnimationPair;
+//   backwards: TransitionAnimationPair;
+// }
 
 const anim = {
   old: {
@@ -44,21 +44,23 @@ const myFade = {
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
 
-
-type HeroImage = {
+interface ReferenceToPage {
+    _type: 'reference';
+    slug: string;
     heroImage: {
         _type: 'image';
         asset: {
             _ref: string;
         }
     }
-}
+  }
+
 type JustAnImage =  { 
     _type: 'justAnImage'; 
     heading: string; 
     text: string; 
     image: any;
-    referenceToPage: HeroImage;
+    referenceToPage: ReferenceToPage;
 }
 
 
@@ -73,8 +75,8 @@ const data = Astro.props as Props
 <div>
 
     <h1>Just An Image</h1>
-    <p>{JSON.stringify(data.data.referenceToPage.heroImage)}</p>
-    <a href="/page/testpage">
+    <p>{JSON.stringify(data.data.referenceToPage)}</p>
+    <a href={data.data.referenceToPage.slug}>
         <img 
             width={600}
             height={200}

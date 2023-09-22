@@ -1,0 +1,5 @@
+# environment variables
+.env.production
+
+# macOS-specific files
+.DS_Store

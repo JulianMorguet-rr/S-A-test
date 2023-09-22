@@ -16,14 +16,16 @@
 // }
 
 
-type HeroImage = {
+interface ReferenceToPage {
+    _type: 'reference';
+    slug: string;
     heroImage: {
         _type: 'image';
         asset: {
             _ref: string;
         }
     }
-}
+  }
 
 export type ContentItem = 
     |   { _type: 'hero'; 
@@ -63,7 +65,7 @@ export type ContentItem =
             heading: string; 
             text: string; 
             image: any; 
-            referenceToPage: HeroImage;
+            referenceToPage: ReferenceToPage;
         }
 
 

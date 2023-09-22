@@ -72,7 +72,7 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 1240px;
+        width: 1280px;
         padding: 20px 0px;
 
         img {

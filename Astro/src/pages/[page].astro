@@ -15,11 +15,12 @@ import Hero from '../components/Hero.astro'
 import PageBuilder from '../components/PageBuilder.astro'
 
 // "getStaticPaths()" is only required for SSG pages
-// export async function getStaticPaths() {
-//     return [
-//         { params: { page: 'testpage' }, props: { /* optional */ } },
-//     ]
-// }
+export async function getStaticPaths() {
+    return [
+        { params: { page: 'testpage' }, props: { /* optional */ } },
+        { params: { page: 'no-transition' }, props: { /* optional */ } },
+    ]
+}
 
 const { page } =  Astro.params
 

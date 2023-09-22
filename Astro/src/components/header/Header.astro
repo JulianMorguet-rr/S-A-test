@@ -31,6 +31,13 @@ interface Props {
 //     slug: String
 // })
 
+
+
+// let env = import.meta.env
+// console.log('env from Header.astro: ', env)
+
+
+
 const data = Astro.props as Props
 
 const mainNav: Array<NavItem> = []
@@ -40,7 +47,7 @@ const computedMainNav = () => {
         if(navItem.slug === '/') {
             mainNav.push(navItem)
         } else {
-            navItem.slug = '/page' + navItem.slug
+            // navItem.slug = '/page' + navItem.slug
             mainNav.push(navItem)
         }
     })

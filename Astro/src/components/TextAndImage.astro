@@ -6,6 +6,9 @@ import { marked } from 'marked';
 // Import Types
 import { ContentItem } from '../types/PageContent';
 
+// Import Components
+import VideoLightbox from '../components/media/VideoLightbox.vue';
+
 // Import Composables 
 import { convertBlockContentToHTML } from '../composables/blockContentToHTML';
 
@@ -15,60 +18,155 @@ const content = convertBlockContentToHTML(data.blockContent);
 
 // const content = marked.parse(data.blockContent);
 const test = 10;
+
+
+// let browserName = "";
+// function fnBrowserDetect(){
+                 
+//     let userAgent = window.navigator.userAgent;
+    
+//     if(userAgent.match(/chrome|chromium|crios/i)){
+//         browserName = "chrome";
+//     }else if(userAgent.match(/firefox|fxios/i)){
+//         browserName = "firefox";
+//     }  else if(userAgent.match(/safari/i)){
+//         browserName = "safari";
+//     // }else if(userAgent.match(/opr//i)){
+//     //     browserName = "opera";
+//     } else if(userAgent.match(/edg/i)){
+//         browserName = "edge";
+//     }else{
+//         browserName = "No browser detection";
+//     }
+// }
+// fnBrowserDetect()
 ---
 
 
-<!-- <h2>Test: {JSON.stringify(data)}</h2> -->
+<!-- <h2>Test: {JSON.stringify(data.sectionType)}</h2> -->
 <!-- <h2>Test: {JSON.stringify(data.blockContent)}</h2> -->
 
-<section class="dark:bg-gray-900 md:grid">
-    <div class={`gap-8 items-center py-8 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 fullwidth-${data.fullwidth} switch-sides-${data.switchImageToRightSide}`}>
-        <div>
-            { data.cta?.ctaReferenz?.heroImage ? 
-                <>
-                    <img class="w-full dark:hidden" src={urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()} alt="dashboard image">
-                    <img class="w-full hidden dark:block" src={urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()} alt="dashboard image">
-                </>
-            : data.image ? (
-                <>
-                    <img class="w-full dark:hidden" src={urlFor(data.image).width(1240).height(640).format('webp').url()} alt="dashboard image" />
-                    <img class="w-full hidden dark:block" src={urlFor(data.image).width(1240).height(640).format('webp').url()} alt="dashboard image" />
-                </>
-                ) : null
-            }
-        </div>
+<!-- 
+    Old way of fullwidth
+    fullwidth-background-${data.fullwidth} fullwidth-${data.fullwidth}
+-->
+<div class={`inner-section dark:bg-gray-900 md:grid ${data.sectionType}`}>
+    <!-- <h2>Test: {JSON.stringify(data.sectionType)}</h2> -->
+    <div class={`inner-wrapper`}>
         
-        <div class="mt-4 md:mt-0">
-            { data.tagline &&
-                <h3 class="mb-4">
-                    {data.tagline}
-                </h3>
+        <div class={`gap-8 items-center py-8 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 switch-sides-${data.switchImageToRightSide}`}>
+            <div class="image-edge-grid__img">
+            { 
+                data.cta?.ctaReferenz?.heroImage ? 
+                    <>
+                        <img class="w-full dark:hidden" src={urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()} alt="dashboard image">
+                        <img class="w-full hidden dark:block" src={urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()} alt="dashboard image">
+                    </>
+                : data.media?.image ? 
+                    <>
+                        <img class="w-full dark:hidden" src={urlFor(data.media.image).width(1240).height(640).format('webp').url()} alt="dashboard image" />
+                        <img class="w-full hidden dark:block" src={urlFor(data.media.image).width(1240).height(640).format('webp').url()} alt="dashboard image" />
+                    </>
+                : data.media?.video ? 
+                    <>
+                        <!--
+                            <video controls muted playsinline class="hero-background-video">
+                                <source src={`https://geschmaecker-sind-verschieden.com/video-api/${data.media.video.webmPath}`} type="video/webm">
+                                <source src={`https://geschmaecker-sind-verschieden.com/video-api/${data.media.video.mp4Path}`} type="video/mp4">
+                            </video> 
+                        -->
+                        <!-- <h2>{JSON.stringify(data.media.video)}</h2> -->
+                        <VideoLightbox media={data.media} client:load transition:name={`video-${data.media.video._id}`}/>
+                    </>
+                : null
             }
-            { data.heading &&
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                    {data.heading}
-                </h2>
-            }
+            </div>
 
-            { content &&
-                <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400" set:html={content}></p>
-            }
+            <div class="mt-4 md:mt-0">
+                { data.tagline &&
+                    <h3 class="mb-4 dark:text-white">
+                        {data.tagline}
+                    </h3>
+                }
+                { data.heading &&
+                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                        {data.heading}
+                    </h2>
+                }
 
-            { data.cta?.ctaReferenz?.slug &&
-                <a href={`/page${data.cta.ctaReferenz.slug}`} class="inline-flex items-center mt-6 text-white bg-orange-400 hover:bg-slate-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
-                {data.cta.ctaText}
-                <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </a>
-            }
+                { content &&
+                    <div class="mb-6 font-light text-gray-500 md:text-lg dark:text-white" set:html={content}></div>
+                }
+
+                { data.cta?.ctaReferenz?.slug &&
+                    <a href={`/page${data.cta.ctaReferenz.slug}`} class="inline-flex items-center mt-6 text-white bg-orange-400 hover:bg-slate-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                    {data.cta.ctaText}
+                    <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </a>
+                }
+            </div>
         </div>
+
     </div>
-</section>
+</div>
 
 
 <style lang="scss">
 // .fullwidth-true {
 //     grid-template-columns: 1fr;
 // }
+
+div.inner-wrapper {
+    container-name: innerWrapper;
+    container-type: inline-size;
+}
+
+.fullwidthBackground {
+    left: calc(50% - 50vw );
+    width: 100vw !important;
+    position: relative;
+}
+
+// .image-edge-grid__img {
+//     grid-column-start: 1;
+//     grid-column-end: 15;
+//     display: flex;
+//     align-items: center;
+// }
+
+.fullwidthContent {
+    left: calc(50% - 50vw );
+    width: 100vw !important;
+    position: relative;
+
+    div.inner-wrapper{
+
+        > div {
+            width: 100vw !important;
+            // max-width: 100vw;
+        }
+
+        
+        @container innerWrapper (min-inline-size: 1280px) {
+            div > div:has(video), div > div:has(img) {
+                width: calc(50vw - 4rem / 2 - 12px / 2) // - 6rem); // ursprüglich -6rem
+                // max-width: 100vw;
+                // margin: auto;
+            }
+
+            div.switch-sides-false > div:has(video), div.switch-sides-false > div:has(img) {
+                margin-left: calc((-100vw + 1280px) / 2 - 2rem + 12px);
+            }
+        }
+    }
+}
+
+@container innerWrapper (normal < 1280px) {
+    div.inner-wrapper {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
 
 
 @media (min-width: 768px) {

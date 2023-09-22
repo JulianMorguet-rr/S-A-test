@@ -9,8 +9,15 @@ import { urlFor } from '../lib/sanityApi.js';
 
 import TextWidthImage from '../components/TextWidthImage.vue';
 import ContactForm from '../components/contactForm/ContactForm.vue';
-import JustAnImage from '../components/TestingViewTransitions.astro';
+import JustAnImage from './JustAnImage.astro';
 import TextAndImage from './TextAndImage.astro';
+
+
+const nodemailerBaseURL: string = import.meta.env.NODEMAILER_BASE_URL;
+console.log('nodemailerBaseURL: ', nodemailerBaseURL)
+
+const nodemailerContactFormPath: string = import.meta.env.NODEMAILER_CONTACT_FORM_PATH;
+console.log('nodemailerContactFormPath: ', nodemailerContactFormPath)
 
 // Calc ImageGallerie width
 let imageGalleryWidth = 1092 / 3 - 15;
@@ -114,7 +121,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     
     {pageBuilder._type === 'form' &&  
         <div>
-            <ContactForm data={pageBuilder} client:load />
+            <ContactForm data={pageBuilder} nodemailerBaseURL={nodemailerBaseURL} nodemailerContactFormPath={nodemailerContactFormPath} client:load />
             {/*  <h3> {JSON.stringify(pageBuilder)}</h3> */}
         </div>
     }

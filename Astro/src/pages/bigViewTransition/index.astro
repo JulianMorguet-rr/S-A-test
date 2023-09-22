@@ -7,6 +7,8 @@ import Layout from "../../layouts/Base.astro";
 export async function getStaticPaths() {
     return [
         { params: { page: 'testpage' }, props: { /* optional */ } },
+        { params: { page: 'viewtransitiontest' }, props: { /* optional */ } },
+        { params: { page: 'test' }, props: { /* optional */ } },
     ]
 }
 
@@ -19,7 +21,7 @@ const { page } =  Astro.params
 
     <h2>View Transition Test</h2>
 
-    <a href="/viewTransition/test">
+    <a href="/viewTransition">
         <img
             width="800px"
             height="auto"

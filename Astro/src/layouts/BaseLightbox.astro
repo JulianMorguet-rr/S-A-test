@@ -26,8 +26,7 @@ const siteSettings = await getSiteSettings();
   </head>
   <body>
     <!-- <slot name="header" /> -->
-    
-    <Header siteSettings={siteSettings} slug={page} transition:persist/>
+
     <!-- <AltHeader /> -->
 
     <!-- <div transition:animate="slide"> -->
@@ -37,12 +36,15 @@ const siteSettings = await getSiteSettings();
     <slot name="footer" />
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" /> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
   </body>
 </html>
 
 
 <style>
+
+
+
 .header-wrapper {
   z-index: 999;
 }

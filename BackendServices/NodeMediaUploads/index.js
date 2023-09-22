@@ -27,6 +27,8 @@ const app = express();
  * Set Cors
  */
 const cors = require('cors');
+
+// TODO: withelist wird aktuell nicht genutzt sondern alles ist erlaubt
 const whitelist = ['http://localhost:2001', 'http://localhost:3000', 'http://localhost:3333']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
 
 const corsOptions = {
@@ -95,6 +97,10 @@ const upload = multer({ storage: storage });
 // Video wird unter dem hochgeladenen namen gespeichert und kann über den Pfad abgerufen werden
 // TODO: es sollte besser einen namen bekommen, den ich in einer Datenbank speichere und dann über den Namen abrufe
 // Außerdem möchte ich die Description und einen standart alt text speichern (description) und dann auch abrufen kann
+
+app.get('/video-api/port-test', (req, res) => {
+    res.send('Hallo, ich bin der richtige Port/URL auf "/video-api/port-test"!');
+});
 
 
 app.post('/save-video', upload.single('video'), async (req, res) => {
@@ -168,6 +174,8 @@ app.post('/save-video', upload.single('video'), async (req, res) => {
 
                     */
 
+
+                    // Hier wird das Video in Sanity gespeichert
                     const doc = {
                         _id: generateUUID(),
                         _type: 'uploadedVideo',

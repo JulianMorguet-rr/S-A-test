@@ -77,18 +77,18 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 
 	{homePage.heroImage && 
 		<div class="hero-wrapper">
-			<div class="hero" style={{backgroundImage: `url(${urlFor(homePage.heroImage.asset._ref).width(1920).format('webp').url()})`}}>
-			
-				{ homePage?.heroBackgroundVideo && ( 
-					<div>
-						<video autoplay loop muted playsinline class="hero-background-video">
-							<source src={`http://localhost:2001/${homePage.heroBackgroundVideo.webmPath}`} type="video/webm">
-							<source src={`${homePage.heroBackgroundVideo.mp4Path}`} type="video/mp4">
-						</video> 
-					</div>
-				)}
-
-			</div> 
+			{ homePage?.heroBackgroundVideo ? ( 
+				<div class="hero">
+					<video autoplay loop muted playsinline class="hero-background-video">
+						<source src={`https://geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.webmPath}`} type="video/webm">
+						<source src={`https://geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+					</video> 
+				</div>
+				) : (
+				<div class="hero" style={{backgroundImage: `url(${urlFor(homePage.heroImage.asset._ref).width(1920).format('webp').url()})`}}>
+				</div>
+				)
+			}
 		</div>
 	}
 
@@ -131,7 +131,7 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 		<!-- <p>{ JSON.stringify(homePage.pageBuilder) }</p> -->
 
 
-		{homePage.pageBuilder.map(pageBuilder => (
+		{homePage?.pageBuilder.map(pageBuilder => (
 			// pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br/><br/>
 			<PageBuilder pageBuilder={pageBuilder}/>
 			// <p>{JSON.stringify(pageContent)}</p>
