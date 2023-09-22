@@ -2,7 +2,7 @@
     <div>
         <!-- View Transition API if "chrome" -->
         <div v-if="browserName === 'chrome'" class="image-wrapper base-shadow">
-            <a class="base-shadow" :href="`/video/${media.video._id}`">
+            <a class="base-shadow" aria-label="Sehen Sie sich das Video an" :href="`/video/${media.video._id}`">
                 <div class="play__Button">
                     <svg fill="rgb(251 146 60)" height="6rem" width="6rem" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                         viewBox="0 0 60 60" xml:space="preserve">
