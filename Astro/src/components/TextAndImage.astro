@@ -59,25 +59,41 @@ const content = convertBlockContentToHTML(data.blockContent);
             <div class="image-edge-grid__img">
             { 
                 data.cta?.ctaReferenz?.heroImage ? 
-                    <>
+                    data.sectionType !== 'fullwidthContent' ?
                         <Image 
-                            width={1600}
-                            height={900}
+                            width={800}
+                            height={450}
                             class="w-full" 
-                            src={urlFor(data.cta.ctaReferenz.heroImage).width(1600).height(900).format('webp').url()} 
+                            src={urlFor(data.cta.ctaReferenz.heroImage).width(800).height(450).format('webp').url()} 
                             alt="dashboard image"
                         />
-                    </>
-                : data.media?.image ? 
-                    <>
+                    :
                         <Image 
-                            width={1600}
-                            height={900}
+                            class="max-width-1200"
+                            width={1200}
+                            height={675}
                             class="w-full" 
-                            src={urlFor(data.media.image).width(1600).height(900).format('webp').url()} 
+                            src={urlFor(data.cta.ctaReferenz.heroImage).width(1200).height(675).format('webp').url()} 
+                            alt="dashboard image"
+                        />
+                : data.media?.image ? 
+                    data.sectionType !== 'fullwidthContent' ?
+                        <Image 
+                            width={800}
+                            height={450}
+                            class="w-full" 
+                            src={urlFor(data.media.image).width(800).height(450).format('webp').url()} 
                             alt="dashboard image" 
                         />
-                    </>
+                    :
+                        <Image 
+                            class="max-width-1200"
+                            width={1200}
+                            height={675}
+                            class="w-full" 
+                            src={urlFor(data.media.image).width(1200).height(675).format('webp').url()} 
+                            alt="dashboard image" 
+                        />
                 : data.media?.video ? 
                     <>
                         {/*

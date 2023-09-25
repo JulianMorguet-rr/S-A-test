@@ -369,3 +369,13 @@ grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 gap: 1rem;
 padding: 0;
 }
+
+
+
+
+
+
+/* Utilitiy Classes (like Tailwind) */ 
+.max-width-1200 {
+    max-width: 1200px;
+}

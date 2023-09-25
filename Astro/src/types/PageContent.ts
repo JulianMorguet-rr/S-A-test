@@ -90,5 +90,6 @@ export interface PageContent {
         thumbnail: string;
     }
     heading: string;
+    slug: string;
     pageBuilder: ContentItem[];
 }

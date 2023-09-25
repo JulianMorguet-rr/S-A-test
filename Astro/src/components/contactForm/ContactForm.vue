@@ -76,11 +76,11 @@ const handleSubmit = async () => {
           nodemailerContactFormPath: {{nodemailerContactFormPath}}<br>
         </div>
         <form @submit.prevent="handleSubmit()">
-            <h3>{{ data.subtitle }}</h3>
+            <!-- <h3>{{ data.subtitle }}</h3>
             <h2>{{ data.heading }}</h2>
             <p>{{ formData.name }}</p>
             <p>{{ formData.email }}</p>
-            <p>{{ formData.message }}</p>
+            <p>{{ formData.message }}</p> -->
             <div class="flex inputs">
                 <input class="input-field" type="text" :placeholder="data.placeholderName" v-model="formData.name" />
                 <input class="input-field" type="email" :placeholder="data.placeholderEmail" v-model="formData.email" />
