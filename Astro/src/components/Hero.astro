@@ -25,17 +25,30 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
     }
 
     { pageContent?.heroBackgroundVideo ? ( 
-        <div class="inline-video">
-            <video autoplay loop muted playsinline class="hero-background-video" aria-details={pageContent.heroImageAlt || 'Stimmungs Assets'} >
-                <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
-                <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
-                <p>
-                    Ihr Browser unterstützt kein HTML video. Hier ist ein 
-                    <a href={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
-                </p>
-            </video> 
-        </div>
-        ) : null 
+            <div class="inline-video">
+                <video autoplay loop muted playsinline class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Stimmungs Assets'} >
+                    <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
+                    <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+                    <p>
+                        Ihr Browser unterstützt kein HTML video. Hier ist ein 
+                        <a href={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
+                    </p>
+                </video> 
+            </div>
+        ) : 
+        pageContent?.heroImage ? (
+            <Image 
+                width="1920"
+                height="640"
+                src={urlFor(pageContent.heroImage).width(1920).height(640).format('webp').url()} 
+                alt={pageContent.heroImageAlt || "Hero Image"}
+                transition:name={`hero-image-${pageContent.slug}`}
+                transition:animate="initial"
+            />
+        ) : (
+            <div class="animated-bg-gradient">
+            </div>
+        )
     }
 
     <!--
@@ -50,16 +63,7 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
         )
     }
     -->
-    { pageContent?.heroImage &&
-        <Image 
-            width="1920"
-            height="640"
-            src={urlFor(pageContent.heroImage).width(1920).height(640).format('webp').url()} 
-            alt={pageContent.heroImageAlt || "Hero Image"}
-            transition:name={`hero-image-${pageContent.slug}`}
-            transition:animate="initial"
-        />
-    } 
+    
 </div> 
 <div class="spacing"></div>
 
@@ -69,7 +73,7 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
         display: flex;
         justify-content: center;
         align-items: flex-end;
-
+        min-height: 440px;
 
         .headline-wrapper {
             z-index: 9;
@@ -102,6 +106,33 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
             height: auto;
         }
 
+        .animated-bg-gradient {
+            background: linear-gradient(221deg,#f77f7f,#def056);
+            background-size: 400% 400%;
+            -webkit-animation: hero 10s ease infinite;
+            -moz-animation: hero 10s ease infinite;
+            -o-animation: hero 10s ease infinite;
+            animation: hero 10s ease infinite;
+            box-shadow: 0 0 7px 0 rgba(0,0,0,.2);
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+    }
+
+
+    // Create the animation
+    @keyframes hero {
+        0%, 100% {
+            background-position: 0 70%;
+        }
+        50% {
+            background-position: 100% 31%;
+        }
     }
     
 </style>

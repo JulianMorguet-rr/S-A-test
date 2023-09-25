@@ -3,19 +3,24 @@ import { fade, slide  } from 'astro:transitions';
 
 import BaseHead from "../components/BaseHead.astro";
 import type { Props as BaseHeadProps } from '../components/BaseHead.astro';
+
+import Header from "../components/header/Header.astro";
+import Footer from '../components/footer/Footer.astro';
+
 export interface Props {
 	seo?: BaseHeadProps;
 }
 const { seo } = Astro.props;
-
 const { page } =  Astro.params
 
-import Header from "../components/header/Header.astro";
 
-import AltHeader from "../components/header/AltHeader.astro";
+import { getGlobalSiteSettings, getAppearance, getMainMenu } from '../lib/sanityApi.js';
+const globalSiteSettings = await getGlobalSiteSettings();
+const appearance = await getAppearance();
+const mainMenu = await getMainMenu();
 
-import { getSiteSettings } from '../lib/sanityApi.js';
-const siteSettings = await getSiteSettings();
+
+
 ---
 
 <html lang="de" transition:animate="none" >
@@ -23,12 +28,12 @@ const siteSettings = await getSiteSettings();
   <!-- transition:animate={"none"} -->
   <!-- fade({ duration: '1.4s' }) -->
   <head>
-    <BaseHead {...seo} />
+    <BaseHead globalSiteSettings={globalSiteSettings} {...seo} />
   </head>
   <body class="bg-white dark:bg-gray-900">
     <!-- <slot name="header" /> -->
 
-    <Header siteSettings={siteSettings} slug={page} transition:persist/>
+    <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu} transition:persist/>
 
     <!-- <AltHeader /> -->
 
@@ -37,7 +42,8 @@ const siteSettings = await getSiteSettings();
       <slot />
     <!-- </div> -->
 
-    <slot name="footer" />
+
+    <Footer globalSiteSettings={globalSiteSettings} mainMenu={mainMenu} slug={page} />
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" /> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script> -->

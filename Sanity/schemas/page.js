@@ -86,6 +86,12 @@ export const pageType = defineType({
     // Page settings
     defineField({
       name: 'slug', 
+      title: 'Slug/URL',
+      type: 'string'
+    }),
+    defineField({
+      name: 'linkName', 
+      title: 'Link Name',
       type: 'string'
     }),
     defineField({

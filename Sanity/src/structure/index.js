@@ -13,8 +13,9 @@
 
 // import { StructureResolver } from 'sanity/desk'
 
-import multistepFormStructure from '../multistep-structure/multistepFormStructure'
-import videothekFormStructure from '../videothek-structure/videothekFormStructure'
+import siteSettingsStructure from './siteSettings-structure/siteSettingsStructure'
+import multistepFormStructure from './multistep-structure/multistepFormStructure'
+import videothekFormStructure from './videothek-structure/videothekFormStructure'
 
 export const documentNodeResolver = (S, {schemaType}) => {
     if(schemaType == 'test') {
@@ -69,12 +70,17 @@ export const structure = (S, context) => (
                             'page',
                             'post',
                             'quotes',
-                            'recruiting',
-                            'siteSettings',
-                            'multistepQuestions',
-                            'multistepComposition',
                             'uploadedVideo',
                             'videoMediathek',
+                            'globalSiteSettings',
+                            'mainMenu',
+                            'footerMenu',
+                            'appearance',
+                            
+                            'recruiting',
+                            'multistepQuestions',
+                            'multistepComposition',
+                            'category',
                         ].includes(listItem.getId())
                 ),
 
@@ -84,10 +90,16 @@ export const structure = (S, context) => (
 
                 S.divider(),
 
+
+                /*
+                // Import "multistepFormStructure" Type
                 multistepFormStructure('category', S, context.documentStore),
 
                 S.divider(),
 
+                */
+
+                /*
                 // Import "recruiting" Type
                 S.listItem()
                     .title('Recruiting')
@@ -100,17 +112,26 @@ export const structure = (S, context) => (
                     ), 
 
                 S.divider(),
+                */
+
 
                 // Import "siteSettings" Type
-                S.listItem()
-                    .title('Site Settings')
-                    .child(
-                        S.editor()
-                            .id('siteSettings')
-                            .schemaType('siteSettings')
-                            .documentId('siteSettings')
-                            .title('siteSettings')
-                    ), 
+                siteSettingsStructure('category', S, context.documentStore),
+
+                // S.listItem()
+                //     .title('Site Settings')
+                //     .child(
+                //         S.editor()
+                //             .id('siteSettings')
+                //             .schemaType('siteSettings')
+                //             .documentId('siteSettings')
+                //             .title('siteSettings'),
+                //         S.editor()
+                //             .id('appearance')
+                //             .schemaType('appearance')
+                //             .documentId('appearance')
+                //             .title('appearance')
+                //     ), 
 
             ])
 )

@@ -9,9 +9,9 @@ const { title } = Astro.props;
 import Header from '../components/header/Header.vue';
 
 // Import Sanity API FUnctions
-import { getSiteSettings } from '../lib/sanityApi.js';
+import { getGlobalSiteSettings } from '../lib/sanityApi.js';
 
-const siteSettings = await getSiteSettings();
+const siteSettings = await getGlobalSiteSettings();
 const siteSettingsJSON = JSON.stringify(siteSettings);
 
 ---

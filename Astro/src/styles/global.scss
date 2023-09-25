@@ -46,7 +46,17 @@ h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote {
 
 a {
     text-decoration: none;
+
+    &:hover {
+        color: $base-color;
+        text-decoration: underline;
+    }
+    &.active {
+        color: $base-color;
+        text-decoration: underline;
+    }
 }
+
 
 
 .base-shadow {
@@ -84,6 +94,13 @@ header {
                 color: #272727;
                 &.active {
                     text-decoration: underline;
+                }
+
+                &:hover {
+                    color: $base-color;
+                }
+                &.active {
+                    color: $base-color;
                 }
             }
         }
@@ -341,7 +358,6 @@ padding: 0;
         }
     }
 }
-
 
 
 .instructions {

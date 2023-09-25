@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets'
+import { urlFor } from '../../lib/sanityApi.js';
+
+interface NavItem {
+    title: string
+    slug: string
+    linkName?: string
+}
+interface GlobalSiteSettings {
+    logo: {
+        src: string
+        svg: string
+        altText: string
+    }
+    title: string
+}
+interface Props {
+    globalSiteSettings: GlobalSiteSettings
+    slug: string | undefined
+    mainMenu: {
+        mainNav: Array<NavItem>
+    }
+}
+// const props = defineProps({
+//     siteSettings: Object as () => SiteSettings,
+//     slug: String
+// })
+
+
+
+// let env = import.meta.env
+// console.log('env from Header.astro: ', env)
+
+
+
+const { globalSiteSettings, mainMenu, slug } = Astro.props as Props
+
+
+const date = new Date();
+
+
+---
+
+<footer class="p-4 bg-white md:p-8 lg:p-10 dark:bg-gray-800">
+    <div class="mx-auto max-w-screen-xl text-center">
+        <!-- <p>
+            globalSiteSettings: {JSON.stringify(globalSiteSettings)}
+        </p> -->
+        
+        <a href="#" class="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white">
+            {
+                globalSiteSettings.logo.svg ? 
+                    (<span set:html={globalSiteSettings.logo.svg}></span>)
+                : globalSiteSettings.logo.src ?
+                    <Image
+                        src={urlFor(globalSiteSettings.logo.src).format('webp').url()} alt="Logo der Seite"
+                        alt="Logo der Seite"
+                        width={140}
+                        height={56}
+                    /> 
+                :   <p>
+                        {globalSiteSettings.title}
+                    </p>
+            } 
+        </a>
+
+        <p class="my-6 text-gray-500 dark:text-gray-400">
+            Open-source library of over 400+ web components and interactive elements built for better web.
+        </p>
+
+        <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
+            <!-- <p>{JSON.stringify(mainMenu.mainNav)}</p> -->
+            { 
+                mainMenu.mainNav.map((nav, index) => (
+                    <li>
+                        <a href="/" class="mr-4 hover:underline md:mr-6 ">
+                            { 
+                                nav.linkName ? nav.linkName
+                                : nav.title ? nav.title 
+                                : 'Titel fehlt'
+                            }    
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+            © {date.getFullYear()}  – 
+            <a href="#" class="hover:underline">
+                Deutscher Süßstoffverband
+            </a>
+            . All Rights Reserved.
+        </span>
+    </div>
+  </footer>
+
+
+
+  <style>
+    footer a {
+        display: inline-block;
+    }
+  </style>

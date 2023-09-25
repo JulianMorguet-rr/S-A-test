@@ -81,10 +81,10 @@ export default {
           type: 'blockContent',
         }),   
 
-        defineField({
-          name: 'greeting',
-          type: 'internationalizedArrayString',
-        }),
+        // defineField({
+        //   name: 'greeting',
+        //   type: 'internationalizedArrayString',
+        // }),
 
         defineField({
           name: 'language',

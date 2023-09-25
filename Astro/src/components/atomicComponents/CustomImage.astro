@@ -1,0 +1,87 @@
+---
+// 862 × 485 px
+import { getImage } from "astro:assets";
+// const optimizedBackground = await getImage({src: myBackground, format: 'avif'})
+
+
+
+/* OWN Image Optimization Implementation */
+
+import { urlFor } from '../../lib/sanityApi.js';
+
+const { imgSrc, altText, rounded, lazy, async } = Astro.props 
+
+const setRoundetValue = (rounded) => {
+    if (rounded === true) {
+        return '1rem'
+    } else {
+        return '0%'
+    }
+}
+let radius = setRoundetValue(rounded)
+
+
+type LazyValue = 'lazy' | 'eager'
+const setLazyValue = (lazy) => {
+    if (lazy === true) {
+        return 'lazy'
+    } else {
+        return 'eager'
+    }
+}
+let lazyValue: LazyValue = setLazyValue(lazy)
+
+
+type AsyncValue = 'async' | 'auto'
+const setAsyncValue = (async) => {
+    if (async === true) {
+        return 'async'
+    } else {
+        return 'auto'
+    }
+}
+let asyncValue: AsyncValue = setAsyncValue(async)
+
+/* Helper for Screen resolution */ 
+// const resolution = () => {
+//     const 
+// }
+
+---
+
+
+<!-- <p>
+    {imgSrc}
+</p> -->
+
+<!-- <img src={urlFor(imgSrc).width(1600).height(900).format('webp').url()} alt="Image" /> -->
+
+<img 
+    style={`width: 100%; border-radius: ${radius};`}
+    src={urlFor(imgSrc).width(1600).height(900).flipHorizontal().format('jpg').url()}
+    srcset={`
+        ${urlFor(imgSrc).width(1600).height(900).format('webp').flipHorizontal().url()} 1600w,
+        ${urlFor(imgSrc).width(1200).height(675).format('webp').url()} 1200w,
+        ${urlFor(imgSrc).width(800).height(450).format('webp').flipVertical().url()} 800w,
+        ${urlFor(imgSrc).width(400).height(225).format('webp').flipHorizontal().flipVertical().url()} 400w
+    `} 
+    sizes="(max-width: 520px) 100vw, (max-width: 1600px) 50vw, 100vw"
+
+    loading={lazyValue}
+    decoding={asyncValue}
+
+    alt={altText}
+/>
+
+
+<!-- 
+    src={urlFor(imgSrc).width(1600).height(900).flipHorizontal().format('jpg').url()}
+    srcset={`
+        ${urlFor(imgSrc).width(1600).height(900).format('webp').flipHorizontal().url()} 1600w,
+        ${urlFor(imgSrc).width(1200).height(675).format('webp').url()} 1200w,
+        ${urlFor(imgSrc).width(800).height(450).format('webp').flipVertical().url()} 800w,
+        ${urlFor(imgSrc).width(400).height(225).format('webp').flipHorizontal().flipVertical().url()} 400w
+    `} 
+    loading="lazy"
+    decoding="async"
+-->

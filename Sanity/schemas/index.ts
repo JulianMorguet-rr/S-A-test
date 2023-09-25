@@ -6,10 +6,11 @@
   * Or as named imports (e.g. import {pageType} from './page')  -> e.g. "export const uploadedVideo = defineType({ ... })"
 */
 
-import siteSettings from "./siteSettings";
+import globalSiteSettings from "./siteSettings/globalSiteSettings";
+import appearance from "./siteSettings/appearance";
+import mainMenu from "./siteSettings/mainMenu";
 
 import blockContent from "./blockContent";
-import pet from './pet'
 import post from './post'
 import author from './author'
 import quotes from './quotes'
@@ -39,12 +40,14 @@ import category from "./category"
 
 export const schemaTypes = [
   // Site Settings
-  siteSettings,
+  globalSiteSettings,
+  appearance,
+  mainMenu,
   // Mediathek
   videoMediathek,
   uploadedVideo,
   // Custom Types 
-  pet, post, pageType, author, quotes, recruiting,
+  post, pageType, author, quotes, recruiting,
   // Page Sections
   blockContent, 
   heroType,

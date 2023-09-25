@@ -67,6 +67,8 @@ export default defineConfig({
     }), 
 
     visionTool(), 
+    
+    /*
     internationalizedArray({
       languages: [
         {id: 'de', title: 'Deutsch'},
@@ -106,6 +108,7 @@ export default defineConfig({
       // ],
 
     }),
+    */
     ...(isDev ? devOnlyPlugins : [])
   ],
 

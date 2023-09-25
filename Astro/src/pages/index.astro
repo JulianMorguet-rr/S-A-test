@@ -9,7 +9,7 @@ import JobList from '../components/personio/JobList.vue';
 import AstroJobs from '../components/personio/astroJobs.astro';
 
 // import { getFirstBlogPost, getSiteSettings } from '../lib/sanityApi.js';
-import { getFirstBlogPost, getSiteSettings } from '../lib/sanityApi.js';
+import { getFirstBlogPost, getGlobalSiteSettings } from '../lib/sanityApi.js';
 import { getHomePage, getPages, getRecruitingData } from '../lib/sanityApi.js';
 
 // URL builder
@@ -18,7 +18,7 @@ import { urlFor } from '../lib/sanityApi.js';
 const firstPost = await getFirstBlogPost();
 const firstPostJSON = JSON.stringify(firstPost);
 
-const siteSettings = await getSiteSettings();
+const siteSettings = await getGlobalSiteSettings();
 const siteSettingsJSON = JSON.stringify(siteSettings);
 
 const homePage = await getHomePage();

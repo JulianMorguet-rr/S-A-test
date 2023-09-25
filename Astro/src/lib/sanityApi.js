@@ -26,18 +26,32 @@ export async function getFirstBlogPost() {
 // https://tz4j4rda.api.sanity.io/v2021-06-07/data/query/production?query=*[1] 
 // Dabei ist 0 für "Pages" und 1 für "Posts" (siehe Sanity Studio)
 
-export async function getSiteSettings() {
-  const query = groq`*[_type == "siteSettings"][0]{
+export async function getGlobalSiteSettings() {
+  const query = groq`*[_type == "globalSiteSettings"][0]{
     ..., 
-    'mainNav': mainNav[]->{
-      title,
-      slug,
-    },
-  }`; // siteSettings is the name of the schema from '/scr/structure/index.js'
+  }`; // globalSiteSettings is the name of the schema from '/scr/structure/index.js'
   const siteSettings = await useSanityClient().fetch(query);
-  // console.log('siteSettings: ', siteSettings);
   return siteSettings;
 }
+
+export async function getAppearance() {
+  const query = groq`*[_type == "appearance"][0]{
+    ..., 
+  }`; // appearance is the name of the schema from '/scr/structure/index.js'
+  const siteSettings = await useSanityClient().fetch(query);
+  return siteSettings;
+}
+
+export async function getMainMenu() {
+  const query = groq`*[_type == "mainMenu"][0]{
+    ..., 
+    mainNav[]->,
+  }`; // globalSiteSettings is the name of the schema from '/scr/structure/index.js'
+  const siteSettings = await useSanityClient().fetch(query);
+  return siteSettings;
+}
+
+
 
 export async function getHomePage() {
   const query = groq`*[_type == "page" && slug == "/"][0]{
