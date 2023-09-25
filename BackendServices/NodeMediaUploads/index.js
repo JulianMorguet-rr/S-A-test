@@ -127,53 +127,30 @@ app.post('/video-api/save-video', upload.single('video'), async (req, res) => {
               timestamps: ['1'], // Hier den Zeitpunkt in Sekunden angeben, an dem das Thumbnail erstellt werden soll
             })
             .on('end', async () => {
+
+                // Hier kannst du das PNG-Thumbnail in WebP konvertieren und speichern
+                const thumbnailPathWebP = `${videoPath.substring(0, videoPath.lastIndexOf('.'))}-thumbnail.webp`;
+                try {
+                    await sharp(thumbnailPath)
+                    .webp() // Konvertiere das PNG in WebP
+                    .toFile(thumbnailPathWebP); // Speichere es als WebP
+
+                    // Lösche das temporäre PNG-Thumbnail
+                    fs.unlinkSync(thumbnailPath);
+
+                } catch (error) {
+                    console.error('Error converting thumbnail to WebP:', error);
+                    reject(error);
+                }
+
                 // Speichere die Video-Metadaten in Sanity
                 // Führe den API-Aufruf zum Speichern in Sanity durch
                 try {
                     // await client.create({ _type: 'uploadedVideo', ...videoData });
                     // console.log('Video data saved in Sanity:', videoData);
 
-                    const datasetName = 'production'
-
                     let mp4Path = videoPath
                     let webmPath = videoPath.replace(/\.mp4$/, ".webm");
-
-                    /*
-                    const mutations = {
-                        "mutations": [
-                            {
-                                "create": {
-                                    // "_id": "", // Replace with the desired document ID
-                                    "_type": "uploadedVideo", // Replace with the desired document type
-                                    "name": name, // Replace with the desired field values
-                                    "description": description, // Replace with the desired field values
-                                    "mp4Path": videoPath, // Replace with the desired field values
-                                    "mp4Path": mp4Path, // Replace with the desired field values
-                                    "webmPath": webmPath, // Replace with the desired field values
-                                    "thumbnailPath": `http://localhost:2001/get-videos${thumbnailPath}`, // Replace with the desired field values
-                                    "webmConversionStatus": "pending" // Replace with the desired field values
-                                    // Add other fields here
-                                }
-                            }
-                        ]
-                    }
-
-                    // const response = await axios(options);
-                    // console.log('Sanity API response:', response.data);
-                    fetch(`https://${projectId}.api.sanity.io/v2021-03-25/data/mutate/production`, {
-                        method: 'post',
-                        headers: {
-                            'Content-type': 'application/json',
-                            Authorization: `Bearer ${sanityToken}`
-                        },
-                        body: JSON.stringify(mutations)
-                    })
-                    .then(response => response.json())
-                    .then(result => console.log('Save Sanity result:', result))
-                    .catch(error => console.error('Save Sanity results', error))
-
-                    */
-
 
                     // Hier wird das Video in Sanity gespeichert
                     const doc = {
@@ -199,7 +176,10 @@ app.post('/video-api/save-video', upload.single('video'), async (req, res) => {
                     reject(error);
                 }
             })
-            .on('error', reject);
+            .on('error', (error) => {
+                console.error('Error creating PNG thumbnail:', error); // Fehler beim Erstellen des PNG-Thumbnails
+                reject(error); // Hier wird der Fehler behandelt und an die Aufrufstelle weitergegeben
+            });
         });
 
     // Konvertiere das Video in das WebM-Format

@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import sanity from "astro-sanity";
+
 import vue from "@astrojs/vue";
+
 import node from "@astrojs/node";
 
 import tailwind from "@astrojs/tailwind";
@@ -16,5 +18,9 @@ export default defineConfig({
   }), vue(), tailwind()],
   adapter: node({
     mode: "standalone"
-  })
+  }),
+  images: {
+    domains: ['cdn.sanity.io', 'geschmaecker-sind-verschieden.com/'],
+    remotePatterns: [{protocol: 'https'}]
+  },
 });

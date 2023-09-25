@@ -10,6 +10,7 @@ import { structure  } from './src/structure/index.js'
 import {documentInternationalization} from '@sanity/document-internationalization'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
 import category from './schemas/category'
+import { colorInput } from '@sanity/color-input'
 
 const devOnlyPlugins = [getStartedPlugin()]
 
@@ -22,6 +23,8 @@ export default defineConfig({
 
   plugins: [
     
+    colorInput(),
+
     // deskTool({
     //   // name: 'siteSettings',
     //   // title: 'Site Settings',

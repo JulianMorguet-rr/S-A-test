@@ -42,6 +42,24 @@ export const structure = (S, context) => (
                             .title('Alle Seiten') 
                     ),
 
+                // Import "post" Type
+                S.listItem()
+                .title('Beiträge')
+                .child(
+                    // List out all categories
+                    S.documentTypeList('post')
+                        .title('Alle Beiträge') 
+                ),
+
+                // Import "post" Type
+                S.listItem()
+                .title('Zitate')
+                .child(
+                    // List out all categories
+                    S.documentTypeList('quotes')
+                        .title('Alle Zitate') 
+                ),
+
 
                 // Load every Document Type except the ones listed in the array
                 ...S.documentTypeListItems().filter(
@@ -49,6 +67,8 @@ export const structure = (S, context) => (
                     // Everything that doesn't match the conditions shows up in the default apperence
                         ![
                             'page',
+                            'post',
+                            'quotes',
                             'recruiting',
                             'siteSettings',
                             'multistepQuestions',

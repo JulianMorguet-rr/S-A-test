@@ -17,7 +17,7 @@
     "@sanity/block-content-to-html": "^2.0.0",
     "@sanity/client": "^6.1.7",
     "@sanity/image-url": "^1.0.2",
-    "astro": "^3.0.13",
+    "astro": "^3.1.2",
     "astro-sanity": "^1.1.7",
     "express": "^4.18.2",
     "fast-xml-parser": "^4.2.7",

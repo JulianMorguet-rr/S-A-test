@@ -1,6 +1,7 @@
 ---
 
 // Import Components
+import { Image } from "astro:assets";
 import Layout from "../../layouts/Base.astro";
 
 
@@ -22,9 +23,9 @@ const { page } =  Astro.params
     <h2>View Transition Test</h2>
 
     <a href="/viewTransition">
-        <img
-            width="800px"
-            height="auto"
+        <Image
+            width={600}
+            height={400}
             src="../../../public/assets/hero-test.png" alt="Astro Logo" 
             transition:name="testanimation"
             transition:animate="initial"

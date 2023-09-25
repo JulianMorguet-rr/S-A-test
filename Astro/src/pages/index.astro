@@ -3,6 +3,7 @@
 import Header from '../components/header/Header.vue';
 import Layout from '../layouts/Page.astro';
 // import Card from '../components/Card.astro';
+import Hero from '../components/Hero.astro';
 import PageBuilder from '../components/PageBuilder.astro';
 import JobList from '../components/personio/JobList.vue';
 import AstroJobs from '../components/personio/astroJobs.astro';
@@ -75,13 +76,29 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 		</p> -->
 		<!-- <img src={urlFor(firstPost[0].mainImage.asset._ref).width(200).height(200).format('webp').url()} style="border: solid 3px #000;"/> -->
 
-	{homePage.heroImage && 
+
+	<Hero pageContent={homePage} />
+
+	<!--
+	{
+		homePage.heroImage && 
 		<div class="hero-wrapper">
+			{
+				// <p>{JSON.stringify(homePage)}</p>
+				<h1>
+					{ homePage.heading }
+				</h1>
+			}
+
 			{ homePage?.heroBackgroundVideo ? ( 
 				<div class="hero">
-					<video autoplay loop muted playsinline class="hero-background-video">
+					<video autoplay loop muted playsinline class="hero-background-video" aria-details={homePage.heroImageAlt || 'Stimmungs Assets'} >
 						<source src={`https://geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.webmPath}`} type="video/webm">
 						<source src={`https://geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+						<p>
+							Ihr Browser unterstützt kein HTML video. Hier ist ein 
+							<a href={`https://geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
+						</p>
 					</video> 
 				</div>
 				) : (
@@ -91,6 +108,7 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 			}
 		</div>
 	}
+	-->
 
 	<!--
 		<div class="hero-content">

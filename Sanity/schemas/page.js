@@ -6,6 +6,12 @@ export const pageType = defineType({
   title: 'Page',
   fields: [
     defineField({
+      name: 'title', 
+      title: 'Frontend Title',
+      type: 'string'
+    }),
+
+    defineField({
       name: 'heroImage',
       title: 'Hero Image',
       type: 'image',
@@ -21,9 +27,16 @@ export const pageType = defineType({
       to: [{type: 'uploadedVideo' }]
     },
     defineField({
-      name: 'title', 
+      name: 'heroImageAlt',
+      title: 'Alt Text Hero Image',
       type: 'string'
     }),
+    defineField({
+      name: 'heading',
+      title: 'Headline auf Hero',
+      type: 'string'
+    }),
+    
 
     // Page builder
     defineField({
@@ -53,6 +66,10 @@ export const pageType = defineType({
       defineArrayMember({
         name: 'justAnImage',
         type: 'justAnImage',
+      }),
+      defineArrayMember({
+        name: 'quoteCollection',
+        type: 'quoteCollection',
       }),
       // defineArrayMember({
       //   name: 'video',

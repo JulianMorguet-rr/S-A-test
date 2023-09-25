@@ -27,6 +27,11 @@ interface ReferenceToPage {
     }
   }
 
+  interface ReferenceToQuote {
+    _type: 'reference';
+    
+  }
+
 export type ContentItem = 
     |   { _type: 'hero'; 
             heading?: string;
@@ -67,16 +72,23 @@ export type ContentItem =
             image: any; 
             referenceToPage: ReferenceToPage;
         }
+    |   { 
+            _type: 'quoteCollection'; 
+            heading: string; 
+            paragraph: string;
+            quoteArray: ReferenceToQuote[];
+        }
 
 
 
 export interface PageContent {
+    heroImage: string;
+    heroImageAlt: string;
     heroBackgroundVideo: {
         webmPath: string;
         mp4Path: string;
         thumbnail: string;
     }
-    heroImage: string;
-
+    heading: string;
     pageBuilder: ContentItem[];
 }

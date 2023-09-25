@@ -4,16 +4,16 @@
                 X
         </div>
 
-        <div>
+        <!-- <div>
             <p style="color: #fff;" @click="myRef = 'whatever'">{{ myRef }}</p>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const myRef = ref('myRef')
+// const myRef = ref('myRef')
 
 const returnToLastURL = () => {
     console.log('return to last URL')

@@ -18,22 +18,25 @@ import { getSiteSettings } from '../lib/sanityApi.js';
 const siteSettings = await getSiteSettings();
 ---
 
-<!-- transition:animate="none" -->
-<!-- fade({ duration: '1.4s' }) -->
-<html lang="de" transition:animate={"none"}>
+<html lang="de" transition:animate="none" >
+  <!-- transition:animate="none" -->
+  <!-- transition:animate={"none"} -->
+  <!-- fade({ duration: '1.4s' }) -->
   <head>
     <BaseHead {...seo} />
   </head>
-  <body>
+  <body class="bg-white dark:bg-gray-900">
     <!-- <slot name="header" /> -->
-    
+
     <Header siteSettings={siteSettings} slug={page} transition:persist/>
+
     <!-- <AltHeader /> -->
 
     <!-- <div transition:animate="slide"> -->
     <!-- <div transition:animate={fade({ duration: '0.3s' })}> -->
       <slot />
     <!-- </div> -->
+
     <slot name="footer" />
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" /> -->

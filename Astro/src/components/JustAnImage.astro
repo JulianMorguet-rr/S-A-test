@@ -43,6 +43,7 @@ const myFade = {
 
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
+import { Image } from 'astro:assets';
 
 interface ReferenceToPage {
     _type: 'reference';
@@ -74,17 +75,18 @@ const data = Astro.props as Props
 
 <div>
 
-    <h1>Just An Image</h1>
-    <p>{JSON.stringify(data.data.referenceToPage)}</p>
+    <!-- <h1>Just An Image</h1> -->
+    <!-- <p>{JSON.stringify(data.data.referenceToPage)}</p> -->
     <a href={data.data.referenceToPage.slug}>
         <!-- <h2>{data.data.referenceToPage.slug}</h2> -->
-        <img 
-            width={600}
-            height={200}
-            src={urlFor(data.data.referenceToPage.heroImage).width(600).height(200).format('webp').url()} alt={data.data.image.alt}
+        <Image 
+            width={'600'}
+            height={'200'}
+            src={urlFor(data.data.referenceToPage.heroImage).width(600).height(200).format('webp').url()} 
+            alt={'just a test'}
             transition:name={"image-test-1234"}
-            transition:animate={myFade}
         />
+        <!-- alt={data.data.image.alt} -->
     </a>
     <!-- transition:animate="initial" -->
 

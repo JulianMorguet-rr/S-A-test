@@ -6,9 +6,13 @@ const props = defineProps({
 })
 
 import { urlFor } from '../lib/sanityApi.js';
+import { Image } from 'astro:assets';
+// import type { Image } from 'astro:assets';
 
 // Convert blockContent to HTML
 import blocksToHtml from '@sanity/block-content-to-html'
+
+
 // console.log('blocksToHtml: ', blocksToHtml)
 
 const h = blocksToHtml.h
@@ -75,13 +79,19 @@ convertBlockContentToHTML()
         >
             <div class="image-wrapper">
                 <div v-if="data.cta?.ctaReferenz" class="reference-image">
-                    <img 
+                    <Image 
                         :src="urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()"
+                        :alt="data.cta.ctaReferenz.heroImageAlt"
+                        width="1240"
+                        height="640"
                     />
                 </div>
                 <div v-if="!data.cta?.ctaReferenz" class="custom-image">
-                    <img 
+                    <Image 
                         :src="urlFor(data.image).width(1240).height(640).format('webp').url()"
+                        :alt="data.imageAlt"
+                        width="1240"
+                        height="640"
                     />
                 </div>
             </div>
@@ -125,7 +135,12 @@ convertBlockContentToHTML()
                 <p>fullwidth: {{data.fullwidth}}</p> -->
             </div>
             <div class="image-wrapper">
-                <img :src="urlFor(data.image).width(1240).height(640).format('webp').url()"/>
+                <Image 
+                    :src="urlFor(data.image).width(1240).height(640).format('webp').url()"
+                    :alt="data.imageAlt"
+                    width="1240"
+                    height="640"
+                />
             </div>
         </div>
         

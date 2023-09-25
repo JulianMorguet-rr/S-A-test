@@ -3,6 +3,7 @@ import { fade  } from 'astro:transitions';
 import { urlFor } from '../lib/sanityApi.js';
 
 import { PageContent } from '../types/PageContent';
+import { Image } from 'astro:assets';
 
 // Destrukturieren Sie Astro.props in eine andere Variable
 const { pageContent } = Astro.props as { pageContent: PageContent };
@@ -10,7 +11,35 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
 ---
 
 <div class="hero">
-    { 
+
+    <!-- <p>
+        {JSON.stringify(pageContent)}
+    </p> -->
+
+    { pageContent?.heading &&
+        <div class="headline-wrapper mb-4">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
+                <span>{pageContent.heading}</span>
+            </h1>
+        </div>
+    }
+
+    { pageContent?.heroBackgroundVideo ? ( 
+        <div class="inline-video">
+            <video autoplay loop muted playsinline class="hero-background-video" aria-details={pageContent.heroImageAlt || 'Stimmungs Assets'} >
+                <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
+                <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+                <p>
+                    Ihr Browser unterstützt kein HTML video. Hier ist ein 
+                    <a href={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
+                </p>
+            </video> 
+        </div>
+        ) : null 
+    }
+
+    <!--
+    {
         pageContent?.heroBackgroundVideo && ( 
             <div>
                 <video autoplay loop muted playsinline class="hero-background-video">
@@ -20,11 +49,13 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
             </div>
         )
     }
+    -->
     { pageContent?.heroImage &&
-        <img 
+        <Image 
             width="1920"
             height="640"
             src={urlFor(pageContent.heroImage).width(1920).height(640).format('webp').url()} 
+            alt={pageContent.heroImageAlt || "Hero Image"}
             transition:name={"image-test-1234"}
             transition:animate="initial"
         />
@@ -35,6 +66,32 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
 
 <style lang="scss">
     .hero {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+
+
+        .headline-wrapper {
+            z-index: 9;
+            position: absolute;
+            padding: 4rem;
+
+            h1 {
+                margin: auto;
+                width: 100%;
+                text-align: center;
+                font-size: 4rem;
+                font-weight: 800;
+                // margin-top: 30vh;
+                // color: #fb923c;
+                // text-shadow: 0 0 24px rgba(255,255,255,1);
+            }
+        }
+
+        .inline-video {
+            z-index: 6;
+        }
+
         img {
             top: 0;
             left: 0;
@@ -44,6 +101,7 @@ const { pageContent } = Astro.props as { pageContent: PageContent };
             width: 100%;
             height: auto;
         }
+
     }
     
 </style>

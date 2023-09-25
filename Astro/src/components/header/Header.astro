@@ -11,6 +11,7 @@ Hoffentlich hilft dir das weiter!
 
 */ 
 
+import { Image } from 'astro:assets';
 import { urlFor } from '../../lib/sanityApi.js';
 
 interface NavItem {
@@ -59,9 +60,16 @@ computedMainNav()
 <header>
     <div class="inner">
         <a href="/" aria-label="Zurück zur Startseite">
-            <!-- <img src={urlFor(data.siteSettings.siteLogo).format('webp').url()} alt="Logo der Seite"/> -->
-            <?xml version="1.0" encoding="utf-8"?>
-            <svg fill="#000000" height="56px" width="auto" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <!--
+            <Image
+                src={urlFor(data.siteSettings.siteLogo).format('webp').url()} alt="Logo der Seite"
+                alt="Logo der Seite"
+                width={140}
+                height={56}
+            /> 
+            -->
+            
+            <svg fill="#000000" height="56px" width="140" version="1.1" id="header-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
             viewBox="0 0 1102 401" xml:space="preserve">
             <style type="text/css">
                 .st0{fill:#4D4543;}

@@ -9,8 +9,12 @@ import { urlFor } from '../lib/sanityApi.js';
 
 import TextWidthImage from '../components/TextWidthImage.vue';
 import ContactForm from '../components/contactForm/ContactForm.vue';
+// @ts-ignore
 import JustAnImage from './JustAnImage.astro';
 import TextAndImage from './TextAndImage.astro';
+import Quote from './quotes/quote.astro';
+import { Image } from 'astro:assets';
+// import { Image } from 'astro:assets';
 
 
 const nodemailerBaseURL: string = import.meta.env.NODEMAILER_BASE_URL;
@@ -111,7 +115,12 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
                     pageBuilder.images ?
                     pageBuilder.images.map(image => {
                         return <div class="galleryItem">
-                                <img src={urlFor(image).width(roundetImageGalleryWidth).height(300).format('webp').url()} alt={image.alt}/>
+                                <Image 
+                                    width={300}
+                                    height={300}
+                                    src={urlFor(image).width(roundetImageGalleryWidth).height(300).format('webp').url()} 
+                                    alt={image.alt || 'alt text missing'}
+                                />
                             </div>
                     }) : null
                 }
@@ -131,6 +140,35 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         <div class="z-front">
             <JustAnImage data={pageBuilder}/>
         </div>
+    }
+
+
+    {pageBuilder._type === 'quoteCollection' &&
+        <section class="bg-white dark:bg-gray-900">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+                {/* <h2>{JSON.stringify(pageBuilder)}</h2> */}
+                
+                <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                        {pageBuilder.heading}    
+                    </h2>
+                    <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+                        {pageBuilder.paragraph}
+                    </p>
+                </div>
+
+                <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+                    {   
+                        pageBuilder.quoteArray.map(ref => {
+                            return (
+                                <Quote reference={ref} />
+                            )
+                        })
+                    }
+
+                </div>
+            </div>
+        </section>
     }
 
     

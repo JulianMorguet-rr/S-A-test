@@ -6,6 +6,14 @@ import VideoWithControlsNav from '../../components/media/VideoWithControlsNav.vu
 
 // Import API functions
 import { getSingleVideo } from '../../lib/sanityApi.js';
+// import VideoPersist from "../../components/media/VideoPersist.astro";
+
+// "getStaticPaths()" is only required for SSG pages
+export async function getStaticPaths() {
+    return [
+        { params: { page: 'testpage' }, props: { /* optional */ } },
+    ]
+}
 
 const { video } =  Astro.params
 
@@ -23,11 +31,12 @@ const videoData = await getSingleVideo(`${video}`);
 
             <VideoWithControlsNav client:load />
 
-            <VideoWithControls videoData={videoData} transition:name={`video-${videoData._id}`} />
+            <VideoWithControls videoData={videoData} id={video} transition:name={`video-${videoData._id}`} client:load /> 
+            <!-- <VideoPersist/> -->
 
-            <p class="text-white">{JSON.stringify(videoData)}</p>
+            <!-- <p class="text-white">{JSON.stringify(videoData)}</p>
 
-            <h2 class="text-white" transition:name="title">Video Section</h2>
+            <h2 class="text-white" transition:name="title">Video Section</h2> -->
 
         </main>
     </div>

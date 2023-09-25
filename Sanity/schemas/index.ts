@@ -12,6 +12,7 @@ import blockContent from "./blockContent";
 import pet from './pet'
 import post from './post'
 import author from './author'
+import quotes from './quotes'
 import recruiting from './recruiting'
 import {pageType} from './page'
 
@@ -20,6 +21,7 @@ import {heroType} from './heroType'
 import {textWithIllustrationType} from  './textWithIllustrationType'
 import {imageGalleryType} from  './imageGallerieType'
 import {form} from  './formType'
+import {quoteType} from './quoteType'
 
 // Mediathek
 import videoMediathek from "./videoMediathek";
@@ -42,7 +44,7 @@ export const schemaTypes = [
   videoMediathek,
   uploadedVideo,
   // Custom Types 
-  pet, post, pageType, author, recruiting,
+  pet, post, pageType, author, quotes, recruiting,
   // Page Sections
   blockContent, 
   heroType,
@@ -50,6 +52,7 @@ export const schemaTypes = [
   imageGalleryType,
   form,
   justAnImage,
+  quoteType,
   // Multistep Form 
   // multistep,
   multistepQuestions,

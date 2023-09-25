@@ -54,6 +54,7 @@ export async function getHomePage() {
         ctaReferenz->,
       }, 
       referenceToPage->,
+      quoteArray[]->,
     }
   }`; // "page" is the name of the schema from '/scr/structure/index.js'
   const page = await useSanityClient().fetch(query);

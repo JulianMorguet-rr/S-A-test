@@ -26,7 +26,18 @@ const description = Astro.props.description || siteSettings.description;
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-<!-- Primary Meta Tags -->
+<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.sanity.io/; style-src 'self' 'unsafe-inline'"> -->
+<meta http-equiv="Content-Security-Policy" 
+	content="
+		default-src 'self' https://cdn.sanity.io/; 
+		style-src 'self' 'unsafe-inline'; 
+		media-src 'self' https://geschmaecker-sind-verschieden.com/;
+		img-src 'self' https://cdn.sanity.io/ https://geschmaecker-sind-verschieden.com/;
+		script-src 'self' https://cdn.sanity.io/ 'unsafe-inline'
+	">
+
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
 <title>{title || siteSettings.title}</title>
 <meta name="title" content={title || siteSettings.title} />
 <meta name="description" content={description || siteSettings.description} />
@@ -41,18 +52,18 @@ const description = Astro.props.description || siteSettings.description;
 <!-- <meta property="og:type" content="website" /> -->
 <!-- <meta property="og:url" content={canonicalURL} /> -->
 
-<!-- funktionierte
+<!-- funktionierte -->
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
--->
+
 
 <!-- <meta property="og:image" content={image} /> -->
 
 <!-- Twitter -->
 <!-- <meta property="twitter:url" content={canonicalURL} /> -->
-<!-- funktionierte
+<!-- funktionierte -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
--->
+
 <!-- <meta property="twitter:image" content={image} /> -->

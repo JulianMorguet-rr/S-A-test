@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "@sanity/client": "^6.4.9",
+    "@sanity/color-input": "^3.1.0",
     "@sanity/document-internationalization": "^2.0.1",
     "@sanity/icons": "^2.1.0",
     "@sanity/ui": "^1.2.0",

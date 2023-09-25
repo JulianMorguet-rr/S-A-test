@@ -11,13 +11,14 @@ import VideoLightbox from '../components/media/VideoLightbox.vue';
 
 // Import Composables 
 import { convertBlockContentToHTML } from '../composables/blockContentToHTML';
+// import VideoPersist from './media/VideoPersist.astro';
+import { Image } from 'astro:assets';
 
 const { data } = Astro.props // as { pageBuilder: ContentItem };
 
 const content = convertBlockContentToHTML(data.blockContent);
 
 // const content = marked.parse(data.blockContent);
-const test = 10;
 
 
 // let browserName = "";
@@ -59,24 +60,41 @@ const test = 10;
             { 
                 data.cta?.ctaReferenz?.heroImage ? 
                     <>
-                        <img class="w-full dark:hidden" src={urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()} alt="dashboard image">
-                        <img class="w-full hidden dark:block" src={urlFor(data.cta.ctaReferenz.heroImage).width(1240).height(640).format('webp').url()} alt="dashboard image">
+                        <Image 
+                            width={1600}
+                            height={900}
+                            class="w-full" 
+                            src={urlFor(data.cta.ctaReferenz.heroImage).width(1600).height(900).format('webp').url()} 
+                            alt="dashboard image"
+                        />
                     </>
                 : data.media?.image ? 
                     <>
-                        <img class="w-full dark:hidden" src={urlFor(data.media.image).width(1240).height(640).format('webp').url()} alt="dashboard image" />
-                        <img class="w-full hidden dark:block" src={urlFor(data.media.image).width(1240).height(640).format('webp').url()} alt="dashboard image" />
+                        <Image 
+                            width={1600}
+                            height={900}
+                            class="w-full" 
+                            src={urlFor(data.media.image).width(1600).height(900).format('webp').url()} 
+                            alt="dashboard image" 
+                        />
                     </>
                 : data.media?.video ? 
                     <>
-                        <!--
+                        {/*
                             <video controls muted playsinline class="hero-background-video">
                                 <source src={`https://geschmaecker-sind-verschieden.com/video-api/${data.media.video.webmPath}`} type="video/webm">
                                 <source src={`https://geschmaecker-sind-verschieden.com/video-api/${data.media.video.mp4Path}`} type="video/mp4">
                             </video> 
-                        -->
-                        <!-- <h2>{JSON.stringify(data.media.video)}</h2> -->
+                         */}
+                        {/* <h2>{JSON.stringify(data.media.video)}</h2> */}
+
                         <VideoLightbox media={data.media} client:load transition:name={`video-${data.media.video._id}`}/>
+
+                        {/*
+                        <a class="base-shadow" aria-label="Sehen Sie sich das Video an" href={`/video/${data.media.video._id}`}>
+                            <VideoPersist />
+                        </a>
+                         */}
                     </>
                 : null
             }
@@ -84,14 +102,14 @@ const test = 10;
 
             <div class="mt-4 md:mt-0">
                 { data.tagline &&
-                    <h3 class="mb-4 dark:text-white">
+                    <h2 class="mb-4 dark:text-white">
                         {data.tagline}
-                    </h3>
+                    </h2>
                 }
                 { data.heading &&
-                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    <h3 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
                         {data.heading}
-                    </h2>
+                    </h3>
                 }
 
                 { content &&
