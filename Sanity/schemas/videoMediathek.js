@@ -17,15 +17,6 @@ export default {
     //     type: 'text',
     //   },
       {
-        name: 'videoGallery',
-        title: 'Video Gallery',
-        type: 'string',
-        description: 'jsx Video Gallery (real component)',
-        components: {
-          input: VideoGallery
-        }
-      },
-      {
         name: 'videoUploader',
         title: 'Video Uploader',
         type: 'string',
@@ -34,6 +25,16 @@ export default {
           input: VideoUploader
         }
       },
+      {
+        name: 'videoGallery',
+        title: 'Video Gallery',
+        type: 'string',
+        description: 'jsx Video Gallery (real component)',
+        components: {
+          input: VideoGallery
+        }
+      },
+      
     //   {
     //     name: 'video',
     //     title: 'Video',

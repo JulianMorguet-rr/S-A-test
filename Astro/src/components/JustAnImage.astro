@@ -84,8 +84,9 @@ const data = Astro.props as Props
             height={'200'}
             src={urlFor(data.data.referenceToPage.heroImage).width(600).height(200).format('webp').url()} 
             alt={'just a test'}
-            transition:name={`hero-image-${data.data.referenceToPage.slug}`}
         />
+        <!-- transition:name={`hero-image-${data.data.referenceToPage.slug}`} -->
+        
         <!-- alt={data.data.image.alt} -->
     </a>
     <!-- transition:animate="initial" -->

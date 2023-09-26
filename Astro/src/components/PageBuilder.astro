@@ -11,6 +11,7 @@ import TextWidthImage from '../components/TextWidthImage.vue';
 import ContactForm from '../components/contactForm/ContactForm.vue';
 // @ts-ignore
 import JustAnImage from './JustAnImage.astro';
+import TextSection from './TextSection.astro';
 import TextAndImage from './TextAndImage.astro';
 // @ts-ignore
 import Quote from './quotes/Quote.astro';
@@ -27,53 +28,6 @@ console.log('nodemailerContactFormPath: ', nodemailerContactFormPath)
 // Calc ImageGallerie width
 let imageGalleryWidth = 1092 / 3 - 15;
 let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
-
-
-// Convert blockContent to HTML
-// import { blocksToHtml }  from '@sanity/block-content-to-html'
-// console.log('blocksToHtml: ', blocksToHtml)
-
-// const h = blocksToHtml.h
-
-// const serializers = {
-//   types: {
-//     code: props => (
-//       h('pre', {className: props.node.language},
-//         h('code', props.node.code)
-//       )
-//     )
-//   }
-// }
-
-// let blockContentHTML = blocksToHtml({
-//     blocks: data.pageContent.blockContent,
-//     serializers: serializers
-// })
-
-// console.log('blockContentHTML: ', blockContentHTML)
-
-// Intersection Observer API
-// better place in component? 
-// (function (document) {
-//   const markers = [...document.querySelectorAll('mark')];
-  
-//   const observer = new IntersectionObserver(entries => {
-//     entries.forEach((entry) => {
-//       if (entry.intersectionRatio > 0) {
-//         entry.target.style.animationPlayState = 'running';
-//         observer.unobserve(entry.target);
-//       }
-//     });
-//   }, {
-//     threshold: 0.8
-//   });
-  
-//   markers.forEach(mark => {
-//     observer.observe(mark);
-//   });
-// })(document);
-
-
 
 ---
 
@@ -99,6 +53,12 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     }
     -->
     
+
+    {pageBuilder._type === 'textSection' &&  
+        <TextSection 
+            data={pageBuilder}
+        />
+    }
 
     {pageBuilder._type === 'textWithIllustration' &&  
         <TextAndImage 
@@ -138,9 +98,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 
 
     {pageBuilder._type === 'justAnImage' && 
-        <div class="z-front">
-            <JustAnImage data={pageBuilder}/>
-        </div>
+        <JustAnImage data={pageBuilder}/>
     }
 
 
@@ -150,10 +108,10 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
                 {/* <h2>{JSON.stringify(pageBuilder)}</h2> */}
                 
                 <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
                         {pageBuilder.heading}    
                     </h2>
-                    <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+                    <p class="section-block-content mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
                         {pageBuilder.paragraph}
                     </p>
                 </div>
@@ -171,39 +129,6 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
             </div>
         </section>
     }
-
-    
-
-
-    <!-- && form == 'newsletter' -->
-
-    <script>
-        // let contentWidth = document.querySelector('main').style.width
-        // console.log(contentWidth)
-
-
-        // Observer 
-        const myMarkers = [...document.querySelectorAll('mark')];
-        console.log('/// OBSERVER ///')
-        
-        const intersectionObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                // if (entry.intersectionRatio > 0) {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                    intersectionObserver.unobserve(entry.target);
-                }
-                console.log(entry)
-            });
-        }, {
-            threshold: 0.8
-        });
-
-        // intersectionObserver.observe(myMarkers[0]);
-        myMarkers.forEach(mark => {
-            intersectionObserver.observe(mark);
-        });
-    </script>
 
 </section>
 

@@ -16,11 +16,12 @@ export default defineConfig({
     apiVersion: "v2021-03-25",
     useCdn: true
   }), vue(), tailwind()],
+  // images: {
+  //   domains: ['cdn.sanity.io', 'geschmaecker-sind-verschieden.com/'],
+  //   remotePatterns: [{protocol: 'https'}]
+  // },
   adapter: node({
     mode: "standalone"
   }),
-  images: {
-    domains: ['cdn.sanity.io', 'geschmaecker-sind-verschieden.com/'],
-    remotePatterns: [{protocol: 'https'}]
-  },
+  
 });

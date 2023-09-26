@@ -23,7 +23,7 @@ const mainMenu = await getMainMenu();
 
 ---
 
-<html lang="de" transition:animate="none" >
+<html lang="de"  >
   <!-- transition:animate="none" -->
   <!-- transition:animate={"none"} -->
   <!-- fade({ duration: '1.4s' }) -->
@@ -31,22 +31,53 @@ const mainMenu = await getMainMenu();
     <BaseHead globalSiteSettings={globalSiteSettings} {...seo} />
   </head>
   <body class="bg-white dark:bg-gray-900">
-    <!-- <slot name="header" /> -->
 
+    <!-- <slot name="header" /> -->
     <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu} transition:persist/>
 
-    <!-- <AltHeader /> -->
-
-    <!-- <div transition:animate="slide"> -->
-    <!-- <div transition:animate={fade({ duration: '0.3s' })}> -->
+    <div>
       <slot />
-    <!-- </div> -->
-
+    </div>
 
     <Footer globalSiteSettings={globalSiteSettings} mainMenu={mainMenu} slug={page} />
 
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" /> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script> -->
+    
+    <script>
+      console.log('das Script ist da!')
+  
+      // Observer 
+      function initObserver() {
+        console.log('OBSERVER STARTED!!!')
+        
+        const sections = [...document.querySelectorAll('section')];
+        
+        const intersectionObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            // if (entry.intersectionRatio > 0) {
+            if (entry.isIntersecting) {
+              // entry.target.style.animationPlayState = 'running';
+              entry.target.classList.add('observer-detected');
+              intersectionObserver.unobserve(entry.target);
+            }
+            console.log(entry)
+          });
+        }, {
+          threshold: 0.2
+        });
+    
+        sections.forEach(section => {
+          intersectionObserver.observe(section);
+        });
+      }
+
+      // document.addEventListener('astro:load', initObserver);
+      // window.addEventListener('astro:page-load', initObserver);
+      document.addEventListener('astro:page-load', initObserver);
+    </script>
+   
+
+    <!-- <script src="../scripts/intersectionObserver.js" astro:load="true"></script> -->
+    
   </body>
 </html>
 
@@ -56,3 +87,4 @@ const mainMenu = await getMainMenu();
   z-index: 999;
 }
 </style>
+

@@ -86,7 +86,7 @@ header {
             gap: 2rem;
 
             a {
-                color: #272727;
+                
                 &.active {
                     text-decoration: underline;
                 }

@@ -14,17 +14,28 @@ export function VideoGallery() {
     const [referenceData, setReferenceData] = useState([]);
 
     useEffect(() => {
-        const getReferences = () => {
-          const query = '*[_type == "multistepQuestions"]';
-          client.fetch(query).then(data => {
-            setReferenceData(data); // Aktualisierung des Zustands mit den Daten
-          }).catch(error => {
-            console.error('Fehler beim Laden der Daten:', error);
+      const getReferences = () => {
+        const query = `*[_type == "uploadedVideo"]{
+          ...,
+        }`;
+        client.fetch(query).then(data => {
+          // sort data by date
+          let sortedData = data.sort((a, b) => {
+            const dateA = new Date(a._createdAt);
+            const dateB = new Date(b._createdAt);
+            return dateB - dateA; // Sortiere absteigend nach Datum
           });
-        };
+          console.log('sortedData: ', sortedData.map((d, index) => (d._createdAt)))
+          setReferenceData(sortedData); // update state with sorted data
+        }).catch(error => {
+          console.error('Fehler beim Laden der Daten:', error);
+        });
+      };
     
-        getReferences();
+      getReferences();
     }, []);
+
+
 
 
 
@@ -71,7 +82,7 @@ export function VideoGallery() {
     return (
         <>
             <div className="video-gallery">
-                    <h1>Video Gallery</h1>
+                    <h1>Video Gallery!</h1>
 
                     {/* { 
                         referenceData.map((ref, index) => (
@@ -81,14 +92,15 @@ export function VideoGallery() {
 
                     <div className="video-grid">
                     
-                    {videos.map((video, index) => (
+                    {referenceData.map((video, index) => (
                         <div key={index} className="video-item">
-                        <h2>{video.title}</h2>
+                        {/* <h2>{video.title}</h2> */}
                         <h2>{video.name}</h2>
                         <p>{video.description}</p>
+                        {/* <p>{JSON.stringify(video)}</p> */}
                         <div className="video-thumbnail" onClick={() => openVideoLightbox(video.path)}>
                             <video controls>
-                            <source src={`http://localhost:2001/${video.path}`} type="video/mp4" />
+                            <source src={`https://geschmaecker-sind-verschieden.com/video-api/${video.webmPath}`} type="video/mp4" />
                             Your browser does not support the video tag.
                             </video>
                         </div>

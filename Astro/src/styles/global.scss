@@ -34,7 +34,6 @@ body {
 h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    color: #272727;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -91,7 +90,7 @@ header {
             gap: 2rem;
 
             a {
-                color: #272727;
+                
                 &.active {
                     text-decoration: underline;
                 }
@@ -148,7 +147,7 @@ h1 {
     }
     div, img {
         flex: 1 1 0;
-        width: 100%;
+        // width: 100%;
     }
     
     // > div:last-child {
@@ -163,7 +162,7 @@ h1 {
 
 
 .text-content {
-    color: #272727;
+    
 
     h2 {
         font-size: 2.5rem;
@@ -189,40 +188,6 @@ h1 {
 }
 
 
-// IntersectionObserver style
-mark {
-    --color1: #e5d75a;
-    --color2: #e5d75a;
-    --bg-height: 40%;
-        
-    all: unset;
-    background-image: linear-gradient(var(--color1), var(--color2));
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0 var(--bg-height);
-    animation: highlight 800ms 240ms ease-out;
-    animation-fill-mode: forwards;
-    animation-play-state: paused;
-}
-
-
-mark.highlight {
-    color: #fff !important;
-
-    --color1: #272727;
-    --color2: #047484;
-    --bg-height: 180%;
-        
-    all: unset;
-    background-image: linear-gradient(to right, var(--color1), var(--color2));
-    background-size: 100% var(--bg-height);
-}
-
-@keyframes highlight {
-    to {
-        background-size: 100% var(--bg-height);
-    }
-}
 
 
 /* Components */
@@ -293,6 +258,20 @@ overflow: hidden;
   object-fit: cover;
 }
 
+
+
+:root {
+    --accent: 124, 58, 237;
+    --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+}
+html {
+    font-family: system-ui, sans-serif;
+    background-color: #F6F6F6;
+}
+code {
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
 
 .instructions {
 line-height: 1.6;

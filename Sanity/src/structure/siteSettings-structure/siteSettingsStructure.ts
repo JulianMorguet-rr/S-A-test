@@ -55,7 +55,7 @@ export default function parentChild(
                 S.divider(),
 
                 S.listItem()
-                    .title('appearance')
+                    .title('Appearance')
                     .icon(PlayIcon)
                     .child(
 
@@ -70,7 +70,7 @@ export default function parentChild(
                 S.divider(),
 
                 S.listItem()
-                    .title('mainMenu')
+                    .title('Menus')
                     .icon(PlayIcon)
                     .child(
 

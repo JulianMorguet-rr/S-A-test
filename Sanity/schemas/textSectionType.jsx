@@ -23,10 +23,10 @@ const MarkDecorator = props => (
  * End of customization
  */
 
-export const textWithIllustrationType = defineType({
-  name: 'textWithIllustration',
+export const textSectionType = defineType({
+  name: 'textSection',
   type: 'object',
-  title: 'Text with Illustration',
+  title: 'Text Section',
   icon: DocumentTextIcon,
   fields: [
     defineField({
@@ -66,37 +66,6 @@ export const textWithIllustrationType = defineType({
       ]
     }),
     defineField({
-      name: 'media',
-      title: 'Attach media',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'isVideo',
-          title: 'Attach Video instead of image',
-          type: 'boolean',
-        }),
-        defineField({
-          name: 'image',
-          type: 'image',
-          options: {hotspot: true},
-          hidden: ({parent, value}) => !parent?.isVideo !== true,
-          fields: [
-            defineField({
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-            }),
-          ],
-        }),
-        defineField({
-          name: 'video',
-          type: 'reference',
-          to: [{type: 'uploadedVideo'}],
-          hidden: ({parent, value}) => !parent?.isVideo !== false,
-        }),
-      ],
-    }),
-    defineField({
       name: 'cta',
       title: 'Call to action',
       type: 'object',
@@ -129,10 +98,33 @@ export const textWithIllustrationType = defineType({
         }),
       ],
     }),
+    
     defineField({
-      name: 'switchImageToRightSide',
-      title: 'Switch image to right side',
+      name: 'isCentered',
+      title: 'Centered Content?',
       type: 'boolean',
+    }),
+    defineField({
+      name: 'maxWidth',
+      title: 'Max Width',
+      type: 'string',
+      initialValue: 'full',
+      options: {
+        list: [
+          { 
+            title: "full", 
+            value: "full" 
+          },
+          { 
+            title: "medium", 
+            value: "medium" 
+          },
+          { 
+            title: "small", 
+            value: "small" 
+          },
+        ],
+      },
     }),
     defineField({
       name: 'sectionType',
@@ -159,12 +151,12 @@ export const textWithIllustrationType = defineType({
   preview: {
     select: {
       title: 'heading',
-      image: 'media.image' || 'media.video',
+      image: 'media.image'
     },
     prepare({title, image}) {
       return {
         title: title || 'Untitled',
-        subtitle: 'Text width Media',
+        subtitle: 'Text Section',
         media: image || DocumentTextIcon,
       }
     },

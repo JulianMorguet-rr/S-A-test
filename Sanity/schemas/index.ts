@@ -20,6 +20,7 @@ import {pageType} from './page'
 // Page Sections 
 import {heroType} from './heroType'
 import {textWithIllustrationType} from  './textWithIllustrationType'
+import {textSectionType} from  './textSectionType'
 import {imageGalleryType} from  './imageGallerieType'
 import {form} from  './formType'
 import {quoteType} from './quoteType'
@@ -51,6 +52,7 @@ export const schemaTypes = [
   // Page Sections
   blockContent, 
   heroType,
+  textSectionType,
   textWithIllustrationType,
   imageGalleryType,
   form,

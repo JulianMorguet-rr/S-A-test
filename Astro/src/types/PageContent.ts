@@ -63,7 +63,12 @@ export type ContentItem =
             heading: string; 
             text: string; 
             image: any; 
-            switchImageToRightSide: boolean 
+            sectionType: 'standard' | 'fullwidthBackground' | 'fullwidthContent' 
+        }
+    |   { _type: 'textSection'; 
+            heading: string; 
+            text: string; 
+            sectionType: 'standard' | 'fullwidthBackground' | 'fullwidthContent' 
         }
     |   { 
             _type: 'justAnImage'; 

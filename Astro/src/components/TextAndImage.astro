@@ -58,7 +58,7 @@ const content = convertBlockContentToHTML(data.blockContent);
     <div class={`inner-wrapper`}>
         
         <div class={`gap-8 items-center py-8 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 switch-sides-${data.switchImageToRightSide}`}>
-            <div class="image-edge-grid__img">
+            <div class="section-asset image-edge-grid__img">
             { 
                 data.cta?.ctaReferenz?.heroImage ? 
                     <CustomImage 
@@ -66,7 +66,7 @@ const content = convertBlockContentToHTML(data.blockContent);
                         altText="dashboard image"
                         width={1600}
                         height={900}
-                        rounded={true}
+                        rounded={false}
                         class="w-full"
                     />
                 : data.media?.image ? 
@@ -75,7 +75,7 @@ const content = convertBlockContentToHTML(data.blockContent);
                             altText="dashboard image"
                             width={1600}
                             height={900}
-                            rounded={true}
+                            rounded={false}
                             class="w-full"
                         />
                 : data.media?.video ? 
@@ -102,22 +102,22 @@ const content = convertBlockContentToHTML(data.blockContent);
 
             <div class="mt-4 md:mt-0">
                 { data.tagline &&
-                    <h2 class="mb-4 dark:text-white">
+                    <h2 class="section-tagline mb-4 dark:text-white">
                         {data.tagline}
                     </h2>
                 }
                 { data.heading &&
-                    <h3 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    <h3 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
                         {data.heading}
                     </h3>
                 }
 
                 { content &&
-                    <div class="mb-6 font-light text-gray-500 md:text-lg dark:text-white" set:html={content}></div>
+                    <div class="section-block-content mb-6 font-light text-gray-500 md:text-lg dark:text-white" set:html={content}></div>
                 }
 
                 { data.cta?.ctaReferenz?.slug &&
-                    <a href={`/page${data.cta.ctaReferenz.slug}`} class="inline-flex items-center mt-6 text-white bg-orange-400 hover:bg-slate-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                    <a href={`/page${data.cta.ctaReferenz.slug}`} class="section-cta inline-flex items-center mt-6 text-white bg-orange-400 hover:bg-slate-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
                     {data.cta.ctaText}
                     <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -130,6 +130,9 @@ const content = convertBlockContentToHTML(data.blockContent);
 
     </div>
 </div>
+
+
+
 
 
 <style lang="scss">

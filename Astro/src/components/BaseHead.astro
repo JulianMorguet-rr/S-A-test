@@ -1,6 +1,7 @@
 ---
 import '../styles/reset.css';
 import '../styles/global.scss';
+import '../styles/transitions.scss';
 
 import { ViewTransitions } from 'astro:transitions';
 import { NoClientOnlyHint } from 'astro/dist/core/errors/errors-data';
@@ -16,11 +17,9 @@ export interface Props {
 	globalSiteSettings?: any
 }
 
-
-
-
 const title = Astro.props.title || 'siteSettings.title';
 const description = Astro.props.description || 'siteSettings.description';
+
 // console.log('title', title);
 // console.log('description', description);
 // const canonicalURL = Astro.props.canonicalURL || siteSettings.url;
@@ -76,3 +75,4 @@ const description = Astro.props.description || 'siteSettings.description';
 <meta property="twitter:description" content={description} />
 
 <!-- <meta property="twitter:image" content={image} /> -->
+

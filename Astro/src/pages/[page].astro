@@ -31,23 +31,21 @@ const pageContent: PageContent = await getCurrentPage(`/${page}`);
 
 <Layout>
     
-    <Hero pageContent={pageContent} />
+    <div>
+        <Hero pageContent={pageContent} />
 
-    
-    <main>
-        <h2>Page ohne unterverzeichnis</h2>
-        
-        { pageContent &&
-            pageContent?.pageBuilder.map(pageBuilder => (
-                // pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br><br>
-                <PageBuilder pageBuilder={pageBuilder}/>
-                // <p>{JSON.stringify(pageContent)}</p>
-            ))
-        }
+        <main>            
+            { pageContent &&
+                pageContent?.pageBuilder.map(pageBuilder => (
+                    // pageContent._type === 'hero' && <h3> {JSON.stringify(pageContent)}</h3> <br><br>
+                    <PageBuilder pageBuilder={pageBuilder}/>
+                    // <p>{JSON.stringify(pageContent)}</p>
+                ))
+            }
+        </main> 
+    </div>
 
-	</main> 
 </Layout>
-
 
 <style lang="scss">
     main {

@@ -1,0 +1,170 @@
+/**
+ * View-Transition 
+ */
+
+::view-transition-old(root) {
+    animation: 0.33s transition-out 0s ease;
+  }
+  
+  ::view-transition-new(root) {
+    animation: 0.33s transition-in 0s ease;
+  }
+  
+  @keyframes transition-out {
+    from {
+      opacity: 1;
+      translate: 0;
+      rotate: 0;
+    }
+    to {
+      opacity: 0;
+    //   translate: -3rem -5rem;
+    //   rotate: -10deg;
+    }
+  }
+  
+  @keyframes transition-in {
+    from {
+      opacity: 0;
+    //   translate: 3rem 5rem;
+    //   rotate: -10deg;
+    }
+    to {
+      opacity: 1;
+      translate: 0;
+      rotate: 0;
+    }
+  }
+
+
+
+
+
+/**
+ * IntersectionObserver
+ */
+
+.section-tagline {
+    opacity: 0;
+    transform: translate(0, 6rem);
+    // animation: fadeInFromBottom 1s 0s cubic-bezier(0,.29,.5,1);
+    // animation-fill-mode: forwards;
+    // animation-play-state: paused;
+
+    transition: all 1s;
+}
+
+section.observer-detected .section-tagline {
+    // animation-play-state: running;
+
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.section-heading {
+    opacity: 0;
+    transform: translate(0, 6rem);
+    // animation: fadeInFromBottom 0.9s 0.1s cubic-bezier(0,.29,.5,1);
+    // animation-fill-mode: forwards;
+    // animation-play-state: paused;
+
+    transition: all 1s;
+}
+
+section.observer-detected .section-heading {
+    // animation-play-state: running;
+
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.section-block-content {
+    opacity: 0;
+    transform: translate(0, 6rem);
+    // animation: fadeInFromBottom 0.8s 0.2s cubic-bezier(0,.29,.5,1);
+    // animation-fill-mode: forwards;
+    // animation-play-state: paused;
+
+    transition: all 1s;
+}
+
+section.observer-detected .section-block-content {
+    // animation-play-state: running;
+
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+
+.section-cta {
+    opacity: 0;
+    transform: translate(0, 6rem);
+    // animation: fadeInFromBottom 0.7s 0.3s cubic-bezier(0,.29,.5,1);
+    // animation-fill-mode: forwards;
+    // animation-play-state: paused;
+
+    transition: all 1s;
+}
+
+section.observer-detected .section-cta {
+    // animation-play-state: running;
+
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+@keyframes fadeInFromBottom {
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+
+.section-asset {
+    // clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0;
+    transform: translate(0, 6rem);
+    transition: all 1s;
+}
+
+section.observer-detected .section-asset {
+    // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+
+mark {
+    --color1: #e5d75a;
+    --color2: #e5d75a;
+    --bg-height: 40%;
+        
+    all: unset;
+    background-image: linear-gradient(var(--color1), var(--color2));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 var(--bg-height);
+    animation: highlight 800ms 240ms ease-out;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+mark.highlight {
+    color: #fff !important;
+
+    --color1: #272727;
+    --color2: #047484;
+    --bg-height: 180%;
+        
+    all: unset;
+    background-image: linear-gradient(to right, var(--color1), var(--color2));
+    background-size: 100% var(--bg-height);
+}
+
+@keyframes highlight {
+    to {
+        background-size: 100% var(--bg-height);
+    }
+}
