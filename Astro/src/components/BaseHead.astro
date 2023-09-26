@@ -17,22 +17,23 @@ export interface Props {
 	globalSiteSettings?: any
 }
 
-const title = Astro.props.title || 'siteSettings.title';
-const description = Astro.props.description || 'siteSettings.description';
+const globalSiteSettings = Astro.props.globalSiteSettings || {};
+const title = Astro.props.globalSiteSettings.title || 'siteSettings.title';
+const description = Astro.props.globalSiteSettings.description || 'siteSettings.description';
 
 // console.log('title', title);
 // console.log('description', description);
 // const canonicalURL = Astro.props.canonicalURL || siteSettings.url;
 // const image = new URL(Astro.props.image || './social.png', Astro.site);
+
 ---
 
 
-<!-- Global Metadata --><meta charset="utf-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<!-- <link rel="icon" type="image/x-icon" href={urlFor(siteSettings.favicon.asset._ref).width(48).height(48).format('jpg').url()}> -->
+<link rel="icon" type="image/x-icon" href={urlFor(globalSiteSettings.favicon.asset._ref).width(48).height(48).format('jpg').url()}>
 
-
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /> -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
 <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.sanity.io/; style-src 'self' 'unsafe-inline'"> -->
 <meta http-equiv="Content-Security-Policy" 
@@ -44,7 +45,7 @@ const description = Astro.props.description || 'siteSettings.description';
 		script-src 'self' https://cdn.sanity.io/ 'unsafe-inline'
 	">
 
-<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' /> 
 
 <title>{title || 'missing Sanity title in "siteSettings"'}</title>
 <meta name="title" content={title || 'missig Sanity title in "siteSettings"'} />
@@ -53,26 +54,11 @@ const description = Astro.props.description || 'siteSettings.description';
 <!-- <meta name="view-transition" content="same-origin" /> -->
 <ViewTransitions/>
 
-<!-- Canonical -->
-<!-- <link rel="canonical" href={canonicalURL}> -->
-
-<!-- Open Graph / Facebook -->
-<!-- <meta property="og:type" content="website" /> -->
-<!-- <meta property="og:url" content={canonicalURL} /> -->
-
-<!-- funktionierte -->
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 
-
-<!-- <meta property="og:image" content={image} /> -->
-
-<!-- Twitter -->
-<!-- <meta property="twitter:url" content={canonicalURL} /> -->
-<!-- funktionierte -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 
-<!-- <meta property="twitter:image" content={image} /> -->
 
