@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import { Image } from 'astro:assets';
-import { defineProps, ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 
 
 interface Props {

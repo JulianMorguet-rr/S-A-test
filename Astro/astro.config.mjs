@@ -8,6 +8,7 @@ import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://geschmaecker-sind-verschieden.com/',
   output: "server",
   integrations: [sanity({
     projectId: "tz4j4rda",
