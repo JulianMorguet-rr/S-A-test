@@ -1,0 +1,63 @@
+---
+
+import Hero from '../../components/Hero.astro';
+import CustomImage from '../../components/atomicComponents/CustomImage.astro';
+import Layout from '../../layouts/Base.astro'
+
+
+import { getPostsMinimal } from '../../lib/sanityApi'
+const allPosts = await getPostsMinimal()
+
+// "getStaticPaths()" is only required for SSG pages
+export async function getStaticPaths() {
+    // Posts von Sanity abrufen
+    const posts = await getPostsMinimal();
+
+    // Pfade basierend auf den Posts generieren
+    const paths = posts.map(post => ({
+        params: { post: post.slug }, 
+        props: { /* optional */ }
+    }));
+
+    return paths;
+}
+
+
+const postSlug = Astro.params.post
+
+import { getPostBySlug } from '../../lib/sanityApi'
+const post = await getPostBySlug(postSlug)
+
+
+---
+
+<Layout>
+
+    <!-- <CustomImage
+        imgSrc={post.mainImage} 
+        altText={'Beitragsbild'} 
+        width={1920}
+        height={640}
+    /> -->
+
+    <Hero 
+        postContent={post}
+    />
+
+    <main>
+
+        <h1>{postSlug}</h1>
+
+        <p>{JSON.stringify(post.title)}</p>
+
+        <section>
+            <!-- <h2>
+                Blog Post
+            </h2>
+            <p>
+                {allPosts[0].title}
+            </p> -->
+        </section>
+    </main>
+
+</Layout>

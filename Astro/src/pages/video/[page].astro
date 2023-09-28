@@ -1,6 +1,6 @@
 ---
 // @ts-ignore
-import LightboxLayout from "../../layouts/BaseLightbox.astro";
+import Layout from "../../layouts/BaseLightbox.astro";
 import Hero from '../../components/Hero.astro'
 import VideoWithControls from '../../components/media/VideoWithControls.vue'
 import VideoWithControlsNav from '../../components/media/VideoWithControlsNav.vue'
@@ -9,30 +9,40 @@ import VideoWithControlsNav from '../../components/media/VideoWithControlsNav.vu
 import { getSingleVideo } from '../../lib/sanityApi.js';
 // import VideoPersist from "../../components/media/VideoPersist.astro";
 
+
 // "getStaticPaths()" is only required for SSG pages
 export async function getStaticPaths() {
     return [
-        { params: { page: 'testpage' }, props: { /* optional */ } },
+        { params: { page: 'b95c19d3-288d-4a74-8db0-4b16d36455ac' }, props: { /* optional */ } },
     ]
 }
 
-const { video } =  Astro.params
+const { page } = Astro.params as { page: string };
 
-console.log('video from Video', video)
+console.log('video from video', page)
 
-const videoData = await getSingleVideo(`${video}`);
+console.log('typeof video', typeof page)
+
+const videoData = await getSingleVideo(`${page}`);
 
 ---
 
 
-<LightboxLayout>
+<Layout>
 
     <div class="lightbox-background">
         <main>
 
             <VideoWithControlsNav client:load />
 
-            <VideoWithControls videoData={videoData} id={video} transition:name={`video-${videoData._id}`} client:load /> 
+            <!-- <p>{video}</p> -->
+
+            { videoData &&
+                <VideoWithControls videoData={videoData} id={page} transition:name={`video-${videoData._id}`} client:load /> 
+            }
+            <!-- transition:name={`video-${videoData._id}`} -->
+
+
             <!-- <VideoPersist/> -->
 
             <!-- <p class="text-white">{JSON.stringify(videoData)}</p>
@@ -42,7 +52,7 @@ const videoData = await getSingleVideo(`${video}`);
         </main>
     </div>
 
-</LightboxLayout>
+</Layout>
 
 
 <style lang="scss">

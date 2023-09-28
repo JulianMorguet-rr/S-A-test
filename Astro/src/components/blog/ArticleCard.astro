@@ -1,0 +1,77 @@
+---
+
+import { urlFor } from "../../lib/sanityApi";
+
+import Image from "astro/components/Image.astro";
+
+// import astro props as post and contentArray
+const { post, blockContent } = Astro.props
+
+// Format Date Options 
+const formatDateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+---
+
+
+<article class="p-4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    {   post.mainImage &&
+            <a href={`/blog/${post.slug}`}>
+                <img 
+                    id={`post-image-${post.slug}`}
+                    width={360}
+                    height={240}
+                    src={urlFor(post.mainImage).width(360).height(240).format('webp').url()}
+                    alt="Jese Leos avatar"
+                    class="mb-5 rounded-lg"
+                    transition:name={`post-image-${post.slug}`}
+                    transition:animate="initial"
+                />
+            </a>
+    }
+
+<p>{`post-image-${post.slug}`}</p>
+
+    {   post.categories &&
+            post.categories.map((category, index) => (
+                <span class="bg-purple-100 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-900">
+                    {category}
+                </span>
+            ))
+    }
+
+    <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <a href={`/blog/${post.slug}`}>{post.title}</a>
+    </h2>
+    {
+        post.customString &&
+            <p class="mb-4 font-light text-gray-500 dark:text-gray-400">
+                {post.customString}
+            </p>
+    }
+    {
+        !post.customString &&
+            <div class="mb-4 font-light text-gray-500 dark:text-gray-400" set:html={blockContent}></div>
+    }
+
+    <div class="flex items-center space-x-4">
+        {
+            post.author.authorImage &&
+                <Image 
+                    width={40}
+                    height={40}
+                    class="w-10 h-10 rounded-full" 
+                    src={urlFor(post.author.authorImage).width(40).height(40).format('webp').url()}
+                    alt="Jese Leos avatar"
+                />
+        }
+        <div class="font-medium dark:text-white">
+            <div>{`${post.author.firstName} ${post.author.lastName}`}</div>
+            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{new Date(post.publishedAt).toLocaleDateString('de-DE', formatDateOptions)}</div>
+        </div>
+    </div>
+</article>
+
+
+
+
+

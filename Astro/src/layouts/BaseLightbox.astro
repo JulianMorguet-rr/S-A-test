@@ -10,9 +10,10 @@ const { seo } = Astro.props;
 
 const { page } =  Astro.params
 
-import Header from "../components/header/Header.astro";
-
-import AltHeader from "../components/header/AltHeader.astro";
+import { getGlobalSiteSettings, getAppearance, getMainMenu } from '../lib/sanityApi.js';
+const globalSiteSettings = await getGlobalSiteSettings();
+const appearance = await getAppearance();
+const mainMenu = await getMainMenu();
 
 // import { getSiteSettings } from '../lib/sanityApi.js';
 // const siteSettings = await getSiteSettings();
@@ -22,7 +23,7 @@ import AltHeader from "../components/header/AltHeader.astro";
 <!-- fade({ duration: '1.4s' }) -->
 <html lang="de" transition:animate={"none"}>
   <head>
-    <BaseHead {...seo} />
+    <BaseHead globalSiteSettings={globalSiteSettings} {...seo} />
   </head>
   <body>
     <!-- <slot name="header" /> -->

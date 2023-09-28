@@ -11,7 +11,7 @@ export interface Props {
 	seo?: BaseHeadProps;
 }
 const { seo } = Astro.props;
-const { page } =  Astro.params
+const { page, lang, version, path } =  Astro.params
 
 
 import { getGlobalSiteSettings, getAppearance, getMainMenu } from '../lib/sanityApi.js';
@@ -23,7 +23,7 @@ const mainMenu = await getMainMenu();
 
 ---
 
-<html lang="de"  >
+<html lang="de">
   <!-- transition:animate="none" -->
   <!-- transition:animate={"none"} -->
   <!-- fade({ duration: '1.4s' }) -->
@@ -44,7 +44,7 @@ const mainMenu = await getMainMenu();
     
     <script>
       console.log('das Script ist da!')
-  
+
       // Observer 
       function initObserver() {
         console.log('OBSERVER STARTED!!!')
@@ -73,6 +73,31 @@ const mainMenu = await getMainMenu();
       // document.addEventListener('astro:load', initObserver);
       // window.addEventListener('astro:page-load', initObserver);
       document.addEventListener('astro:page-load', initObserver);
+
+
+      // // Page transition Start
+      // function pageTransitionStart() {
+      //   const colorOverlay = document.querySelector('.color-overlay');
+
+      //   colorOverlay.classList.add('active')
+      // }
+      // document.addEventListener('astro:after-swap', pageTransitionStart);
+
+      // // Page transition End 
+      // function pageTransitionEnd() {
+      //   const colorOverlay = document.querySelector('.color-overlay');
+
+      //   colorOverlay.classList.remove('active')
+      // }
+      // document.addEventListener('astro:page-load', pageTransitionEnd);
+
+
+      // LÖSUNG FÜR ANDERE ERSCHEINUNG, BEI PAGE RELAOD
+      // ggf. könnte ich eine Klasse erstellen, die die Intersection Observer Transition im CSS auf 0 setzt
+      // Wenn ich diese Klasse mit "astro:after-swap" hinzufüge, wäre die Page Transition ausgeschaltet. Dies kann aber nur funktionieren, 
+      // wenn die Klasse vor dem Intersection Observer hinzugefügt wird.
+      // Dazu muss die Seite bei einem PageReload aber wissen was die vorherige Route war, und ob man bei dieser Transition die Animation weglassen soll
+
     </script>
    
 

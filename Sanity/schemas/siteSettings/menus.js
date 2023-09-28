@@ -13,7 +13,11 @@ export default defineType({
             of: [
               {
                 type: 'reference',
-                to: [{ type: 'page' }],
+                to: [
+                  { type: 'page' },
+                  { type: 'postOverview' },
+                  { type: 'post' },
+                ],
               },
             ],
         }),

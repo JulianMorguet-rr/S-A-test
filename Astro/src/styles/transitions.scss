@@ -2,39 +2,115 @@
  * View-Transition 
  */
 
-::view-transition-old(root) {
-    animation: 0.33s transition-out 0s ease;
-  }
+    ::view-transition-old(root) {
+        animation: 0.33s transition-out 0s ease;
+    }
   
-  ::view-transition-new(root) {
-    animation: 0.33s transition-in 0s ease;
-  }
+    ::view-transition-new(root) {
+        animation: 0.33s transition-in 0s ease;
+    }
   
-  @keyframes transition-out {
-    from {
-      opacity: 1;
-      translate: 0;
-      rotate: 0;
+    @keyframes transition-out {
+        from {
+            opacity: 1;
+            translate: 0;
+            rotate: 0;
+        }
+        to {
+            opacity: 0;
+            //   translate: -3rem -5rem;
+            //   rotate: -10deg;
+        }
     }
-    to {
-      opacity: 0;
-    //   translate: -3rem -5rem;
-    //   rotate: -10deg;
+    
+    @keyframes transition-in {
+        from {
+            opacity: 0;
+            //   translate: 3rem 5rem;
+            //   rotate: -10deg;
+        }
+            to {
+            opacity: 1;
+            translate: 0;
+            rotate: 0;
+        }
     }
-  }
-  
-  @keyframes transition-in {
-    from {
-      opacity: 0;
-    //   translate: 3rem 5rem;
-    //   rotate: -10deg;
+
+
+    /**
+     * View-Transition for initial 
+     */
+
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation-duration: 5s;
+        /* Prevent the default animation,
+        so both views remain opacity:1 throughout the transition */
+        animation: none;
+        /* Use normal blending,
+        so the new view sits on top and obscures the old view */
+        mix-blend-mode: normal;
+        /* Make the height the same as the group,
+        meaning the view size might not match its aspect-ratio. */
+        height: 100%;
+        /* Clip any overflow of the view */
+        overflow: clip;
     }
-    to {
-      opacity: 1;
-      translate: 0;
-      rotate: 0;
+
+    /* The old view is the thumbnail */
+    ::view-transition-old(*) {
+        /* Maintain the aspect ratio of the view,
+        by shrinking it to fit within the bounds of the element */
+        object-fit: contain;
     }
-  }
+
+    /* The new view is the full image */
+    ::view-transition-new(*) {
+        /* Maintain the aspect ratio of the view,
+        by growing it to cover the bounds of the element */
+        object-fit: cover;
+    }
+
+
+/**
+ * View-Transition fade in and out for exit and enter
+ */
+
+// ::view-transition-old(*):only-child {
+//     animation: 0.33s scale-out 0s ease;
+// }
+
+// ::view-transition-new(*):only-child {
+//     animation: 0.33s scale-in 0s ease;
+// }
+
+// @keyframes scale-out {
+//     from {
+//     opacity: 1;
+//     scale: 1;
+//     rotate: 0;
+//     }
+//     to {
+//     opacity: 0;
+//     scale: 0;
+//     //   translate: -3rem -5rem;
+//     //   rotate: -10deg;
+//     }
+// }
+
+// @keyframes scale-in {
+//     from {
+//     opacity: 0;
+//     scale: 0;
+//     //   translate: 3rem 5rem;
+//     //   rotate: -10deg;
+//     }
+//     to {
+//     opacity: 1;
+//     scale: 1;
+//     rotate: 0;
+//     }
+// }
 
 
 

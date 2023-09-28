@@ -9,18 +9,7 @@ export async function getSiteSettings() {
 }
 */
 
-export async function getFirstBlogPost() {
-  const query = groq`*[_type == "post"]{
-    title,
-    mainImage,
-    'imageUrl': mainImage.asset->url,
-    body,
-    categories, 
-    author->,
-  }`;
-  const firstPost = await useSanityClient().fetch(query);
-  return firstPost;
-}
+
 
 // So wäre die ganze API URL ohne "groq" und "useSanityClient" geschrieben:
 // https://tz4j4rda.api.sanity.io/v2021-06-07/data/query/production?query=*[1] 
@@ -94,6 +83,60 @@ export async function getCurrentPage(pageSlug) {
 }
 
 
+
+export async function getFirstBlogPost() {
+  const query = groq`*[_type == "post"]{
+    title,
+    mainImage,
+    'imageUrl': mainImage.asset->url,
+    body,
+    categories, 
+    author->,
+  }`;
+  const firstPost = await useSanityClient().fetch(query);
+  return firstPost;
+}
+
+
+export async function getPostOverview() {
+  const query = groq`*[_type == "postOverview"][0]{
+    ...,
+  }`;
+  const pages = await useSanityClient().fetch(query);
+  return pages;
+}
+
+// with additional Data from "author" 
+export async function getPosts() {
+  const query = groq`*[_type == "post"]{
+    ...,
+    author->,
+  }`;
+  const pages = await useSanityClient().fetch(query);
+  return pages;
+}
+
+// with minimal data
+export async function getPostsMinimal() {
+  const query = groq`*[_type == "post"]{
+    ...,
+  }`;
+  const pages = await useSanityClient().fetch(query);
+  return pages;
+}
+
+// Get single post by slug 
+export async function getPostBySlug(slug) {
+  // console.log('slug: ', slug);
+  const query = groq`*[_type == "post" && slug == "${slug}"][0]{
+    ...,
+    author->,
+  }`;
+  const pages = await useSanityClient().fetch(query);
+  return pages;
+}
+
+
 export async function getSingleVideo(_id) {
   const query = groq`*[_type == "uploadedVideo" && _id == "${_id}"][0]{
     ...
@@ -101,7 +144,6 @@ export async function getSingleVideo(_id) {
   const siteSettings = await useSanityClient().fetch(query);
   return siteSettings;
 }
-
 
 export async function getRecruitingData() {
   const query = groq`*[_type == "recruiting"][0]`; // "page" is the name of the schema from '/scr/structure/index.js'

@@ -52,27 +52,22 @@ interface Props {
 // let env = import.meta.env
 // console.log('env from Header.astro: ', env)
 
-
+const currentURL = Astro.request.url;
 
 const { globalSiteSettings, mainMenu, slug } = Astro.props as Props
 
-const homePage: Array<NavItem> = []
 const mainNav: Array<NavItem> = []
 const computedMainNav = () => {
-    // console.log('siteSettings.mainNav: ', globalSiteSettings)
-
     mainMenu.mainNav.map((navItem: NavItem) => {
-        if(navItem.slug === '/') {
-            homePage.push(navItem)
-        } else {
-            // navItem.slug = '/page' + navItem.slug
-            mainNav.push(navItem)
-        }
+        mainNav.push(navItem)
     })
 }
 computedMainNav()
 ---
 
+
+<div class="color-overlay">
+</div>
 
 <header>
     <div class="inner">
@@ -94,32 +89,63 @@ computedMainNav()
         </a>
         
         <nav>
-            <!-- Just for homepage, cause "slug" is undefined on "/" -->
-            {homePage.map((nav, index) => (
-                <a
-                    href={nav.slug}
-                    class={slug == undefined ? 'active' : ''}
-                >
-                    {nav.title}
-                </a>
-            ))}
-
-            <!-- For every other page/slug -->
             {mainNav.map((nav, index) => (
-                <a
-                    href={nav.slug}
-                    class={nav.slug === `/${slug}` ? 'active' : ''}
-                >
-                    {nav.title}
-                </a>
+                <div>
+                    
+                    <!--
+                    <p style="color: #000;" onclick={`loadPage("${nav.slug}")`}>
+                        {nav.title}    
+                    </p>
+                    -->
+                    <a
+                        href={nav.slug}
+                        class={
+                            (nav.slug === `/${slug}` ? 'active' : '') +
+                            (`http://localhost:4321${nav.slug}` === currentURL ? 'active' : '')
+                        }
+                    >
+                        {nav.title} 
+                    </a>
+                </div>
             ))}
         </nav>
     </div>
+    <!-- 
+    <script is:inline>
+        const loadPage = (slug) => {
+            console.log('slug: ', slug)
+            window.open(`http://localhost:4321/${slug}`, '_self')
+        }
+    </script> 
+    -->
+
 </header>
+
 <div class="header-space"></div>
 
 
 
+
+<style lang="scss">
+    .color-overlay {
+        height: 0;
+        width: 100vw;
+        background: rgb(251,146,60);
+        position: fixed;
+        z-index: 99999;
+        display: block;
+
+        transition: height 0.3s ease-in-out;
+
+        &.active {
+            height: 100vh;
+
+            transition: height 0.3s ease-in-out;
+        }
+    }
+
+
+</style>
 
 
 

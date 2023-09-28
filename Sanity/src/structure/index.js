@@ -16,6 +16,7 @@
 import siteSettingsStructure from './siteSettings-structure/siteSettingsStructure'
 import multistepFormStructure from './multistep-structure/multistepFormStructure'
 import videothekFormStructure from './videothek-structure/videothekFormStructure'
+import postStructure from './post-structure/post-structure'
 
 export const documentNodeResolver = (S, {schemaType}) => {
     if(schemaType == 'test') {
@@ -44,13 +45,15 @@ export const structure = (S, context) => (
                     ),
 
                 // Import "post" Type
-                S.listItem()
-                .title('Beiträge')
-                .child(
-                    // List out all categories
-                    S.documentTypeList('post')
-                        .title('Alle Beiträge') 
-                ),
+                // S.listItem()
+                // .title('Beiträge')
+                // .child(
+                //     // List out all categories
+                //     S.documentTypeList('post')
+                //         .title('Alle Beiträge') 
+                // ),
+                
+                postStructure('category', S, context.documentStore),
 
                 // Import "post" Type
                 S.listItem()

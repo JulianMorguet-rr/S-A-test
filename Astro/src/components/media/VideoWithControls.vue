@@ -4,7 +4,8 @@
         <h2>{{ id }}</h2>
         <p>newFetchedVideoData: {{ newDataArrived }}</p>
 
-        <div v-if="!newDataArrived">
+        <!-- <div v-if="!newDataArrived"> -->
+        <div v-if="false">
             <h3 class="blog-post__headline">
                 <span class="skeleton-box" style="width:55%;"></span>
             </h3>
@@ -18,8 +19,8 @@
 
         <div v-else>
             <video controls autoplay playsinline class="hero-background-video">
-                <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${videoData.webmPath}`" type="video/webm">
-                <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${videoData.mp4Path}`" type="video/mp4">
+                <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${videoData?.webmPath}`" type="video/webm">
+                <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${videoData?.mp4Path}`" type="video/mp4">
             </video> 
             <!-- <h2 class="text-white">videoData: {{ videoData }}</h2> -->
         </div>
@@ -40,8 +41,10 @@ interface Props {
     id?: string
 }
 
+
 const props = defineProps<Props>()
 
+console.log(props.videoData)
 const videoData = ref(props.videoData)
 
 // Import API functions

@@ -17,9 +17,10 @@ export interface Props {
 	globalSiteSettings?: any
 }
 
+// Hier noch SEO für spezifische page integrieren (schema muss auch noch ergänzt werden)
 const globalSiteSettings = Astro.props.globalSiteSettings || {};
-const title = Astro.props.globalSiteSettings.title || 'siteSettings.title';
-const description = Astro.props.globalSiteSettings.description || 'siteSettings.description';
+const title = Astro.props.globalSiteSettings?.title || 'siteSettings.title';
+const description = Astro.props.globalSiteSettings?.description || 'siteSettings.description';
 
 // console.log('title', title);
 // console.log('description', description);
@@ -31,7 +32,9 @@ const description = Astro.props.globalSiteSettings.description || 'siteSettings.
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<link rel="icon" type="image/x-icon" href={urlFor(globalSiteSettings.favicon.asset._ref).width(48).height(48).format('jpg').url()}>
+{ globalSiteSettings?.favicon?.asset &&
+	<link rel="icon" type="image/x-icon" href={urlFor(globalSiteSettings?.favicon?.asset._ref).width(48).height(48).format('jpg').url()}>
+}
 
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
@@ -47,7 +50,7 @@ const description = Astro.props.globalSiteSettings.description || 'siteSettings.
 
 <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' /> 
 
-<title>{title || 'missing Sanity title in "siteSettings"'}</title>
+<title>{title || 'missing Sanity title in "Page"/"Blog" and "globalSiteSettings"'}</title>
 <meta name="title" content={title || 'missig Sanity title in "siteSettings"'} />
 <meta name="description" content={description || 'missing Sanity description in "siteSettings"'} />
 
