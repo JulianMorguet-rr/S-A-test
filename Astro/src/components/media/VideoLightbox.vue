@@ -110,7 +110,7 @@ $base-shadow: 0px 4px 12px rgba(0,0,0,0.1), 0px 8px 24px rgba(0,0,0,0.1);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    box-shadow: $base-shadow;
+    // box-shadow: $base-shadow;
 
     a {
         display: flex;
@@ -120,7 +120,7 @@ $base-shadow: 0px 4px 12px rgba(0,0,0,0.1), 0px 8px 24px rgba(0,0,0,0.1);
         height: 8rem;
         width: 8rem;
         background-color: #fff;
-        box-shadow: $base-shadow;
+        // box-shadow: $base-shadow;
         border-radius: 50%;
 
         .play__Button {

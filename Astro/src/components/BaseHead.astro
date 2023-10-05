@@ -36,7 +36,7 @@ const description = Astro.props.globalSiteSettings?.description || 'siteSettings
 	<link rel="icon" type="image/x-icon" href={urlFor(globalSiteSettings?.favicon?.asset._ref).width(48).height(48).format('jpg').url()}>
 }
 
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width" />
 
 <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.sanity.io/; style-src 'self' 'unsafe-inline'"> -->
 <meta http-equiv="Content-Security-Policy" 

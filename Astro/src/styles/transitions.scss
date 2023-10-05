@@ -3,11 +3,17 @@
  */
 
     ::view-transition-old(root) {
-        animation: 0.33s transition-out 0s ease;
+        animation-name: transition-out;
+        animation-duration: 0.3s;
+        // animation-delay: 0s;
+        animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
     }
   
     ::view-transition-new(root) {
-        animation: 0.33s transition-in 0s ease;
+        animation-name: transition-in;
+        // animation-duration: 5.33s;
+        // animation-delay: 0s;
+        animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
     }
   
     @keyframes transition-out {
@@ -37,82 +43,113 @@
     }
 
 
-    /**
-     * View-Transition for initial 
-     */
+    // ::view-transition-old(header),
+    // ::view-transition-new(header) {
+    //     /* Prevent the default animation,
+    //     so both views remain opacity:1 throughout the transition */
+    //     animation: none;
+    // }
 
-    ::view-transition-old(*),
-    ::view-transition-new(*) {
-        animation-duration: 5s;
-        /* Prevent the default animation,
-        so both views remain opacity:1 throughout the transition */
-        animation: none;
-        /* Use normal blending,
-        so the new view sits on top and obscures the old view */
+    
+
+
+    .image-transition {
         mix-blend-mode: normal;
-        /* Make the height the same as the group,
-        meaning the view size might not match its aspect-ratio. */
-        height: 100%;
-        /* Clip any overflow of the view */
-        overflow: clip;
     }
 
-    /* The old view is the thumbnail */
-    ::view-transition-old(*) {
-        /* Maintain the aspect ratio of the view,
-        by shrinking it to fit within the bounds of the element */
-        object-fit: contain;
-    }
+    
+    // ::view-transition-old(*) {
+    //     animation-duration: 0.66s;
+    //     animation-delay: 0s;
+    //     animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    // }
+  
+    // ::view-transition-new(*) {
+    //     animation-duration: 0.66s;
+    //     animation-delay: 0s;
+    //     animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    // }
 
-    /* The new view is the full image */
-    ::view-transition-new(*) {
-        /* Maintain the aspect ratio of the view,
-        by growing it to cover the bounds of the element */
-        object-fit: cover;
-    }
 
 
 /**
  * View-Transition fade in and out for exit and enter
  */
 
-// ::view-transition-old(*):only-child {
-//     animation: 0.33s scale-out 0s ease;
-// }
+ /*
+::view-transition-old(*):only-child {
+    animation: 0.66s scale-out 0s ease;
+}
 
-// ::view-transition-new(*):only-child {
-//     animation: 0.33s scale-in 0s ease;
-// }
+::view-transition-new(*):only-child {
+    animation: 0.66s scale-in 0s ease;
+}
 
-// @keyframes scale-out {
-//     from {
-//     opacity: 1;
-//     scale: 1;
-//     rotate: 0;
-//     }
-//     to {
-//     opacity: 0;
-//     scale: 0;
-//     //   translate: -3rem -5rem;
-//     //   rotate: -10deg;
-//     }
-// }
+@keyframes scale-out {
+    from {
+    opacity: 1;
+    scale: 1;
+    // rotate: 360deg;
+    }
+    to {
+    opacity: 0;
+    scale: 0.5;
+    //   translate: -3rem -5rem;
+    //   rotate: -10deg;
+    }
+}
 
-// @keyframes scale-in {
-//     from {
-//     opacity: 0;
-//     scale: 0;
-//     //   translate: 3rem 5rem;
-//     //   rotate: -10deg;
-//     }
-//     to {
-//     opacity: 1;
-//     scale: 1;
-//     rotate: 0;
-//     }
-// }
+@keyframes scale-in {
+    from {
+    opacity: 0;
+    scale: 0.5;
+    //   translate: 3rem 5rem;
+    //   rotate: -10deg;
+    }
+    to {
+    opacity: 1;
+    scale: 1;
+    // rotate: 360deg;
+    }
+}
+*/
 
 
+
+/**
+* View-Transition for post title
+*/
+
+.text-transition::view-transition-old(*),
+.text-transition::view-transition-new(*) {
+    animation-duration: 3s;
+    animation-name: rotate-in-out;
+    inline-size: none;
+    block-size: none;
+}
+
+.text-transition::view-transition-old(postImageTransitionName) {
+    animation-duration: 3s;
+    animation: none;
+    inline-size: none;
+    block-size: none;
+}
+
+.text-transition::view-transition-new(postImageTransitionName) {
+    animation-duration: 3s;
+    animation: none;
+    inline-size: none;
+    block-size: none;
+}
+
+@keyframes rotate-in-out {
+    from {
+        rotate: 0deg;
+    }
+    to {
+        rotate: 360deg;
+    }
+}
 
 
 

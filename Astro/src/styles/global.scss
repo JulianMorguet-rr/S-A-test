@@ -1,9 +1,9 @@
-
 $base-color: rgb(251 146 60);
+$Secondary-color: #f83667;
 $base-shadow: 0px 4px 12px rgba(0,0,0,0.1), 0px 8px 24px rgba(0,0,0,0.1);
 
-* {
-    box-sizing: border-box 
+*, *:before, *:after {
+    box-sizing: border-box;
 }
 
 ::-webkit-scrollbar {
@@ -29,6 +29,8 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 0;
+    background-color: #f8f8f8;
+    background-color: #ffffff;
 }
 
 h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote {
@@ -62,6 +64,10 @@ a {
     box-shadow: $base-shadow;
 }
 
+
+$numberOfMobileNavLinks: 10;
+$mobileNavDuration: 0.6;
+
 header {
     position: fixed;
     z-index: 9999;
@@ -70,14 +76,11 @@ header {
     display: flex;
     justify-content: center;
 
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
-
     .inner {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 1280px;
-        padding: 20px 0px;
 
         img {
             height: 56px;
@@ -102,7 +105,201 @@ header {
                     color: $base-color;
                 }
             }
+            /**
+            *   Mobile Menu from Astro Tut 
+            */
         }
+    
+        .mobile-nav {
+
+            position: relative;
+            height: 40px;
+
+            .hamburger {
+                width: 40px;
+                cursor: pointer;
+                position: absolute;
+                right: 0;
+                top: 0;
+
+                .line {
+                    display: block;
+                    position: absolute;
+                    width: 40px;
+                    height: 5px;
+                    border-radius: 2px;
+                    // margin-bottom: 10px;
+                    background-color: $base-color;
+
+                    transition: all #{$mobileNavDuration}s ease-in-out;
+
+                    &:first-child {
+                        top: 0;
+                        left: 0;
+                    }
+                    &:nth-child(2) {
+                        top: 15px;
+                        left: 0;
+                    }
+                    &:nth-child(3) {
+                        top: 30px;
+                        left: 0;
+                    }
+                }
+            }
+
+            
+            &.expanded { 
+
+                display: unset;
+
+                .hamburger .line {
+                    background-color: #fff;
+                }
+
+                .hamburger .line:first-child {
+                    rotate: 45deg;
+                    margin-top: 13px;
+                }
+
+                .hamburger .line:nth-child(2) {
+                    opacity: 0;
+                    margin-top: 13px;
+                }
+
+                .hamburger .line:last-child {
+                    rotate: -45deg;
+                    margin-top: -17px;
+                }
+
+            }
+
+
+            /**
+             *   Mobile Nav -> Links / a tags 
+            */
+
+            .toggle-mobile-nav {
+                height: 0vh;
+                width: 100vw;
+                margin-top: 88px;
+                margin-top:0;
+                top: 0;
+                left: 0;
+                position: fixed;
+                overflow: hidden;
+        
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+        
+                padding: 0px 2rem 0rem 2rem;
+        
+                transition: height #{$mobileNavDuration}s ease-in-out;
+    
+
+                background: linear-gradient(45deg,#f77f7f,#eadb3a);
+                background-size: 200% 200%;
+                -webkit-animation: hero 10s infinite;
+                -moz-animation: hero 10s infinite;
+                -o-animation: hero 10s infinite;
+                animation: hero 10s infinite;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    background-image: radial-gradient(circle at center center, #f89f9f 0%, rgb(255 152 0 / 0%) 66%);
+                    mix-blend-mode: hard-light;
+                    mix-blend-mode: multiply;
+                    opacity: 0;
+                    width: 100vw;
+                    height: 100vw;
+                    top: -25vw;
+                    left: -25vw;
+                    z-index: 1;
+                    animation: mobileNavBefore 10s infinite;
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    background-image: radial-gradient(circle at center center,#feae79 0%,rgba(255,152,0,0) 70%);
+                    mix-blend-mode: hard-light;
+                    mix-blend-mode: multiply;
+                    opacity: 0;
+                    width: 100vw;
+                    height: 100vw;
+                    bottom: -25vw;
+                    right: -25vw;
+                    z-index: 1;
+                    animation: mobileNavAfter 10s infinite;
+                }
+
+
+                @keyframes mobileNavBefore {
+                    0%, 100% {
+                        top: -20vw;
+                        left: -10vw;
+                        opacity: 0;
+                    }
+                    50% {
+                        top: 10vw;
+                        left: 10vw;
+                        opacity: 0.5;
+                    }
+                }
+                 
+                @keyframes mobileNavAfter {
+                    0%, 100% {
+                        bottom: -20vw;
+                        right: -10vw;
+                        opacity: 0;
+                    }
+                    50% {
+                        bottom: 10vw;
+                        right: 10vw;
+                        opacity: 0.5;
+                    }
+                }
+
+            }
+        
+                a {
+                    color: #fff !important;
+                    font-size: 1.4rem;
+                    // width: 100%;
+                    // text-align: center;
+                    opacity: 0;
+                    transform: translate(0, -50vh);
+                    transition: all #{$mobileNavDuration}s ease-in-out 0s;
+                }
+
+            &.expanded { 
+                .toggle-mobile-nav {
+                    height: calc(100vh - 88px); // mit calc header abziehen
+                    height: 100vh; 
+
+                    a {
+                        z-index: 2;
+                    }
+                    @for $i from 1 through $numberOfMobileNavLinks {
+                        a:nth-child(#{$i}) {
+                            opacity: 1;
+                            transform: translate(0, 0);
+                            transition: all #{$mobileNavDuration}s ease-in-out #{0.2 - 0.05 * $i}s;
+                        }
+                    }
+                }
+            }
+            
+            @media screen and (min-width: 1319px) {
+                .hamburger {
+                    display: none;
+                }
+            }
+        }
+        
     }
 }
 
@@ -112,7 +309,7 @@ header {
 
 
 .header-space {
-    height: 96px;
+    height: 88px;
 }
 
 main {
@@ -188,14 +385,24 @@ h1 {
 }
 
 
+.cta {
+    background-color: $base-color;
 
+    &:hover {
+        color: #fff;
+        background-color: $Secondary-color;
+    }
+}
 
 /* Components */
 .hero {
-width: 100%;
-height: auto;
-position: relative;
-overflow: hidden;
+    width: 100%;
+    height: auto;
+    position: relative;
+
+    &.page-hero {
+        overflow: hidden;
+    }
 
     .hero-background-video {
         position: absolute;
@@ -213,11 +420,42 @@ overflow: hidden;
         text-align: center;
         color: white;
     }
-    h2 {
+
+    .headline-wrapper {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+
+    h1 {
         color: white;
         font-size: 2rem;
         font-weight: 800;
         margin: 0;
+        color: #333 !important;
+
+        position: relative;
+        align-self: center;
+        justify-content: center;
+        box-sizing: border-box;
+
+        &:before {
+            box-shadow: $base-shadow;
+            // width: calc(100% + 4rem);
+            background-color: #fff;
+            width: 0;
+            margin-left: -2rem;
+        }
+    }
+
+    @media (max-width: 789px) {
+        h1 {
+            
+            &:before {
+                width: 0;
+                margin-left: -1rem;
+            }
+        }
     }
 }
 
@@ -305,12 +543,16 @@ padding: 0;
 .hero-wrapper {
     padding-bottom: 4rem;
 
+    @media (max-width: 768px) {
+        padding-bottom: 2rem;
+    }
+
     .hero {
         width: 100%;
         min-height: 440px;
-        height: calc(100vh - 96px - 200px);
+        // height: calc(100vh - 96px - 200px);
         position: relative;
-        overflow: hidden;
+        // overflow: hidden;
         
 
         .hero-background-video {

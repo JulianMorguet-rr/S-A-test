@@ -1,0 +1,152 @@
+---
+import { urlFor } from "../../../lib/sanityApi";
+
+// Import Components
+import Image from "astro/components/Image.astro";
+
+import Layout from '../../../layouts/Base.astro'
+import ArticleCard from '../../../components/blog/ArticleCard.astro';
+
+import { getPostOverview } from '../../../lib/sanityApi';
+const postOverview = await getPostOverview();
+
+import { getPosts } from '../../../lib/sanityApi';
+const posts = await getPosts();
+
+
+// "getStaticPaths()" is only required for SSG pages
+// We need to tell Astro which pages to generate at build time and here we need all Pages from Sanity -> getPostsMinimal
+export async function getStaticPaths() {
+    /*
+    // Posts von Sanity abrufen
+    const posts = await getPosts();
+
+    // Pfade basierend auf den Posts generieren
+    const paths = posts.map(post => ({
+        params: { post: post.slug }, 
+        props: {  }
+    }));
+
+    return paths;
+    */
+
+    // Write me a function that returns an array of objects from the Post category that look like this: 
+    // Post Category is an Array of each post -> post.categories
+    // it is possible that a post has multiple categories -> post.categories = ['ai', 'podcast'] or have none -> post.categories = []
+    // return [
+    // { params: { category: 'ai' }, props: { /* optional */ } },
+    //     { params: { category: 'podcast' }, props: { /* optional */ } },
+    //     { params: { category: 'test' }, props: { /* optional */ } },
+    //     { params: { category: 'Allgemein' }, props: { /* optional */ } },
+    // ]
+
+    // return [
+    //     { params: { category: 'ai' }, props: { /* optional */ } },
+    //     { params: { category: 'podcast' }, props: { /* optional */ } },
+    //     { params: { category: 'test' }, props: { /* optional */ } },
+    //     { params: { category: 'Allgemein' }, props: { /* optional */ } },
+    // ]
+
+    const posts = await getPosts();
+
+    // Erstelle ein Set, um Duplikate zu vermeiden
+    const categoriesSet = new Set();
+
+    // Gehe durch jeden Post und füge jede Kategorie dem Set hinzu
+    posts.forEach(post => {
+        if (post.categories && post.categories.length) {
+            post.categories.forEach(category => categoriesSet.add(category));
+        }
+    });
+
+    // Wenn es Posts ohne Kategorien gibt, füge "Allgemein" hinzu
+    if (posts.some(post => !post.categories || !post.categories.length)) {
+        categoriesSet.add('Allgemein');
+    }
+
+    // Konvertiere das Set zurück in ein Array und erstelle die gewünschte Struktur
+    const result = [...categoriesSet].map(category => ({
+        params: { category },
+        props: { /* optional */ }
+    }));
+
+    return result;
+}
+
+const postCategory = Astro.params.category;
+
+// Import Composables 
+import { convertBlockContentToHTML } from '../../../composables/blockContentToHTML';
+
+// for Overview Page
+const paragraph = () => {
+    return {
+        blockContent: convertBlockContentToHTML(postOverview.paragraph)
+    }
+}
+
+const contentArray = posts.map(post => {
+    return {
+        blockContent: convertBlockContentToHTML(post.body)
+    }
+});
+
+---
+
+
+
+<Layout>
+
+    <section class="">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+
+                <!-- <p>
+                    {postCategory}
+                </p> -->
+
+
+                {
+                    postOverview.tagline &&
+                    <p class="text-gray-500 sm:text-xl dark:text-gray-400 mb-4">
+                        {postOverview.tagline}
+                    </p>
+                }
+                {
+                    postOverview.heading &&
+                        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                            {postOverview.heading}
+                        </h2>
+                }
+                {
+                    postOverview.paragraph && 
+                        <div class=" font-light text-gray-500 sm:text-xl dark:text-gray-400" set:html={paragraph().blockContent}></div>
+                }
+            </div> 
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                
+                { 
+                    posts.map((post, index) => (
+                        <>
+                            { 
+                                post.categories && 
+                                    post.categories.includes(postCategory) &&
+                                        <ArticleCard post={post} blockContent={contentArray[index]} />
+                            }
+                        </>
+                    ))
+                }
+
+            </div>  
+
+            <!--
+                post.categories.map((category, index) => (
+                    <>
+                        <p>{category}</p>
+                    </>
+                ))
+            -->
+        </div>
+    </section>
+
+</Layout>

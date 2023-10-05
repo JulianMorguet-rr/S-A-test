@@ -23,24 +23,37 @@ const mainMenu = await getMainMenu();
 
 ---
 
-<html lang="de">
+<html lang="de" transition:animate="none">
   <!-- transition:animate="none" -->
   <!-- transition:animate={"none"} -->
   <!-- fade({ duration: '1.4s' }) -->
   <head>
     <BaseHead globalSiteSettings={globalSiteSettings} {...seo} />
   </head>
-  <body class="bg-white dark:bg-gray-900">
+
+  <!-- class="bg-white dark:bg-gray-900" -->
+  <body>
 
     <!-- <slot name="header" /> -->
-    <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu} transition:persist/>
+    <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu} />
 
-    <div>
+    <div transition:name="main-content">
       <slot />
     </div>
 
     <Footer globalSiteSettings={globalSiteSettings} mainMenu={mainMenu} slug={page} />
 
+
+    <script>
+      // TODO: Scripte auslagern 
+      const burgerEventListener = () => {
+        document.querySelector('.hamburger').addEventListener('click', () => {
+          document.querySelector('.mobile-nav').classList.toggle('expanded');
+        });
+      }
+
+      document.addEventListener('astro:page-load', burgerEventListener);
+    </script>
     
     <script>
       console.log('das Script ist da!')
@@ -111,5 +124,6 @@ const mainMenu = await getMainMenu();
 .header-wrapper {
   z-index: 999;
 }
+
 </style>
 

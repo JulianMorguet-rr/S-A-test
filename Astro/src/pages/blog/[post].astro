@@ -1,14 +1,23 @@
 ---
 
+import { urlFor } from "../../lib/sanityApi";
+
+import Image from "astro/components/Image.astro";
+
+import Layout from '../../layouts/Base.astro'
 import Hero from '../../components/Hero.astro';
 import CustomImage from '../../components/atomicComponents/CustomImage.astro';
-import Layout from '../../layouts/Base.astro'
 
+import { fade, slide  } from 'astro:transitions';
+
+// Format Date Options 
+const formatDateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
 
 import { getPostsMinimal } from '../../lib/sanityApi'
 const allPosts = await getPostsMinimal()
 
 // "getStaticPaths()" is only required for SSG pages
+// We need to tell Astro which pages to generate at build time and here we need all Pages from Sanity -> getPostsMinimal
 export async function getStaticPaths() {
     // Posts von Sanity abrufen
     const posts = await getPostsMinimal();
@@ -29,9 +38,85 @@ import { getPostBySlug } from '../../lib/sanityApi'
 const post = await getPostBySlug(postSlug)
 
 
+// Import Composables 
+import { convertBlockContentToHTML } from '../../composables/blockContentToHTML';
+
+// for body Page
+const body = () => {
+    return {
+        blockContent: convertBlockContentToHTML(post.body)
+    }
+}
+
+
+const postTitleArray: Array<any> = post.title.split(' ')
+    
+const postTitle = () => {
+    // const postTitleArray: Array<any> = []
+    // let text = post.title 
+    // for (let i = 0; i < text.length; i++) {
+    //     if (text[i] === ' ') {
+    //         postTitleArray.push('---')
+    //     } else {
+    //         const char = text[i];
+    //         postTitleArray.push(char)
+    //     }
+    // }
+
+    return postTitleArray
+}
+
+
+const postWrapperTransitionName = `post-wrapper-${post.slug}`
+const postTitleTransitionName = `post-title-${post.slug}`
+const postCategoryTransitionName = `post-category-${post.slug}`
+const postAuthorAndDateTransitionName = `post-author-and-date-${post.slug}`
+
+const nessesaryTransitionStyle = `
+                    <style>
+
+                        /*
+                        ::view-transition-old(${postTitleTransitionName}),
+                        ::view-transition-new(${postTitleTransitionName}) {
+                            width: fit-content;
+                        }
+                        @keyframes rotate-in-out {
+                            from {
+                                rotate: 0deg;
+                            }
+                            to {
+                                rotate: 180deg;
+                            }
+                        }
+                        */
+
+
+                        
+                        
+                        ::view-transition-old(${postCategoryTransitionName}),
+                        ::view-transition-new(${postCategoryTransitionName}) {
+                            width: fit-content;
+                        }
+                        @keyframes rotate-in-out {
+                            from {
+                                rotate: 0deg;
+                            }
+                            to {
+                                rotate: 180deg;
+                            }
+                        }
+                    </style>
+                    `
+
 ---
 
 <Layout>
+
+    <!-- <div
+        transition:name={`post-wrapper-${post.slug}`}
+        transition:animate="initial"
+    > -->
+
 
     <!-- <CustomImage
         imgSrc={post.mainImage} 
@@ -40,24 +125,225 @@ const post = await getPostBySlug(postSlug)
         height={640}
     /> -->
 
-    <Hero 
-        postContent={post}
-    />
+        <div class="content-wrapper">
+            <article
+                style={`view-transition-name: ${postWrapperTransitionName}; 
+                    animation-duration: 5000ms;
+                    animation-timing-function: ease-in-out;
+                `}
+                transition:animate="initial"
+            >
 
-    <main>
+                <div class="article-inner-wrapper">
 
-        <h1>{postSlug}</h1>
+                        
+                    
+                    <!--
+                    {
+                        post.title && 
+                            <div class="post-header text-center sm:py-16">
+                                <h2 
+                                    class="post-title text-transition my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                                >
+                                
+                                    <a href={`/blog/${post.slug}`}>{post.title}</a>
+                                </h2>
+                            </div>
+                    }
 
-        <p>{JSON.stringify(post.title)}</p>
+                    -->
 
-        <section>
-            <!-- <h2>
-                Blog Post
-            </h2>
-            <p>
-                {allPosts[0].title}
-            </p> -->
-        </section>
-    </main>
+                    {
+                        <div set:html={nessesaryTransitionStyle}></div>
+                    }
+
+
+                    <Hero 
+                        postContent={post}
+                    />
+
+                    <div class="post-header flex flex-col sm:pb-16 px-8 lg:px-16 mx-auto max-w-screen-xl">
+
+                        <div class="category-wrapper flex justify-center">
+                            <div class="categories self-center"
+                                transition:name={postCategoryTransitionName}
+                                transition:animate="initial"           
+                            >
+                                {   post.categories ?
+                                        post.categories.map((category, index) => (
+                                            <span class="bg-dsv-orange border-dsv-orange text-white self-center text-withe text-xs font-semibold mr-2 px-2.5 py-1 rounded dark:bg-purple-200 dark:text-purple-900">
+                                                {category}
+                                            </span>
+                                        )) 
+                                    :
+                                        <span class="bg-dsv-orange border-dsv-orange text-white self-center text-withe text-xs font-semibold mr-2 px-2.5 py-1 rounded dark:bg-purple-200 dark:text-purple-900">
+                                            Allgemein
+                                        </span>
+                                }
+                            </div>
+                        </div>
+        
+
+                        <div class="post-title-wrapper flex justify-center">
+                            <div 
+                                class="post-title self-center"
+                            >
+                                <h2 
+                                    class="post-title text-transition self-start font-bold text-gray-900"
+                                    data-vt-text={postTitleTransitionName}
+                                >
+                                    <!-- 
+                                        data-vt-text={postTitleTransitionName}
+
+                                        style={`view-transition-name: ${postTitleTransitionName}`}
+                                        
+
+                                        transition:name={postTitleTransitionName}
+                                        transition:animate="initial"
+                                    -->
+                                    
+                                    {   
+                                        post.title && 
+                                            postTitleArray.map((char, index) => (
+                                                <span 
+                                                    transition:animate="initial"
+                                                    transition:name={`${postTitleTransitionName}-${index}`}
+                                                >
+                                                    {char}
+                                                </span>
+                                                <span>
+                                                    &nbsp;
+                                                </span>
+                                            ))
+                                    }
+                                    <!-- 
+                                    {
+                                        post.title
+                                    } 
+                                    -->
+                                </h2>
+                            </div>
+                        </div>
+
+
+                        <div class="author-and-date flex self-center text-left space-x-4"
+                            transition:animate="initial"
+                            transition:name={postAuthorAndDateTransitionName}
+                        >
+                            {
+                                post.author.authorImage &&
+                                    <Image 
+                                        width={40}
+                                        height={40}
+                                        class="w-10 h-10 rounded-full" 
+                                        src={urlFor(post.author.authorImage).width(40).height(40).format('webp').url()}
+                                        alt="Jese Leos avatar"
+                                    />
+                            }
+                            <div class="font-medium dark:text-white">
+                                <div>{`${post.author.firstName} ${post.author.lastName}`}</div>
+                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{new Date(post.publishedAt).toLocaleDateString('de-DE', formatDateOptions)}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </article>
+
+            
+            <!-- max-w-screen-xl -->
+            <main class="px-4 lg:px-6 mx-auto max-w-screen-sm">
+                <div class="article-inner-wrapper">
+
+                    <!-- <p class="sm:pb-16">{JSON.stringify(post.body)}</p> -->
+                    
+                    <section class="post-body sm:pb-16" set:html={body().blockContent}></section>
+
+                </div>
+
+            </main>
+        </div>
+
+    <!-- </div> -->
 
 </Layout>
+
+
+<style lang="scss">
+
+    /* body {
+        background-color: #fff;
+    } */
+
+    .post-header {
+        text-align: center;
+    }
+
+
+    .article-inner-wrapper {
+        max-width: 1280px;
+        margin: 0 auto;
+
+        
+    }
+
+
+    .post-title-wrapper {
+        padding: 18px 0px;
+
+        .post-title {
+            display: flex;
+            justify-content: center;
+            align-items: cen    ter;
+
+            h2 {
+                font-size: 40px;
+                line-height: 60px;
+                padding: 0px 0;
+                display: flex;
+                flex-wrap: wrap; /* Hier setzen Sie flex-wrap auf wrap */
+                overflow: auto;
+
+                span {
+                    text-align: left;
+                }
+
+            }
+        }
+
+    }
+
+    .post-body h2 {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 48px;
+        padding-bottom: 24px;
+    }
+
+    .post-body h3 {
+        font-size: 24px;
+        line-height: 36px;
+        font-weight: 700;
+        padding-bottom: 24px;
+    }
+
+    .post-body p {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 300;
+        padding-bottom: 24px;
+    }
+
+    @media screen and (max-width: 690px) {
+        h2.post-title {
+            font-size: 24px;
+            /* height: 36px; */
+            line-height: 36px;
+        }
+    }
+
+
+    
+
+</style>

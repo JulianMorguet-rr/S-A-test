@@ -43,16 +43,6 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         </div>
     }
     
-    <!--
-    {pageBuilder._type === 'textWithIllustration' &&  
-        <TextWidthImage 
-            data={pageBuilder}
-            client:load
-            transition:persist
-        />
-    }
-    -->
-    
 
     {pageBuilder._type === 'textSection' &&  
         <TextSection 
@@ -103,15 +93,16 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 
 
     {pageBuilder._type === 'quoteCollection' &&
-        <section class="bg-white dark:bg-gray-900">
+        <!-- bg-white dark:bg-gray-900 -->
+        <section class="">
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
                 {/* <h2>{JSON.stringify(pageBuilder)}</h2> */}
                 
                 <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                    <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
                         {pageBuilder.heading}    
                     </h2>
-                    <p class="section-block-content mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+                    <p class="section-block-content mb-5 font-light text-gray-500 sm:text-xl">
                         {pageBuilder.paragraph}
                     </p>
                 </div>

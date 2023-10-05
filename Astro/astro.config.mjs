@@ -9,7 +9,7 @@ import robotsTxt from "astro-robots-txt";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://geschmaecker-sind-verschieden.com/',
-  // output: "server",
+  output: "server",
   integrations: [
     sanity({
       projectId: "tz4j4rda",
@@ -25,7 +25,7 @@ export default defineConfig({
     domains: ['cdn.sanity.io', 'geschmaecker-sind-verschieden.com', 'geschmaecker-sind-verschieden.com/videos/video-api'],
     remotePatterns: [{protocol: 'https'}]
   },
-  // adapter: node({
-  //   mode: "standalone"
-  // })
+  adapter: node({
+    mode: "standalone"
+  })
 });

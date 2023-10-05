@@ -10,50 +10,339 @@ const { post, blockContent } = Astro.props
 // Format Date Options 
 const formatDateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
 
+
+const postWrapperTransitionName = `post-wrapper-${post.slug}`
+const postImageTransitionName = `post-image-${post.slug}`
+const postTitleTransitionName = `post-title-${post.slug}`
+const postCategoryTransitionName = `post-category-${post.slug}`
+const postAuthorAndDateTransitionName = `post-author-and-date-${post.slug}`
+
+const bgColor = '#ff000'
+
+
+const postTitleArray: Array<any> = post.title.split(' ')
+
+const postTitle = () => {
+    // const postTitleArray: Array<any> = []
+    // let text = post.title 
+    // for (let i = 0; i < text.length; i++) {
+    //     if (text[i] === ' ') {
+    //         postTitleArray.push('---')
+    //     } else {
+    //         const char = text[i];
+    //         postTitleArray.push(char)
+    //     }
+    // }
+
+    return postTitleArray
+}
+
+
+const nessesaryTransitionStyle = `
+
+                        /*** Post Wrapper ***/
+
+                        ::view-transition-old(${postWrapperTransitionName}),
+                        ::view-transition-new(${postWrapperTransitionName}) {
+                            animation: fade-to-transparent;
+                            animation-duration: 0.3s;
+                            mix-blend-mode: normal;
+                            border-radius: 0rem;
+                            /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 8px 24px rgba(0, 0, 0, 0.1) */
+                        }
+
+                        @keyframes fade-to-transparent {
+                            from { 
+                                z-index: 9999999;
+                                opacity: 1;
+                                /* border-radius: 0rem; */
+                                /* box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(0, 0, 0, 0); */
+                            }
+                            to { 
+                                z-index: 9999999;
+                                opacity: 1;
+                                /* border-radius: 0.5rem; */
+                                /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 8px 24px rgba(0, 0, 0, 0.1) */
+                            }
+                        }
+
+
+
+                        /*** Post Image ***/ 
+                        ::view-transition-old(${postImageTransitionName}),
+                        ::view-transition-new(${postImageTransitionName}) {
+                            animation: initial;
+                            animation-duration: 0.3s;
+                            mix-blend-mode: normal;
+                            height: 100%;
+                            overflow: clip;
+                        }
+
+                        /* The old view is the thumbnail */
+                        ::view-transition-old(${postImageTransitionName}) {
+                            object-fit: contain;
+                        }
+
+                        /* The new view is the full image */
+                        ::view-transition-new(${postImageTransitionName}) {
+                            object-fit: cover;
+                        }
+
+
+
+
+                        /*** Post Title ***/ 
+                        /*
+                        ::view-transition-old(${postTitleTransitionName}),
+                        ::view-transition-new(${postTitleTransitionName}) {
+                            width: fit-content;
+                        }
+                        */
+                        
+                        
+
+
+
+                        /*** Post Category ***/
+                        
+                        ::view-transition-old(${postCategoryTransitionName}),
+                        ::view-transition-new(${postCategoryTransitionName}) {
+                            width: fit-content;
+                        }
+
+                        /*
+                            animation: none;
+                            mix-blend-mode: normal;
+                            height: 100%;
+                            overflow: clip;
+                            object-fit: cover;
+                        */
+
+
+
+
+                        /*** Handling Only Child ***/ 
+                        /*
+                        ::view-transition-old(${postWrapperTransitionName}):only-child,
+                        ::view-transition-old(${postImageTransitionName}):only-child,
+                        ::view-transition-old(${postCategoryTransitionName}):only-child,
+                        ::view-transition-old(${postAuthorAndDateTransitionName}):only-child,
+                        ::view-transition-old(${postTitleTransitionName}):only-child {
+                            animation: 0.66s scale-in 0s ease;
+                        }
+
+                        ::view-transition-new(${postWrapperTransitionName}):only-child,
+                        ::view-transition-new(${postImageTransitionName}):only-child,
+                        ::view-transition-new(${postCategoryTransitionName}):only-child,
+                        ::view-transition-new(${postAuthorAndDateTransitionName}):only-child,
+                        ::view-transition-new(${postTitleTransitionName}):only-child {
+                            animation: 0.66s scale-in 0s ease;
+                        }
+                        */
+
+                        
+
+                        
+
+                        @keyframes initial {
+                            from { 
+                                opacity: 1;
+                            }
+                        }
+                        
+                        @keyframes transformation {
+                            from { 
+                                opacity: 1;
+                            }
+                        }
+
+                        @keyframes r-in {
+                            from { 
+                                mix-blend-mode: normal;
+                                rotate: 360deg;
+                            }
+                        }
+
+
+                        @keyframes slide-from-right {
+                            from { transform: translateX(30px); }
+                        }
+
+                        @keyframes slide-to-left {
+                            to { transform: translateX(-30px); }
+                        }
+
+
+
+                        @keyframes scale-out {
+                            from {
+                                opacity: 1;
+                                scale: 1;
+                                // rotate: 360deg;
+                            }
+                            to {
+                                opacity: 0;
+                                scale: 0.5;
+                                //   translate: -3rem -5rem;
+                                //   rotate: -10deg;
+                            }
+                        }
+
+                        @keyframes scale-in {
+                            from {
+                                opacity: 0;
+                                scale: 0.5;
+                                //   translate: 3rem 5rem;
+                                //   rotate: -10deg;
+                            }
+                            to {
+                                opacity: 1;
+                                scale: 1;
+                                // rotate: 360deg;
+                            }
+                        }
+                    `
+
+
 ---
 
 
-<article class="p-4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+<article 
+    class="base-shadow p-4 bg-white rounded-lg shadow-md"
+    style={`    
+        view-transition-name: ${postWrapperTransitionName}; 
+        animation-duration: 5000ms;
+        animation-timing-function: ease-in-out;
+    `}
+>
+<!-- 
+        style={`    
+            view-transition-name: ${postWrapperTransitionName}; 
+            animation-duration: 5000ms;
+            animation-timing-function: ease-in-out;
+        `}
+-->
+
+    <!-- <h2>{postImageTransitionName}</h2> -->
+
     {   post.mainImage &&
             <a href={`/blog/${post.slug}`}>
                 <img 
                     id={`post-image-${post.slug}`}
                     width={360}
                     height={240}
-                    src={urlFor(post.mainImage).width(360).height(240).format('webp').url()}
+                    src={urlFor(post.mainImage).width(356).height(174).format('webp').url()}
                     alt="Jese Leos avatar"
-                    class="mb-5 rounded-lg"
-                    transition:name={`post-image-${post.slug}`}
-                    transition:animate="initial"
+                    class="image-transition mb-5 rounded-lg"
+                    style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`} 
                 />
+                <!--
+
+                    transition:name={postImageTransitionName}
+                    transition:animate="initial" 
+
+                    style="view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;"
+                    style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`}
+                       
+                -->
             </a>
     }
 
-<p>{`post-image-${post.slug}`}</p>
+    <!-- <p>{`post-image-${post.slug}`}</p> -->
 
-    {   post.categories &&
-            post.categories.map((category, index) => (
-                <span class="bg-purple-100 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-900">
-                    {category}
-                </span>
-            ))
+    <div class="category-wrapper">
+        <div class="categories self-start"
+            style={`    
+                view-transition-name: ${postCategoryTransitionName}; 
+                animation-duration: 5000ms;
+                animation-timing-function: ease-in-out;
+            `}
+        >
+        <!--
+            transition:name={postCategoryTransitionName}
+            transition:animate="initial"   
+        -->
+            {   post.categories ?
+                    post.categories.map((category, index) => (
+                        <a href={`/blog/category/${category}`}>
+                            <span class="bg-dsv-orange border-dsv-orange text-white text-purple-800 self-start text-xs font-semibold mr-2 px-2.5 py-1 rounded dark:bg-purple-200 dark:text-purple-900">
+                                {category}
+                            </span>
+                        </a>
+                    )) 
+                :
+                    <span class="bg-dsv-orange border-dsv-orange text-white text-purple-800 self-start text-xs font-semibold mr-2 px-2.5 py-1 rounded dark:bg-purple-200 dark:text-purple-900">
+                        Keine Kategorie
+                    </span>
+            }
+        </div>
+    </div>
+
+    <!-- [data-vt-text] -->
+
+    {
+        post.title && 
+            <div class="post-title-wrapper flex justify-center">
+                <div class="post-title self-center">
+                    <a href={`/blog/${post.slug}`}>
+                        <h2 
+                            class="post-title text-transition self-start font-bold text-gray-900"
+                            data-vt-text={postTitleTransitionName}
+                        >
+                            <!-- 
+                                data-vt-text={postTitleTransitionName}
+
+                                style={`view-transition-name: ${postTitleTransitionName}`}
+
+                                transition:name={postTitleTransitionName}
+                                transition:animate="initial"
+                            -->
+                            
+                            {   
+                                post.title && 
+                                    postTitleArray.map((char, index) => (
+                                        <span 
+                                            transition:animate="initial"
+                                            transition:name={`${postTitleTransitionName}-${index}`}
+                                        >
+                                            {char}
+                                        </span>
+                                        <span 
+                                        >
+                                            &nbsp;
+                                        </span>
+                                    ))
+                            }
+
+                            <!--
+                            {
+                                post.title
+                            }
+                            -->
+                            
+                        </h2>
+                    </a>
+                </div>
+            </div>
     }
 
-    <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        <a href={`/blog/${post.slug}`}>{post.title}</a>
-    </h2>
+
     {
         post.customString &&
             <p class="mb-4 font-light text-gray-500 dark:text-gray-400">
                 {post.customString}
             </p>
     }
-    {
+    <!-- {
         !post.customString &&
-            <div class="mb-4 font-light text-gray-500 dark:text-gray-400" set:html={blockContent}></div>
-    }
+            blockContent.blockContent &&
+                <div class="mb-4 font-light text-gray-500 dark:text-gray-400" set:html={blockContent.blockContent}></div>
+    } -->
 
-    <div class="flex items-center space-x-4">
+    <div class="author-and-date self-start flex space-x-4"
+        transition:animate="initial"
+        transition:name={postAuthorAndDateTransitionName}
+    >
         {
             post.author.authorImage &&
                 <Image 
@@ -69,9 +358,132 @@ const formatDateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 
             <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{new Date(post.publishedAt).toLocaleDateString('de-DE', formatDateOptions)}</div>
         </div>
     </div>
+
+
+    <style set:html={nessesaryTransitionStyle}></style>
 </article>
 
 
+<style lang="scss">
+
+    .post-title-wrapper {
+        padding: 18px 0px;
+    
+        .post-title {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            h2 {
+                font-size: 20px;
+                line-height: 30px;
+                padding: 0px 0;
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap; /* Hier setzen Sie flex-wrap auf wrap */
+                text-align: left;
+                overflow: auto;
+
+                span {
+                    text-align: left;
+                }
+            }
+        }
+    }
+</style>
+
+<!-- <style is:inline define:vars={{ postImageTransitionName, bgColor }}> -->
+<style>
+/**
+* View-Transition for initial 
+*/
 
 
+article {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+
+article:focus-within {
+    z-index: 9999999;
+}
+
+
+.category-wrapper {
+    width: 100%;
+}
+
+/* article .categories, article .categories span {
+    contain: layout;
+    display: inline-block;
+} */
+
+/* article .categories span {
+    display: inline-block;
+} */
+    
+
+
+.text-transition {
+    transition: all 0.33s ease-in-out;
+}
+
+.author-and-date {
+    /* align-self:last baseline; */
+    margin-top: auto;
+    text-align: left;
+}
+
+
+
+/**
+* View-Transition for post image
+*/
+
+.image-transition ::view-transition-old(*),
+.image-transition ::view-transition-new(*) {
+    animation-duration: 0.33s;
+    /* animation: none; */
+    mix-blend-mode: normal;
+    height: 100%;
+    overflow: clip;
+    animation-name: rotate-in-out;
+}
+
+.image-transition ::view-transition-old(*) {
+    object-fit: contain;
+}
+
+.image-transition ::view-transition-new(*) {
+    object-fit: cover;
+}
+
+@keyframes rotate-in-out {
+from {
+        rotate: 0deg;
+    }
+    to {
+        rotate: 180deg;
+    }
+}
+
+
+
+.text-transition::view-transition-old(*),
+.text-transition::view-transition-new(*) {
+    animation-duration: 0.66s;
+    animation-name: rotate-in-out;
+    width: fit-content;
+}
+
+.text-transition::view-transition-old(*) {
+}
+
+.text-transition::view-transition-new(*) {
+}
+
+
+</style>
 

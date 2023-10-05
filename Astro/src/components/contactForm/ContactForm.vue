@@ -69,30 +69,30 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="container">
-        <div>
-          nodemailerBaseURL: {{nodemailerBaseURL}}<br>
-          nodemailerContactFormPath: {{nodemailerContactFormPath}}<br>
-        </div>
-        <form @submit.prevent="handleSubmit()">
-            <!-- <h3>{{ data.subtitle }}</h3>
-            <h2>{{ data.heading }}</h2>
-            <p>{{ formData.name }}</p>
-            <p>{{ formData.email }}</p>
-            <p>{{ formData.message }}</p> -->
-            <div class="flex inputs">
-                <input class="input-field" type="text" :placeholder="data.placeholderName" v-model="formData.name" />
-                <input class="input-field" type="email" :placeholder="data.placeholderEmail" v-model="formData.email" />
-            </div>
-            <textarea class="textarea-field" :placeholder="data.placeholderTextarea" v-model="formData.message" />
-            <button type="submit">
-                <template v-if="waiting">Laden</template>
-                <template v-if="!waiting">Abschicken</template>
-            </button>
-            <p v-if="errors">Etwas lief schief</p>
-            <p v-if="success">Abgeschickt</p>
-        </form>
+  <section class="container py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+    <div>
+      nodemailerBaseURL: {{nodemailerBaseURL}}<br>
+      nodemailerContactFormPath: {{nodemailerContactFormPath}}<br>
     </div>
+    <form @submit.prevent="handleSubmit()">
+        <!-- <h3>{{ data.subtitle }}</h3>
+        <h2>{{ data.heading }}</h2>
+        <p>{{ formData.name }}</p>
+        <p>{{ formData.email }}</p>
+        <p>{{ formData.message }}</p> -->
+        <div class="flex inputs">
+            <input class="input-field" type="text" :placeholder="data.placeholderName" v-model="formData.name" />
+            <input class="input-field" type="email" :placeholder="data.placeholderEmail" v-model="formData.email" />
+        </div>
+        <textarea class="textarea-field" :placeholder="data.placeholderTextarea" v-model="formData.message" />
+        <button type="submit">
+            <template v-if="waiting">Laden</template>
+            <template v-if="!waiting">Abschicken</template>
+        </button>
+        <p v-if="errors">Etwas lief schief</p>
+        <p v-if="success">Abgeschickt</p>
+    </form>
+  </section>
 </template>
 
 <style scoped lang="scss">
@@ -125,7 +125,7 @@ const handleSubmit = async () => {
     width: 100%;
     margin-bottom: 20px;
   }
-  
+
   .input-field {
     flex: 1;
     margin-right: 30px;
@@ -139,5 +139,16 @@ const handleSubmit = async () => {
     width: 100%;
     height: 80px;
     margin-bottom: 10px;
+  }
+
+
+  @media (max-width: 768px) {
+    .inputs {
+      flex-direction: column;
+    }
+    .input-field {
+      width: 100%;
+      margin: 0px 0px 20px 0px;
+    }
   }
 </style>

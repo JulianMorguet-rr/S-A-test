@@ -129,6 +129,12 @@ export async function getPostsMinimal() {
 export async function getPostBySlug(slug) {
   // console.log('slug: ', slug);
   const query = groq`*[_type == "post" && slug == "${slug}"][0]{
+    body[]{
+      ..., 
+      asset->{
+        ...,
+      },
+    },
     ...,
     author->,
   }`;

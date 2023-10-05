@@ -58,7 +58,8 @@ export default {
         name: 'categories',
         title: 'Categories',
         type: 'array',
-        of: [{type: 'string', to: {type: 'category'}}]
+        of: [{type: 'string', to: {type: 'category'}}],
+        validation: Rule => Rule.required().error('Mindestens eine "Category" ist erforderlich – und sei es "Sonstiges" oder "Allgemein".')
       },
       {
         name: 'publishedAt',
@@ -74,11 +75,12 @@ export default {
 
       {
         name: 'customString',
-        title: 'Custom String',
+        title: 'Textauszug',
         type: 'string',
         components: {
           input: MyCustomStringInput
-        }
+        },
+        validation: Rule => Rule.required().error('Es ist ein Textauszug für die Blog-Übersicht ist erforderlich.')
       },
 
       {

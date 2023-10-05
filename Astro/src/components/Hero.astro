@@ -10,6 +10,7 @@ interface PostContent {
     slug: string;
 }
 import { Image } from 'astro:assets';
+import CustomImage from './atomicComponents/CustomImage.astro';
 
 // Destrukturieren Sie Astro.props in eine andere Variable
 const { pageContent, postContent } = Astro.props as { pageContent: PageContent, postContent: PostContent };
@@ -30,113 +31,132 @@ const useBackgroundAnimation = (type) => {
     }
 }
 
+
+let postImageTransitionName 
+const setPostImageTransitionName = () => {
+    if (!postContent?.slug) return 
+    postImageTransitionName = `post-image-${postContent.slug}`;
+}
+setPostImageTransitionName()
+
+const bgColor = 'red';
+
 ---
 
-<div class="hero" style={`aspect-ratio: 1920 / 640;`} >
 
-    <!-- <p>
-        {JSON.stringify(pageContent)}
-    </p> -->
+<div class="hero-wrapper sm:pb-16">
+    <div class={`hero ${pageContent ? 'page-hero' : ''}`} style={``}>
 
-    { pageContent &&
+        <!-- <p>
+            {JSON.stringify(pageContent)}
+        </p> -->
 
-        <>
-
-        { pageContent?.heroBackgroundVideo ? ( 
-                <div class="inline-video">
-                    <video autoplay loop muted playsinline class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Stimmungs Assets'} >
-                        <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
-                        <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
-                        <p>
-                            Ihr Browser unterstützt kein HTML video. Hier ist ein 
-                            <a href={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
-                        </p>
-                    </video> 
-                </div>
-            ) : 
-            pageContent?.heroImage ? (
-                <Image 
-                    width="1920"
-                    height="640"
-                    src={urlFor(pageContent.heroImage).width(1920).height(640).format('webp').url()} 
-                    alt={pageContent.heroImageAlt || "Hero Image"}
-                />
-                <!-- 
-                    transition:name={`hero-image-${pageContent.slug}`}
-                    transition:animate="initial"
-                -->
-            ) : (
-                <div class="animated-bg-gradient">
-                </div>
-            )
-        }
-
-        { pageContent?.heading &&
-            <div class="headline-wrapper mb-4">
-                <h1 class={`${useBackgroundAnimation('page') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900 dark:text-white`}>
-                    <span>{pageContent.heading}</span>
-                </h1>
-            </div>
-        }
-
-        <!--
-        {
-            pageContent?.heroBackgroundVideo && ( 
-                <div>
-                    <video autoplay loop muted playsinline class="hero-background-video">
-                        <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
-                        <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
-                    </video> 
-                </div>
-            )
-        }
-        -->
-
-        </>
-
-    }
-
-
-
-    {   
-        postContent &&
+        { pageContent &&
 
             <>
 
-            {
-                postContent.mainImage ? (
+            { pageContent?.heroBackgroundVideo ? ( 
+                    <div class="inline-video">
+                        <video autoplay loop muted playsinline class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Stimmungs Assets'} >
+                            <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
+                            <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+                            <p>
+                                Ihr Browser unterstützt kein HTML video. Hier ist ein 
+                                <a href={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
+                            </p>
+                        </video> 
+                    </div>
+                ) : 
+                pageContent?.heroImage ? (
+                    <!--
                     <Image 
                         width="1920"
                         height="640"
-                        src={urlFor(postContent.mainImage).width(1920).height(640).format('webp').url()} 
-                        alt={postContent.mainImageAltText || "Hero Image"}
-                        transition:name={`post-image-${postContent.slug}`}
-                        transition:animate='initial'
+                        src={urlFor(pageContent.heroImage).width(1920).height(640).format('webp').url()} 
+                        alt={pageContent.heroImageAlt || "Hero Image"}
+                    />
+                    -->
+                    <CustomImage
+                        imgSrc={pageContent.heroImage} 
+                        altText={pageContent.heroImageAlt || "Hero Image"}
+                        width={1920}
+                        height={640}
+                        rounded={false}
+                        class="w-full"
                     />
                 ) : (
-                <div class="animated-bg-gradient"></div>
+                    <div class="animated-bg-gradient">
+                    </div>
                 )
-
             }
 
-            
 
-            { 
-                postContent?.title &&
-                    <div class="headline-wrapper mb-4">
-                        <h1 class={`${useBackgroundAnimation('post') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900 dark:text-white`}>
-                            <span>{postContent.title}</span>
+            { pageContent?.heading &&
+                <div class="headline-wrapper mb-4">
+                    <div class="inner-wrapper" style="clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);">
+                        <h1 class={`${useBackgroundAnimation('page') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900 dark:text-white`}>
+                            <span>{pageContent.heading}</span>
                         </h1>
                     </div>
+                </div>
             }
+
 
             </>
 
-    }
+        }
 
-    
-</div> 
-<div class="spacing"></div>
+
+
+        {   
+            postContent &&
+
+                <>
+
+                {
+                    postContent.mainImage ? (
+                        <div class="img-wrapper sm:pt-16 px-4 lg:px-6 mx-auto max-w-screen-xl">
+                            <Image 
+                                width="1280"
+                                height="627"
+                                src={urlFor(postContent.mainImage).width(1280).height(627).format('webp').url()} 
+                                alt={postContent.mainImageAltText || "Hero Image"}
+                                class="post-main-image rounded-lg base-shadow"
+                                style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`} 
+                                                     
+                            />
+                            <!-- 
+                                transition:name={postImageTransitionName}
+                                transition:animate='initial'       
+                            -->
+                        </div>
+                    ) : (
+                    <div class="animated-bg-gradient"></div>
+                    )
+
+                }
+
+                
+
+                { 
+                    postContent?.title &&
+                    false &&
+                        <div class="headline-wrapper mb-4">
+                            <h1 class={`${useBackgroundAnimation('post') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900 dark:text-white`}>
+                                <span>{postContent.title}</span>
+                            </h1>
+                        </div>
+                }
+
+                </>
+
+        }
+
+        
+    </div> 
+</div>
+
+
 
 
 <style lang="scss">
@@ -148,26 +168,43 @@ const useBackgroundAnimation = (type) => {
         display: flex;
         justify-content: center;
         align-items: flex-end;
-        min-height: 440px;
 
+        &.page-hero {
+            min-height: 440px;
+            aspect-ratio: 1920 / 640;
+        }
         
+        @media screen and (max-width: 690px) {
+            &.page-hero {
+                aspect-ratio: 16 / 9;
+                min-height: 0px;
+            }
+        }
+
 
         .headline-wrapper {
             z-index: 9;
             position: absolute;
             padding: 4rem 2rem;
 
-            // transform: translate(-6vw, 0rem);
+            @media screen and (max-width: 690px) {
+                padding: 1rem 1rem;
+            }
 
-            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+            .inner-wrapper {
+                
 
-            animation: maskFadeInFromLeft 1s $basedelay forwards; /* Animation anwenden und bei 100% anhalten */
-            animation-fill-mode: forwards; /* Zustand bei 100% beibehalten */
+                animation: maskFadeInFromLeft 1s $basedelay forwards; /* Animation anwenden und bei 100% anhalten */
+                animation-fill-mode: forwards; /* Zustand bei 100% beibehalten */
+
+                padding: 0 2rem;
+
+                overflow: hidden;
+            }
             
 
             h1 {
                 margin: auto;
-                width: 100%;
                 text-align: center;
                 font-size: 4rem;
                 font-weight: 800;
@@ -191,6 +228,12 @@ const useBackgroundAnimation = (type) => {
                 // animation: maskSlideHeading 1s 0.4s forwards; /* Animation anwenden und bei 100% anhalten */
                 // animation-fill-mode: forwards; /* Zustand bei 100% beibehalten */
 
+
+                @media screen and (max-width: 690px) {
+                    font-size: 2rem;
+                    line-height: 3rem;
+                }
+
                 &.background-animation {
                     // Testing Animation 
                     background: linear-gradient(45deg,#f77f7f,#eadb3a);
@@ -207,16 +250,19 @@ const useBackgroundAnimation = (type) => {
 
                 &:before {
                     content: '';
-                    width: 100%;
                     height: 6rem;
-                    background: linear-gradient(to right, #fff 50%, transparent 50%);
+                    // background: linear-gradient(to right, #fff 50%, transparent 50%);
                     background-size: 200% 100%; /* Größe des Verlaufs verdoppeln */
                     background-position: 100% 0; /* Ausgangsposition ganz rechts */
                     position: absolute;
                     z-index: -1;
-                    margin-left: -2rem;
                     animation: maskSlideBackground 1s $basedelay forwards; /* Animation anwenden und bei 100% anhalten */
                     animation-fill-mode: forwards; /* Zustand bei 100% beibehalten */
+
+                    @media screen and (max-width: 690px) {
+                        height: 3rem;
+
+                    }
                 }
             }
         }
@@ -233,6 +279,10 @@ const useBackgroundAnimation = (type) => {
             display: block;
             width: 100%;
             height: auto;
+        }
+
+        &:not(.page-hero) img {
+            aspect-ratio: 1280 / 627;
         }
 
         .animated-bg-gradient {
@@ -280,6 +330,14 @@ const useBackgroundAnimation = (type) => {
             }
         }
 
+    }
+
+
+
+    .post-main-image {
+        width: 1280px;
+        max-width: 1280px;
+        margin: auto;
     }
 
 
@@ -367,14 +425,35 @@ const useBackgroundAnimation = (type) => {
     /* Keyframe-Animation für :before erstellen */
     @keyframes maskSlideBackground {
         0% {
-            background: linear-gradient(to right, #fff 50%, transparent 50%); /* Anfangszustand: Harte Kante in der Mitte */
-            background-size: 200% 100%; /* Größe des Verlaufs verdoppeln */
-            background-position: 100% 0; /* Ausgangsposition ganz rechts */
+            // background: linear-gradient(to right, #fff 50%, transparent 50%); /* Anfangszustand: Harte Kante in der Mitte */
+            // background-size: 200% 100%; /* Größe des Verlaufs verdoppeln */
+            // background-position: 100% 0; /* Ausgangsposition ganz rechts */
+            width: 0;
+
         }
         100% {
-            background: linear-gradient(to right, #fff 50%, transparent 50%); /* Endzustand: Harte Kante in der Mitte bleibt erhalten */
-            background-size: 200% 100%; /* Größe des Verlaufs bleibt gleich */
-            background-position: 0% 0; /* Endposition ganz links */
+            // background: linear-gradient(to right, #fff 50%, transparent 50%); /* Endzustand: Harte Kante in der Mitte bleibt erhalten */
+            // background-size: 200% 100%; /* Größe des Verlaufs bleibt gleich */
+            // background-position: 0% 0; /* Endposition ganz links */
+            width: calc(100% + 4rem);
+        }
+    }
+
+    @media (max-width: 789px) {
+        @keyframes maskSlideBackground {
+            0% {
+                // background: linear-gradient(to right, #fff 50%, transparent 50%); /* Anfangszustand: Harte Kante in der Mitte */
+                // background-size: 200% 100%; /* Größe des Verlaufs verdoppeln */
+                // background-position: 100% 0; /* Ausgangsposition ganz rechts */
+                width: 0;
+
+            }
+            100% {
+                // background: linear-gradient(to right, #fff 50%, transparent 50%); /* Endzustand: Harte Kante in der Mitte bleibt erhalten */
+                // background-size: 200% 100%; /* Größe des Verlaufs bleibt gleich */
+                // background-position: 0% 0; /* Endposition ganz links */
+                width: calc(100% + 2rem);
+            }
         }
     }
     
