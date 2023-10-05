@@ -10,8 +10,10 @@ import Footer from '../components/footer/Footer.astro';
 export interface Props {
 	seo?: BaseHeadProps;
 }
+
 const { seo } = Astro.props;
 const { page, lang, version, path } =  Astro.params
+
 
 
 import { getGlobalSiteSettings, getAppearance, getMainMenu } from '../lib/sanityApi.js';
@@ -34,8 +36,19 @@ const mainMenu = await getMainMenu();
   <!-- class="bg-white dark:bg-gray-900" -->
   <body>
 
+    <!-- 
+      {
+        prefetch?.map((item) => {
+          return (
+            <p> {item.url} </p>
+            <p> {JSON.stringify(item.data.post.mainImage)} </p>
+          )
+        })
+      } 
+    -->
+
     <!-- <slot name="header" /> -->
-    <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu} />
+    <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu}  />
 
     <div transition:name="main-content">
       <slot />

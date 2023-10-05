@@ -226,7 +226,7 @@ const nessesaryTransitionStyle = `
     <!-- <h2>{postImageTransitionName}</h2> -->
 
     {   post.mainImage &&
-            <a href={`/blog/${post.slug}`}>
+            <a rel="prefetch" href={`/blog/${post.slug}`}>
                 <img 
                     id={`post-image-${post.slug}`}
                     width={360}

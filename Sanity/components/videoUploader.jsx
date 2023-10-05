@@ -100,7 +100,7 @@ export function VideoGallery() {
                         {/* <p>{JSON.stringify(video)}</p> */}
                         <div className="video-thumbnail" onClick={() => openVideoLightbox(video.path)}>
                             <video controls>
-                            <source src={`https://geschmaecker-sind-verschieden.com/video-api/${video.webmPath}`} type="video/mp4" />
+                            <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${video.webmPath}`} type="video/mp4" />
                             Your browser does not support the video tag.
                             </video>
                         </div>
@@ -112,7 +112,7 @@ export function VideoGallery() {
     );
   }
 
-const saveVideoAPIEndpoint = 'https://geschmaecker-sind-verschieden.com/video-api/save-video';
+const saveVideoAPIEndpoint = 'https://assets.geschmaecker-sind-verschieden.com/video-api/save-video';
 // const saveVideoAPIEndpoint = 'http://localhost:2001/save-video'  
 
 export function VideoUploader() {

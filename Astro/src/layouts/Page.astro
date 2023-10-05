@@ -2,14 +2,10 @@
 import Base from './Base.astro';
 import type { Props as BaseHeadProps } from '../components/BaseHead.astro';
 
-export interface Props {
-	seo?: BaseHeadProps;
-}
-
-const { seo } = Astro.props as Props;
+const { seo } = Astro.props as BaseHeadProps;
 ---
 
-<Base seo={seo}>
+<Base seo={seo} >
 		<slot />
 </Base>
 

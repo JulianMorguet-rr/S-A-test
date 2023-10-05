@@ -58,11 +58,11 @@ const bgColor = 'red';
             { pageContent?.heroBackgroundVideo ? ( 
                     <div class="inline-video">
                         <video autoplay loop muted playsinline class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Stimmungs Assets'} >
-                            <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
-                            <source src={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+                            <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
+                            <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
                             <p>
                                 Ihr Browser unterstützt kein HTML video. Hier ist ein 
-                                <a href={`https://geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
+                                <a href={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
                             </p>
                         </video> 
                     </div>
@@ -122,9 +122,18 @@ const bgColor = 'red';
                                 src={urlFor(postContent.mainImage).width(1280).height(627).format('webp').url()} 
                                 alt={postContent.mainImageAltText || "Hero Image"}
                                 class="post-main-image rounded-lg base-shadow"
-                                style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`} 
-                                                     
+                                style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`}                     
                             />
+                            <!--
+                            <Image 
+                                width="1280"
+                                height="627"
+                                src={urlFor(postContent.mainImage).width(1280).height(627).format('webp').url()} 
+                                alt={postContent.mainImageAltText || "Hero Image"}
+                                class="post-main-image rounded-lg base-shadow"
+                                style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`}                     
+                            />
+                            -->
                             <!-- 
                                 transition:name={postImageTransitionName}
                                 transition:animate='initial'       

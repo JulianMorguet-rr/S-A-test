@@ -81,10 +81,10 @@ let asyncValue: AsyncValue = setAsyncValue(async)
     style={`width: 100%; border-radius: ${radius};`}
 >
     <!-- Für Bildschirmbreiten von bis zu 600px -->
-    <source media="(max-width: 679px)" srcset={urlFor(imgSrc).width(800).height(450).flipHorizontal().format('jpg').url()}>
+    <source media="(max-width: 679px)" srcset={urlFor(imgSrc).width(800).height(450).flipHorizontal().format('webp').url()}>
     
     <!-- Für Bildschirmbreiten über 600px -->
-    <source media="(min-width: 680px)" srcset={urlFor(imgSrc).width(width).height(height).flipHorizontal().format('jpg').url()}>
+    <source media="(min-width: 680px)" srcset={urlFor(imgSrc).width(width).height(height).flipHorizontal().format('webp').url()}>
     
     <!-- Fallback-Bild für Browser, die das <picture>-Element nicht unterstützen -->
     <img 

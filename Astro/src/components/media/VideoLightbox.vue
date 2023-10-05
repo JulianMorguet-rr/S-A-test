@@ -30,12 +30,12 @@
                 <img 
                     width="1600"
                     height="900"
-                    :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.thumbnailPath}`"
+                    :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.thumbnailPath}`"
                     :alt="media.video._id || 'Video Thumbnail'"
                 />
                 <!-- <video class="hero-background-video">
-                    <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.webmPath}`" type="video/webm">
-                    <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.mp4Path}`" type="video/mp4">
+                    <source :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.webmPath}`" type="video/webm">
+                    <source :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.mp4Path}`" type="video/mp4">
                 </video>   -->
             </div>
             <!-- No View Transition API if not "chrome" -->
@@ -43,8 +43,8 @@
                 <!-- <p style="color: #fff;">Media: {{ media }}</p> -->
                 <!-- <p style="color: #fff;">BrowserName: {{browserName}}</p> -->
                 <video controls class="hero-background-video">
-                    <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.webmPath}`" type="video/webm">
-                    <source :src="`https://geschmaecker-sind-verschieden.com/video-api/${media.video.mp4Path}`" type="video/mp4">
+                    <source :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.webmPath}`" type="video/webm">
+                    <source :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.mp4Path}`" type="video/mp4">
                 </video>  
             </div>
         <!-- </div> -->

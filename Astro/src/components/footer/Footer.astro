@@ -48,7 +48,7 @@ const date = new Date();
             globalSiteSettings: {JSON.stringify(globalSiteSettings)}
         </p> -->
         
-        <a href="/" class="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white">
+        <a href="/" aria-label="Link zur Startseite" class="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white">
             {
                 globalSiteSettings.logo.svg ? 
                     (<span set:html={globalSiteSettings.logo.svg}></span>)

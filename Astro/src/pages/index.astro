@@ -90,11 +90,11 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 			{ homePage?.heroBackgroundVideo ? ( 
 				<div class="hero">
 					<video autoplay loop muted playsinline class="hero-background-video" aria-details={homePage.heroImageAlt || 'Stimmungs Assets'} >
-						<source src={`https://geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.webmPath}`} type="video/webm">
-						<source src={`https://geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+						<source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.webmPath}`} type="video/webm">
+						<source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.mp4Path}`} type="video/mp4">
 						<p>
 							Ihr Browser unterstützt kein HTML video. Hier ist ein 
-							<a href={`https://geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
+							<a href={`https://assets.geschmaecker-sind-verschieden.com/video-api/${homePage.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
 						</p>
 					</video> 
 				</div>
