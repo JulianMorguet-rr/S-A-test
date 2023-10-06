@@ -122,25 +122,91 @@ const nessesaryTransitionStyle = `
 
 
                         /*** Handling Only Child ***/ 
-                        /*
+                        
                         ::view-transition-old(${postWrapperTransitionName}):only-child,
                         ::view-transition-old(${postImageTransitionName}):only-child,
                         ::view-transition-old(${postCategoryTransitionName}):only-child,
                         ::view-transition-old(${postAuthorAndDateTransitionName}):only-child,
-                        ::view-transition-old(${postTitleTransitionName}):only-child {
-                            animation: 0.66s scale-in 0s ease;
+                        /* ::view-transition-old(${postTitleTransitionName}):only-child, */
+                        ${  postTitleArray.map((char, index) => (
+                            `::view-transition-old(${postTitleTransitionName}-${index}):only-child`
+                            ))
+                        } 
+                        {
+                            animation: 0.33s fade-out-down 0s ease;
                         }
 
                         ::view-transition-new(${postWrapperTransitionName}):only-child,
                         ::view-transition-new(${postImageTransitionName}):only-child,
                         ::view-transition-new(${postCategoryTransitionName}):only-child,
                         ::view-transition-new(${postAuthorAndDateTransitionName}):only-child,
-                        ::view-transition-new(${postTitleTransitionName}):only-child {
-                            animation: 0.66s scale-in 0s ease;
+                        /* ::view-transition-new(${postTitleTransitionName}):only-child, */
+                        ${  postTitleArray.map((char, index) => (
+                            `::view-transition-new(${postTitleTransitionName}-${index}):only-child`
+                            ))
+                        } 
+                        {
+                            animation: 0.66s fade-in-up ease;
+                            opacity: 0;
+                            translate: 0rem 5rem;
+                            z-index: -1;
                         }
-                        */
+                        
+                        @keyframes fade-in-up {
+                            from {
+                                opacity: 0;
+                                translate: 0rem 5rem;
+                                z-index: -1;
+                            }
+                            to {
+                                opacity: 1;
+                                scale: 1;
+                                translate: 0rem 0rem;
+                                z-index: 1;
+                            }
+                        }
+                        @keyframes fade-out-down {
+                            from {
+                                opacity: 0;
+                                translate: 0rem 0rem;
+                            }
+                            to {
+                                opacity: 0;
+                                translate: 0rem -5rem;
+                            }
+                        }
+
+
 
                         
+
+                        @keyframes scale-in {
+                            from {
+                                opacity: 0;
+                                scale: 0.5;
+                                //   translate: 3rem 5rem;
+                                //   rotate: -10deg;
+                            }
+                            to {
+                                opacity: 1;
+                                scale: 1;
+                                // rotate: 360deg;
+                            }
+                        }
+                        @keyframes scale-out {
+                            from {
+                                opacity: 1;
+                                scale: 1;
+                                // rotate: 360deg;
+                            }
+                            to {
+                                opacity: 0;
+                                scale: 0.5;
+                                //   translate: -3rem -5rem;
+                                //   rotate: -10deg;
+                            }
+                        }
+
 
                         
 
@@ -174,33 +240,7 @@ const nessesaryTransitionStyle = `
 
 
 
-                        @keyframes scale-out {
-                            from {
-                                opacity: 1;
-                                scale: 1;
-                                // rotate: 360deg;
-                            }
-                            to {
-                                opacity: 0;
-                                scale: 0.5;
-                                //   translate: -3rem -5rem;
-                                //   rotate: -10deg;
-                            }
-                        }
-
-                        @keyframes scale-in {
-                            from {
-                                opacity: 0;
-                                scale: 0.5;
-                                //   translate: 3rem 5rem;
-                                //   rotate: -10deg;
-                            }
-                            to {
-                                opacity: 1;
-                                scale: 1;
-                                // rotate: 360deg;
-                            }
-                        }
+                        
                     `
 
 
@@ -226,14 +266,14 @@ const nessesaryTransitionStyle = `
     <!-- <h2>{postImageTransitionName}</h2> -->
 
     {   post.mainImage &&
-            <a rel="prefetch" href={`/blog/${post.slug}`}>
+            <a rel="prefetch" href={`/blog/${post.slug}`} class="w-full">
                 <img 
                     id={`post-image-${post.slug}`}
                     width={360}
                     height={240}
                     src={urlFor(post.mainImage).width(356).height(174).format('webp').url()}
                     alt="Jese Leos avatar"
-                    class="image-transition mb-5 rounded-lg"
+                    class="image-transition w-full mb-5 rounded-lg"
                     style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`} 
                 />
                 <!--
@@ -282,12 +322,14 @@ const nessesaryTransitionStyle = `
 
     {
         post.title && 
-            <div class="post-title-wrapper flex justify-center">
+            <div 
+                class="post-title-wrapper flex justify-center"
+                transition:name={`${postTitleTransitionName}`}
+            >
                 <div class="post-title self-center">
                     <a href={`/blog/${post.slug}`}>
                         <h2 
-                            class="post-title text-transition self-start font-bold text-gray-900"
-                            data-vt-text={postTitleTransitionName}
+                            class="post-title self-start font-bold text-gray-900"
                         >
                             <!-- 
                                 data-vt-text={postTitleTransitionName}
@@ -368,6 +410,8 @@ const nessesaryTransitionStyle = `
 
     .post-title-wrapper {
         padding: 18px 0px;
+        width: 100%;
+        justify-content: flex-start;
     
         .post-title {
 
@@ -375,18 +419,25 @@ const nessesaryTransitionStyle = `
             justify-content: center;
             align-items: center;
 
-            h2 {
-                font-size: 20px;
-                line-height: 30px;
-                padding: 0px 0;
-                display: flex;
-                justify-content: flex-start;
-                flex-wrap: wrap; /* Hier setzen Sie flex-wrap auf wrap */
-                text-align: left;
-                overflow: auto;
+            a {
 
-                span {
+                &:hover {
+                    text-decoration: none;
+                }
+ 
+                h2 {
+                    font-size: 20px;
+                    line-height: 30px;
+                    padding: 0px 0;
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-wrap: wrap; /* Hier setzen Sie flex-wrap auf wrap */
                     text-align: left;
+                    overflow: auto;
+
+                    span {
+                        text-align: left;
+                    }
                 }
             }
         }

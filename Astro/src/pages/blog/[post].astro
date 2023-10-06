@@ -14,7 +14,7 @@ import { fade, slide  } from 'astro:transitions';
 const formatDateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
 
 import { getPostsMinimal } from '../../lib/sanityApi'
-const allPosts = await getPostsMinimal()
+const posts = await getPostsMinimal();
 
 // "getStaticPaths()" is only required for SSG pages
 // We need to tell Astro which pages to generate at build time and here we need all Pages from Sanity -> getPostsMinimal
@@ -37,9 +37,20 @@ const postSlug = Astro.params.post
 import { getPostBySlug } from '../../lib/sanityApi'
 const post = await getPostBySlug(postSlug)
 
+// await the next line to get the postImageURL
+// const postImageURL = ''
+const getURLs = async () => {
+    let postData = await getPostsMinimal()
+    console.log('postData', postData)
+    return postData.mainImage
+}
+const postImageURLs = await getURLs()
+
+
 
 // Import Composables 
 import { convertBlockContentToHTML } from '../../composables/blockContentToHTML';
+import { getImageUrl } from "@sanity/block-content-to-html";
 
 // for body Page
 const body = () => {
@@ -110,7 +121,7 @@ const nessesaryTransitionStyle = `
 
 ---
 
-<Layout>
+<Layout prefetch={posts} prefetchType={'single-post'}>
 
     <!-- <div
         transition:name={`post-wrapper-${post.slug}`}
@@ -162,7 +173,7 @@ const nessesaryTransitionStyle = `
                         postContent={post}
                     />
 
-                    <div class="post-header flex flex-col sm:pb-16 px-8 lg:px-16 mx-auto max-w-screen-xl">
+                    <div class="post-header flex flex-col pb-8 xl:pb-16 px-8 lg:px-16 mx-auto max-w-screen-xl">
 
                         <div class="category-wrapper flex justify-center">
                             <div class="categories self-center"
@@ -171,9 +182,11 @@ const nessesaryTransitionStyle = `
                             >
                                 {   post.categories ?
                                         post.categories.map((category, index) => (
-                                            <span class="bg-dsv-orange border-dsv-orange text-white self-center text-withe text-xs font-semibold mr-2 px-2.5 py-1 rounded dark:bg-purple-200 dark:text-purple-900">
-                                                {category}
-                                            </span>
+                                            <a href={`/blog/category/${category}`}  aria-label={`Mehr Beiträge in der Kategorie ${category}`}>
+                                                <span class="bg-dsv-orange border-dsv-orange text-white self-center text-withe text-xs font-semibold mr-2 px-2.5 py-1 rounded dark:bg-purple-200 dark:text-purple-900">
+                                                    {category}
+                                                </span>
+                                            </a>
                                         )) 
                                     :
                                         <span class="bg-dsv-orange border-dsv-orange text-white self-center text-withe text-xs font-semibold mr-2 px-2.5 py-1 rounded dark:bg-purple-200 dark:text-purple-900">

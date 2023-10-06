@@ -1,7 +1,6 @@
 ---
 
-import Layout from '../../layouts/Page.astro';
-
+import Layout from '../../layouts/Base.astro';
 
 import { urlFor } from '../../lib/sanityApi.js';
 
@@ -35,10 +34,28 @@ const contentArray = posts.map(post => {
 });
 
 
+const prefetch: Array<any> = []
+const prefetching = async () => {
+    const postsData = await getPosts()
+    postsData.map(post => {
+        let data = {
+            url: `/blog/${post.slug.current}`,
+            data: post
+        }
+        prefetch.push(data)
+    });
+};
+prefetching()
+
+
+const { page, lang, version, path } =  Astro.params
+
+const params = Astro.params
+
 ---
 
 
-<Layout>
+<Layout prefetch={posts} prefetchType={'post-overview'}>
 
     <!-- <Hero pageContent={postOverview} /> -->
 
@@ -69,6 +86,9 @@ const contentArray = posts.map(post => {
                     }
 
                 </div> 
+
+                <!-- {JSON.stringify(prefetch)} -->
+                <!-- {JSON.stringify(posts)} -->
                 <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     
                     { 

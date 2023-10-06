@@ -2,11 +2,14 @@
 import Base from './Base.astro';
 import type { Props as BaseHeadProps } from '../components/BaseHead.astro';
 
-const { seo } = Astro.props as BaseHeadProps;
+const { seo, prefetch } = Astro.props as BaseHeadProps;
+
+console.log('prefetch in "Page.astro": ', prefetch)
+
 ---
 
-<Base seo={seo} >
-		<slot />
+<Base seo={seo} prefetch={prefetch} >
+	<slot />
 </Base>
 
 <style is:global>

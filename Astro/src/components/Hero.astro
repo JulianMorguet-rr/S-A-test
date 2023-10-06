@@ -115,13 +115,14 @@ const bgColor = 'red';
 
                 {
                     postContent.mainImage ? (
-                        <div class="img-wrapper sm:pt-16 px-4 lg:px-6 mx-auto max-w-screen-xl">
+                        <div class="img-wrapper pt-4 xl:pt-16 px-4 lg:px-6 mx-auto max-w-screen-xl">
                             <Image 
                                 width="1280"
                                 height="627"
                                 src={urlFor(postContent.mainImage).width(1280).height(627).format('webp').url()} 
                                 alt={postContent.mainImageAltText || "Hero Image"}
                                 class="post-main-image rounded-lg base-shadow"
+                                loading="eager"
                                 style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`}                     
                             />
                             <!--

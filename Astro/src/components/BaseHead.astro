@@ -16,6 +16,9 @@ export interface Props {
 	image?: string;
 	seo?: any;
 	globalSiteSettings?: any
+	prefetch?: any;
+
+	preload?: any;
 }
 
 
@@ -24,10 +27,32 @@ const globalSiteSettings = Astro.props.globalSiteSettings || {};
 const title = Astro.props.globalSiteSettings?.title || 'siteSettings.title';
 const description = Astro.props.globalSiteSettings?.description || 'siteSettings.description';
 
+// Prefetch und Preload 
+const prefetch = Astro.props.prefetch;
+const preload = Astro.props.prefetch;
+
+const { page, lang, version, path } =  Astro.params
+
 // console.log('title', title);
 // console.log('description', description);
 // const canonicalURL = Astro.props.canonicalURL || siteSettings.url;
 // const image = new URL(Astro.props.image || './social.png', Astro.site);
+
+
+// const logPrefetch = () => {
+// 	if(true) {
+// 		console.log('prefetch in BaseHead.astro: ', prefetch) 
+// 		console.log('page: ', page)
+// 		console.log('lang: ', lang)
+// 		console.log('path: ', path)
+// 	} else {
+// 		console.log('dont prefetch cause site is not inclded or no prefetch awailable from Props')
+// 	}
+// }
+// logPrefetch()
+
+
+// console.log('preload in BaseHead.astro: ', preload)
 
 ---
 
@@ -35,9 +60,10 @@ const description = Astro.props.globalSiteSettings?.description || 'siteSettings
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
+<link rel="icon" type="image/x-icon" href="https://cdn.sanity.io/images/tz4j4rda/production/5acb2b8efe247f3570fc56dee938a7b1443be7f4-4280x5708.jpg?rect=0,714,4280,4280&#38;w=48&#38;h=48&#38;fm=jpg">
 
-
-
+<!-- dynamic prefetch and preload  -->
+<slot></slot>
 
 { globalSiteSettings?.favicon?.asset &&
 	(<link rel="icon" type="image/x-icon" href={urlFor(globalSiteSettings?.favicon?.asset._ref).width(48).height(48).format('jpg').url()}>)

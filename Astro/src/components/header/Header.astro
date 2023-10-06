@@ -73,8 +73,7 @@ computedMainNav()
 </div>
 
 <header 
-    transition:name="main-header" 
-    style="box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 8px 24px rgba(0, 0, 0, 0.1)"
+    transition:name="main-header"
 >
     <div class="outer-wrapper base-shadow">
         <div class="inner py-4 px-4 lg:px-6 mx-auto max-w-screen-xl">
@@ -118,7 +117,7 @@ computedMainNav()
 
 
             
-            <div class="mobile-nav">
+            <nav class="mobile-nav">
                 
                 <MobileNav mainNav={mainNav} />
 
@@ -140,6 +139,8 @@ computedMainNav()
                 </ul>
                 -->
             </nav>
+
+            
 
             
         </div>
@@ -188,12 +189,12 @@ computedMainNav()
             justify-content: flex-end;
         }
 
-        @media screen and (min-width: 1320px) {
+        @media screen and (min-width: 1280px) {
             .mobile-nav {
                 display: none !important;
             }
         }
-        @media screen and (max-width: 1319px) {
+        @media screen and (max-width: 1279px) {
             .desktop-nav {
                 display: none !important;
             }

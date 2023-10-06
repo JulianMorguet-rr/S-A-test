@@ -9,14 +9,21 @@ import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
 export default defineConfig({
+  compressHTML: false,
   site: 'https://geschmaecker-sind-verschieden.com/',
   output: "server",
-  integrations: [sanity({
-    projectId: "tz4j4rda",
-    dataset: "production",
-    apiVersion: "v2021-03-25",
-    useCdn: true
-  }), vue(), tailwind(), robotsTxt(), prefetch()],
+  integrations: [
+    sanity({
+      projectId: "tz4j4rda",
+      dataset: "production",
+      apiVersion: "v2021-03-25",
+      useCdn: true
+    }), 
+    vue(), 
+    tailwind(), 
+    robotsTxt(), 
+    prefetch()
+  ],
   images: {
     domains: ['cdn.sanity.io', 'geschmaecker-sind-verschieden.com', 'geschmaecker-sind-verschieden.com/videos/video-api'],
     remotePatterns: [{

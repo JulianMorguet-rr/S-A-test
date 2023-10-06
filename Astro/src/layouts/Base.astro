@@ -1,6 +1,8 @@
 ---
 import { fade, slide  } from 'astro:transitions';
 
+import { urlFor } from "../lib/sanityApi";
+
 import BaseHead from "../components/BaseHead.astro";
 import type { Props as BaseHeadProps } from '../components/BaseHead.astro';
 
@@ -9,12 +11,34 @@ import Footer from '../components/footer/Footer.astro';
 
 export interface Props {
 	seo?: BaseHeadProps;
+  prefetch?: any;
+  prefetchType?: any;
+  preload?: any;
 }
 
-const { seo } = Astro.props;
+const { seo, prefetch, prefetchType } = Astro.props;
 const { page, lang, version, path } =  Astro.params
 
+const prefetchList: Array<any> = [];
+const prefetchURLs = async () => {
+  await prefetch;
+  if (!prefetch) return null;
 
+  prefetch.map(item => {
+    console.log('item: ', item)
+    if(prefetchType === 'single-post') {
+      prefetchList.push(urlFor(item.mainImage).width(356).height(174).format('webp').url())
+    } 
+    if(prefetchType === 'post-overview') {
+      prefetchList.push(urlFor(item.mainImage).width(1280).height(627).format('webp').url())
+    }
+    // urlFor(item.mainImage).width(1920).height(640).format('webp').url()
+    // urlFor(postData.mainImage).width(1920).height(640).format('webp').url()
+    return urlFor(item.mainImage).width(1920).height(640).format('webp').url() // prefetchList
+  })
+}
+
+console.log('prefetchURLs: ', prefetchURLs())
 
 import { getGlobalSiteSettings, getAppearance, getMainMenu } from '../lib/sanityApi.js';
 const globalSiteSettings = await getGlobalSiteSettings();
@@ -30,22 +54,28 @@ const mainMenu = await getMainMenu();
   <!-- transition:animate={"none"} -->
   <!-- fade({ duration: '1.4s' }) -->
   <head>
-    <BaseHead globalSiteSettings={globalSiteSettings} {...seo} />
+    <BaseHead globalSiteSettings={globalSiteSettings} {...seo}>
+      <>
+        <!-- prefetch and preload images -->
+        {
+          prefetchList && 
+            prefetchList.map(url => (
+              <link rel="prefetch" as="image" href={url} />
+            ))
+        }
+
+        {
+          prefetchList && 
+            prefetchList.map(url => (
+              <link rel="preload" as="image" href={url} />
+            ))
+        }
+      </>
+    </BaseHead>
   </head>
 
   <!-- class="bg-white dark:bg-gray-900" -->
   <body>
-
-    <!-- 
-      {
-        prefetch?.map((item) => {
-          return (
-            <p> {item.url} </p>
-            <p> {JSON.stringify(item.data.post.mainImage)} </p>
-          )
-        })
-      } 
-    -->
 
     <!-- <slot name="header" /> -->
     <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu}  />

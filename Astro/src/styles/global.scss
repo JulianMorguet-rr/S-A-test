@@ -80,7 +80,7 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 1280px;
+        max-width: 1280px;
 
         img {
             height: 56px;
@@ -118,6 +118,7 @@ header {
             .hamburger {
                 width: 40px;
                 cursor: pointer;
+                display: flex;
                 position: absolute;
                 right: 0;
                 top: 0;
@@ -549,7 +550,6 @@ padding: 0;
 
     .hero {
         width: 100%;
-        min-height: 440px;
         // height: calc(100vh - 96px - 200px);
         position: relative;
         // overflow: hidden;
