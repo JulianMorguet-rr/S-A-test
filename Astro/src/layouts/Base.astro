@@ -140,12 +140,33 @@ const mainMenu = await getMainMenu();
 
      <script>
 
+
+      function fnBrowserDetect(){      
+        let userAgent = window.navigator.userAgent;
+        
+        if(userAgent.match(/chrome|chromium|crios/i)){
+            return "chrome";
+        }else if(userAgent.match(/firefox|fxios/i)){
+            return "firefox";
+        }  else if(userAgent.match(/safari/i)){
+            return "safari";
+        // }else if(userAgent.match(/opr//i)){
+        //     return "opera";
+        } else if(userAgent.match(/edg/i)){
+            return "edge";
+        }else{
+            return "No browser detection";
+        }
+      }
+
       function playHeroInlineVideo() {
+        if(fnBrowserDetect() === "chrome") return
         const heroInlineVideo = document.querySelector('.hero > .inline-video > video');
 
+        if (!heroInlineVideo) return 
         // heroInlineVideo.load();
+        console.log('play hero video')
         heroInlineVideo.play();
-        
       }
 
       document.addEventListener('astro:page-load', playHeroInlineVideo);

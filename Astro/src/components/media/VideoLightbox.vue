@@ -42,7 +42,7 @@
             <div v-else class="image-wrapper base-shadow">
                 <!-- <p style="color: #fff;">Media: {{ media }}</p> -->
                 <!-- <p style="color: #fff;">BrowserName: {{browserName}}</p> -->
-                <video controls :poster="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.thumbnailPath}`" class="hero-background-video">
+                <video controls playsinline :poster="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.thumbnailPath}`" class="hero-background-video">
                     <source :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.webmPath}`" type="video/webm">
                     <source :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${media.video.mp4Path}`" type="video/mp4">
                 </video>  
