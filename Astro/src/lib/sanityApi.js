@@ -76,6 +76,7 @@ export async function getPages() {
 export async function getCurrentPage(pageSlug) {
   const query = groq`*[_type == "page" && slug == "${pageSlug}"][0]{
     ...,
+    heroBackgroundVideo->,
     images[]->,
     quoteReference->,
   }`; // "page" is the name of the schema from '/scr/structure/index.js'

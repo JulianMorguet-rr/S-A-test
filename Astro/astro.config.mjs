@@ -12,6 +12,10 @@ export default defineConfig({
   // compressHTML: false,
   site: 'https://geschmaecker-sind-verschieden.com/',
   output: "server",
+  server: {
+    port: 4321,
+    host: true // expose on all addresses, including LAN and public addresses
+  },
   integrations: [
     sanity({
       projectId: "tz4j4rda",

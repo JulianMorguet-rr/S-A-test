@@ -51,14 +51,16 @@ const bgColor = 'red';
             {JSON.stringify(pageContent)}
         </p> -->
 
+        <!-- <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> -->
+
         { pageContent &&
 
             <>
 
             { pageContent?.heroBackgroundVideo ? ( 
                     <div class="inline-video">
-                        <video autoplay loop muted playsinline class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Stimmungs Assets'} >
-                            <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm">
+                        <video playsinline autoplay loop muted class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Mood Video'} >
+                            
                             <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
                             <p>
                                 Ihr Browser unterstützt kein HTML video. Hier ist ein 

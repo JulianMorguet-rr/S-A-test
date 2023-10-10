@@ -86,7 +86,7 @@ const mainMenu = await getMainMenu();
     <!-- <slot name="header" /> -->
     <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu}  />
 
-    <div >
+    <div transition:animate="fade">
       <slot />
     </div>
 
