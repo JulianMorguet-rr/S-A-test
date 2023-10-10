@@ -138,6 +138,20 @@ const mainMenu = await getMainMenu();
     </script>
      -->
 
+     <script>
+
+      function playHeroInlineVideo() {
+        const heroInlineVideo = document.querySelector('.hero > .inline-video > video');
+
+        // heroInlineVideo.load();
+        heroInlineVideo.play();
+        
+      }
+
+      document.addEventListener('astro:page-load', playHeroInlineVideo);
+
+     </script>
+
 
     <script>
       import Lenis from '@studio-freight/lenis'

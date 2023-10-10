@@ -52,6 +52,7 @@ const bgColor = 'red';
         </p> -->
 
         <!-- <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> -->
+        <!-- playsinline autoplay loop muted -->
 
         { pageContent &&
 
@@ -59,8 +60,8 @@ const bgColor = 'red';
 
             { pageContent?.heroBackgroundVideo ? ( 
                     <div class="inline-video">
-                        <video playsinline autoplay loop muted class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Mood Video'} >
-                            
+                        <video preload="auto" loop="" autoplay="true" muted="" playsinline="" class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Mood Video'} >
+                            <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> 
                             <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
                             <p>
                                 Ihr Browser unterstützt kein HTML video. Hier ist ein 
