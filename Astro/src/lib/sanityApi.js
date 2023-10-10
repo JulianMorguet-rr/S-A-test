@@ -58,6 +58,7 @@ export async function getHomePage() {
       }, 
       referenceToPage->,
       quoteArray[]->,
+      quoteReference->,
     }
   }`; // "page" is the name of the schema from '/scr/structure/index.js'
   const page = await useSanityClient().fetch(query);
@@ -76,6 +77,7 @@ export async function getCurrentPage(pageSlug) {
   const query = groq`*[_type == "page" && slug == "${pageSlug}"][0]{
     ...,
     images[]->,
+    quoteReference->,
   }`; // "page" is the name of the schema from '/scr/structure/index.js'
   const pages = await useSanityClient().fetch(query);
   // console.log('pages: ', pages);

@@ -94,8 +94,10 @@ const bgColor = 'red';
             { pageContent?.heading &&
                 <div class="headline-wrapper mb-4">
                     <div class="inner-wrapper" style="clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);">
-                        <h1 class={`${useBackgroundAnimation('page') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900 dark:text-white`}>
-                            <span>{pageContent.heading}</span>
+                        <h1 class={`${useBackgroundAnimation('page') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900`}>
+                            <mark>
+                                {pageContent.heading}
+                            </mark>
                         </h1>
                     </div>
                 </div>
@@ -144,15 +146,16 @@ const bgColor = 'red';
                     <div class="animated-bg-gradient"></div>
                     )
 
+                    
+
                 }
 
-                
 
                 { 
                     postContent?.title &&
                     false &&
                         <div class="headline-wrapper mb-4">
-                            <h1 class={`${useBackgroundAnimation('post') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900 dark:text-white`}>
+                            <h1 class={`${useBackgroundAnimation('post') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900`}>
                                 <span>{postContent.title}</span>
                             </h1>
                         </div>
@@ -160,16 +163,92 @@ const bgColor = 'red';
 
                 </>
 
+                
+
+
         }
 
         
+
+        
     </div> 
+
+    <!--
+    {
+        postContent ? 
+            <>
+                <div id="svg-displacement">
+                    <svg viewBox="0 0 1600 900" fill="none" preserveAspectRatio="xMidYMin slice">
+                        <defs>
+                            <filter id="displacementFilter">
+                                <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+                                <feDisplacementMap in="SourceGraphic" in2="noise" scale="50" xChannelSelector="R" yChannelSelector="G" />
+                            </filter>
+                            <mask id="circleMask">
+                                <circle cx="600" cy="800" r="0" fill="white" class="displacement"/>
+                            </mask>
+                        </defs>
+                        <rect width="1600" height="900" fill="#73b740" width="100%" height="100%" mask="url(#circleMask)" />
+                    </svg>
+                </div>
+            </>
+            : null
+    }
+    -->
+
+
 </div>
 
 
 
 
 <style lang="scss">
+
+
+    .hero.page-hero .headline-wrapper h1 {
+
+        color: #fff;
+        -webkit-text-fill-color: #fff;
+
+        --color1: rgb(251, 146, 60);
+        --color2: rgb(251, 146, 60);
+
+        mark {
+
+            background-image: linear-gradient(var(--color1), var(--color2));
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            background-size: 0% 100%;
+            animation: heroHeading 800ms 0ms ease-out;
+            animation-fill-mode: forwards;
+            animation-play-state: play;
+
+            color: #fff;
+            padding: 0.2rem 0.6rem 0.2rem 0.6rem;
+            -webkit-box-decoration-break: clone;
+        }
+
+        &.background-animation {
+            color: var(--color1);
+            -webkit-text-fill-color: var(--color1);
+
+            mark {
+                background-image: linear-gradient(#fff, #fff);
+            }
+        }
+
+    }  
+    
+    @keyframes heroHeading {
+        to {
+            background-size: 100% 100%;
+        }
+    }
+
+    .displacement {
+        filter: url(#displacementFilter);
+    }
+
 
     $basedelay: 0.2s;
     $base-duration: 1s;
@@ -258,22 +337,22 @@ const bgColor = 'red';
                     animation: hero 10s infinite;
                 }
 
-                &:before {
-                    content: '';
-                    height: 6rem;
-                    // background: linear-gradient(to right, #fff 50%, transparent 50%);
-                    background-size: 200% 100%; /* Größe des Verlaufs verdoppeln */
-                    background-position: 100% 0; /* Ausgangsposition ganz rechts */
-                    position: absolute;
-                    z-index: -1;
-                    animation: maskSlideBackground 1s $basedelay forwards; /* Animation anwenden und bei 100% anhalten */
-                    animation-fill-mode: forwards; /* Zustand bei 100% beibehalten */
+                // &:before {
+                //     content: '';
+                //     height: 6rem;
+                //     // background: linear-gradient(to right, #fff 50%, transparent 50%);
+                //     background-size: 200% 100%; /* Größe des Verlaufs verdoppeln */
+                //     background-position: 100% 0; /* Ausgangsposition ganz rechts */
+                //     position: absolute;
+                //     z-index: -1;
+                //     animation: maskSlideBackground 1s $basedelay forwards; /* Animation anwenden und bei 100% anhalten */
+                //     animation-fill-mode: forwards; /* Zustand bei 100% beibehalten */
 
-                    @media screen and (max-width: 690px) {
-                        height: 3rem;
+                //     @media screen and (max-width: 690px) {
+                //         height: 3rem;
 
-                    }
-                }
+                //     }
+                // }
             }
         }
 

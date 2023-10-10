@@ -7,6 +7,8 @@ const { pageBuilder } = props as { pageBuilder: ContentItem };
 // URL builder
 import { urlFor } from '../lib/sanityApi.js';
 
+import { Image } from 'astro:assets';
+
 import TextWidthImage from '../components/TextWidthImage.vue';
 import ContactForm from '../components/contactForm/ContactForm.vue';
 // @ts-ignore
@@ -15,7 +17,9 @@ import TextSection from './TextSection.astro';
 import TextAndImage from './TextAndImage.astro';
 // @ts-ignore
 import Quote from './quotes/Quote.astro';
-import { Image } from 'astro:assets';
+import SingleQuote from './SingleQuote.astro';
+import BlockContent from './BlockContent.astro';
+import Accordion from './Accordion.astro';
 // import { Image } from 'astro:assets';
 
 
@@ -94,7 +98,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 
     {pageBuilder._type === 'quoteCollection' &&
         <!-- bg-white dark:bg-gray-900 -->
-        <section class="">
+        <section class="quote-collection">
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
                 {/* <h2>{JSON.stringify(pageBuilder)}</h2> */}
                 
@@ -121,9 +125,54 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         </section>
     }
 
+
+    {pageBuilder._type === 'singleQuote' &&
+        <SingleQuote data={pageBuilder} />
+    }
+
+
+    {pageBuilder._type === 'accordionSection' && 
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+            { pageBuilder.tagline &&
+                <p class="section-tagline mb-4 ">
+                    {pageBuilder.tagline}
+                </p>
+            }
+            { pageBuilder.heading &&
+                <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
+                    {pageBuilder.heading}
+                </h2>
+            }
+            { pageBuilder.blockContent &&
+                <BlockContent data={pageBuilder.blockContent} />
+            }
+
+            {
+                pageBuilder.singleAccordionItem &&
+                    <div class="accordion">
+                    {
+                        pageBuilder.singleAccordionItem.map(item => {
+                            return (
+                                    <Accordion item={item} pageBuilder={pageBuilder} />
+                                )
+                            })
+                    }
+                </div>
+            }
+
+            <br>
+            <br>
+            <br>
+            
+            {JSON.stringify(pageBuilder)}
+        </div>
+    }
+
 </section>
 
 <style lang="scss">
+
+/* PageBuilder Styles */ 
 
     .z-front {
         z-index: 999;
@@ -175,4 +224,12 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         font-size: 1.5rem;
     }
 
+</style>
+
+
+<style is:global>
+    .accordion-body > div {
+        margin-top: 1rem;
+        margin-bottom: 0px !important;
+    }    
 </style>

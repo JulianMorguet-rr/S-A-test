@@ -15,6 +15,12 @@ export interface Props {
 	canonicalURL?: URL | string;
 	image?: string;
 	seo?: any;
+	seoSection?: {
+		title?: string;
+		metaDescription?: string;
+		allowSearchEngines: boolean;
+	}
+
 	globalSiteSettings?: any
 	prefetch?: any;
 
@@ -22,10 +28,13 @@ export interface Props {
 }
 
 
+const { seoSection } = Astro.props as Props;
+
 // Hier noch SEO für spezifische page integrieren (schema muss auch noch ergänzt werden)
 const globalSiteSettings = Astro.props.globalSiteSettings || {};
-const title = Astro.props.globalSiteSettings?.title || 'siteSettings.title';
-const description = Astro.props.globalSiteSettings?.description || 'siteSettings.description';
+const title = seoSection?.title|| Astro.props.globalSiteSettings?.title || 'siteSettings.title';
+const description = seoSection?.metaDescription || Astro.props.globalSiteSettings?.description || 'siteSettings.description';
+const allowSearchEngines = seoSection?.allowSearchEngines === false && 'false' || true;
 
 // Prefetch und Preload 
 const prefetch = Astro.props.prefetch;
@@ -60,8 +69,6 @@ const { page, lang, version, path } =  Astro.params
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
-<link rel="icon" type="image/x-icon" href="https://cdn.sanity.io/images/tz4j4rda/production/5acb2b8efe247f3570fc56dee938a7b1443be7f4-4280x5708.jpg?rect=0,714,4280,4280&#38;w=48&#38;h=48&#38;fm=jpg">
-
 <!-- dynamic prefetch and preload  -->
 <slot></slot>
 
@@ -77,8 +84,10 @@ const { page, lang, version, path } =  Astro.params
 		default-src 'self' https://cdn.sanity.io/; 
 		style-src 'self' 'unsafe-inline'; 
 		media-src 'self' https://geschmaecker-sind-verschieden.com/ https://assets.geschmaecker-sind-verschieden.com/ https://placehold.co;
-		img-src 'self' https://cdn.sanity.io/ https://geschmaecker-sind-verschieden.com/ https://assets.geschmaecker-sind-verschieden.com/ https://placehold.co;
-		script-src 'self' https://cdn.sanity.io/ 'unsafe-inline'
+		img-src 'self' https://cdn.sanity.io/ https://geschmaecker-sind-verschieden.com/ https://assets.geschmaecker-sind-verschieden.com/ https://placehold.co https://uploads-ssl.webflow.com/;
+		script-src 'self' https://cdn.sanity.io/ https://cdnjs.cloudflare.com http://www.etracker.de/ http://code.etracker.com 'unsafe-inline';
+		script-src-elem 'self' https://cdnjs.cloudflare.com http://www.etracker.de/ http://code.etracker.com 'unsafe-inline';
+		connect-src 'self' http://www.etracker.de/ http://code.etracker.com;
 	">
 
 <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' /> 
@@ -87,6 +96,11 @@ const { page, lang, version, path } =  Astro.params
 <meta name="title" content={title || 'missig Sanity title in "siteSettings"'} />
 <meta name="description" content={description || 'missing Sanity description in "siteSettings"'} />
 
+{
+	allowSearchEngines === 'false' && (
+		<meta name="robots" content="noindex" />
+	)
+}
 
 
 <!-- <meta name="view-transition" content="same-origin" /> -->

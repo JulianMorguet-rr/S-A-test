@@ -88,6 +88,8 @@ let asyncValue: AsyncValue = setAsyncValue(async)
     
     <!-- Fallback-Bild für Browser, die das <picture>-Element nicht unterstützen -->
     <img 
+        width={width}
+        height={height}
         style={`width: 100%; border-radius: ${radius};`}
         src={urlFor(imgSrc).width(width).height(height).flipHorizontal().format('jpg').url()}
         srcset={`

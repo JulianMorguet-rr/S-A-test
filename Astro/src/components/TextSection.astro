@@ -20,14 +20,14 @@ const content = convertBlockContentToHTML(data.blockContent);
         <div class={`py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 ${data.isCentered ? 'text-center' : 'text-left'}`}>
             <div class=`max-w-screen-md mb-8 lg:mb-16 ${data.isCentered ? 'm-auto' : null}`>
                 
-                <p class="section-tagline text-gray-500 sm:text-xl dark:text-gray-400 mb-4">
+                <p class="section-tagline text-gray-500 sm:text-xl mb-4">
                     {data.tagline}
                 </p>
-                <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
                     {data.heading}
                 </h2>
 
-                <div class="section-block-content mb-6 font-light text-gray-500 md:text-lg dark:text-white" set:html={content}></div>
+                <div class="section-block-content mb-6 font-light text-gray-500 md:text-lg" set:html={content}></div>
 
 
             </div>

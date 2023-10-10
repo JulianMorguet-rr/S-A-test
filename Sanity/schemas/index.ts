@@ -29,6 +29,8 @@ import {textSectionType} from  './textSectionType'
 import {imageGalleryType} from  './imageGallerieType'
 import {form} from  './formType'
 import {quoteType} from './quoteType'
+import {singleQuoteType} from './singleQuoteType'
+import {accordionSection} from './accordionSection'
 
 // Mediathek
 import videoMediathek from "./videoMediathek";
@@ -66,6 +68,8 @@ export const schemaTypes = [
   form,
   justAnImage,
   quoteType,
+  singleQuoteType,
+  accordionSection,
   // Multistep Form 
   // multistep,
   multistepQuestions,

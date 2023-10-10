@@ -72,6 +72,7 @@ export const structure = (S, context) => (
                         ![
                             'page',
                             'post',
+                            'postOverview',
                             'quotes',
                             'uploadedVideo',
                             'videoMediathek',

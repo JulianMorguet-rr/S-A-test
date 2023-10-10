@@ -67,15 +67,32 @@ export const pageType = defineType({
       defineArrayMember({
         name: 'form',
         type: 'form',
+        title: 'Form',
       }),
       defineArrayMember({
         name: 'justAnImage',
         type: 'justAnImage',
+        title: 'Just an Image',
       }),
       defineArrayMember({
         name: 'quoteCollection',
         type: 'quoteCollection',
+        title: 'Quote Collection',
       }),
+      defineArrayMember({
+        name: 'singleQuote',
+        type: 'singleQuote',
+        title: 'Einzelnes Zitat',
+      }),
+
+      defineArrayMember({
+        name: 'accordionSection',
+        type: 'accordionSection',
+        title: 'Accordion Section',
+      }),
+
+
+
       // defineArrayMember({
       //   name: 'video',
       //   type: 'video',
@@ -103,6 +120,13 @@ export const pageType = defineType({
       title: 'is Homepage',
       name: 'isHomepage',
       type: 'boolean'
+    }),
+
+
+    defineField({
+      name: 'seoSection',
+      title: 'SEO',
+      type: 'seo',
     }),
   ],
 

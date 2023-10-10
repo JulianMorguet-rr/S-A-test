@@ -1,0 +1,13 @@
+---
+
+// Import Composables 
+import { convertBlockContentToHTML } from '../composables/blockContentToHTML';
+
+const { data } = Astro.props // as { pageBuilder: ContentItem };
+
+const content = convertBlockContentToHTML(data);
+
+---
+
+<div class="section-block-content mb-6 font-light text-gray-500 md:text-lg" set:html={content}></div>
+

@@ -70,19 +70,19 @@ const params = Astro.params
                 <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
                     {
                         postOverview.tagline &&
-                        <p class="text-gray-500 sm:text-xl dark:text-gray-400 mb-4">
+                        <p class="text-gray-500 sm:text-xl mb-4">
                             {postOverview.tagline}
                         </p>
                     }
                     {
                         postOverview.heading &&
-                            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
                                 {postOverview.heading}
                             </h2>
                     }
                     {
                         postOverview.paragraph && 
-                            <div class=" font-light text-gray-500 sm:text-xl dark:text-gray-400" set:html={paragraph().blockContent}></div>
+                            <div class=" font-light text-gray-500 sm:text-xl" set:html={paragraph().blockContent}></div>
                     }
 
                 </div> 

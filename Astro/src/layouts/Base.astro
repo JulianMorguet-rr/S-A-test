@@ -1,4 +1,9 @@
 ---
+
+
+// import { gsap } from 'gsap'
+// import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import { fade, slide  } from 'astro:transitions';
 
 import { urlFor } from "../lib/sanityApi";
@@ -14,9 +19,10 @@ export interface Props {
   prefetch?: any;
   prefetchType?: any;
   preload?: any;
+  seoSection?: any;
 }
 
-const { seo, prefetch, prefetchType } = Astro.props;
+const { seoSection, prefetch, prefetchType } = Astro.props;
 const { page, lang, version, path } =  Astro.params
 
 const prefetchList: Array<any> = [];
@@ -54,7 +60,7 @@ const mainMenu = await getMainMenu();
   <!-- transition:animate={"none"} -->
   <!-- fade({ duration: '1.4s' }) -->
   <head>
-    <BaseHead globalSiteSettings={globalSiteSettings} {...seo}>
+    <BaseHead globalSiteSettings={globalSiteSettings} seoSection={seoSection}>
       <>
         <!-- prefetch and preload images -->
         {
@@ -80,12 +86,75 @@ const mainMenu = await getMainMenu();
     <!-- <slot name="header" /> -->
     <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu}  />
 
-    <div transition:name="main-content">
+    <div >
       <slot />
     </div>
 
     <Footer globalSiteSettings={globalSiteSettings} mainMenu={mainMenu} slug={page} />
 
+
+
+    <div set:html={globalSiteSettings.trackingScript}></div>
+    
+
+    <!-- TODO: Install as npm pakcage ore use code locally -->
+    <!-- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    -->
+
+    <!--
+    <script>
+
+      // import { gsap } from '../../../public/assets/js/GSAP/gsap.min.js'
+      // import { ScrollTrigger } from '../../../public/assets/js/GSAP/ScrollTrigger.min.js' // ../../public/js/GSAP/ScrollTrigger.min.js
+
+      // call funktion after onload event 
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      console.log('gsap: ', gsap)
+
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "hero",
+          start: "top top", // first "top" ist for target element, second top is for viewport | can also accept percentages 
+          end: "bottom bottom", // first "top" ist for target element, second top is for viewport | can also accept percentages
+          scrub: true, // 0.5,
+          pin: true,
+          markers: true,
+          // toggleActions: 'play none none reverse'
+        }
+      })
+
+      tl.to('.displacement', {
+        attr: {
+          r: '100vw'
+        }, 
+        duration: 2,
+      })
+
+
+    </script>
+     -->
+
+
+    <script>
+      import Lenis from '@studio-freight/lenis'
+
+      const lenis = new Lenis()
+
+      lenis.on('scroll', (e) => {
+        // console.log(e)
+      })
+
+      function raf(time) {
+        lenis.raf(time)
+        requestAnimationFrame(raf)
+      }
+
+      requestAnimationFrame(raf)
+    </script>
 
     <script>
       // TODO: Scripte auslagern 
@@ -115,7 +184,7 @@ const mainMenu = await getMainMenu();
               entry.target.classList.add('observer-detected');
               intersectionObserver.unobserve(entry.target);
             }
-            console.log(entry)
+            // console.log(entry)
           });
         }, {
           threshold: 0.2

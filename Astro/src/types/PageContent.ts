@@ -79,9 +79,25 @@ export type ContentItem =
         }
     |   { 
             _type: 'quoteCollection'; 
-            heading: string; 
-            paragraph: string;
+            heading?: string; 
+            tagline?: string; 
+            paragraph?: string;
             quoteArray: ReferenceToQuote[];
+        }
+    |   { 
+            _type: 'singleQuote'; 
+            heading: string; 
+            tagline?: string; 
+            paragraph?: string;
+            quoteReference: ReferenceToQuote;
+        }
+    |   { 
+            _type: 'accordionSection'; 
+            heading: string;
+            tagline: string;
+            blockContent?: Array<any>;
+            // TODO: hier noch richtige Types hinzufügen
+            singleAccordionItem: any[];
         }
 
 
@@ -97,4 +113,10 @@ export interface PageContent {
     heading: string;
     slug: string;
     pageBuilder: ContentItem[];
+
+    seoSection?: {
+        title: string;
+        metaDescription: string;
+        allowSearchEngines: boolean;
+    }
 }

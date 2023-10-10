@@ -9,7 +9,7 @@ import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
 export default defineConfig({
-  compressHTML: false,
+  // compressHTML: false,
   site: 'https://geschmaecker-sind-verschieden.com/',
   output: "server",
   integrations: [

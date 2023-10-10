@@ -83,15 +83,21 @@ export default {
         validation: Rule => Rule.required().error('Es ist ein Textauszug für die Blog-Übersicht ist erforderlich.')
       },
 
-      {
-        name: 'twitter',
-        title: 'Twitter URL',
-        type: 'url',
-        description: 'Die URL des Twitter-Accounts',
-        components: {
-          input: TwitterUrl
-        }
-      },
+      defineField({
+        name: 'seoSection',
+        title: 'SEO',
+        type: 'seo',
+      }),
+
+      // {
+      //   name: 'twitter',
+      //   title: 'Twitter URL',
+      //   type: 'url',
+      //   description: 'Die URL des Twitter-Accounts',
+      //   components: {
+      //     input: TwitterUrl
+      //   }
+      // },
 
       // defineField({
       //   name: 'greeting',

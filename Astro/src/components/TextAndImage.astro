@@ -53,7 +53,7 @@ const content = convertBlockContentToHTML(data.blockContent);
     Old way of fullwidth
     fullwidth-background-${data.fullwidth} fullwidth-${data.fullwidth}
 -->
-<div class={`inner-section dark:bg-gray-900 md:grid ${data.sectionType}`}>
+<div class={`inner-section md:grid ${data.sectionType}`}>
     <!-- <h2>Test: {JSON.stringify(data.sectionType)}</h2> -->
     <div class={`inner-wrapper`}>
         
@@ -82,8 +82,8 @@ const content = convertBlockContentToHTML(data.blockContent);
                     <>
                         {/*
                             <video controls muted playsinline class="hero-background-video">
-                                <source src={`https://geschmaecker-sind-verschieden.com/video-api/${data.media.video.webmPath}`} type="video/webm">
-                                <source src={`https://geschmaecker-sind-verschieden.com/video-api/${data.media.video.mp4Path}`} type="video/mp4">
+                                <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${data.media.video.webmPath}`} type="video/webm">
+                                <source src={`https://assets.geschmaecker-sind-verschieden.com/video-api/${data.media.video.mp4Path}`} type="video/mp4">
                             </video> 
                          */}
                         {/* <h2>{JSON.stringify(data.media.video)}</h2> */}
@@ -102,22 +102,22 @@ const content = convertBlockContentToHTML(data.blockContent);
 
             <div class="mt-4 md:mt-0">
                 { data.tagline &&
-                    <p class="section-tagline mb-4 dark:text-white">
+                    <p class="section-tagline mb-4">
                         {data.tagline}
                     </p>
                 }
                 { data.heading &&
-                    <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
                         {data.heading}
                     </h2>
                 }
 
                 { content &&
-                    <div class="section-block-content mb-6 font-light text-gray-500 md:text-lg dark:text-white" set:html={content}></div>
+                    <div class="section-block-content mb-6 font-light text-gray-500 md:text-lg" set:html={content}></div>
                 }
 
                 { data.cta?.ctaReferenz?.slug &&
-                    <a href={`/page${data.cta.ctaReferenz.slug}`} class="section-cta cta base-shadow inline-flex items-center mt-6 text-white bg-orange-400 hover:bg-slate-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                    <a href={`/page${data.cta.ctaReferenz.slug}`} class="section-cta cta base-shadow inline-flex items-center mt-6 text-white bg-orange-400 hover:bg-slate-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                     {data.cta.ctaText}
                     <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>

@@ -72,5 +72,11 @@ export default defineType({
                 }),
             ],
         }),
+
+        defineField({
+            name: 'trackingScript', 
+            title: 'Tracking Script',
+            type: 'text',
+        }),
     ],
 })
