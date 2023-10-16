@@ -4,7 +4,7 @@ const cors = require('cors'); // Import das CORS-Paket
 
 const app = express(); 
 
-const whitelist = ['http://localhost:4321', 'http://127.0.0.1:4321', 'http://localhost:3333', 'http://127.0.0.1:3333', 'https://geschmaecker-sind-verschieden.com']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
+const whitelist = ['http://localhost:4321', 'http://127.0.0.1:4321', 'http://localhost:3333', 'http://127.0.0.1:3333', 'https://geschmaecker-sind-verschieden.de']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
 
 const corsOptions = {
     origin: true

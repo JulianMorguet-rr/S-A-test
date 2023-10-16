@@ -19,8 +19,8 @@
 
         <div v-else>
             <video controls autoplay playsinline class="hero-background-video">
-                <source :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${videoData?.webmPath}`" type="video/webm">
-                <source :src="`https://assets.geschmaecker-sind-verschieden.com/video-api/${videoData?.mp4Path}`" type="video/mp4">
+                <source :src="`https://assets.geschmaecker-sind-verschieden.de/video-api/${videoData?.webmPath}`" type="video/webm">
+                <source :src="`https://assets.geschmaecker-sind-verschieden.de/video-api/${videoData?.mp4Path}`" type="video/mp4">
             </video> 
             <!-- <h2 class="text-white">videoData: {{ videoData }}</h2> -->
         </div>

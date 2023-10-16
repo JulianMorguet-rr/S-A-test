@@ -10,7 +10,7 @@ import prefetch from "@astrojs/prefetch";
 // https://astro.build/config
 export default defineConfig({
   // compressHTML: false,
-  site: 'https://geschmaecker-sind-verschieden.com/',
+  site: 'https://geschmaecker-sind-verschieden.de',
   output: "server",
   server: {
     port: 4321,
@@ -29,7 +29,7 @@ export default defineConfig({
     prefetch()
   ],
   images: {
-    domains: ['cdn.sanity.io', 'geschmaecker-sind-verschieden.com', 'geschmaecker-sind-verschieden.com/videos/video-api'],
+    domains: ['cdn.sanity.io', 'geschmaecker-sind-verschieden.de', 'geschmaecker-sind-verschieden.de/videos/video-api'],
     remotePatterns: [{
       protocol: 'https'
     }]
