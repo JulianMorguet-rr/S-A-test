@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const sharp = require('sharp');
 
 const express = require('express');
 const multer = require('multer');
@@ -184,16 +185,34 @@ app.post('/video-api/save-video', upload.single('video'), async (req, res) => {
 
     // Konvertiere das Video in das WebM-Format
     const webmPath = `${videoPath.substring(0, videoPath.lastIndexOf('.'))}.webm`; // Pfad zur WebM-Datei
+    // await new Promise((resolve, reject) => {
+    //     ffmpeg(videoPath)
+    //         .outputOptions([
+    //             '-c:v', 'libvpx-vp9',
+    //             '-b:v', '6M',  // Erhöhe die Bitrate auf 6 Mbps (kann angepasst werden)
+    //             '-c:a', 'libopus',
+    //         ])
+    //         .save(webmPath)
+    //         .on('end', resolve)
+    //         .on('error', reject);
+    // });
+    console.log('Starting WebM conversion...');
     await new Promise((resolve, reject) => {
         ffmpeg(videoPath)
             .outputOptions([
                 '-c:v', 'libvpx-vp9',
-                '-b:v', '6M',  // Erhöhe die Bitrate auf 6 Mbps (kann angepasst werden)
+                '-b:v', '6M',
                 '-c:a', 'libopus',
             ])
             .save(webmPath)
-            .on('end', resolve)
-            .on('error', reject);
+            .on('end', () => {
+                console.log('WebM conversion completed.');
+                resolve();
+            })
+            .on('error', (error) => {
+                console.error('Error during WebM conversion:', error);
+                reject(error);
+            });
     });
 
     // Weitere Verarbeitung, z.B. Speichern der Pfadinformationen in einer Datenbank

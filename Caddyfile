@@ -1,0 +1,10 @@
+geschmaecker-sind-verschieden.de {
+        encode gzip
+        reverse_proxy 127.0.0.1:4321
+        reverse_proxy /video-api/* 127.0.0.1:2001
+        reverse_proxy /mail-api/* 127.0.0.1:2000
+}
+
+assets.geschmaecker-sind-verschieden.de {
+        reverse_proxy /video-api/* 127.0.0.1:2001
+}
