@@ -86,7 +86,7 @@ const mainMenu = await getMainMenu();
     <!-- <slot name="header" /> -->
     <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu}  />
 
-    <div>
+    <div transition:animate="none">
       <slot />
     </div>
 
@@ -138,9 +138,8 @@ const mainMenu = await getMainMenu();
     </script>
      -->
 
-     <script>
 
-
+     <!-- <script>
       function fnBrowserDetect(){      
         let userAgent = window.navigator.userAgent;
         
@@ -166,12 +165,13 @@ const mainMenu = await getMainMenu();
         if (!heroInlineVideo) return 
         // heroInlineVideo.load();
         console.log('play hero video')
+        // @ts-ignore
         heroInlineVideo.play();
       }
 
       document.addEventListener('astro:page-load', playHeroInlineVideo);
 
-     </script>
+     </script> -->
 
 
     <script>
@@ -194,25 +194,33 @@ const mainMenu = await getMainMenu();
       }
 
       document.addEventListener('astro:page-load', smoothScroll);
+
     </script>
 
-    <script>
+    <!-- <script>
       // TODO: Scripte auslagern 
       const burgerEventListener = () => {
-        document.querySelector('.hamburger').addEventListener('click', () => {
-          document.querySelector('.mobile-nav').classList.toggle('expanded');
+        const hamburger = document.querySelector('.hamburger')
+        const mobileNav = document.querySelector('.mobile-nav')
+        if(!hamburger || !mobileNav) return
+        hamburger.addEventListener('click', () => {
+          mobileNav.classList.toggle('expanded');
         });
       }
 
       document.addEventListener('astro:page-load', burgerEventListener);
-    </script>
+    </script> -->
+    
     
     <script>
       console.log('das Script ist da!')
 
+      let observerStarted = false;
+
       // Observer 
       function initObserver() {
         console.log('OBSERVER STARTED!!!')
+        let observerStarted = true;
         
         const sections = [...document.querySelectorAll('section')];
         
@@ -227,7 +235,7 @@ const mainMenu = await getMainMenu();
             // console.log(entry)
           });
         }, {
-          threshold: 0.2
+          threshold: 0.5
         });
     
         sections.forEach(section => {
@@ -238,7 +246,10 @@ const mainMenu = await getMainMenu();
       // document.addEventListener('astro:load', initObserver);
       // window.addEventListener('astro:page-load', initObserver);
       document.addEventListener('astro:page-load', initObserver);
-
+      
+      if(observerStarted === false) {
+        initObserver()
+      }
 
       // // Page transition Start
       // function pageTransitionStart() {

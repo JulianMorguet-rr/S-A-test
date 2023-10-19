@@ -1,6 +1,6 @@
 ---
 
-import Layout from '../layouts/Page.astro';
+import Layout from '../layouts/Base.astro';
 
 // import Card from '../components/Card.astro';
 import Hero from '../components/Hero.astro';
@@ -58,7 +58,7 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 
 ---
 
-<Layout>
+<Layout seoSection={homePage?.seoSection}>
 
 	<!-- <div> 
 		<h2>getPosts:</h2>
@@ -75,6 +75,8 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 
 
 	<Hero pageContent={homePage} />
+
+	<!-- <p>{JSON.stringify(homePage?.seoSection)}</p> -->
 
 	<!--
 	{

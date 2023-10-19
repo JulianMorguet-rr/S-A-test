@@ -1,0 +1,234 @@
+/* videoGallery.css */
+.video-gallery {
+    text-align: center;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2-Spalten-Anordnung */
+    gap: 20px; /* Abstand zwischen den Videos */
+}
+
+.video-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.video-thumbnail {
+    cursor: pointer;
+}
+
+video {
+    max-width: 100%;
+}
+  
+
+
+
+/* Process-info animation */ 
+
+// Define vars we'll be using
+$brand-success: #5cb85c;
+$loader-size: 2em;
+$check-height: calc($loader-size / 2);
+$check-width: calc($check-height / 2);
+$check-left: calc($loader-size / 6 + $loader-size / 12);
+$check-thickness: 3px;
+$check-color: $brand-success;
+
+.update-status {
+    padding: 12px 0 0 0;
+}
+
+.processing-info {
+    display: flex;
+    justify-content: space-between;
+    background: #eee;
+    padding: 18px 26px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 12px;
+}
+
+.active {
+    // background-color: oklch(20 20 180);
+    background: #eee;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    border-top-right-radius: 5px;
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+    to {
+      background-position-x: -200%;
+    }
+  }
+
+.active.success, .active.validation-error {
+    background: #eee;
+}
+
+.processing-info span {
+    max-width: calc(100% - 18px - $loader-size);
+}
+
+
+
+// .check {
+//     background-color: #73b740 !important;
+// }
+
+// .success {
+//     background-color: #73b740 !important;
+// }
+
+.validation-error {
+    border-left: solid 3px #f00;
+}
+
+
+// This is just styling for this demo
+
+
+
+.validation-error .circle-loader {
+    display: none !important;
+}
+
+.circle-loader {
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-left-color: $check-color;
+    animation: loader-spin 1.2s infinite linear;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 50%;
+    width: $loader-size;
+    height: $loader-size;
+}
+
+.check .circle-loader, .success .circle-loader {
+    -webkit-animation: none;
+    animation: none;
+    border-color: $check-color;
+    transition: border 500ms ease-out;
+}
+
+.checkmark {
+    display: none;
+
+    &.draw:after {
+        animation-duration: 800ms;
+        animation-timing-function: ease;
+        animation-name: checkmark;
+        transform: scaleX(-1) rotate(135deg);
+    }
+
+    &:after {
+        opacity: 1;
+        height: calc($loader-size / 2);
+        width: $check-width;
+        transform-origin: left top;
+        border-right: $check-thickness solid $check-color;
+        border-top: $check-thickness solid $check-color;
+        content: '';
+        left: calc($loader-size / 6);
+        top: calc($loader-size / 2.2);
+        position: absolute;
+    }
+}
+
+.check .checkmark, .success .checkmark {
+    display: block;
+
+    :after {
+        animation-duration: 800ms;
+        animation-timing-function: ease;
+        animation-name: checkmark;
+        transform: scaleX(-1) rotate(135deg);
+    }
+
+}
+
+@keyframes loader-spin {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+
+@keyframes checkmark {
+    0% {
+        height: 0;
+        width: 0;
+        opacity: 1;
+    }
+    20% {
+        height: 0;
+        width: $check-width;
+        opacity: 1;
+    }
+    40% {
+        height: $check-height;
+        width: $check-width;
+        opacity: 1;
+    }
+    100% {
+        height: $check-height;
+        width: $check-width;
+        opacity: 1;
+    }
+}
+
+
+/* Old Loading Animation */
+.active .flipping-6 {
+    display: grid !important;
+}
+
+.active.success .flipping-6 {
+    display: none !important;
+}
+
+.flipping-6 {
+    width: 60px;
+    aspect-ratio: 1;
+    display: none;
+    grid: 50%/50%;
+    color: #25b09b;
+    --_g: no-repeat linear-gradient(currentColor 0 0);
+    background: var(--_g),var(--_g),var(--_g);
+    background-size: 50.1% 50.1%;
+    animation: 
+      f6-0   1.5s infinite steps(1) alternate,
+      f6-0-0 3s   infinite steps(1);
+  }
+  .flipping-6::before {
+    content: "";
+    background: currentColor;
+    transform: perspective(150px) rotateY(0deg) rotateX(0deg);
+    transform-origin: bottom right; 
+    animation: f6-1 1.5s infinite linear alternate;
+  }
+  
+  @keyframes f6-0 {
+    0%  {background-position: 0    100%,100% 100%,100% 0}
+    33% {background-position: 100% 100%,100% 100%,100% 0}
+    66% {background-position: 100% 0   ,100% 0   ,100% 0}
+  }
+  
+  @keyframes f6-0-0 {
+    0%  {transform: scaleX(1)  rotate(0deg)}
+    50% {transform: scaleX(-1) rotate(-90deg)}
+  }
+  
+  
+  @keyframes f6-1 {
+    16.5%{transform:perspective(150px) rotateX(-90deg)  rotateY(0deg)    rotateX(0deg);filter:grayscale(0.8)}
+    33%  {transform:perspective(150px) rotateX(-180deg) rotateY(0deg)    rotateX(0deg)}
+    66%  {transform:perspective(150px) rotateX(-180deg) rotateY(-180deg) rotateX(0deg)}
+    100% {transform:perspective(150px) rotateX(-180deg) rotateY(-180deg) rotateX(-180deg);filter:grayscale(0.8)}
+  }

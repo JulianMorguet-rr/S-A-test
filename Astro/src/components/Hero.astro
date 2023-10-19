@@ -124,11 +124,12 @@ const bgColor = 'red';
                             <Image 
                                 width="1280"
                                 height="627"
-                                src={urlFor(postContent.mainImage).width(1280).height(627).format('webp').url()} 
+                                src={urlFor(postContent.mainImage).width(1280).height(627).format('webp').url()}
                                 alt={postContent.mainImageAltText || "Hero Image"}
                                 class="post-main-image rounded-lg base-shadow"
                                 loading="eager"
-                                style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`}                     
+                                transition:name={postImageTransitionName}
+                                transition:animate='initial'                      
                             />
                             <!--
                             <Image 
@@ -137,10 +138,13 @@ const bgColor = 'red';
                                 src={urlFor(postContent.mainImage).width(1280).height(627).format('webp').url()} 
                                 alt={postContent.mainImageAltText || "Hero Image"}
                                 class="post-main-image rounded-lg base-shadow"
+                                
                                 style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`}                     
                             />
                             -->
                             <!-- 
+                                style={`view-transition-name: ${postImageTransitionName}; view-transition-duration: 5000ms; view-transition-timing-function: ease-in-out;`} 
+
                                 transition:name={postImageTransitionName}
                                 transition:animate='initial'       
                             -->

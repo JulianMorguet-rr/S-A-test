@@ -32,12 +32,22 @@ export const uploadedVideo = defineType({
         title: 'Thumbnail Path',
       },
       {
+        name: 'thumbnailPathWebP',
+        type: 'string',
+        title: 'thumbnailPath WebP',
+      },
+      {
         name: 'webmConversionStatus',
         type: 'string',
         title: 'WebM Conversion Status',
         options: {
-          list: ['pending', 'processing', 'completed'],
+          list: ['waiting', 'processing', 'completed'],
         },
+      },
+      {
+        name: 'devMode',
+        title: 'Dev Mode (Uploads to local dev server)',
+        type: 'boolean',
       },
     ],
   })

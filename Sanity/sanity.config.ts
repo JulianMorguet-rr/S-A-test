@@ -4,6 +4,7 @@ import {deskTool} from 'sanity/desk'
 import {schemaTypes} from './schemas'
 import {getStartedPlugin} from './plugins/sanity-plugin-tutorial'
 
+import {myStudioTitle} from './src/environment' // env variable
 
 import { structure  } from './src/structure/index.js'
 
@@ -16,7 +17,7 @@ const devOnlyPlugins = [getStartedPlugin()]
 
 export default defineConfig({
   name: 'default',
-  title: 'rr Schaltzentrale',
+  title: myStudioTitle || 'rr Schaltzentrale!',
 
   projectId: 'tz4j4rda',
   dataset: 'production',

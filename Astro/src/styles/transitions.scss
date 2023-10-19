@@ -385,13 +385,26 @@ section.observer-detected .section-cta {
     // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
     opacity: 0;
     transform: translate(0, 6rem);
+    // clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90%);
+    clip-path: polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%);
     transition: all 1s;
+
+    img {
+        scale: 1.1;
+        transition: all 1s;
+    }
 }
 
 section.observer-detected .section-asset {
     // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     opacity: 1;
     transform: translate(0, 0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+
+    img {
+        scale: 1;
+        transition: all 1s;
+    }
 }
 
 

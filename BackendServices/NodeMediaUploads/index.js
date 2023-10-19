@@ -1,3 +1,11 @@
+require('dotenv').config();
+
+// const PROJECT_ID = process.env.PROJECT_ID;
+// console.log('PROJECT_ID: ', PROJECT_ID)
+
+const SANITY_TOKEN = process.env.SANITY_TOKEN;
+const ALLOWED_URLS = process.env.URL;
+
 const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
@@ -5,6 +13,10 @@ const sharp = require('sharp');
 const express = require('express');
 const multer = require('multer');
 const axios = require('axios');
+
+const WebSocket = require('ws');
+const http = require('http');
+
 
 const { createClient } = require('@sanity/client');
 
@@ -22,6 +34,9 @@ console.log('ffprobeStatic:', ffprobeStatic);
 ffmpeg.setFfmpegPath(ffmpegStatic);
 ffmpeg.setFfprobePath(ffprobeStatic.path);
 
+
+
+// Init Express 
 const app = express();
 
 /**
@@ -30,7 +45,7 @@ const app = express();
 const cors = require('cors');
 
 // TODO: withelist wird aktuell nicht genutzt sondern alles ist erlaubt
-const whitelist = ['http://localhost:2001', 'http://localhost:3000', 'http://localhost:3333']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
+const whitelist = ['http://localhost:2001', 'http://localhost:3000', 'http://localhost:3333', 'https://assets.geschmaecker-sind-verschieden.de', 'https://geschmaecker-sind-verschieden.de']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
 
 const corsOptions = {
     origin: true, // Erlaube allen Ursprüngen vorübergehend
@@ -44,6 +59,27 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); // Verwende CORS Middleware
 
+
+
+/**
+ * Socket.io
+ */
+
+// Set port for server
+const socketPort = process.env.SOCKET_PORT || 2002;
+const io = require('socket.io')(socketPort, {
+    cors: {
+        origin: whitelist,
+        methods: ['GET', 'POST']
+    }
+})
+
+io.on('connection', (socket) => {
+    console.log('Socket connected: ', socket.id)
+    socket.on('custom-event', (eventData) => {
+        console.log('eventData: ', eventData)
+    })
+})
 
 // Sanity Mutation for API Calls
 const projectId = 'tz4j4rda';
@@ -105,130 +141,218 @@ app.get('/video-api/port-test', (req, res) => {
 
 
 app.post('/video-api/save-video', upload.single('video'), async (req, res) => {
-       
-    // console.log('req: ', req)
-    // if (!req || !req.file || req.file.mimetype !== 'video/mp4') {
-    //     return res.status(400).send('No valid video file uploaded');
-    // }
-
-    const { name, description } = req.body;
-    const videoPath = req.file.path; // Hier wird der Pfad zur hochgeladenen Videodatei abgerufen 
-    
-    // Erstelle Thumbnail
-    const thumbnailPath = `${videoPath.substring(0, videoPath.lastIndexOf('.'))}-thumbnail.png`;
     try {
+        // TODO: in Frontend überprüfen | Überprüfen Sie die Anforderungsdaten
+        if (!req.body || !req.body.name || !req.body.description) {
+            const errorMessage = 'No valid Data, Bitte überprüfe deine Daten (Titel, Description)';
+            console.log(errorMessage);
+
+            // Senden Sie die Fehlermeldung über Socket.io
+            io.emit('uploadStatus', 'error Message: body is missing or no valid data');
+
+            res.status(500).send(errorMessage);
+            return;
+        }
+
+        if (!req.file || req.file.mimetype !== 'video/mp4') {
+            const errorMessage = 'No valid video file type';
+            console.log(errorMessage);
+
+            io.emit('uploadStatus', 'error Message: file is missing or not mp4');
+
+            res.status(500).send(errorMessage);
+            return;
+        }
+
+        // Wenn die Daten gültig sind, senden Sie eine Erfolgsmeldung über Socket.io
+        console.log('Video Data valid');
+        io.emit('uploadStatus', 'Video Data valid');
+
+        // Wenn die Daten gültig sind, senden Sie eine Erfolgsmeldung über Socket.io
+        console.log('Video upload...');
+        io.emit('uploadStatus', 'Video upload...');
+
+        const uuid = generateUUID()
+
+        const { name, description, devMode } = req.body;
+        const videoPath = req.file.path; // Hier wird der Pfad zur hochgeladenen Videodatei abgerufen
+
+        // create names
+        const thumbnailPath = `${videoPath.substring(0, videoPath.lastIndexOf('.'))}-thumbnail.png`;
+        const thumbnailPathWebP = `${videoPath.substring(0, videoPath.lastIndexOf('.'))}-thumbnail.webp`;
+
+        const mp4Path = videoPath;
+        const webmPath = `${videoPath.substring(0, videoPath.lastIndexOf('.'))}.webm`;
+
         // Generiere Thumbnail aus dem ersten Frame
-        await new Promise((resolve, reject) => {
-          ffmpeg(videoPath)
-            .screenshots({
-              count: 1,
-              folder: path.dirname(videoPath),
-              filename: path.basename(thumbnailPath),
-              // TODO: so erstellen, dass der Nutzer den Zeitpunkt selbst bestimmen kann
-              timestamps: ['1'], // Hier den Zeitpunkt in Sekunden angeben, an dem das Thumbnail erstellt werden soll
+        await generateThumbnail(videoPath, thumbnailPath);
+
+        // Hier wird das Video in Sanity gespeichert
+        await saveVideoInSanity(uuid, name, description, mp4Path, webmPath, thumbnailPath, thumbnailPathWebP, devMode);
+
+        // Hier kannst du das PNG-Thumbnail in WebP konvertieren und speichern
+        await convertToWebP(thumbnailPath, thumbnailPathWebP);
+
+        // Hier kannst du das Video in WebM konvertieren und speichern
+        await conventToWebM(uuid, videoPath, webmPath)
+            .then((progress) => {
+                console.log(`Fortschritt: ${progress}%`);
             })
-            .on('end', async () => {
-
-                // Hier kannst du das PNG-Thumbnail in WebP konvertieren und speichern
-                const thumbnailPathWebP = `${videoPath.substring(0, videoPath.lastIndexOf('.'))}-thumbnail.webp`;
-                try {
-                    await sharp(thumbnailPath)
-                    .webp() // Konvertiere das PNG in WebP
-                    .toFile(thumbnailPathWebP); // Speichere es als WebP
-
-                    // Lösche das temporäre PNG-Thumbnail
-                    fs.unlinkSync(thumbnailPath);
-
-                } catch (error) {
-                    console.error('Error converting thumbnail to WebP:', error);
-                    reject(error);
-                }
-
-                // Speichere die Video-Metadaten in Sanity
-                // Führe den API-Aufruf zum Speichern in Sanity durch
-                try {
-                    // await client.create({ _type: 'uploadedVideo', ...videoData });
-                    // console.log('Video data saved in Sanity:', videoData);
-
-                    let mp4Path = videoPath
-                    let webmPath = videoPath.replace(/\.mp4$/, ".webm");
-
-                    // Hier wird das Video in Sanity gespeichert
-                    const doc = {
-                        _id: generateUUID(),
-                        _type: 'uploadedVideo',
-                        name: name,
-                        description: description, // Replace with the desired field values
-                        // mp4Path: videoPath, // Replace with the desired field values
-                        mp4Path: mp4Path, // Replace with the desired field values
-                        webmPath: webmPath, // Replace with the desired field values
-                        thumbnailPath: thumbnailPath // Replace with the desired field values
-                      }
-
-                    client.createOrReplace(doc).then((res) => {
-                        console.log(`Video was created, document ID is ${res._id}`)
-                    }).catch((err) => {
-                        console.error('Oh no, the update failed: ', err.message)
-                    })
-
-                    resolve();
-                } catch (error) {
-                    console.error('Error saving video data in Sanity:', error);
-                    reject(error);
-                }
-            })
-            .on('error', (error) => {
-                console.error('Error creating PNG thumbnail:', error); // Fehler beim Erstellen des PNG-Thumbnails
-                reject(error); // Hier wird der Fehler behandelt und an die Aufrufstelle weitergegeben
+            .catch((error) => {
+                console.error('Fehler beim Berechnen des Fortschritts:', error);
             });
-        });
 
-    // Konvertiere das Video in das WebM-Format
-    const webmPath = `${videoPath.substring(0, videoPath.lastIndexOf('.'))}.webm`; // Pfad zur WebM-Datei
-    // await new Promise((resolve, reject) => {
-    //     ffmpeg(videoPath)
-    //         .outputOptions([
-    //             '-c:v', 'libvpx-vp9',
-    //             '-b:v', '6M',  // Erhöhe die Bitrate auf 6 Mbps (kann angepasst werden)
-    //             '-c:a', 'libopus',
-    //         ])
-    //         .save(webmPath)
-    //         .on('end', resolve)
-    //         .on('error', reject);
-    // });
-    console.log('Starting WebM conversion...');
-    await new Promise((resolve, reject) => {
+        console.log('Video Sucsessfully Uploaded');
+        io.emit('uploadStatus', 'Video successfully uploaded and converted');
+
+        res.status(200).send('Video uploaded successfully');
+    } catch (error) {
+        console.error('Error processing video:', error);
+        res.status(500).send('Error processing video');
+    }
+});
+
+
+async function generateThumbnail(videoPath, thumbnailPath) {
+    console.log('Generate Thumbnail...');
+    io.emit('uploadStatus', 'Generate Thumbnail...');
+    return new Promise((resolve, reject) => {
         ffmpeg(videoPath)
+            .screenshots({
+                count: 1,
+                folder: path.dirname(videoPath),
+                filename: path.basename(thumbnailPath),
+                timestamps: ['1'],
+            })
+            .on('end', resolve)
+            .on('error', (error) => {
+                console.error('Error creating PNG thumbnail:', error);
+                reject(error);
+            });
+    });
+}
+
+async function saveVideoInSanity(uuid, name, description, mp4Path, webmPath, thumbnailPath, thumbnailPathWebP, devMode) {
+    try {
+        const doc = {
+            _id: uuid,
+            _type: 'uploadedVideo',
+            name: name,
+            description: description,
+            mp4Path: mp4Path,
+            webmPath: webmPath,
+            thumbnailPath: thumbnailPath,
+            thumbnailPathWebP: thumbnailPathWebP,
+            webmConversionStatus: 'waiting',
+            devMode: devMode === 'true' ? true : false,
+        }
+
+        const res = await client.createOrReplace(doc);
+        io.emit('uploadStatus', `Save paths in Sanity...`);
+        console.log(`Paths in Sanity saved under document ID ${res._id}`);
+    } catch (error) {
+        io.emit('uploadStatus', 'Save Paths in Sanity failed:', error.message);
+        console.error('Save Paths in Sanity failed: ', error.message)
+    }
+}
+
+async function convertToWebP(inputPath, outputPath) {
+    console.log('Convert Thumbnail to Webp...');
+    io.emit('uploadStatus', 'Convert Thumbnail to Webp...');
+    return new Promise(async (resolve, reject) => {
+        try {
+            await sharp(inputPath)
+                .webp()
+                .toFile(outputPath);
+            resolve();
+        } catch (error) {
+            console.error('Error converting thumbnail to WebP:', error);
+            reject(error);
+        }
+    });
+}
+
+async function setWebmConversionStatus(uuid, status) {
+    try {
+        client
+            .patch(uuid)
+            .set({webmConversionStatus: status})
+            .commit()
+        io.emit('uploadStatus', `Update converting status to ${status}...`);
+        console.error(`Update converting status to ${status}...`)
+    } catch (error) {
+        io.emit('uploadStatus', 'Error: Set Status to Processing failed:', error.message);
+        console.error('Set Status to Processing failed: ', error.message)
+    }
+}
+
+
+
+async function conventToWebM(uuid, videoPath, webmPath) {
+    console.log('Starting WebM conversion...');
+    io.emit('uploadStatus', 'Starting WebM conversion...');
+    await new Promise((resolve, reject) => {
+        /* Original ohne Progress */
+        // ffmpeg(inputPath)
+        //     .outputOptions([
+        //         '-c:v', 'libvpx-vp9',
+        //         '-b:v', '6M',
+        //         '-c:a', 'libopus',
+        //     ])
+        //     .on('end', () => {
+        //         io.emit('uploadStatus', 'WebM conversion completed.');
+        //         console.log('WebM conversion completed.');
+        //         resolve();
+        //     })
+        //     .on('error', (error) => {
+        //         io.emit('uploadStatus', `WebM conversion failed: ${error.message}`);
+        //         console.error('Error during WebM conversion:', error);
+        //         reject(error);
+        //     })
+        //     .save(outputPath);
+
+        // set status to processing
+        setWebmConversionStatus(uuid, 'processing');
+
+        const command = ffmpeg(videoPath)
+            .output(webmPath)
             .outputOptions([
                 '-c:v', 'libvpx-vp9',
                 '-b:v', '6M',
                 '-c:a', 'libopus',
+                '-progress', 'pipe:1', // Aktivieren des Fortschrittsausgabe-Streams
             ])
-            .save(webmPath)
-            .on('end', () => {
-                console.log('WebM conversion completed.');
-                resolve();
+            .on('stderr', (line) => {
+                // Überwachen Sie die stderr-Ausgabe nach Fehlern und geben Sie sie aus
+                if (line.includes('Error:')) {
+                    console.error('ffmpeg Fehler:', line);
+                    reject(line);
+                }
             })
-            .on('error', (error) => {
-                console.error('Error during WebM conversion:', error);
-                reject(error);
+            .on('end', () => {
+                resolve(100); // Die Konvertierung ist abgeschlossen
             });
+
+        // Überwachen Sie den Fortschritt
+        command.on('progress', (progress) => {
+            console.log(`Progress: ${progress.percent}%`);
+            io.emit('webmConversionProgress', progress.percent);
+
+            // Überprüfen, ob der Fortschritt 99% erreicht hat
+            if (progress.percent >= 99) {
+                io.emit('webmConversionProgress', 100);
+                setWebmConversionStatus(uuid, 'completed');
+                resolve(100);
+            }
+        });
+
+        command.run();
     });
+}
 
-    // Weitere Verarbeitung, z.B. Speichern der Pfadinformationen in einer Datenbank
 
-    console.log('Name:', name);
-    console.log('Description:', description);
-    console.log('Video Path:', videoPath);
-    console.log('WebM Path:', webmPath);
-    console.log('Thumbnail Path:', thumbnailPath);
 
-    res.status(200).send('Video uploaded successfully');
-  } catch (error) {
-    console.error('Error processing video:', error);
-    res.status(500).send('Error processing video');
-  }
-});
+
 
 /**
  * index.html as test page for Video Upload 
@@ -342,6 +466,17 @@ app.get('/video-api/uploads/videos/:videoName', (req, res) => {
 });
 
 
+// Set port for server
+const port = process.env.PORT || 2001;
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+});
+
+
+
+
+
 /* Original Script From Ashley Davis
 // https://github.com/bootstrapping-microservices/video-streaming-example/blob/master/index.js
 // https://blog.logrocket.com/streaming-video-in-safari/
@@ -425,10 +560,3 @@ app.get('/works-in-chrome-and-safari', (req, res) => {
     });
 });
 */
-
-// Set port for server
-const port = process.env.PORT || 2001;
-
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});

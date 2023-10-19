@@ -63,6 +63,7 @@ export type ContentItem =
             heading: string; 
             text: string; 
             image: any; 
+            video?: any;
             sectionType: 'standard' | 'fullwidthBackground' | 'fullwidthContent' 
         }
     |   { _type: 'textSection'; 
