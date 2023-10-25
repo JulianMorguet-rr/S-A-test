@@ -20,6 +20,9 @@ import Quote from './quotes/Quote.astro';
 import SingleQuote from './SingleQuote.astro';
 import BlockContent from './BlockContent.astro';
 import Accordion from './Accordion.astro';
+import StatementSlider from './StatementSlider.astro';
+import TextWithTwoColumns from './TextWithTwoColumns.astro';
+import QuoteCollection from './QuoteCollection.astro';
 // import { Image } from 'astro:assets';
 
 
@@ -50,6 +53,12 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 
     {pageBuilder._type === 'textSection' &&  
         <TextSection 
+            data={pageBuilder}
+        />
+    }
+    
+    {pageBuilder._type === 'textWithTwoColumns' &&  
+        <TextWithTwoColumns 
             data={pageBuilder}
         />
     }
@@ -97,37 +106,17 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
 
 
     {pageBuilder._type === 'quoteCollection' &&
-        <!-- bg-white dark:bg-gray-900 -->
-        <section class="quote-collection">
-            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                {/* <h2>{JSON.stringify(pageBuilder)}</h2> */}
-                
-                <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                    <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
-                        {pageBuilder.heading}    
-                    </h2>
-                    <p class="section-block-content mb-5 font-light text-gray-500 sm:text-xl">
-                        {pageBuilder.paragraph}
-                    </p>
-                </div>
-
-                <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-                    {   
-                        pageBuilder.quoteArray.map(ref => {
-                            return (
-                                <Quote reference={ref} />
-                            )
-                        })
-                    }
-
-                </div>
-            </div>
-        </section>
+        <QuoteCollection data={pageBuilder} />
     }
 
 
     {pageBuilder._type === 'singleQuote' &&
         <SingleQuote data={pageBuilder} />
+    }
+
+
+    {pageBuilder._type === 'statementCollection' && 
+        <StatementSlider data={pageBuilder} />
     }
 
 

@@ -8,21 +8,21 @@ export const singleQuoteType = defineType({
   type: 'object',
   icon: DocumentTextIcon,
   fields: [
-    defineField({
-        name: 'heading', 
-        title: 'Frontend Headline',
-        type: 'string'
-    }),
-    defineField({
-        name: 'tagline', 
-        title: 'Frontend Tagline',
-        type: 'string'
-    }),
-    defineField({
-        name: 'paragraph', 
-        title: 'Frontend Paragraph below Headline',
-        type: 'text'
-    }),
+    // defineField({
+    //     name: 'heading', 
+    //     title: 'Frontend Headline',
+    //     type: 'string'
+    // }),
+    // defineField({
+    //     name: 'tagline', 
+    //     title: 'Frontend Tagline',
+    //     type: 'string'
+    // }),
+    // defineField({
+    //     name: 'paragraph', 
+    //     title: 'Frontend Paragraph below Headline',
+    //     type: 'text'
+    // }),
     defineField({
         name: 'quoteReference',
         type: 'reference',

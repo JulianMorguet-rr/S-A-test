@@ -56,9 +56,17 @@ export async function getHomePage() {
         ...,
         ctaReferenz->,
       }, 
+
       referenceToPage->,
       quoteArray[]->,
       quoteReference->,
+
+      statementArray[]->{
+        ...,
+        media {
+          video->
+        }
+      },
     }
   }`; // "page" is the name of the schema from '/scr/structure/index.js'
   const page = await useSanityClient().fetch(query);
@@ -79,6 +87,7 @@ export async function getCurrentPage(pageSlug) {
     heroBackgroundVideo->,
     images[]->,
     quoteReference->,
+    statementArray->,
   }`; // "page" is the name of the schema from '/scr/structure/index.js'
   const pages = await useSanityClient().fetch(query);
   // console.log('pages: ', pages);

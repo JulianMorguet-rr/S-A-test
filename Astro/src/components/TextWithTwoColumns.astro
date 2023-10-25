@@ -1,0 +1,24 @@
+---
+
+import { ContentItem } from '../types/PageContent';
+import BlockContent from './BlockContent.astro';
+
+// @ts-ignore
+const { data } = Astro.props // as { pageBuilder: ContentItem };
+
+---
+
+
+<div class="text-with-two-columns py-8 px-4 lg:px-6">
+
+    <div class="left">
+        <!-- @ts-ignore  --> 
+        <BlockContent data={data.leftText.blockContent} />
+    </div>
+    
+    <div class="right">
+        <!-- @ts-ignore  --> 
+        <BlockContent data={data.rightText.blockContent} />
+    </div>
+
+</div>

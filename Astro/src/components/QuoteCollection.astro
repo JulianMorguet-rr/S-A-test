@@ -1,0 +1,41 @@
+---
+import BlockContent from "./BlockContent.astro";
+import Quote from "./quotes/quote.astro";
+
+const {data} = Astro.props 
+
+---
+
+
+<!-- bg-white dark:bg-gray-900 -->
+<div class="quote-collection">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        {/* <h2>{JSON.stringify(pageBuilder)}</h2> */}
+        
+        <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            {
+                data.heading &&
+                <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
+                    {data.heading}    
+                </h2>
+            }
+            {
+                data.blockContent &&
+                <div class="section-block-content mb-5 font-light text-gray-500 sm:text-xl">
+                    <BlockContent data={data.blockContent} />
+                </div>
+            }
+        </div>
+
+        <div class="space-y-8 lg:grid lg:grid-cols-1 sm:gap-6 xl:gap-10 lg:space-y-0">
+            {   
+                data.quoteArray.map(ref => {
+                    return (
+                        <Quote reference={ref} />
+                    )
+                })
+            }
+
+        </div>
+    </div>
+</div>

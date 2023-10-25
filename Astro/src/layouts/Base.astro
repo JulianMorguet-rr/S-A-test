@@ -86,12 +86,28 @@ const mainMenu = await getMainMenu();
     <!-- <slot name="header" /> -->
     <Header globalSiteSettings={globalSiteSettings} slug={page} mainMenu={mainMenu}  />
 
-    <div transition:animate="none">
+    <div>
       <slot />
     </div>
 
     <Footer globalSiteSettings={globalSiteSettings} mainMenu={mainMenu} slug={page} />
 
+
+    <script>
+      // TODO: Scripte auslagern 
+      const burgerEventListener = () => {
+        const hamburger = document.querySelector('.hamburger')
+        const mobileNav = document.querySelector('.mobile-nav')
+        if(!hamburger || !mobileNav) return
+        hamburger.addEventListener('click', () => {
+          mobileNav.classList.toggle('expanded');
+        });
+      }
+  
+      // document.addEventListener('astro:page-load', burgerEventListener);
+      // burgerEventListener()
+      document.addEventListener('astro:page-load', burgerEventListener);
+  </script>
 
 
     <div set:html={globalSiteSettings.trackingScript}></div>
@@ -174,7 +190,7 @@ const mainMenu = await getMainMenu();
      </script> -->
 
 
-    <script>
+    <!-- <script>
       import Lenis from '@studio-freight/lenis'
       
       function smoothScroll() {
@@ -195,7 +211,7 @@ const mainMenu = await getMainMenu();
 
       document.addEventListener('astro:page-load', smoothScroll);
 
-    </script>
+    </script> -->
 
     <!-- <script>
       // TODO: Scripte auslagern 

@@ -1,0 +1,79 @@
+---
+import BlockContent from "./BlockContent.astro";
+import PlayBtn from "./atomicComponents/PlayBtn.astro";
+
+const { statement } = Astro.props
+
+const mediaUploadBaseURL: string = 'http://localhost:2001' // import.meta.env.NODEMEDIA_URL;
+
+var videoID = `statement-${statement.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1]}`;
+
+---
+
+
+<div class={`single-statement max-w-screen-md`}>
+    {
+        statement.media.video &&
+        <video 
+            class="teaser teaser-video z-0" 
+            preload="auto" 
+            loop 
+            autoplay 
+            muted 
+            playsinline 
+            poster={`http://localhost:2001/video-api/${statement.media.video?.thumbnailPath}`}
+            aria-label="Nur ein Teaser für das Video"
+        >
+            <source src={`http://localhost:2001/video-api/${statement.media.video?.webmPath}`} type="video/webm" />
+            <source src={`http://localhost:2001/video-api/${statement.media.video?.mp4Path}`} type="video/mp4" />
+        </video>
+    }
+
+
+    <div class="content-cover flex-col absolute">
+
+        <div class="inner-wrapper max-w-screen-md text-center">
+    
+            <div class="text-content">
+                <h3 class="text-2xl pb-4 text-center text-white  font-semibold text-gray-900">
+                    { statement.heading }
+                </h3>
+                <h3 class="text-white text-1xl pb-2 mb-0 font-bold">
+                    { statement.authorOfStatement }
+                </h3>
+        
+                <p class="text-white text-1xl pb-2 font-medium ">
+                    { statement.positionOfAuthor }
+                </p>
+            </div>
+
+            <div class="play__Button_outer">
+                <PlayBtn />
+            </div>
+
+            <!-- <p>Video: {JSON.stringify(statement.media.video.webmPath)}</p> -->
+    
+            
+    
+            <!-- <BlockContent data={statement.blockContent} /> -->
+    
+            <!-- <p>
+                {JSON.stringify(statement)}
+            </p> -->
+        
+        </div>
+
+    </div>
+
+</div>
+
+
+
+</div>
+
+
+<style lang="scss">
+
+    
+
+</style>

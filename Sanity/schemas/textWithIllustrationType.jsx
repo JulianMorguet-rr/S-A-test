@@ -94,6 +94,12 @@ export const textWithIllustrationType = defineType({
           to: [{type: 'uploadedVideo'}],
           hidden: ({parent, value}) => !parent?.isVideo !== false,
         }),
+        defineField({
+          name: 'videoAltText',
+          title: 'Alternativ text für Video',
+          type: 'string',
+          hidden: ({parent, value}) => !parent?.isVideo !== false,
+        }),
       ],
     }),
     defineField({

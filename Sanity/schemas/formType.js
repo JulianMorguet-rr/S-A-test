@@ -9,15 +9,15 @@ export const form = defineType({
   icon: ImagesIcon,
   fields: [
     {
+      name: 'tagline',
+      type: 'string',
+      title: 'Tagline',
+      // hidden: ({parent, value}) => !parent?.heading,
+    },
+    {
       name: 'heading',
       title: 'Heading',
       type: 'string',
-    },
-    {
-      name: 'subtitle',
-      type: 'string',
-      title: 'Subtitle',
-      hidden: ({parent, value}) => !parent?.heading,
     },
     {
       name: 'formtype',

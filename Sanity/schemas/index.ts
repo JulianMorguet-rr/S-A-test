@@ -26,9 +26,12 @@ import {pageType} from './page'
 import {heroType} from './heroType'
 import {textWithIllustrationType} from  './textWithIllustrationType'
 import {textSectionType} from  './textSectionType'
+import { textWithTwoColumns } from './textWithTwoColumns'
 import {imageGalleryType} from  './imageGallerieType'
+import {statementType} from  './statementType'
+import {statementCollection} from  './statementCollection'
 import {form} from  './formType'
-import {quoteType} from './quoteType'
+import {quoteCollection} from './quoteCollection'
 import {singleQuoteType} from './singleQuoteType'
 import {accordionSection} from './accordionSection'
 
@@ -41,7 +44,7 @@ import multistep from './multistep'
 import multistepQuestions from './multistepQuestions'
 import multistepComposition from './multistepComposition'
 
-import { justAnImage } from './justAnImage'
+// import { justAnImage } from './justAnImage'
 
 // Testing Categories in Sanity (übergeordnete Kategorien)
 import category from "./category"
@@ -63,13 +66,15 @@ export const schemaTypes = [
   blockContent, 
   heroType,
   textSectionType,
+  textWithTwoColumns,
   textWithIllustrationType,
   imageGalleryType,
-  form,
-  justAnImage,
-  quoteType,
-  singleQuoteType,
   accordionSection,
+  singleQuoteType,
+  quoteCollection,
+  statementCollection,
+  statementType,
+  form,
   // Multistep Form 
   // multistep,
   multistepQuestions,

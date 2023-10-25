@@ -72,16 +72,13 @@ computedMainNav()
 <div class="color-overlay">
 </div>
 
-<header 
-    transition:name="main-header"
-    transition:animate="initial"
->
+<header >
     <div class="outer-wrapper base-shadow">
         <div class="inner py-4 px-4 lg:px-6 mx-auto max-w-screen-xl">
             <a href="/" aria-label="Zur Startseite">
                 {
                     globalSiteSettings.logo.svg ? 
-                        (<div set:html={globalSiteSettings.logo.svg}></div>)
+                        (<div class="logo" set:html={globalSiteSettings.logo.svg}></div>)
                     : globalSiteSettings.logo.src ?
                         <Image
                             src={urlFor(globalSiteSettings.logo.src).format('webp').url()} alt="Logo der Seite"
@@ -141,7 +138,6 @@ computedMainNav()
                 -->
             </nav>
 
-            
 
             
         </div>
@@ -165,6 +161,12 @@ computedMainNav()
 
 
 
+<style is:global>
+    .logo svg {
+        height: 56px;
+    }
+</style>
+
 
 <style lang="scss">
 
@@ -179,12 +181,14 @@ computedMainNav()
     //     }
     // }
 
+
     header {
         max-height: 88px;
 
         .outer-wrapper {
             width: 100%;
         }
+
 
         .mobile-nav {
             display: flex;
@@ -207,7 +211,7 @@ computedMainNav()
     .color-overlay {
         height: 0;
         width: 100vw;
-        background: rgb(251,146,60);
+        background: rgb(11 149 161);
         position: fixed;
         z-index: 99999;
         display: block;

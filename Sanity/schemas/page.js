@@ -44,52 +44,64 @@ export const pageType = defineType({
       type: 'array',
       title: 'Page builder',
       of: [
-      defineArrayMember({
+      {
         name: 'hero',
         type: 'hero',
         title: 'Hero',
-      }),
-      defineArrayMember({
+      },
+      {
         name: 'textSection',
         type: 'textSection',
         title: 'Text Section',
-      }),
-      defineArrayMember({
+      },
+      {
+        name: 'textWithTwoColumns',
+        type: 'textWithTwoColumns',
+        title: 'Zweispaltiger Text',
+      },
+      {
         name: 'textWithIllustration',
         type: 'textWithIllustration',
         title: 'Text with Illustaion',
-      }),
-      defineArrayMember({
+      },
+      {
         name: 'gallery',
         type: 'gallery',
         title: 'Gallery',
-      }),
-      defineArrayMember({
-        name: 'form',
-        type: 'form',
-        title: 'Form',
-      }),
-      defineArrayMember({
-        name: 'justAnImage',
-        type: 'justAnImage',
-        title: 'Just an Image',
-      }),
-      defineArrayMember({
-        name: 'quoteCollection',
-        type: 'quoteCollection',
-        title: 'Quote Collection',
-      }),
-      defineArrayMember({
-        name: 'singleQuote',
-        type: 'singleQuote',
-        title: 'Einzelnes Zitat',
-      }),
-
-      defineArrayMember({
+      },
+      {
         name: 'accordionSection',
         type: 'accordionSection',
         title: 'Accordion Section',
-      }),
+      },
+      
+      {
+        name: 'quoteCollection',
+        type: 'quoteCollection',
+        title: 'Zitat Collection',
+      },
+      {
+        name: 'singleQuote',
+        type: 'singleQuote',
+        title: 'Einzelnes Zitat',
+      },
+      
+      {
+        name: 'statementCollection',
+        type: 'statementCollection',
+        title: 'Statement Collection',
+      },
+      {
+        name: 'form',
+        type: 'form',
+        title: 'Form',
+      },
+      // defineArrayMember({
+      //   name: 'justAnImage',
+      //   type: 'justAnImage',
+      //   title: 'Just an Image',
+      // }),
+      
 
 
 

@@ -98,9 +98,9 @@ const bgColor = 'red';
                 <div class="headline-wrapper mb-4">
                     <div class="inner-wrapper" style="clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);">
                         <h1 class={`${useBackgroundAnimation('page') ? 'background-animation' : null} clip-text text-4xl font-bold text-gray-900`}>
-                            <mark>
+                            <span>
                                 {pageContent.heading}
-                            </mark>
+                            </span>
                         </h1>
                     </div>
                 </div>
@@ -217,10 +217,10 @@ const bgColor = 'red';
         color: #fff;
         -webkit-text-fill-color: #fff;
 
-        --color1: rgb(251, 146, 60);
-        --color2: rgb(251, 146, 60);
+        --color1: rgb(11 149 161);
+        --color2: rgb(11 149 161);
 
-        mark {
+        span {
 
             background-image: linear-gradient(var(--color1), var(--color2));
             background-position: 0 100%;
@@ -232,6 +232,7 @@ const bgColor = 'red';
 
             color: #fff;
             padding: 0.2rem 0.6rem 0.2rem 0.6rem;
+            box-decoration-break: clone;
             -webkit-box-decoration-break: clone;
         }
 
@@ -239,7 +240,7 @@ const bgColor = 'red';
             color: var(--color1);
             -webkit-text-fill-color: var(--color1);
 
-            mark {
+            span {
                 background-image: linear-gradient(#fff, #fff);
             }
         }
@@ -311,8 +312,8 @@ const bgColor = 'red';
                 // text-shadow: 0 0 24px rgba(255,255,255,1);
 
                 // font-family: Arvo,Arial,Sans-Serif;
-                // background: linear-gradient(to right, rgb(251, 146, 60) 50%, transparent 50%); /* Anfangszustand: Harte Kante in der Mitte */
-                background: rgb(251, 146, 60);
+                // background: linear-gradient(to right, rgb(11 149 161) 50%, transparent 50%); /* Anfangszustand: Harte Kante in der Mitte */
+                background: rgb(11 149 161);
 
                 background-size: 200% 100%; /* Größe des Verlaufs verdoppeln */
                 background-position: 100% 0; /* Ausgangsposition ganz rechts */
@@ -381,50 +382,7 @@ const bgColor = 'red';
             aspect-ratio: 1280 / 627;
         }
 
-        .animated-bg-gradient {
-            background: linear-gradient(45deg,#f77f7f,#eadb3a);
-            background-size: 200% 200%;
-            -webkit-animation: hero 10s infinite;
-            -moz-animation: hero 10s infinite;
-            -o-animation: hero 10s infinite;
-            animation: hero 10s infinite;
-            box-shadow: 0 0 7px 0 rgba(0,0,0,.2);
 
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-
-            &:before {
-                content: "";
-                position: absolute;
-                background-image: radial-gradient(circle at center center, #f89f9f 0%, rgb(255 152 0 / 0%) 66%);
-                mix-blend-mode: hard-light;
-                mix-blend-mode: multiply;
-                opacity: 0;
-                width: 50vw;
-                height: 50vw;
-                top: -25vw;
-                left: -25vw;
-                animation: heroBefore 10s infinite;
-            }
-
-            &:after {
-                content: "";
-                position: absolute;
-                background-image: radial-gradient(circle at center center,#feae79 0%,rgba(255,152,0,0) 70%);
-                mix-blend-mode: hard-light;
-                mix-blend-mode: multiply;
-                opacity: 0;
-                width: 50vw;
-                height: 50vw;
-                bottom: -25vw;
-                right: -25vw;
-
-                animation: heroAfter 10s infinite;
-            }
-        }
 
     }
 
@@ -498,7 +456,7 @@ const bgColor = 'red';
 
     @keyframes maskSlideHeading {
         0% {
-            background: linear-gradient(to right, rgb(251, 146, 60) 50%, transparent 50%); /* Anfangszustand: Harte Kante in der Mitte */
+            background: linear-gradient(to right, rgb(11 149 161) 50%, transparent 50%); /* Anfangszustand: Harte Kante in der Mitte */
             background-size: 200% 100%; /* Größe des Verlaufs verdoppeln */
             background-position: 100% 0; /* Ausgangsposition ganz rechts */
             
@@ -506,7 +464,7 @@ const bgColor = 'red';
             -webkit-text-fill-color: transparent;
         }
         100% {
-            background: linear-gradient(to right, rgb(251, 146, 60) 50%, transparent 50%); /* Endzustand: Harte Kante in der Mitte bleibt erhalten */
+            background: linear-gradient(to right, rgb(11 149 161) 50%, transparent 50%); /* Endzustand: Harte Kante in der Mitte bleibt erhalten */
             background-size: 200% 100%; /* Größe des Verlaufs bleibt gleich */
             background-position: 0% 0; /* Endposition ganz links */
 

@@ -8,19 +8,3 @@
     <span class="line"></span>
     <span class="line"></span>
 </div>
-
-
-<script>
-    // TODO: Scripte auslagern 
-    const burgerEventListener = () => {
-      const hamburger = document.querySelector('.hamburger')
-      const mobileNav = document.querySelector('.mobile-nav')
-      if(!hamburger || !mobileNav) return
-      hamburger.addEventListener('click', () => {
-        mobileNav.classList.toggle('expanded');
-      });
-    }
-
-    // document.addEventListener('astro:page-load', burgerEventListener);
-    burgerEventListener()
-</script>

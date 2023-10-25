@@ -71,6 +71,11 @@ export type ContentItem =
             text: string; 
             sectionType: 'standard' | 'fullwidthBackground' | 'fullwidthContent' 
         }
+    |   { _type: 'textWithTwoColumns'; 
+            leftText: Object; 
+            rightText: Object;
+            sectionType: 'standard' | 'fullwidthBackground' | 'fullwidthContent' 
+        }
     |   { 
             _type: 'justAnImage'; 
             heading: string; 
@@ -99,6 +104,14 @@ export type ContentItem =
             blockContent?: Array<any>;
             // TODO: hier noch richtige Types hinzufügen
             singleAccordionItem: any[];
+        }
+    |   { 
+            _type: 'statementCollection'; 
+            heading: string;
+            tagline: string;
+            blockContent?: Array<any>;
+            // TODO: hier noch richtige Types hinzufügen
+            statements?: Array<any>;
         }
 
 

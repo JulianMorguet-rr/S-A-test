@@ -2,12 +2,17 @@ import {defineArrayMember, defineField, defineType} from 'sanity'
 
 import {DocumentTextIcon} from '@sanity/icons'
 
-export const quoteType = defineType({
-  name: 'quoteCollection',
+export const statementCollection = defineType({
+  name: 'statementCollection',
   title: 'Zitat Sammlung',
   type: 'object',
   icon: DocumentTextIcon,
   fields: [
+    defineField({
+        name: 'tagline', 
+        title: 'Frontend Tagline',
+        type: 'string'
+    }),
     defineField({
         name: 'heading', 
         title: 'Frontend Headline',
@@ -19,15 +24,15 @@ export const quoteType = defineType({
         type: 'text'
     }),
     defineField({
-        name: 'quoteArray',
+        name: 'statementArray',
         type: 'array',
-        title: 'Zitat Sammlung',
+        title: 'Statement Sammlung',
         of: [
             defineArrayMember({
-                name: 'quotes',
-                title: 'Zitate',
+                name: 'statement',
+                title: 'Statement',
                 type: 'reference',
-                to: [{type: 'quotes' }],
+                to: [{type: 'singleStatement' }],
             }),
         ],
     }),
@@ -40,7 +45,7 @@ export const quoteType = defineType({
     prepare({title}) {
       return {
         title: title , // || 'Untitled'
-        subtitle: 'Zitatsammlung',
+        subtitle: 'Statement Sammlung',
       }
     },
   },

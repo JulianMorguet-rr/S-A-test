@@ -151,71 +151,28 @@ const uid = generateUID();
         .quote-content {
             position: relative;
             z-index: 9;
+
+            .section-heading {
+                color: #fff;
+                background: none;
+                color: #fff;
+
+                -webkit-background-clip: initial;
+                background-clip: initial;
+                -webkit-text-fill-color: unset;
+                text-fill-color: unset;
+            }
+
+            .section-tagline {
+                color: #fff;
+            }
         }
 
     }
 }
-.fullwidthBackground {
-    left: calc(50% - 50vw );
-    width: 100vw !important;
-    position: relative;
-}
 
 
-.full-size {
-    z-index: -1;
-    position: absolute;
-    top: -100px;
-    left: -100px;
-    right: -100px;
-    bottom: -100px;
-}
 
-
-.animated-bg-gradient {
-    background: linear-gradient(45deg,#f77f7f,#eadb3a);
-    background-size: 200% 200%;
-    -webkit-animation: hero 10s infinite;
-    -moz-animation: hero 10s infinite;
-    -o-animation: hero 10s infinite;
-    animation: hero 10s infinite;
-    box-shadow: 0 0 7px 0 rgba(0,0,0,.2);
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    &:before {
-        content: "";
-        position: absolute;
-        background-image: radial-gradient(circle at center center, #f89f9f 0%, rgb(255 152 0 / 0%) 66%);
-        mix-blend-mode: hard-light;
-        mix-blend-mode: multiply;
-        opacity: 0;
-        width: 50vw;
-        height: 50vw;
-        top: -25vw;
-        left: -25vw;
-        animation: heroBefore 10s infinite;
-    }
-
-    &:after {
-        content: "";
-        position: absolute;
-        background-image: radial-gradient(circle at center center,#feae79 0%,rgba(255,152,0,0) 70%);
-        mix-blend-mode: hard-light;
-        mix-blend-mode: multiply;
-        opacity: 0;
-        width: 50vw;
-        height: 50vw;
-        bottom: -25vw;
-        right: -25vw;
-
-        animation: heroAfter 10s infinite;
-    }
-}
 
 /* Quote Animation styles */ 
 

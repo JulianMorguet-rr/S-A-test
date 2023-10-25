@@ -1,0 +1,399 @@
+---
+import SingleStatement from "./SingleStatement.astro";
+
+import BlockContent from "./BlockContent.astro";
+
+const { data } = Astro.props 
+
+const mediaUploadBaseURL: string = 'http://localhost:2001' // import.meta.env.NODEMEDIA_URL;
+
+// create UID
+const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
+
+---
+
+
+<div class="statement-slider py-8 fullwidthBackground">
+
+    <div class="outer-wrapper mx-auto">
+
+        <div class="inner-wrapper py-8 px-4 lg:px-6 mx-auto max-w-screen-xl sm:py-16">
+
+            <div class="statement-description max-w-screen-md pb-8">
+
+                <p class="section-tagline mb-4 md:text-lg text-white font-bold">{data.tagline}</p>
+
+                <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold">{data.heading}</h2>
+
+                <div class="section-block-content mb-6 font-light text-gray-500 md:text-lg">
+                    <p>{data.paragraph}</p>
+                </div>
+
+            </div>
+
+            <!-- <p>{JSON.stringify(data)}</p> -->
+
+            <div class="slider statement-wrapper max-w-screen-md flex m-auto">
+                <div class="slider-container statement-slider-wrapper max-w-screen-md">
+                    {
+                        data.statementArray &&
+                        data.statementArray.map((statement, index) => {
+                            return (
+                                <div class={`toggleVideoButton-${uid}-${statement.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1]}-${index}`}>
+                                    <SingleStatement statement={statement} />
+                                </div>
+                                
+                                
+                            )
+                        })
+                    }
+                </div>
+            </div>
+
+            <!-- <p>{JSON.stringify(data)}</p> -->
+
+        </div>
+
+        <div class="animated-bg-gradient" ></div>
+
+    </div>
+
+</div>
+
+{
+    data.statementArray &&
+    data.statementArray.map((statement, index) => {
+        return (
+        <div 
+            id={`videoModal-${uid}-${statement.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1]}-${index}`} 
+            tabindex="-1" 
+            aria-hidden="true" 
+            class="videoModal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 h-modal md:h-full"
+        >
+            <div class={`modal-background animated-bg-gradient toggleVideoButton-${uid}-${statement.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1]}-${index}`}></div>
+                
+            <!-- Modal header -->
+            <div class="modal-nav flex fixed justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                <button type="button" class={`toggleVideoButton-${uid}-${statement.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1]}-${index} text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white`} data-modal-toggle="videoModal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- rounded-lg p-4 w-full max-w-2xl h-full md:h-auto -->
+            <div class="videoModal-inner-wrapper relative bg-white rounded-lg shadow dark:bg-gray-800 overflow-hidden">
+                <!-- Modal content -->
+                <div class="videoModal-content relative p-4 ">
+                    <div class="modal-inner-content">
+                        <!-- Modal header -->
+                        <div class="modal-header text-center  pb-4 mb-4 rounded-t sm:mb-5">
+                            
+                            <h3 class="text-4xl pb-4 text-center tertiary-color animated-gradient-text font-semibold text-gray-900">
+                                {statement.title}
+                            </h3>
+                            <h4 class="tertiary-color text-2xl pb-2 mb-0 font-bold">
+                                {statement.authorOfStatement}
+                            </h4>
+                            <h5 class="tertiary-color text-2xl pb-2 font-medium ">
+                                {statement.positionOfAuthor}
+                            </h5>
+
+                        </div>
+                        <!-- Modal body -->
+                        {
+                            statement.media?.video &&
+                            <div class="modal-body">
+                                <video controls poster={`${mediaUploadBaseURL}/video-api/${statement.media.video.thumbnailPath}`} class="hero-background-video">
+                                        <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.webmPath}`} type="video/webm">
+                                        <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.mp4Path}`} type="video/mp4">
+                                </video>  
+                            </div>
+                        }
+
+                        <div class="videoModal-body py-8 font-light text-gray-500 md:text-lg">
+                            
+                            <BlockContent data={statement.blockContent} />
+                            
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script define:vars={{video: `${uid}-${statement.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1]}-${index}`}}>
+            // JavaScript
+            console.log('Modal JS fired');
+            console.log('video: ', video);
+
+            function openAndCloseModal() {
+                console.log('openAndCloseModal fired')
+                const toggleVideoButton = document.querySelectorAll(`.toggleVideoButton-${video}`);
+                console.log('toggleVideoButton: ', toggleVideoButton)
+
+                console.log('video: ', video);
+
+                const videoModal = document.getElementById(`videoModal-${video}`);
+                console.log('videoModal Elem: ', videoModal)
+                const videoElement = document.querySelector(`#videoModal-${video} video`)
+
+                const root = document.querySelector('html'); 
+                const body = document.querySelector('body');
+                const header = document.querySelector('header');
+
+                let isModalOpen = false;
+
+                function handleEscKeyPress(event) {
+                    if (event.key === 'Escape') {
+                        console.log('Die "esc"-Taste wurde gedrückt.');
+                        toggleVideoModal();
+                    }
+                }
+
+                // Funktion zum toggeln des Modals
+                const toggleVideoModal = () => {
+                    console.log('window.isSliderDragging: ', window.isSliderDragging)
+                    if(window.isSliderDragging) return
+
+                    // console.log('isSliderDragging: ', isSliderDragging)
+                    root.classList.toggle('overflow-hidden');
+
+                    if(isModalOpen) {
+                        console.log('remove isModalOpen')
+                        root.removeAttribute('data-lenis-prevent')
+                        body.removeAttribute('data-lenis-prevent')
+                        isModalOpen = false;
+                    } else {
+                        console.log('add isModalOpen')
+                        root.setAttribute('data-lenis-prevent', '')
+                        body.setAttribute('data-lenis-prevent', '')
+                        isModalOpen = true;
+                    }
+
+                    if(!videoModal) return
+                    videoModal.classList.toggle('hidden');
+                    
+                    if(!videoElement) return
+                    if(videoElement.paused) {
+                        videoElement.currentTime = 0;
+                        videoElement.play()
+                        document.addEventListener('keydown', handleEscKeyPress);
+                    } else {
+                        videoElement.pause()
+                        document.removeEventListener('keydown', handleEscKeyPress);
+                    }
+                }
+
+                // Event-Listener für den Klick auf den Button
+                // @ts-ignore
+                toggleVideoButton.forEach(button => {
+                    button.addEventListener('click', toggleVideoModal);
+                })
+            }
+
+            openAndCloseModal();
+
+        </script>
+        )
+    })
+}
+        
+    
+</div>
+
+<script>
+
+window.isSliderDragging = false;
+
+
+let snapFactor = 2;
+
+// Maximaler Wert für den Slider-Offset (abhängig von der Anzahl der Karten)
+let maxOffset = 0;
+
+function calculateMaxOffset() {
+    const cards = document.querySelectorAll('.single-statement');
+    const cardWidth = cards[0].offsetWidth;
+    maxOffset = -(cards.length - 1) * (cardWidth + 120);
+}
+
+// Nach Änderungen in der Slider-Container-Größe den maximalen Offset neu berechnen
+window.addEventListener('resize', calculateMaxOffset);
+
+function addSliderFunctionality() {
+    const sliderContainer = document.querySelector('.slider-container');
+    const slider = document.querySelector('.slider');
+    let isDragging = false;
+    let startPosition = 0;
+    let offset = 0;
+
+    // Berechnung des maximalen Offsets beim Laden der Seite
+    calculateMaxOffset();
+
+    function setIsSliderDraggingToFalse() {
+        console.log('toggleIsSliderDragging fired')
+        setTimeout(() => {
+            window.isSliderDragging = false
+        }, 300);
+    }
+    
+    
+
+    if (!slider || !sliderContainer) return;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startPosition = e.clientX - offset;
+        sliderContainer.style.transition = 'none';
+
+        // Hier stoppen wir die Event-Propagation
+        e.stopPropagation();
+        console.log('stopPropagation')
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        console.log('mousemove')
+        window.isSliderDragging = true
+        const currentPosition = e.clientX - startPosition;
+        sliderContainer.style.transform = `translateX(${currentPosition}px)`;
+
+        // Hier stoppen wir die Event-Propagation
+        e.stopPropagation();
+        console.log('stopPropagation')
+    });
+
+    slider.addEventListener('mouseup', (e) => {
+        isDragging = false;
+
+        setIsSliderDraggingToFalse()
+        offset = e.clientX - startPosition;
+        sliderContainer.style.transition = 'transform 0.3s ease-in-out';
+        snapToNearestCard();
+
+        // Hier stoppen wir die Event-Propagation
+        e.stopPropagation();
+        console.log('stopPropagation')
+    });
+
+    slider.addEventListener('mouseleave', (e) => {
+        if (isDragging) {
+            slider.dispatchEvent(new MouseEvent('mouseup'));
+            e.stopPropagation();
+
+            console.log('e: ', e)
+            console.log('stopPropagation')
+            console.log('e: ', e)
+        }
+    });
+
+    // Touch-Ereignisse für mobile Geräte 
+    /*
+    slider.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) { // Überprüfen Sie, ob es Touches gibt
+            isDragging = true;
+            startPosition = e.touches[0].clientX - offset;
+            sliderContainer.style.transition = 'none';
+            e.stopPropagation();
+        }
+    });
+
+    slider.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0 && isDragging) { // Überprüfen Sie, ob es Touches gibt und das Ziehen aktiv ist
+            window.isSliderDragging = true;
+            const currentPosition = e.touches[0].clientX - startPosition;
+            sliderContainer.style.transform = `translateX(${currentPosition}px)`;
+            e.stopPropagation();
+        }
+    });
+
+    slider.addEventListener('touchend', (e) => {
+        if (e.changedTouches.length > 0 && isDragging) { // Überprüfen Sie, ob es "changedTouches" gibt und das Ziehen aktiv ist
+            isDragging = false;
+            setIsSliderDraggingToFalse();
+            offset = e.changedTouches[0].clientX - startPosition;
+            sliderContainer.style.transition = 'transform 0.3s ease-in-out';
+            snapToNearestCard();
+            e.stopPropagation();
+        }
+    });
+    */
+
+    function snapToNearestCard() {
+
+        // Begrenze den Offset auf den maximalen Wert
+        offset = Math.max(maxOffset, offset);
+        offset = Math.min(0, offset);
+
+        // Berechnung der nächsten Karte basierend auf dem Offset
+        const cards = document.querySelectorAll('.single-statement');
+        const cardWidth = cards[0].offsetWidth;
+        const currentTranslateX = -parseFloat(getComputedStyle(sliderContainer).transform.split(',')[4]);
+        console.log('currentTranslateX: ', currentTranslateX)
+        console.log('getComputedStyle(sliderContainer).transform: ', getComputedStyle(sliderContainer).transform)
+
+        // const index = Math.round(currentTranslateX / cardWidth);
+        const index = Math.round(-offset / (cardWidth + 120 * 0.2));
+        console.log('index: ', index)
+        // make sure that index is min 0 and max cards.length - 1
+        const minMaxIndex = Math.max(0, Math.min(cards.length - 1, index));
+        const newPosition = -minMaxIndex * (cardWidth + 120);
+        sliderContainer.style.transform = `translateX(${newPosition}px)`;
+    }
+}
+
+addEventListener("DOMContentLoaded", () => {
+    addSliderFunctionality();
+});
+
+
+</script>
+
+
+
+
+<style lang="scss">
+
+/* Statement essential styles */ 
+.statement-slider {
+    overflow: hidden;
+
+    .outer-wrapper {
+        overflow: hidden;
+        position: relative;
+        
+        .inner-wrapper {
+            z-index: 99;
+            position: relative;
+        }
+        
+        
+        .statement-description {
+            margin: auto;
+            text-align: center;
+            position: relative;
+            z-index: 9;
+
+            .section-heading {
+                color: #fff;
+                background: none;
+                color: #fff;
+
+                -webkit-background-clip: initial;
+                background-clip: initial;
+                -webkit-text-fill-color: unset;
+                text-fill-color: unset;
+            }
+
+            .section-tagline {
+                color: #fff;
+            }
+
+            .section-block-content {
+                color: #fff;
+            }
+        }
+
+    }
+}
+
+</style>

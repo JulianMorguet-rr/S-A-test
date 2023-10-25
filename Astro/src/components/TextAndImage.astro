@@ -17,10 +17,11 @@ import { convertBlockContentToHTML } from '../composables/blockContentToHTML';
 import { Image } from 'astro:assets';
 
 import CustomImage from './atomicComponents/CustomImage.astro';
+import PlayBtn from './atomicComponents/PlayBtn.astro';
 
 const { data } = Astro.props // as { pageBuilder: ContentItem };
 
-var videoID = data.media.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1];
+var videoID = data.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1];
 
 const content = convertBlockContentToHTML(data.blockContent);
 
@@ -57,10 +58,10 @@ const content = convertBlockContentToHTML(data.blockContent);
     Old way of fullwidth
     fullwidth-background-${data.fullwidth} fullwidth-${data.fullwidth}
 -->
-<div class={`inner-section md:grid ${data.sectionType}`}>
+<div class={`text-with-asset inner-section md:grid ${data.sectionType}`}>
     <!-- <h2>Test: {JSON.stringify(data.sectionType)}</h2> -->
     <div class={`inner-wrapper unset-and-visible`}>
-        <div class={`unset-and-visible gap-8 items-center py-8 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 switch-sides-${data.switchImageToRightSide}`}>
+        <div class={`content unset-and-visible gap-8 items-center py-8 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 switch-sides-${data.switchImageToRightSide}`}>
             <div class="unset-and-visible section-asset image-edge-grid__img base-shadow">
             { 
                 data.cta?.ctaReferenz?.heroImage ? 
@@ -83,21 +84,27 @@ const content = convertBlockContentToHTML(data.blockContent);
                         />
                 : data.media?.video ? 
                         <div class="video-wrapper">
-                            <div class="play__Button__Wrapper">
+                            
+                                <!-- TODO: hier Component "PlayBtn.astro" nutzen -->
+                                <PlayBtn idfromparent={videoID} absolute={true}></PlayBtn>
+                                <!--
                                 <div class={`play__Button toggleVideoButton-${videoID}`}>
-                                    <svg fill="rgb(251 146 60)" height="6rem" width="6rem" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                                        viewBox="0 0 60 60" xml:space="preserve">
-                                        <g>
-                                            <path d="M45.563,29.174l-22-15c-0.307-0.208-0.703-0.231-1.031-0.058C22.205,14.289,22,14.629,22,15v30
-                                                c0,0.371,0.205,0.711,0.533,0.884C22.679,45.962,22.84,46,23,46c0.197,0,0.394-0.059,0.563-0.174l22-15
-                                                C45.836,30.64,46,30.331,46,30S45.836,29.36,45.563,29.174z M24,43.107V16.893L43.225,30L24,43.107z"/>
-                                            <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30
-                                                S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z"/>
-                                        </g>
-                                    </svg>
+                                    <div class="play__Button__Wrapper">
+                                        <svg fill="rgb(251 146 60)" height="6rem" width="6rem" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                            viewBox="0 0 60 60" xml:space="preserve">
+                                            <g>
+                                                <path d="M45.563,29.174l-22-15c-0.307-0.208-0.703-0.231-1.031-0.058C22.205,14.289,22,14.629,22,15v30
+                                                    c0,0.371,0.205,0.711,0.533,0.884C22.679,45.962,22.84,46,23,46c0.197,0,0.394-0.059,0.563-0.174l22-15
+                                                    C45.836,30.64,46,30.331,46,30S45.836,29.36,45.563,29.174z M24,43.107V16.893L43.225,30L24,43.107z"/>
+                                                <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30
+                                                    S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z"/>
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
-                            </div>
-                            <picture class="video-thumbnail" transition:animate="initial" transition:name={`video-${data.media.video?.thumbnailPath}`}>
+                                -->
+                            
+                            <picture class="video-thumbnail">
                                 <source srcset={`${mediaUploadBaseURL}/video-api/${data.media.video?.thumbnailPathWebP}`} type="image/webp" />
                                 <img
                                     width="1600"
@@ -113,7 +120,7 @@ const content = convertBlockContentToHTML(data.blockContent);
 
             <div class="mt-4 md:mt-0">
                 { data.tagline &&
-                    <p class="section-tagline mb-4">
+                    <p class="section-tagline mb-4 md:text-lg text-gray-600 font-bold">
                         {data.tagline}
                     </p>
                 }
@@ -147,24 +154,36 @@ const content = convertBlockContentToHTML(data.blockContent);
                 id={`videoModal-${videoID}`} 
                 tabindex="-1" 
                 aria-hidden="true" 
-                class="videoModal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
-                transition:animate="initial" 
+                class="videoModal hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 h-modal md:h-full"
             >
-                <div class={`modal-background toggleVideoButton-${videoID}`}></div>
+                <div class={`modal-background animated-bg-gradient toggleVideoButton-${videoID}`}></div>
+                
+                <!-- Modal header -->
+                <div class="modal-nav flex fixed justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                    <button type="button" class={`toggleVideoButton-${videoID} text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="videoModal`}>
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+
                 <!-- rounded-lg p-4 w-full max-w-2xl h-full md:h-auto -->
                 <div class="videoModal-inner-wrapper relative bg-white rounded-lg shadow dark:bg-gray-800 overflow-hidden">
                     <!-- Modal content -->
                     <div class="videoModal-content relative p-4 ">
                         <div class="modal-inner-content">
                             <!-- Modal header -->
-                            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                    Video Headline goes here
+                            <div class="modal-header text-center  pb-4 mb-4 rounded-t sm:mb-5">
+                                
+                                <h3 class="text-4xl pb-4 text-center tertiary-color animated-gradient-text font-semibold text-gray-900">
+                                    „Geschmäcker sind sehr unterschiedlich und <span class="">individuell</span>“
                                 </h3>
-                                <button type="button" class={`toggleVideoButton-${videoID} text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="videoModal`}>
-                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
+                                <h4 class="tertiary-color text-2xl pb-2 mb-0 font-bold">
+                                    Dr. Gero Hocker 
+                                </h4>
+                                <h5 class="tertiary-color text-2xl pb-2 font-medium ">
+                                    (Ernährungspolitischer Sprecher der FDP)    
+                                </h5>
+
                             </div>
                             <!-- Modal body -->
                             {
@@ -177,13 +196,15 @@ const content = convertBlockContentToHTML(data.blockContent);
                                 </div>
                             }
 
-                            <div class="videoModal-body mb-6 font-light text-gray-500 md:text-lg">
+                            <div class="videoModal-body py-8 font-light text-gray-500 md:text-lg">
                                 <p>
                                     Unser vielfältiges Lebensmittelangebot steht in der Kritik: Im Rahmen der Ernährungsstrategie des Bundesministeriums für Ernährung und Landwirtschaft (BMEL) werden Rezepturvorgaben für Lebensmittel diskutiert. Ursprüngliches Ziel war es, den Energiegehalt zu reduzieren und Lebensmittel zu reformulieren. Heute steht jedoch der süße Geschmack im Fokus der Reduktionsstrategie. Eine generelle Reduzierung von Süße wird gefordert.
                                 </p>
+                                <br>
                                 <p>
                                     Nicht nur in der Politik wächst der Widerstand gegen die geplante Bevormundung von Verbraucherinnen und Verbrauchern. Dr. Gero Hocker, ernährungspolitischer Sprecher der FDP-Bundestagsfraktion, erklärt im Video, warum es nicht Aufgabe des Gesetzgebers ist, den Geschmack der Menschen in eine bestimmte Richtung zu lenken.
                                 </p>
+                                
                             </div>  
                         </div>
                     </div>
@@ -192,7 +213,8 @@ const content = convertBlockContentToHTML(data.blockContent);
 
             <script define:vars={{video: videoID}} >
                 // JavaScript
-                console.log('Modal JS fired')
+                console.log('Modal JS fired');
+
 
                 function openAndCloseModal() {
                     console.log('openAndCloseModal fired')
@@ -202,18 +224,38 @@ const content = convertBlockContentToHTML(data.blockContent);
                     const videoModal = document.getElementById(`videoModal-${video}`);
                     const videoElement = document.querySelector(`#videoModal-${video} video`)
 
+                    const root = document.querySelector('html'); 
                     const body = document.querySelector('body');
+                    const header = document.querySelector('header');
+
+                    function handleEscKeyPress(event) {
+                        if (event.key === 'Escape') {
+                            console.log('Die "esc"-Taste wurde gedrückt.');
+                            toggleVideoModal();
+                        }
+                    }
 
                     // Funktion zum toggeln des Modals
                     const toggleVideoModal = () => {
-                        // if body has data-lenis-prevent attribute, remove it 
+                        root.classList.toggle('overflow-hidden');
+
+
+                        // handle data-lenis-prevent attribute for scrolling behavior
                         if(body.hasAttribute('data-lenis-prevent')) {
                             console.log('remove data-lenis-prevent')
+                            root.removeAttribute('data-lenis-prevent')
                             body.removeAttribute('data-lenis-prevent')
                         } else {
                             console.log('add data-lenis-prevent')
+                            root.setAttribute('data-lenis-prevent', '')
                             body.setAttribute('data-lenis-prevent', '')
                         }
+
+                        // toggle Header Class
+                        // if(header) {
+                        //     header.classList.toggle('hide-away');
+                        // }
+
 
                         console.log(`fire toggleVideoModal ${video}`)
                         if(!videoModal) return
@@ -223,8 +265,10 @@ const content = convertBlockContentToHTML(data.blockContent);
                         if(videoElement.paused) {
                             videoElement.currentTime = 0;
                             videoElement.play()
+                            document.addEventListener('keydown', handleEscKeyPress);
                         } else {
                             videoElement.pause()
+                            document.removeEventListener('keydown', handleEscKeyPress);
                         }
                     }
 
@@ -249,6 +293,12 @@ const content = convertBlockContentToHTML(data.blockContent);
 
 
 <style lang="scss">
+// TODO:    In globale styles auslagern, da ich das ganze nicht für jedes modal nochmal brauche 
+
+// TODO:    Im best case einfach das ganze modal global hinlegen und mit props bestimmen, ob es überhaupt benötigt wird, 
+//          wenn ja dann mit JS die Daten mittels "appendChild" in das modal einfügen
+
+
 // .fullwidth-true {
 //     grid-template-columns: 1fr;
 // }
@@ -311,7 +361,7 @@ div.inner-wrapper {
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 999px) {
     .switch-sides-true {
         grid-template-rows: repeat(1, 1fr);
     }
@@ -319,109 +369,6 @@ div.inner-wrapper {
 }
 
 
-
-
-/* Video and Modal */ 
-.video-wrapper {
-    // background: #000;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    .play__Button__Wrapper {
-        display: flex;
-        position: absolute;
-        justify-content: center;
-        
-        z-index: 9;
-        height: 8rem;
-        width: 8rem;
-        background-color: #fff;
-        // box-shadow: $base-shadow;
-        border-radius: 50%;
-
-        .play__Button {
-            margin: auto;
-            cursor: pointer;
-        }
-
-        svg {
-            margin: auto;
-        }
-    }
-
-    .video-thumbnail img {
-        aspect-ratio: 16 / 9;
-        width: 100%;
-    }
-}
-
-
-
-/* Modal */ 
-
-
-
-.videoModal {
-    height: 100vh;
-    width: 100vw;
-    // background: rgba(0,0,0,0.3);
-    // top: 0px;
-    // display: flex;
-    // position: fixed;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10000; /* Ein hoher z-index-Wert, um sicherzustellen, dass es über allen anderen Elementen liegt */
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &.hidden {
-        display: none;
-    }
-
-    .modal-background {
-        background-color: rgba(0, 0, 0, 0.7); /* Hintergrundfarbe mit Deckkraft, um den Hintergrund zu verdunkeln */
-        width: 100%;
-        height: 100vh;
-        z-index: 1;
-        position: absolute;
-    }
-
-
-    .videoModal-inner-wrapper {
-        position: relative;
-        max-width: clamp(640px, 66%,100vh);
-        // max-height: clamp(0px, 80vh, 100vh - 88px - 40px);
-        height: calc(100vh - 88px - 40px);
-        // margin-top: clamp(40px, 5vh, 50vh);
-        z-index: 9;
-        
-
-        &::-webkit-scrollbar {
-            background: transparent; /* make scrollbar transparent */
-        }
-
-        .videoModal-content {
-            position: relative;
-            height: calc(100vh - 88px - 40px);
-            overflow-y: auto;
-            // max-height: calc(100vh - 88px - 80px);
-            // position: absolute;
-        
-            // overflow-y: auto;
-
-            .modal-inner-content {
-                height: 300vh;
-            }
-        }
-    }
-}
 
 // #videoModal.hidden {
 //     display: none;

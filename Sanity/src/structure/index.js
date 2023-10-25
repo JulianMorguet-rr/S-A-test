@@ -63,6 +63,16 @@ export const structure = (S, context) => (
                     S.documentTypeList('quotes')
                         .title('Alle Zitate') 
                 ),
+                
+                
+                // Import "post" Type
+                S.listItem()
+                .title('Statements')
+                .child(
+                    // List out all categories
+                    S.documentTypeList('singleStatement')
+                        .title('Single Statements') 
+                ),
 
 
                 // Load every Document Type except the ones listed in the array
@@ -74,6 +84,7 @@ export const structure = (S, context) => (
                             'post',
                             'postOverview',
                             'quotes',
+                            'singleStatement',
                             'uploadedVideo',
                             'videoMediathek',
                             'globalSiteSettings',

@@ -18,7 +18,7 @@ const content = convertBlockContentToHTML(data.blockContent);
         <!-- {JSON.stringify(data)} -->
 
         <div class={`py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 ${data.isCentered ? 'text-center' : 'text-left'}`}>
-            <div class=`max-w-screen-md mb-8 lg:mb-16 ${data.isCentered ? 'm-auto' : null}`>
+            <div class=`${data.smallerWidth ? 'max-w-screen-md' : ''} ${data.isCentered ? 'max-w-screen-md m-auto' : ''}`>
                 
                 <p class="section-tagline text-gray-500 sm:text-xl mb-4">
                     {data.tagline}
@@ -27,7 +27,7 @@ const content = convertBlockContentToHTML(data.blockContent);
                     {data.heading}
                 </h2>
 
-                <div class="section-block-content mb-6 font-light text-gray-500 md:text-lg" set:html={content}></div>
+                <div class="section-block-content font-light text-gray-500 md:text-lg" set:html={content}></div>
 
 
             </div>
@@ -57,4 +57,6 @@ const content = convertBlockContentToHTML(data.blockContent);
             }
         }
     }
+
+
   </style>

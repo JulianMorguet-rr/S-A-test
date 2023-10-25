@@ -4,7 +4,7 @@ import { ref, onMounted } from 'vue'
 interface Props {
   data: {
     heading: string
-    subtitle?: string 
+    tagline?: string 
     placeholderName?: string | undefined
     placeholderEmail?: string | undefined
     placeholderTextarea?: string | undefined
@@ -69,11 +69,17 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <section class="container py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-    <div>
-      nodemailerBaseURL: {{nodemailerBaseURL}}<br>
-      nodemailerContactFormPath: {{nodemailerContactFormPath}}<br>
+  <div class="container py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+
+    <div class="max-w-screen-md m-auto text-center py-8">
+      <p class="section-tagline text-gray-500 sm:text-xl mb-4">{{ props.data.tagline }}</p>
+      <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">{{ props.data.heading }}</h2>
+
+      <!-- nodemailerBaseURL: {{nodemailerBaseURL}}<br>
+      nodemailerContactFormPath: {{nodemailerContactFormPath}}<br> -->
     </div>
+
+
     <form @submit.prevent="handleSubmit()">
         <!-- <h3>{{ data.subtitle }}</h3>
         <h2>{{ data.heading }}</h2>
@@ -92,7 +98,7 @@ const handleSubmit = async () => {
         <p v-if="errors">Etwas lief schief</p>
         <p v-if="success">Abgeschickt</p>
     </form>
-  </section>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -107,48 +113,5 @@ const handleSubmit = async () => {
     box-sizing: border-box;
   }
 
-  .input-field, .textarea-field {
-    padding: 1rem;
-    outline: none;
-    border: solid 2px #ffffff;
-    border-radius: 0.25rem;
-    box-shadow: var(--box-shadow);
-  }
-
-  .input-field:focus, .textarea-field:focus {
-    border: solid 2px #73b740;
-  }
   
-  .inputs {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .input-field {
-    flex: 1;
-    margin-right: 30px;
-  }
-  .input-field:last-child {
-    flex: 1;
-    margin-right: 0px;
-  }
-
-  .textarea-field {
-    width: 100%;
-    height: 80px;
-    margin-bottom: 10px;
-  }
-
-
-  @media (max-width: 768px) {
-    .inputs {
-      flex-direction: column;
-    }
-    .input-field {
-      width: 100%;
-      margin: 0px 0px 20px 0px;
-    }
-  }
 </style>

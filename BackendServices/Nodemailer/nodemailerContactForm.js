@@ -7,14 +7,14 @@ const app = express();
 const whitelist = ['http://localhost:4321', 'http://127.0.0.1:4321', 'http://localhost:3333', 'http://127.0.0.1:3333', 'https://geschmaecker-sind-verschieden.de']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
 
 const corsOptions = {
-    origin: true
-    // origin: function (origin, callback) {
-    //     if (whitelist.indexOf(origin) !== -1 || !origin) {
-    //         callback(null, true);
-    //     } else {
-    //         callback(new Error('Not allowed by CORS'));
-    //     }
-    // }
+    // origin: true
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
 };
 app.use(cors(corsOptions)); // Verwende CORS Middleware
 
