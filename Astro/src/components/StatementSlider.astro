@@ -1,17 +1,17 @@
 ---
+
 import SingleStatement from "./SingleStatement.astro";
 
 import BlockContent from "./BlockContent.astro";
 
 const { data } = Astro.props 
 
-const mediaUploadBaseURL: string = 'http://localhost:2001' // import.meta.env.NODEMEDIA_URL;
+const mediaUploadBaseURL: string = import.meta.env.NODEMEDIA_URL;
 
 // create UID
 const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
 
 ---
-
 
 <div class="statement-slider py-8 fullwidthBackground">
 
@@ -202,16 +202,37 @@ const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
 
 <script>
 
+declare global {
+  interface Window {
+    isSliderDragging: boolean;
+  }
+}
+
+type Card = {
+    width: number;
+    offsetWidth: number;
+}
+type Cards = Card[]
+
+
+// type Event = {
+//     clientX: number;
+//     touches: TouchList;
+//     changedTouches: TouchList;
+//     style: any
+//     stopPropagation: () => void;
+// }
+
+
 window.isSliderDragging = false;
 
-
-let snapFactor = 2;
+let snapFactor = 0.5;
 
 // Maximaler Wert für den Slider-Offset (abhängig von der Anzahl der Karten)
 let maxOffset = 0;
 
 function calculateMaxOffset() {
-    const cards = document.querySelectorAll('.single-statement');
+    const cards = document.querySelectorAll('.single-statement') as unknown as Cards;
     const cardWidth = cards[0].offsetWidth;
     maxOffset = -(cards.length - 1) * (cardWidth + 120);
 }
@@ -220,8 +241,8 @@ function calculateMaxOffset() {
 window.addEventListener('resize', calculateMaxOffset);
 
 function addSliderFunctionality() {
-    const sliderContainer = document.querySelector('.slider-container');
-    const slider = document.querySelector('.slider');
+    const sliderContainer = document.querySelector('.slider-container') as HTMLDivElement;
+    const slider = document.querySelector('.slider') as HTMLDivElement;
     let isDragging = false;
     let startPosition = 0;
     let offset = 0;
@@ -240,7 +261,7 @@ function addSliderFunctionality() {
 
     if (!slider || !sliderContainer) return;
 
-    slider.addEventListener('mousedown', (e) => {
+    slider.addEventListener('mousedown', (e: MouseEvent) => {
         isDragging = true;
         startPosition = e.clientX - offset;
         sliderContainer.style.transition = 'none';
@@ -325,14 +346,14 @@ function addSliderFunctionality() {
         offset = Math.min(0, offset);
 
         // Berechnung der nächsten Karte basierend auf dem Offset
-        const cards = document.querySelectorAll('.single-statement');
+        const cards = document.querySelectorAll('.single-statement') as unknown as Cards;
         const cardWidth = cards[0].offsetWidth;
         const currentTranslateX = -parseFloat(getComputedStyle(sliderContainer).transform.split(',')[4]);
         console.log('currentTranslateX: ', currentTranslateX)
         console.log('getComputedStyle(sliderContainer).transform: ', getComputedStyle(sliderContainer).transform)
 
         // const index = Math.round(currentTranslateX / cardWidth);
-        const index = Math.round(-offset / (cardWidth + 120 * 0.2));
+        const index = Math.round(-offset / (cardWidth + 120 * snapFactor));
         console.log('index: ', index)
         // make sure that index is min 0 and max cards.length - 1
         const minMaxIndex = Math.max(0, Math.min(cards.length - 1, index));
