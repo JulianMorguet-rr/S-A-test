@@ -4,7 +4,7 @@ import PlayBtn from "./atomicComponents/PlayBtn.astro";
 
 const { statement } = Astro.props
 
-const mediaUploadBaseURL: string = 'http://localhost:2001' // import.meta.env.NODEMEDIA_URL;
+const mediaUploadBaseURL: string = import.meta.env.NODEMEDIA_URL;
 
 var videoID = `statement-${statement.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1]}`;
 
@@ -21,11 +21,11 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath.match(/video-(.
             autoplay 
             muted 
             playsinline 
-            poster={`http://localhost:2001/video-api/${statement.media.video?.thumbnailPath}`}
+            poster={`${mediaUploadBaseURL}/video-api/${statement.media.video?.thumbnailPath}`}
             aria-label="Nur ein Teaser für das Video"
         >
-            <source src={`http://localhost:2001/video-api/${statement.media.video?.webmPath}`} type="video/webm" />
-            <source src={`http://localhost:2001/video-api/${statement.media.video?.mp4Path}`} type="video/mp4" />
+            <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.webmPath}`} type="video/webm" />
+            <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.mp4Path}`} type="video/mp4" />
         </video>
     }
 
