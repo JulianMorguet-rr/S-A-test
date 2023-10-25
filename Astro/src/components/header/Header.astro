@@ -104,7 +104,7 @@ computedMainNav()
                         <a
                             href={nav.slug}
                             class={
-                                (`http://localhost:4321${nav.slug}` === currentURL ? 'active' : '')
+                                (`${nav.slug}` === currentURL ? 'active' : '')
                             }
                         >
                             {nav.title} 

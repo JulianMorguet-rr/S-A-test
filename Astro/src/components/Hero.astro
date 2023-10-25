@@ -12,6 +12,8 @@ interface PostContent {
 import { Image } from 'astro:assets';
 import CustomImage from './atomicComponents/CustomImage.astro';
 
+const mediaUploadBaseURL: string = import.meta.env.NODEMEDIA_URL;
+
 // Destrukturieren Sie Astro.props in eine andere Variable
 const { pageContent, postContent } = Astro.props as { pageContent: PageContent, postContent: PostContent };
 
@@ -51,7 +53,7 @@ const bgColor = 'red';
             {JSON.stringify(pageContent)}
         </p> -->
 
-        <!-- <source src={`https://assets.geschmaecker-sind-verschieden.de/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> -->
+        <!-- <source src={`${mediaUploadBaseURL}/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> -->
         <!-- playsinline autoplay loop muted -->
 
         { pageContent &&
@@ -61,11 +63,11 @@ const bgColor = 'red';
             { pageContent?.heroBackgroundVideo ? ( 
                     <div class="inline-video">
                         <video preload="auto" loop="" autoplay="true" muted="" playsinline="" class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Mood Video'} >
-                            <source src={`https://assets.geschmaecker-sind-verschieden.de/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> 
-                            <source src={`https://assets.geschmaecker-sind-verschieden.de/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
+                            <source src={`${mediaUploadBaseURL}/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> 
+                            <source src={`${mediaUploadBaseURL}/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
                             <p>
                                 Ihr Browser unterstützt kein HTML video. Hier ist ein 
-                                <a href={`https://assets.geschmaecker-sind-verschieden.de/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
+                                <a href={`${mediaUploadBaseURL}/video-api/${pageContent.heroBackgroundVideo.mp4Path}`}>Link zu dem Video</a>.
                             </p>
                         </video> 
                     </div>
