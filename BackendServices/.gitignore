@@ -23,4 +23,14 @@
 *.local
 
 # Assets 
-/NodeMediaUploads/uploads
+/NodeMediaUploads/uploads/*.mp4
+/NodeMediaUploads/uploads/*.webm
+/NodeMediaUploads/uploads/*.png
+/NodeMediaUploads/uploads/*.jpg
+/NodeMediaUploads/uploads/*.webp
+
+/NodeMediaUploads/uploads/videos/*.mp4
+/NodeMediaUploads/uploads/videos/*.webm
+/NodeMediaUploads/uploads/videos/*.png
+/NodeMediaUploads/uploads/videos/*.jpg
+/NodeMediaUploads/uploads/videos/*.webp

@@ -120,34 +120,46 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     }
 
 
+
+
+
     {pageBuilder._type === 'accordionSection' && 
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-            { pageBuilder.tagline &&
-                <p class="section-tagline mb-4 ">
-                    {pageBuilder.tagline}
-                </p>
-            }
-            { pageBuilder.heading &&
-                <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
-                    {pageBuilder.heading}
-                </h2>
-            }
-            { pageBuilder.blockContent &&
-                <BlockContent data={pageBuilder.blockContent} />
-            }
-
-            {
-                pageBuilder.singleAccordionItem &&
-                    <div class="accordion">
-                    {
-                        pageBuilder.singleAccordionItem.map(item => {
-                            return (
-                                    <Accordion item={item} pageBuilder={pageBuilder} />
-                                )
-                            })
-                    }
-                </div>
-            }
+                <section class="bg-white dark:bg-gray-900">
+                    <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 ">
+                        { pageBuilder.tagline &&
+                            <p class="section-tagline mb-4 ">
+                                {pageBuilder.tagline}
+                            </p>
+                        }
+                        { pageBuilder.heading &&
+                        <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
+                            {pageBuilder.heading}
+                        </h2>
+                        }
+                        { pageBuilder.blockContent &&
+                            <BlockContent data={pageBuilder.blockContent} />
+                        }
+                        <div class="mx-auto max-w-screen-md">
+                            <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">           
+            
+                                {
+                                    pageBuilder.singleAccordionItem &&
+                                        <div class="accordion">
+                                        {
+                                            pageBuilder.singleAccordionItem.map((item, index) => {
+                                                return (
+                                                        <Accordion item={item} index={index} pageBuilder={pageBuilder} client:load/>
+                                                    )
+                                                })
+                                        }
+                                        </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            
 
             <br>
             <br>

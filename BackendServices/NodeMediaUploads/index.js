@@ -45,7 +45,7 @@ const app = express();
 const cors = require('cors');
 
 // TODO: withelist wird aktuell nicht genutzt sondern alles ist erlaubt
-const whitelist = ['http://localhost:2001', 'http://localhost:3000', 'http://localhost:3333', 'https://assets.geschmaecker-sind-verschieden.de', 'https://geschmaecker-sind-verschieden.de']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
+const whitelist = ['http://localhost:2001', 'http://localhost:3000', 'http://localhost:3333', 'https://assets.geschmaecker-sind-verschieden.de', 'https://geschmaecker-sind-verschieden.de', 'wss://websockets.geschmaecker-sind-verschieden.de']; // Füge hier deine erlaubten Ursprünge hinzu | aktuell nur Astro Frontend und Sanity Backend
 
 const corsOptions = {
     origin: true, // Erlaube allen Ursprüngen vorübergehend
@@ -69,7 +69,8 @@ app.use(cors(corsOptions)); // Verwende CORS Middleware
 const socketPort = process.env.SOCKET_PORT || 2002;
 const io = require('socket.io')(socketPort, {
     cors: {
-        origin: whitelist,
+        origin: true,
+        // origin: whitelist,
         methods: ['GET', 'POST']
     }
 })

@@ -1,0 +1,1 @@
+we need this folder but without the assets, so this file is just that git creates tthis folder by oull command

@@ -3,5 +3,9 @@
 
 .env 
 
+Sanity/.env
+Astro/.env
+BackendServices/.env
+
 # macOS-specific files
 .DS_Store

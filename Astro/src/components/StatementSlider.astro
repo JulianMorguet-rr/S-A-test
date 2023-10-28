@@ -233,8 +233,12 @@ let maxOffset = 0;
 
 function calculateMaxOffset() {
     const cards = document.querySelectorAll('.single-statement') as unknown as Cards;
-    const cardWidth = cards[0].offsetWidth;
-    maxOffset = -(cards.length - 1) * (cardWidth + 120);
+    if(!cards) {
+        return
+    } else {
+        const cardWidth = cards[0].offsetWidth;
+        maxOffset = -(cards.length - 1) * (cardWidth + 120);
+    }
 }
 
 // Nach Änderungen in der Slider-Container-Größe den maximalen Offset neu berechnen
