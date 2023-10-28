@@ -41,6 +41,16 @@ const socket = io(mediaUploadSocketBaseURL)
 // socket.emit("upload-video", 'video', 'title', 'description')
 
 
+console.log('Versuche, eine WebSocket-Verbindung herzustellen');
+
+socket.on('connect', () => {
+  console.log(`Socket connected with ${socket.id}`);
+});
+
+socket.on('error', (error) => {
+  console.error('WebSocket error:', error);
+});
+
 
 // const saveVideoAPIEndpoint = 'http://localhost:2001/save-video' 
 
