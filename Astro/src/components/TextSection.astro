@@ -12,7 +12,9 @@ const content = convertBlockContentToHTML(data.blockContent);
 ---
 
 
-<section class={`text-section  ${data.sectionType}`}>
+<div class={`text-section  ${data.sectionType} ${data.disabelScrollIntoViewAnimation ? 'disable-scroll-into-view-animation' : ''}`} >
+
+    <div class="section-anchor" id={data.id ? data.id : ''}></div>
 
     <div class={`inner-wrapper ${data.isCentered ? 'text-center' : 'text-left'}`}>
         <!-- {JSON.stringify(data)} -->
@@ -33,7 +35,7 @@ const content = convertBlockContentToHTML(data.blockContent);
             </div>
         </div>
     </div>
-  </section>
+</div>
 
 
 

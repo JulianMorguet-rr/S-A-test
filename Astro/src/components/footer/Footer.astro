@@ -19,7 +19,11 @@ interface Props {
     globalSiteSettings: GlobalSiteSettings
     slug: string | undefined
     mainMenu: {
-        mainNav: Array<NavItem>
+        mainNav?: Array<NavItem>
+        footerNav?: {
+            footerNavLeft?: Array<NavItem>
+            footerNavRight?: Array<NavItem>
+        }
     }
 }
 // const props = defineProps({
@@ -42,8 +46,9 @@ const date = new Date();
 
 ---
 
-<footer class="p-4 bg-white md:p-8 lg:p-10 base-shadow">
+<footer class="p-4 mt-8 bg-white md:p-8 lg:p-10 base-shadow">
     <div class="mx-auto max-w-screen-xl text-center">
+
         <!-- <p>
             globalSiteSettings: {JSON.stringify(globalSiteSettings)}
         </p> -->
@@ -51,7 +56,7 @@ const date = new Date();
         <a href="/" aria-label="Link zur Startseite" class="flex justify-center items-center text-2xl font-semibold text-gray-900">
             {
                 globalSiteSettings.logo.svg ? 
-                    (<span set:html={globalSiteSettings.logo.svg}></span>)
+                    (<span class="svg" set:html={globalSiteSettings.logo.svg}></span>)
                 : globalSiteSettings.logo.src ?
                     <Image
                         src={urlFor(globalSiteSettings.logo.src).format('webp').url()} alt="Logo der Seite"
@@ -65,29 +70,53 @@ const date = new Date();
             } 
         </a>
 
-        <p class="my-6 text-gray-500">
+        <!-- <p class="my-6 text-gray-500">
             Open-source library of over 400+ web components and interactive elements built for better web.
-        </p>
+        </p> -->
 
-        <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900">
-            <!-- <p>{JSON.stringify(mainMenu.mainNav)}</p> -->
-            { 
-                mainMenu.mainNav.map((nav, index) => (
-                    <li>
-                        <a href="/" class="mr-4 hover:underline md:mr-6 ">
-                            { 
-                                nav.linkName ? nav.linkName
-                                : nav.title ? nav.title 
-                                : 'Titel fehlt'
-                            }    
-                        </a>
-                    </li>
-                ))
-            }
-        </ul>
+        <div class="flex pt-6 justify-around">
+            <div class="flex m-auto">
+                <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900">
+                    <!-- <p>{JSON.stringify(mainMenu.mainNav)}</p> -->
+                    { 
+                        mainMenu.footerNav &&
+                        mainMenu.footerNav.footerNavLeft &&
+                            mainMenu.footerNav.footerNavLeft.map((nav, index) => (
+                                <li>
+                                    <a href={nav.slug} class="mr-4 hover:underline md:mr-6 ">
+                                        { 
+                                            nav.linkName ? nav.linkName
+                                            : nav.title ? nav.title 
+                                            : 'Titel fehlt'
+                                        }    
+                                    </a>
+                                </li>
+                            ))
+                    }
+                </ul>
+                <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900">
+                    <!-- <p>{JSON.stringify(mainMenu.mainNav)}</p> -->
+                    { 
+                        mainMenu.footerNav &&
+                        mainMenu.footerNav.footerNavRight &&
+                            mainMenu.footerNav.footerNavRight.map((nav, index) => (
+                                <li>
+                                    <a href={nav.slug} class="mr-4 hover:underline md:mr-6 ">
+                                        { 
+                                            nav.linkName ? nav.linkName
+                                            : nav.title ? nav.title 
+                                            : 'Titel fehlt'
+                                        }    
+                                    </a>
+                                </li>
+                            ))
+                    }
+                </ul>
+            </div>
+        </div>
         <span class="text-sm text-gray-500 sm:text-center ">
             © {date.getFullYear()}  – 
-            <a href="#" class="hover:underline">
+            <a href="https://suessstoff-verband.info/" target="_blank" class="hover:underline">
                 Deutscher Süßstoffverband
             </a>
             . All Rights Reserved.
@@ -100,4 +129,6 @@ const date = new Date();
     footer a {
         display: inline-block;
     }
+
+    
 </style>

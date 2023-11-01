@@ -147,6 +147,16 @@ export const textSectionType = defineType({
         ],
       },
     }),
+    defineField({
+      name: 'id',
+      title: 'Define custom ID',
+      type: 'string',
+    }),
+    defineField({
+      name: 'disabelScrollIntoViewAnimation',
+      title: 'Disable scroll-into-view animation',
+      type: 'boolean',
+    }),
   ],
   preview: {
     select: {

@@ -338,111 +338,137 @@
  * IntersectionObserver
  */
 
+
 @media screen and (min-width: 999px) {
-    .section-tagline {
-        opacity: 0;
-        transform: translate(0, 6rem);
-        // animation: fadeInFromBottom 1s 0s cubic-bezier(0,.29,.5,1);
-        // animation-fill-mode: forwards;
-        // animation-play-state: paused;
 
-        transition: all 1s;
-    }
-
-    section.observer-detected .section-tagline {
-        // animation-play-state: running;
-
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-
-    .section-heading {
-        opacity: 0;
-        transform: translate(0, 6rem);
-        // animation: fadeInFromBottom 0.9s 0.1s cubic-bezier(0,.29,.5,1);
-        // animation-fill-mode: forwards;
-        // animation-play-state: paused;
-
-        transition: all 1s;
-    }
-
-    section.observer-detected .section-heading {
-        // animation-play-state: running;
-
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-
-    .section-block-content {
-        opacity: 0;
-        transform: translate(0, 6rem);
-        // animation: fadeInFromBottom 0.8s 0.2s cubic-bezier(0,.29,.5,1);
-        // animation-fill-mode: forwards;
-        // animation-play-state: paused;
-
-        transition: all 1s;
-    }
-
-    section.observer-detected .section-block-content {
-        // animation-play-state: running;
-
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-
-
-    .section-cta {
-        opacity: 0;
-        transform: translate(0, 6rem);
-        // animation: fadeInFromBottom 0.7s 0.3s cubic-bezier(0,.29,.5,1);
-        // animation-fill-mode: forwards;
-        // animation-play-state: paused;
-
-        transition: all 1s;
-    }
-
-    section.observer-detected .section-cta {
-        // animation-play-state: running;
-
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-
-    @keyframes fadeInFromBottom {
-        to {
+        section > div:not(.disable-scroll-into-view-animation) .section-tagline, 
+        section > div:not(.disable-scroll-into-view-animation) .section-animation-1 {
+            opacity: 0;
+            transform: translate(0, 6rem);
+            transition: all 1s;
+        }
+        section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-tagline, 
+        section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-animation-1 {
             opacity: 1;
             transform: translate(0, 0);
         }
-    }
 
 
-    .section-asset {
-        // clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-        // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-        opacity: 0;
-        transform: translate(0, 6rem);
-        // clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90%);
-        clip-path: polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%);
-        transition: all 1s;
+        /* ".section-heading" or ".section-animation-2" = 0.1s delay */
+        section > div:not(.disable-scroll-into-view-animation) .section-heading, 
+        section > div:not(.disable-scroll-into-view-animation) .section-animation-2 {
+            opacity: 0;
+            transform: translate(0, 6rem);
+            // animation: fadeInFromBottom 0.9s 0.1s cubic-bezier(0,.29,.5,1);
+            // animation-fill-mode: forwards;
+            // animation-play-state: paused;
 
-        img {
-            scale: 1.1;
-            transition: all 1s;
+            transition: all 1s 0.1s;
         }
-    }
 
-    section.observer-detected .section-asset {
-        // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        opacity: 1;
-        transform: translate(0, 0);
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-
-        img {
-            scale: 1;
-            transition: all 1s;
+        section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-heading, 
+        section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-animation-2 {
+            // animation-play-state: running;
+            opacity: 1;
+            transform: translate(0, 0);
         }
-    }
 
+        section > div:not(.disable-scroll-into-view-animation) .section-block-content {
+            opacity: 0;
+            transform: translate(0, 6rem);
+            transition: all 1s 0.2s;
+        }
+
+        section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-block-content {
+            // animation-play-state: running;
+
+            opacity: 1;
+            transform: translate(0, 0);
+
+            transition: all 1s 0.2s;
+        }
+
+
+        .section-cta {
+            opacity: 0;
+            transform: translate(0, 6rem);
+            // animation: fadeInFromBottom 0.7s 0.3s cubic-bezier(0,.29,.5,1);
+            // animation-fill-mode: forwards;
+            // animation-play-state: paused;
+
+            transition: all 1s 0.3s;
+        }
+
+        section.observer-detected .section-cta {
+            // animation-play-state: running;
+
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        // @keyframes fadeInFromBottom {
+        //     to {
+        //         opacity: 1;
+        //         transform: translate(0, 0);
+        //     }
+        // }
+
+
+        .section-asset {
+            // clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+            opacity: 0;
+            transform: translate(0, 6rem);
+            // clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90%);
+            clip-path: polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%);
+            transition: all 1s;
+
+            img {
+                scale: 1.1;
+                transition: all 1s;
+            }
+        }
+
+        section.observer-detected .section-asset {
+            // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            opacity: 1;
+            transform: translate(0, 0);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+
+            img {
+                scale: 1;
+                transition: all 1s 0.3s;
+            }
+        }
+
+
+
+        .section-asset-round {
+            // clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+            opacity: 0;
+            transform: translate(0, 6rem);
+            // clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90%);
+            clip-path: inset(25% 25% 25% 25% round 100%);
+            transition: all 1s;
+
+            img {
+                scale: 1.1;
+                transition: all 1s;
+            }
+        }
+
+        section.observer-detected .section-asset-round {
+            // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            opacity: 1;
+            transform: translate(0, 0);
+            clip-path: inset(0% 0% 0% 0% round 100%);
+
+            img {
+                scale: 1;
+                transition: all 1s 0.3s;
+            }
+        }
 }
 
 
@@ -451,11 +477,12 @@
 .section-block { 
     opacity: 0;
     transform: translate(0, 6rem);
-    transition: all 1s;
+    transition: all 1s 0.2s;
 }
 section.observer-detected .section-block {
     opacity: 1;
     transform: translate(0, 0);
+    transition: all 1s 0.2s;
 }
 
 

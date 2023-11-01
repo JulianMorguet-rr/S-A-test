@@ -47,6 +47,30 @@ export const form = defineType({
       type: 'string',
       hidden: ({parent, value}) => parent?.formtype !== 'Contact',
     },
+
+
+    defineField({
+      name: 'maxWidth',
+      title: 'Max Width',
+      type: 'string',
+      initialValue: 'full',
+      options: {
+        list: [
+          { 
+            title: "full", 
+            value: "full" 
+          },
+          { 
+            title: "medium", 
+            value: "medium" 
+          },
+          { 
+            title: "small", 
+            value: "small" 
+          },
+        ],
+      },
+    }),
   ],
   preview: {
     select: {

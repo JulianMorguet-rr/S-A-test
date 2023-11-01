@@ -32,9 +32,14 @@ export async function getAppearance() {
 }
 
 export async function getMainMenu() {
+  // TODO: Instead of fetching all Data from the liked sites in the mainNav and footerNav, fetch only the data that is needed for the mainMenu
   const query = groq`*[_type == "mainMenu"][0]{
     ..., 
     mainNav[]->,
+    footerNav {
+      footerNavLeft[]->,
+      footerNavRight[]->,
+    } 
   }`; // globalSiteSettings is the name of the schema from '/scr/structure/index.js'
   const siteSettings = await useSanityClient().fetch(query);
   return siteSettings;
@@ -42,15 +47,23 @@ export async function getMainMenu() {
 
 
 
+
 export async function getHomePage() {
+  // Wirklich nur "reference" mit "->"  ausstatten
   const query = groq`*[_type == "page" && slug == "/"][0]{
     ...,
+    
     heroBackgroundVideo->,
+
+    textAndVideoModalHero {
+      ...,
+      video->,
+    },
     pageBuilder[]{
       ...,
       media {
         ...,
-        video->
+        video->,
       },
       cta {
         ...,
@@ -64,8 +77,11 @@ export async function getHomePage() {
       statementArray[]->{
         ...,
         media {
-          video->
-        }
+          ...,
+          video->, 
+        },
+        extraThumbnail->,
+        test
       },
     }
   }`; // "page" is the name of the schema from '/scr/structure/index.js'
@@ -85,9 +101,31 @@ export async function getCurrentPage(pageSlug) {
   const query = groq`*[_type == "page" && slug == "${pageSlug}"][0]{
     ...,
     heroBackgroundVideo->,
-    images[]->,
-    quoteReference->,
-    statementArray->,
+    pageBuilder[]{
+      ...,
+      media {
+        ...,
+        video->,
+      },
+      cta {
+        ...,
+        ctaReferenz->,
+      }, 
+
+      referenceToPage->,
+      quoteArray[]->,
+      quoteReference->,
+
+      statementArray[]->{
+        ...,
+        media {
+          ...,
+          video->, 
+        },
+        extraThumbnail->,
+        test
+      },
+    }
   }`; // "page" is the name of the schema from '/scr/structure/index.js'
   const pages = await useSanityClient().fetch(query);
   // console.log('pages: ', pages);

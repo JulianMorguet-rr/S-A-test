@@ -100,6 +100,13 @@ export const textWithIllustrationType = defineType({
           type: 'string',
           hidden: ({parent, value}) => !parent?.isVideo !== false,
         }),
+        defineField({
+          name: 'videoThumbnail',
+          title: 'Video Thumbnail',
+          type: 'image',
+          options: {hotspot: true},
+          hidden: ({parent, value}) => !parent?.isVideo !== false,
+        }),
       ],
     }),
     defineField({
@@ -139,6 +146,7 @@ export const textWithIllustrationType = defineType({
       name: 'switchImageToRightSide',
       title: 'Switch image to right side',
       type: 'boolean',
+      default: false,
     }),
     defineField({
       name: 'sectionType',

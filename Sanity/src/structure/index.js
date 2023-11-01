@@ -34,7 +34,6 @@ export const structure = (S, context) => (
             .title('Content')
             .items([
 
-
                 // Import "page" Type
                 S.listItem()
                     .title('Seiten')
@@ -85,6 +84,8 @@ export const structure = (S, context) => (
                             'postOverview',
                             'quotes',
                             'singleStatement',
+                            'statementCollectionGrid',
+                            'contactSection',
                             'uploadedVideo',
                             'videoMediathek',
                             'globalSiteSettings',

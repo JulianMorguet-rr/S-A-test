@@ -81,22 +81,22 @@ let asyncValue: AsyncValue = setAsyncValue(async)
     style={`width: 100%; border-radius: ${radius};`}
 >
     <!-- Für Bildschirmbreiten von bis zu 600px -->
-    <source media="(max-width: 679px)" srcset={urlFor(imgSrc).width(800).height(450).flipHorizontal().format('webp').url()}>
+    <source media="(max-width: 679px)" srcset={urlFor(imgSrc).width(800).height(450).format('webp').url()}>
     
     <!-- Für Bildschirmbreiten über 600px -->
-    <source media="(min-width: 680px)" srcset={urlFor(imgSrc).width(width).height(height).flipHorizontal().format('webp').url()}>
+    <source media="(min-width: 680px)" srcset={urlFor(imgSrc).width(width).height(height).format('webp').url()}>
     
     <!-- Fallback-Bild für Browser, die das <picture>-Element nicht unterstützen -->
     <img 
         width={width}
         height={height}
         style={`width: 100%; border-radius: ${radius};`}
-        src={urlFor(imgSrc).width(width).height(height).flipHorizontal().format('jpg').url()}
+        src={urlFor(imgSrc).width(width).height(height).format('jpg').url()}
         srcset={`
-            ${urlFor(imgSrc).width(width).height(height).format('webp').flipHorizontal().url()} 1600w,
+            ${urlFor(imgSrc).width(width).height(height).format('webp').url()} 1600w,
             ${urlFor(imgSrc).width(1200).height(675).format('webp').url()} 1200w,
-            ${urlFor(imgSrc).width(800).height(450).format('webp').flipVertical().url()} 800w,
-            ${urlFor(imgSrc).width(400).height(225).format('webp').flipHorizontal().flipVertical().url()} 400w
+            ${urlFor(imgSrc).width(800).height(450).format('webp').url()} 800w,
+            ${urlFor(imgSrc).width(400).height(225).format('webp').url()} 400w
         `} 
         sizes="(max-width: 520px) 100vw, (max-width: 1600px) 50vw, 100vw"
     

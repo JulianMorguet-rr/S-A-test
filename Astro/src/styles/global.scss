@@ -37,13 +37,13 @@ html.overflow-hidden {
     padding-right: 12px;
 }
 
-p {
+p, cite {
     margin-bottom: 1rem;
     font-size: 20px;
     line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote {
+h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote, cite {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
@@ -366,7 +366,7 @@ header {
 
 
 .header-space {
-    height: 88px;
+    height: 80px;
 }
 
 main {
@@ -376,7 +376,7 @@ main {
 }
 
 h1 {
-    font-size: 3rem;
+    // font-size: 3rem;
     font-weight: 800;
     margin: 0;
 }
@@ -485,11 +485,11 @@ h1 {
     }
 
     h1 {
-        color: white;
-        font-size: 2rem;
+        // color: white;
+        // font-size: 2rem;
         font-weight: 800;
         margin: 0;
-        color: #333 !important;
+        // color: #333 !important;
 
         position: relative;
         align-self: center;
@@ -537,10 +537,17 @@ div:not(.quote-content) .section-heading {
     line-height: 1.15;
 }
 
+.quote-component {
+    width: calc(50% - 2.5rem);
+}
+
 .quote-wrapper {
-    background-color: $Tertiary-color;
-    background: linear-gradient(45deg, #045259, rgb(11, 149, 161));
-    color: #fff;
+    // background-color: $Tertiary-color;
+    // background: linear-gradient(45deg, #045259, rgb(11, 149, 161));
+    // color: #fff;
+
+    color: #000;
+    box-shadow: 0px 0px 24px rgba(0,0,0,0.1);
 
     .quote-sign {
         line-height: 0px;
@@ -548,14 +555,14 @@ div:not(.quote-content) .section-heading {
     }
 
     h3 {
-        color: #fff;
+        // color: #fff;
         font-size: 24px;
         line-height: 1.5;
         font-weight: 400 !important;
     }
 
     p {
-        color: #fff;
+        // color: #fff;
         font-size: 20px;
         line-height: 1.5;
         font-weight: 400 !important;
@@ -663,6 +670,12 @@ div:not(.quote-content) .section-heading {
     display: flex;
     overflow-x: visible; /* Horizontales Scrollen ermöglichen */
     white-space: nowrap; /* Verhindert Zeilenumbrüche in den Karten */
+
+    transition: transform 0.6s $standard-transition-fn; 
+}
+
+.single-statement-wrapper {
+    margin-right: 120px;
 }
 
 .single-statement {
@@ -674,18 +687,17 @@ div:not(.quote-content) .section-heading {
     overflow: hidden; 
     white-space: wrap; /* Verhindert Zeilenumbrüche in den Karten */
     border-radius: 0.5rem;
-    margin-right: 120px;
     aspect-ratio: 16 / 9;
     
-    background-color: #000;
+    background-color: #fff;
     overflow: hidden;
     position: relative;
 
-    video.teaser {
+    .teaser {
         width: 100%;
         height: 100%;
         object-fit: cover; /* Skaliert das Video, um das gesamte Element zu füllen */
-        opacity: 0.33;
+        opacity: 0;
         // opacity: 0.2;
         position: absolute;
     }
@@ -878,6 +890,31 @@ div:not(.quote-content) .section-heading {
 }
 
 
+.slider-nav {
+    display: flex;
+    margin: auto;
+    max-width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin-top: 50px;
+
+    .slider-nav-button {
+        margin: 0 10px 0 10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 999999px;
+        border: solid #fff;
+        // background-color: rgba(255, 255, 255, 0.66);
+        transition: all 0.6s $standard-transition-fn; 
+
+        &.active {
+            width: 60px;
+            background-color: rgba(255, 255, 255, 1);
+        }
+    }
+
+}
+
 
 /* Video Modal */ 
 
@@ -888,6 +925,7 @@ div:not(.quote-content) .section-heading {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
 
     .play__Button {
             margin: auto;
@@ -943,6 +981,7 @@ div:not(.quote-content) .section-heading {
     
     display: flex;
     justify-content: center;
+    align-items: baseline;
     // align-items: center;
     overflow: hidden;
     
@@ -1065,6 +1104,7 @@ div:not(.quote-content) .section-heading {
         .modal-background {
             opacity: 0;
             backdrop-filter: blur(0px);
+            pointer-events: none;
 
             transition: all 600ms 0ms $standard-transition-fn;
         }
@@ -1333,9 +1373,13 @@ padding: 0;
 
 
 
+.section-anchor {
+    position: absolute;
+    top: calc(-80px - 2rem);
+}
+
 // Alt aus Index
 .hero-wrapper {
-    padding-bottom: 4rem;
 
     @media (max-width: 768px) {
         padding-bottom: 2rem;
@@ -1427,7 +1471,7 @@ padding: 0;
 
 // Animated Backgrounds 
 .animated-bg-gradient {
-    background: linear-gradient(45deg,#045259,rgb(11 149 161));
+    background: linear-gradient(45deg,#4dbdc6,rgb(11 149 161));
     background-size: 200% 200%;
     -webkit-animation: hero 10s infinite;
     -moz-animation: hero 10s infinite;
@@ -1475,6 +1519,20 @@ padding: 0;
 
 
 
+/* footer */ 
+footer span.svg svg {
+    width: 400px;
+}
+
+
+/* Placeholder Image */
+.placeholder-image {
+    width: 100%;
+    height: 100%;
+    background-color: $base-color;
+}
+
+
 
 /* Tailwind utilities */
 .text-4xl {
@@ -1502,6 +1560,10 @@ padding: 0;
     font-size: 24px;
     line-height: 1.0625;
     /* font-weight: 600 !important; */
+}
+
+.white-shadow {
+    text-shadow: 0px 0px 24px rgba(255,255,255,0.5);
 }
 
 
@@ -1573,3 +1635,7 @@ padding: 0;
 
     
 }
+
+
+
+

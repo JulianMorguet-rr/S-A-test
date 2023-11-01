@@ -36,7 +36,12 @@ const { item, index, pageBuilder } = Astro.props;
 
 <div>
   <h2 id={`accordion-flush-heading-${index}`}>
-      <button type="button" class="flex justify-between items-center py-5 w-full font-medium text-left text-gray-900 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-white" data-accordion-target={`#accordion-flush-body-${index}`} aria-expanded="true" aria-controls={`accordion-flush-body-${index}`}>
+      <button 
+        type="button" 
+        class="flex justify-between items-center py-5 w-full font-medium text-left text-gray-900 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-white" 
+        data-accordion-target={`#accordion-flush-body-${index}`} 
+        aria-expanded={index === 0 ? "true" : "false"} 
+        aria-controls={`accordion-flush-body-${index}`}>
             <div>
               {
                 item.tagline && <p>{item.tagline}</p>

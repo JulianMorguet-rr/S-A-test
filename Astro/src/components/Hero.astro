@@ -11,8 +11,9 @@ interface PostContent {
 }
 import { Image } from 'astro:assets';
 import CustomImage from './atomicComponents/CustomImage.astro';
+import PlayBtn from './atomicComponents/PlayBtn.astro';
 
-const mediaUploadBaseURL: string = import.meta.env.NODEMEDIA_URL;
+const mediaUploadBaseURL: string = 'https://assets.geschmaecker-sind-verschieden.de'  // import.meta.env.NODEMEDIA_URL;
 
 // Destrukturieren Sie Astro.props in eine andere Variable
 const { pageContent, postContent } = Astro.props as { pageContent: PageContent, postContent: PostContent };
@@ -46,8 +47,74 @@ const bgColor = 'red';
 ---
 
 
+<!-- <p>
+    {JSON.stringify(pageContent?.heroSettings)}<br>
+    {JSON.stringify(pageContent?.imageHero)}<br>
+    {JSON.stringify(pageContent?.videoHero)}<br>
+    textAndVideoModal: {JSON.stringify(pageContent?.textAndVideoModalHero?.cta?.link)}<br>
+</p> -->
+
+
 <div class="hero-wrapper sm:pb-16">
-    <div class={`hero ${pageContent ? 'page-hero' : ''}`} style={``}>
+    <div class={`hero ${pageContent ? 'page-hero' : ''} ${pageContent.heroSettings?.heroType === 'textAndVideoModal' ? 'text-and-video-modal-hero' : ''}`} style={``}>
+
+
+        {
+            pageContent &&
+            pageContent.heroSettings?.heroType === 'textAndVideoModal' &&
+            (
+            <section class="z-10">
+                <div class="py-0 px-4 mx-auto max-w-screen-xl">
+                    <div class="grid gap-8 items-center mb-8 lg:gap-12 lg:grid-cols-12">
+                        <div class="col-span-6 text-center sm:mb-6 lg:text-left lg:mb-0">
+                            <h1 class="mb-4 py-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
+                                {pageContent?.textAndVideoModalHero?.title}
+                            </h1>
+                            <p class="mx-auto mb-6 max-w-xl font-light text-white lg:mx-0 xl:mb-8 md:text-lg xl:text-xl">
+                                {pageContent?.textAndVideoModalHero?.text}
+                            </p>
+                            <a 
+                                href={pageContent?.textAndVideoModalHero?.cta?.link?.anchor} 
+                                class="inline-block px-8 py-3 text-lg font-semibold text-white transition duration-200 rounded-lg hover:bg-white bg-tertiary-color"
+                            >
+                                <button class="rounded-lg">
+                                    {pageContent?.textAndVideoModalHero?.cta?.linkName}    
+                                </button>
+                            </a>
+                            
+                        </div>
+                        <div class="col-span-6 rounded-lg shadow-lg w-full overflow-hidden flex justify-center items-center cursor-pointer">
+                            
+                            <!--
+                            <div class="button-wrapper absolute">
+                                <PlayBtn />
+                            </div>
+                            <picture>
+                                <img src={urlFor(pageContent?.textAndVideoModalHero?.videoPoster).width(800).height(450).format('webp').url()} alt="Hero Video">    
+                            </picture>
+                            -->
+
+                            <video 
+                                controls
+                                poster={urlFor(pageContent?.textAndVideoModalHero?.videoPoster).width(800).height(450).format('webp').url()}
+                                class="rounded-lg shadow-lg w-full"
+                            >
+                                <source src={`${mediaUploadBaseURL}/video-api/${pageContent?.textAndVideoModalHero?.video.mp4Path}`} type="video/mp4">    
+                            </video>
+                            
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+
+
+
+            
+            )
+        }
+
 
         <!-- <p>
             {JSON.stringify(pageContent)}
@@ -61,7 +128,7 @@ const bgColor = 'red';
             <>
 
             { pageContent?.heroBackgroundVideo ? ( 
-                    <div class="inline-video">
+                    <div class="inline-video z-0">
                         <video preload="auto" loop="" autoplay="true" muted="" playsinline="" class="hero-background-video" aria-label={pageContent.heroImageAlt || 'Mood Video'} >
                             <source src={`${mediaUploadBaseURL}/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> 
                             <source src={`${mediaUploadBaseURL}/video-api/${pageContent.heroBackgroundVideo.mp4Path}`} type="video/mp4">
@@ -272,6 +339,10 @@ const bgColor = 'red';
             min-height: 440px;
             aspect-ratio: 1920 / 640;
         }
+
+        &.text-and-video-modal-hero {
+            align-items: center;
+        }
         
         @media screen and (max-width: 690px) {
             &.page-hero {
@@ -303,10 +374,10 @@ const bgColor = 'red';
             
 
             h1 {
-                margin: auto;
-                text-align: center;
-                font-size: 4rem;
-                font-weight: 800;
+                // margin: auto;
+                // text-align: center;
+                // font-size: 4rem;
+                // font-weight: 800;
 
                 // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
                 // margin-top: 30vh;

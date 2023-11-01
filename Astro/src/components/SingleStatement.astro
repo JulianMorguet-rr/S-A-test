@@ -2,18 +2,25 @@
 import BlockContent from "./BlockContent.astro";
 import PlayBtn from "./atomicComponents/PlayBtn.astro";
 
-const { statement } = Astro.props
+const { statement, uid } = Astro.props
 
-const mediaUploadBaseURL: string = import.meta.env.NODEMEDIA_URL;
+const mediaUploadBaseURL: string = 'https://assets.geschmaecker-sind-verschieden.de'  // import.meta.env.NODEMEDIA_URL;
 
-var videoID = `statement-${statement.media?.video?.thumbnailPath.match(/video-(.*?)-thumbnail/)[1]}`;
+var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(.*?)-thumbnail/)[1]}`;
 
 ---
 
 
-<div class={`single-statement max-w-screen-md whatever`}>
+<div class={`single-statement single-statement-${uid} max-w-screen-md whatever`}>
     {
         statement.media.video &&
+        <picture class="teaser teaser-video z-0" >
+            <img 
+                src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.thumbnailPath}`}
+            >    
+        </picture>
+
+        <!--
         <video 
             class="teaser teaser-video z-0" 
             preload="auto" 
@@ -24,9 +31,11 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath.match(/video-(.
             poster={`${mediaUploadBaseURL}/video-api/${statement.media.video?.thumbnailPath}`}
             aria-label="Nur ein Teaser für das Video"
         >
-            <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.webmPath}`} type="video/webm" />
+            
             <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.mp4Path}`} type="video/mp4" />
         </video>
+        -->
+        <!-- <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.webmPath}`} type="video/webm" /> -->
     }
 
 
@@ -35,14 +44,14 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath.match(/video-(.
         <div class="inner-wrapper max-w-screen-md text-center">
     
             <div class="text-content">
-                <h3 class="text-2xl pb-4 text-center text-white  font-semibold text-gray-900">
+                <h3 class="text-2xl pb-4 text-center tertiary-color white-shadow font-semibold">
                     { statement.heading }
                 </h3>
-                <h3 class="text-white text-1xl pb-2 mb-0 font-bold">
+                <h3 class="tertiary-color white-shadow text-1xl pb-2 mb-0 font-bold">
                     { statement.authorOfStatement }
                 </h3>
         
-                <p class="text-white text-1xl pb-2 font-medium ">
+                <p class="tertiary-color white-shadow text-1xl pb-2 font-medium ">
                     { statement.positionOfAuthor }
                 </p>
             </div>

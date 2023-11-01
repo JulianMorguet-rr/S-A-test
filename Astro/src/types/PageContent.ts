@@ -111,12 +111,68 @@ export type ContentItem =
             tagline: string;
             blockContent?: Array<any>;
             // TODO: hier noch richtige Types hinzufügen
-            statements?: Array<any>;
+            statementArray?: Array<any>;
+        }
+    |   { 
+            _type: 'statementCollectionGrid'; 
+            heading: string;
+            tagline: string;
+            blockContent?: Array<any>;
+            // TODO: hier noch richtige Types hinzufügen
+            statementArray?: Array<any>;
+        }
+    |   { 
+            _type: 'contactSection'; 
+            title?: string;
+            image: any;
+            contactPerson?: string;
+            position?: string;
+            company?: string;
+            adress?: {
+                adressLine1?: string;
+                adressLine2?: string;
+            }
+            phone?: string;
+            mail?: string;
         }
 
 
 
 export interface PageContent {
+    // new stuff
+    heroSettings: {
+        useHero: boolean;
+        heroType: 'colorGradient' | 'image' | 'video' | 'textAndVideoModal' ;
+    }
+    imageHero?: {
+        title?: string;
+        heroImage?: any;
+        heroImageAlt?: string;
+    }
+    videoHero?: {
+        title?: string;
+        heroBackgroundVideo?: any;
+    }
+    textAndVideoModalHero?: {
+        title?: string;
+        text?: string;
+        cta: {
+            linkName?: string;
+            link?: {
+                linkType: 'internal' | 'external' | 'anchor';
+                internalLink?: any;
+                externalLink?: string;
+                anchor?: string;
+            }
+        }
+        video?: any;
+        videoAlt?: string;
+        videoPoster?: any;
+        modalContent?: any; 
+    }
+        
+
+    // old stuff
     heroImage: string;
     heroImageAlt: string;
     heroBackgroundVideo: {

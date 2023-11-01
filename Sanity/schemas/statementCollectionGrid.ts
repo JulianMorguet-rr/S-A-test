@@ -2,8 +2,8 @@ import {defineArrayMember, defineField, defineType} from 'sanity'
 
 import {DocumentTextIcon} from '@sanity/icons'
 
-export const statementCollection = defineType({
-  name: 'statementCollection',
+export const statementCollectionGrid = defineType({
+  name: 'statementCollectionGrid',
   title: 'Zitat Sammlung',
   type: 'object',
   icon: DocumentTextIcon,
@@ -19,9 +19,14 @@ export const statementCollection = defineType({
         type: 'string'
     }),
     defineField({
-        name: 'paragraph', 
+        name: 'blockContent',
         title: 'Frontend Paragraph below Headline',
-        type: 'text'
+        type: 'array',
+        of: [
+            {
+                type: 'block',
+            }
+        ]
     }),
     defineField({
         name: 'statementArray',
@@ -36,24 +41,6 @@ export const statementCollection = defineType({
             }),
         ],
     }),
-    defineField({
-        name: 'cta', 
-        title: 'CTA',
-        type: 'object',
-        fields: [
-            defineField({
-                name: 'ctaText',
-                title: 'CTA Text',
-                type: 'string',
-            }),
-            defineField({
-                name: 'ctaLink',
-                title: 'CTA Link',
-                type: 'reference',
-                to: [{type: 'page' }],
-            }),
-        ]
-    }),
   ],
   preview: {
     select: {
@@ -63,7 +50,7 @@ export const statementCollection = defineType({
     prepare({title}) {
       return {
         title: title , // || 'Untitled'
-        subtitle: 'Statement Sammlung Slider',
+        subtitle: 'Statement Sammlung Grid',
       }
     },
   },

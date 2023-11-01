@@ -30,10 +30,14 @@ import { textWithTwoColumns } from './textWithTwoColumns'
 import {imageGalleryType} from  './imageGallerieType'
 import {statementType} from  './statementType'
 import {statementCollection} from  './statementCollection'
+// @ts-ignore
+import {statementCollectionGrid} from  './statementCollectionGrid'
 import {form} from  './formType'
 import {quoteCollection} from './quoteCollection'
 import {singleQuoteType} from './singleQuoteType'
 import {accordionSection} from './accordionSection'
+
+import contactSection from './contactSection'
 
 // Mediathek
 import videoMediathek from "./videoMediathek";
@@ -73,17 +77,16 @@ export const schemaTypes = [
   singleQuoteType,
   quoteCollection,
   statementCollection,
+  statementCollectionGrid,
   statementType,
   form,
+  contactSection,
   // Multistep Form 
   // multistep,
   multistepQuestions,
   multistepComposition,
   // Categoriy
   category,
-
-
-
 ]
 
 // export const schemaTypes = [pet, post, pageType, blockContent, siteSettings]

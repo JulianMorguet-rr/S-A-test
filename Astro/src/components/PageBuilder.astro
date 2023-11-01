@@ -23,6 +23,8 @@ import Accordion from './Accordion.astro';
 import StatementSlider from './StatementSlider.astro';
 import TextWithTwoColumns from './TextWithTwoColumns.astro';
 import QuoteCollection from './QuoteCollection.astro';
+import ContactSection from './ContactSection.astro';
+import StatementGrid from './StatementGrid.astro';
 // import { Image } from 'astro:assets';
 
 
@@ -118,8 +120,11 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     {pageBuilder._type === 'statementCollection' && 
         <StatementSlider data={pageBuilder} />
     }
-
-
+    
+    
+    {pageBuilder._type === 'statementCollectionGrid' && 
+        <StatementGrid data={pageBuilder} />
+    }
 
 
 
@@ -169,6 +174,12 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         </div>
     }
 
+
+    {
+        pageBuilder._type === 'contactSection' &&
+            <ContactSection data={pageBuilder} />
+    }
+
 </section>
 
 <style lang="scss">
@@ -216,10 +227,10 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         position: relative;
     }
 
-    .hero h1 {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
+    // .hero h1 {
+    //     font-size: 3rem;
+    //     margin-bottom: 1rem;
+    // }
 
     .hero h3 {
         font-size: 1.5rem;

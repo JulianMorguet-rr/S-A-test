@@ -91,6 +91,7 @@ export const statementType = defineType({
           name: 'isVideo',
           title: 'Attach Video instead of image',
           type: 'boolean',
+          default: false,
         }),
         defineField({
           name: 'image',
@@ -111,8 +112,23 @@ export const statementType = defineType({
           to: [{type: 'uploadedVideo'}],
           hidden: ({parent, value}) => !parent?.isVideo !== false,
         }),
+        defineField({
+          name: 'seperateThumbnailImage',
+          title: 'Seperates Thumbnail, wenn Du nicht das defaut Image als Thumbnail haben willst',
+          type: 'image',
+          options: {hotspot: true},
+          hidden: ({parent, value}) => !parent?.isVideo !== false,
+        }),
       ],
     }),
+
+    // defineField({
+    //   name: 'extraThumbnail',
+    //   title: 'Seperates Thumbnail, wenn Du nicht das defaut Image als Thumbnail haben willst',
+    //   type: 'image',
+    //   options: {hotspot: true},
+    // }),
+
   ],
 
   preview: {

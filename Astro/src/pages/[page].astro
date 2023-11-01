@@ -31,7 +31,14 @@ const pageContent: PageContent = await getCurrentPage(`/${page}`);
 
 <Layout seoSection={pageContent?.seoSection}>
     
-    <Hero pageContent={pageContent} />
+    {
+        pageContent?.heroSettings?.useHero === true &&
+        <Hero pageContent={pageContent} />
+    }
+
+    <!-- <p>
+        {JSON.stringify(pageContent)}
+    </p> -->
 
     <main>            
         { pageContent &&

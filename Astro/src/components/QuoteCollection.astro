@@ -22,20 +22,30 @@ const {data} = Astro.props
             }
             {
                 data.blockContent &&
-                <div class="section-block-content mb-5 font-light text-gray-500 sm:text-xl">
+                <div class="mb-5 font-light text-gray-500 sm:text-xl">
                     <BlockContent data={data.blockContent} />
                 </div>
             }
         </div>
 
-        <div class="space-y-8 lg:grid lg:grid-cols-1 sm:gap-6 xl:gap-10 lg:space-y-0">
-            {   
-                data.quoteArray.map(ref => {
-                    return (
-                        <Quote reference={ref} />
-                    )
-                })
-            }
+        <!-- lg:grid lg:grid-cols-1 -->
+        <div class="space-y-8  sm:gap-6 xl:gap-10 lg:space-y-0 flex items-start flex-wrap">
+            
+                {   
+                    data.quoteArray.map((ref, index) => {
+                        const isEven = number => number % 2 === 0;
+                        if(isEven(index)) {
+                            return (
+                                <Quote reference={ref} />
+                            )
+                        }
+                        if(!isEven(index)) {
+                            return (
+                                <Quote reference={ref} />
+                            )
+                        }
+                    })
+                }
 
         </div>
     </div>

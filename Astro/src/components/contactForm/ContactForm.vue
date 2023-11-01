@@ -9,6 +9,7 @@ interface Props {
     placeholderEmail?: string | undefined
     placeholderTextarea?: string | undefined
     buttonText?: string | undefined
+    maxWidth?: string
   },
   nodemailerBaseURL: string,
   nodemailerContactFormPath: string
@@ -69,35 +70,57 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="container py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+  <div :class="`text-section  ${props.data.maxWidth === 'medium' ? 'max-w-screen-md' : ''} m-auto`">
+    <div class="container py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 
-    <div class="max-w-screen-md m-auto text-center py-8">
-      <p class="section-tagline text-gray-500 sm:text-xl mb-4">{{ props.data.tagline }}</p>
-      <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">{{ props.data.heading }}</h2>
+      <div class="max-w-screen-md m-auto text-center py-8">
+        <p class="section-tagline text-gray-500 sm:text-xl mb-4">{{ props.data.tagline }}</p>
+        <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">{{ props.data.heading }}</h2>
 
-      <!-- nodemailerBaseURL: {{nodemailerBaseURL}}<br>
-      nodemailerContactFormPath: {{nodemailerContactFormPath}}<br> -->
+        <!-- nodemailerBaseURL: {{nodemailerBaseURL}}<br>
+        nodemailerContactFormPath: {{nodemailerContactFormPath}}<br> -->
+      </div>
+
+      <div class="section-block">
+        <form @submit.prevent="handleSubmit()">
+            <!-- <h3>{{ data.subtitle }}</h3>
+            <h2>{{ data.heading }}</h2>
+            <p>{{ formData.name }}</p>
+            <p>{{ formData.email }}</p>
+            <p>{{ formData.message }}</p> -->
+            <div class="flex inputs">
+                <input class="input-field" type="text" :placeholder="data.placeholderName" v-model="formData.name" />
+                <input class="input-field" type="email" :placeholder="data.placeholderEmail" v-model="formData.email" />
+            </div>
+            <textarea class="textarea-field" :placeholder="data.placeholderTextarea" v-model="formData.message" />
+            <button type="submit" class="m-auto flex section-cta cta items-center mt-6 text-white hover:bg-slate-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <span v-if="waiting">
+                  Laden
+                  
+                </span>
+                <template v-if="!waiting">
+                  Abschicken
+                  <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </template>
+            </button>
+
+            <br>
+
+            <a 
+                href="#" 
+                class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+                Get started
+                <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </a>
+
+
+            <p v-if="errors">Etwas lief schief</p>
+            <p v-if="success">Abgeschickt</p>
+        </form>
+      </div>
+      
     </div>
-
-
-    <form @submit.prevent="handleSubmit()">
-        <!-- <h3>{{ data.subtitle }}</h3>
-        <h2>{{ data.heading }}</h2>
-        <p>{{ formData.name }}</p>
-        <p>{{ formData.email }}</p>
-        <p>{{ formData.message }}</p> -->
-        <div class="flex inputs">
-            <input class="input-field" type="text" :placeholder="data.placeholderName" v-model="formData.name" />
-            <input class="input-field" type="email" :placeholder="data.placeholderEmail" v-model="formData.email" />
-        </div>
-        <textarea class="textarea-field" :placeholder="data.placeholderTextarea" v-model="formData.message" />
-        <button type="submit">
-            <template v-if="waiting">Laden</template>
-            <template v-if="!waiting">Abschicken</template>
-        </button>
-        <p v-if="errors">Etwas lief schief</p>
-        <p v-if="success">Abgeschickt</p>
-    </form>
   </div>
 </template>
 

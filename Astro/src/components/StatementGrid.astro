@@ -1,0 +1,240 @@
+---
+import BlockContent from "./BlockContent.astro";
+import SingleStatement from "./SingleStatement.astro";
+
+const { data } = Astro.props 
+
+// create UID
+const generateUID = (length = 20) => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
+// create UID
+const uid = generateGuid()
+
+function generateGuid() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+let nodeMediaURL = 'https://assets.geschmaecker-sind-verschieden.de/video-api' // 'http://localhost:2001/video-api';
+
+import { urlFor } from '../lib/sanityApi.js';
+
+---
+
+
+
+
+<div class="statement-grid py-0 fullwidthBackground disable-scroll-into-view-animation">
+
+    <div class="outer-wrapper mx-auto">
+
+        <div class="inner-wrapper py-8 px-4 lg:px-6 mx-auto max-w-screen-xl sm:py-16">
+
+            <div class="statement-description max-w-screen-xl pb-8">
+
+                {
+                    data.tagline &&
+                    <p class="section-tagline mb-4 md:text-lg font-bold">{data.tagline}</p>
+                }
+
+                {
+                    data.heading &&
+                    <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold">{data.heading}</h2>
+                }
+
+                {
+                    data.blockContent &&
+                        <BlockContent data={data.blockContent} />
+                }
+
+                <!-- <p>seperateThumbnailImage:</p>
+                {
+                    data.seperateThumbnailImage &&
+                        <p>{data.seperateThumbnailImage}</p>
+                } -->
+                
+            </div>
+
+            <!-- <p>{JSON.stringify(data)}</p> -->
+
+
+            <div class="grid-wrapper max-w-screen-xl flex m-auto">
+                <div class="grid-inner-wrapper flex max-w-screen-xl">
+                    <div class="left flex-50 flex-1 pr-4">
+                        {
+                            data.statementArray &&
+                            data.statementArray.map((statement, index) => {
+                                const isEven = number => number % 2 === 0;
+                                if(isEven(index)) {
+                                    return (
+                                        <div class={`single-statement-grid toggleVideoButton-${uid}-${statement.media?.video?.thumbnailPath?.match(/video-(.*?)-thumbnail/)[1]}-${index}`}>
+                                            {   
+                                                statement.media?.isVideo ?
+                                                    <video controls poster={
+                                                        statement.media.seperateThumbnailImage ?
+                                                        urlFor(statement.media?.seperateThumbnailImage).width(1600).height(900).format('webp').url()
+                                                        : `${nodeMediaURL}/${statement.media?.video?.thumbnailPath}`
+                                                    }>
+                                                        <source src={`${nodeMediaURL}/${statement.media?.video?.mp4Path}`} type="video/mp4" />
+                                                        
+                                                    </video>
+                                                : statement.media?.image &&
+                                                    <picture class="video-thumbnail">
+                                                        <source srcset={urlFor(statement.media.image).width(1600).height(900).format('jpg').url()}} type="image/webp" />
+                                                        <img
+                                                            width="1600"
+                                                            height="900"
+                                                            src={urlFor(statement.media.image).width(1600).height(900).format('webp').url()}
+                                                            alt="media.video._id || 'Video Thumbnail'"
+                                                        />
+                                                    </picture>
+                                            }
+                                            <div class="content p-8 pb-4">
+                                                <h2 class="text-2xl py-2">
+                                                    {statement.title}
+                                                </h2>
+                                                <h3 class="text-1xl py-2 tracking-normal">
+                                                    {statement.authorOfStatement}
+                                                </h3>
+                                                <h3 class="text-1xl  py-2 tracking-normal font-medium">
+                                                    {statement.positionOfAuthor}
+                                                </h3>
+
+                                                <!-- <p>JSON: <br>{JSON.stringify(statement.media)}</p>  -->
+
+                                                <BlockContent data={statement.blockContent} />
+
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                    <div class="right flex-50 flex-1 pl-4">
+                        {
+                            data.statementArray &&
+                            data.statementArray.map((statement, index) => {
+                                const isOdd = number => number % 2 !== 0;
+                                if(isOdd(index)) {
+                                    return (
+                                        <div class={`single-statement-grid toggleVideoButton-${uid}-${statement.media?.video?.thumbnailPath?.match(/video-(.*?)-thumbnail/)[1]}-${index}`}>
+                                            {   
+                                                statement.media?.isVideo ?
+                                                    <video controls poster={
+                                                        statement.media.seperateThumbnailImage ?
+                                                        urlFor(statement.media?.seperateThumbnailImage).width(1600).height(900).format('webp').url()
+                                                        : `${nodeMediaURL}/${statement.media?.video?.thumbnailPath}`
+                                                    }>
+                                                        <source src={`${nodeMediaURL}/${statement.media?.video?.mp4Path}`} type="video/mp4" />
+                                                        
+                                                    </video>
+                                                : statement.media?.image &&
+                                                    <picture class="video-thumbnail">
+                                                        <source srcset={urlFor(statement.media.image).width(1600).height(900).format('jpg').url()}} type="image/webp" />
+                                                        <img
+                                                            width="1600"
+                                                            height="900"
+                                                            src={urlFor(statement.media.image).width(1600).height(900).format('webp').url()}
+                                                            alt="media.video._id || 'Video Thumbnail'"
+                                                        />
+                                                    </picture>
+                                            }
+                                            <div class="content p-8 pb-4">
+                                                <h2 class="text-2xl  py-2">
+                                                    {statement.title}
+                                                </h2>
+                                                <h3 class="text-1xl py-2 tracking-normal">
+                                                    {statement.authorOfStatement}
+                                                </h3>
+                                                <h3 class="text-1xl py-2 tracking-normal font-medium">
+                                                    {statement.positionOfAuthor}
+                                                </h3>
+
+                                                <!-- <p>JSON statementMedia: <br>{JSON.stringify(statement.media)}</p> -->
+
+                                                <BlockContent data={statement.blockContent} />
+
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </div>
+
+        <!-- <div class="animated-bg-gradient" ></div> -->
+
+    </div>
+
+</div>
+
+<!-- <p>
+    {JSON.stringify(data)}
+</p> -->
+
+
+<style lang="scss">
+    .inner-wrapper {
+        z-index: 9;
+    }
+    .animated-bg-gradiend {
+        z-index: 1;
+    }
+
+    .grid-inner-wrapper  {
+        // display: grid;
+        // gap: 20px;
+        // grid-template-columns: 1fr 1fr;
+
+        .flex-50 {
+            max-width: calc(50%);
+        }
+
+        .single-statement-grid {
+            background: #fff;
+            // border: solid 2px #CCC;
+            box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+
+            video {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+            }
+
+            .content {
+                background-color: #fff;
+            }
+        }
+
+    }
+
+    @media screen and (max-width: 999px) {
+        .grid-inner-wrapper  {
+            flex-direction: column;
+
+            .flex-50 {
+                max-width: 100%;
+                padding: 0 !important;
+            }
+        }
+    }
+
+
+</style>

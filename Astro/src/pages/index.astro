@@ -74,7 +74,10 @@ const recruitingDataJSON = JSON.stringify(recruitingData);
 		<!-- <img src={urlFor(firstPost[0].mainImage.asset._ref).width(200).height(200).format('webp').url()} style="border: solid 3px #000;"/> -->
 
 
-	<Hero pageContent={homePage} />
+	{
+		homePage?.heroSettings?.useHero === true &&
+		<Hero pageContent={homePage} />
+	}
 
 	<!-- <p>{JSON.stringify(homePage?.seoSection)}</p> -->
 
