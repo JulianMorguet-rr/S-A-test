@@ -515,10 +515,9 @@ h1 {
             }
         }
 
-        .hero {
-            &.page-hero {
-                padding: 2rem 0;
-            }
+
+        &.page-hero {
+            padding: 2rem 0;
         }
     }
 }
