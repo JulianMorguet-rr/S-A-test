@@ -459,6 +459,7 @@ h1 {
 
     &.page-hero {
         overflow: hidden;
+        padding: 6rem 0;
     }
 
     .hero-background-video {
@@ -511,6 +512,12 @@ h1 {
             &:before {
                 width: 0;
                 margin-left: -1rem;
+            }
+        }
+
+        .hero {
+            &.page-hero {
+                padding: 2rem 0;
             }
         }
     }
