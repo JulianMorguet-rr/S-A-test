@@ -55,7 +55,7 @@ const bgColor = 'red';
 </p> -->
 
 
-<div class="hero-wrapper sm:pb-16">
+<div class="hero-wrapper">
     <div class={`hero ${pageContent ? 'page-hero' : ''} ${pageContent.heroSettings?.heroType === 'textAndVideoModal' ? 'text-and-video-modal-hero' : ''}`} style={``}>
 
 
@@ -337,7 +337,7 @@ const bgColor = 'red';
 
         &.page-hero {
             min-height: 440px;
-            aspect-ratio: 1920 / 640;
+            // aspect-ratio: 1920 / 640;
         }
 
         &.text-and-video-modal-hero {
@@ -346,7 +346,7 @@ const bgColor = 'red';
         
         @media screen and (max-width: 690px) {
             &.page-hero {
-                aspect-ratio: 16 / 9;
+                // aspect-ratio: 16 / 9;
                 min-height: 0px;
             }
         }

@@ -541,6 +541,12 @@ div:not(.quote-content) .section-heading {
     width: calc(50% - 2.5rem);
 }
 
+@media screen and (max-width: 999px) {
+    .quote-component {
+        width: 100%;
+    }
+}
+
 .quote-wrapper {
     // background-color: $Tertiary-color;
     // background: linear-gradient(45deg, #045259, rgb(11, 149, 161));
@@ -714,6 +720,16 @@ div:not(.quote-content) .section-heading {
     }
 }
 
+@media screen and (max-width: 999px) {
+    .single-statement {
+        .teaser {
+            opacity: 1;
+            position: relative;
+            border-bottom: solid 2px $base-color;
+        }
+    }
+}
+
 
 .single-statement { 
     cursor: pointer;
@@ -765,7 +781,7 @@ div:not(.quote-content) .section-heading {
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 999px) {
 
     .single-statement { 
 
@@ -821,13 +837,16 @@ div:not(.quote-content) .section-heading {
 
                     position: absolute;
                     opacity: 1;
-                    top: -100px;
+                    // top: -100px;
+                    top: -168px;
                     height: 100px;
-                    margin-left: auto;
+                    // margin-left: auto;
+                    margin: auto;
                     width: 100%;
 
                     .play__Button {
-                        justify-content: end;
+                        // justify-content: end;
+                        justify-content: center;
                         pointer-events: none;
                         
 
