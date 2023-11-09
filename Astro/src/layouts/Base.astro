@@ -44,7 +44,7 @@ const prefetchURLs = async () => {
   })
 }
 
-console.log('prefetchURLs: ', prefetchURLs())
+// console.log('prefetchURLs: ', prefetchURLs())
 
 import { getGlobalSiteSettings, getAppearance, getMainMenu } from '../lib/sanityApi.js';
 const globalSiteSettings = await getGlobalSiteSettings();
@@ -107,6 +107,7 @@ const mainMenu = await getMainMenu();
       // document.addEventListener('astro:page-load', burgerEventListener);
       // burgerEventListener()
       document.addEventListener('astro:page-load', burgerEventListener);
+      document.addEventListener("DOMContentLoaded", burgerEventListener);
   </script>
 
 
@@ -262,6 +263,7 @@ const mainMenu = await getMainMenu();
       // document.addEventListener('astro:load', initObserver);
       // window.addEventListener('astro:page-load', initObserver);
       document.addEventListener('astro:page-load', initObserver);
+      document.addEventListener("DOMContentLoaded", initObserver);
       
       if(observerStarted === false) {
         initObserver()
