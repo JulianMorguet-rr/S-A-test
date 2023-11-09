@@ -73,7 +73,7 @@ const { page, lang, version, path } =  Astro.params
 <slot></slot>
 
 { globalSiteSettings?.favicon?.asset &&
-	(<link rel="icon" type="image/x-icon" href={urlFor(globalSiteSettings?.favicon?.asset._ref).width(48).height(48).format('jpg').url()}>)
+	(<link rel="icon" type="image/x-icon" href={urlFor(globalSiteSettings?.favicon?.asset._ref).width(48).height(48).format('png').url()}>)
 }
 
 <meta name="viewport" content="width=device-width">

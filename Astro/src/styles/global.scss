@@ -48,12 +48,20 @@ h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote, cite {
     font-family: 'Montserrat', sans-serif;
 }
 
-h2, h3, h4, h5, h6 {
+h2, h3, h4, h5 {
     font-size: 32px;
     line-height: 1.25;
     letter-spacing: -1px;
     font-weight: 600;
     color: $Tertiary-color
+}
+
+h6 {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: rgb(107 114 128);
 }
 
 @media (min-width: 999px) and (max-width: 1279px) { 
@@ -546,6 +554,14 @@ div:not(.quote-content) .section-heading {
 
 .quote-component {
     width: calc(50% - 2.5rem);
+
+    svg {
+        margin:auto;
+    }
+
+    svg path {
+        fill: $Tertiary-color;
+    }
 }
 
 @media screen and (max-width: 999px) {
@@ -1255,7 +1271,7 @@ div:not(.quote-content) .section-heading {
             max-width: 50%;
         }
 
-        h2, h3, h4, h5, h6 {
+        h2, h3, h4 {
             font-size: 32px;
             line-height: 1.25;
             letter-spacing: -1px;
@@ -1280,7 +1296,7 @@ div:not(.quote-content) .section-heading {
                 max-width: 100%;
             }
 
-            h2, h3, h4, h5, h6 {
+            h2, h3, h4 {
                 font-size: 24px;
                 line-height: 1.25;
                 letter-spacing: -1px;
@@ -1340,6 +1356,33 @@ div:not(.quote-content) .section-heading {
       margin: 0px 0px 20px 0px;
     }
   }
+
+
+/**
+ *  FOOTER 
+ */
+
+footer a {
+    display: inline-block;
+}
+
+footer .social-icons {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+footer .social-icons a svg {
+    width: 24px;
+    height: 24px;
+}
+
+footer .social-icons a:hover svg {
+    fill: $base-color;
+}
+
+.footer-links ul:last-child li:last-child a:last-child {
+    margin-right: 0 !important;
+}
 
 
 

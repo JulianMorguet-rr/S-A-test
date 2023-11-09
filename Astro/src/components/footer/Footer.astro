@@ -15,6 +15,11 @@ interface GlobalSiteSettings {
     }
     title: string
 }
+interface SocialLink {
+    link: string
+    svg: string
+}
+
 interface Props {
     globalSiteSettings: GlobalSiteSettings
     slug: string | undefined
@@ -23,6 +28,7 @@ interface Props {
         footerNav?: {
             footerNavLeft?: Array<NavItem>
             footerNavRight?: Array<NavItem>
+            socialLinks?: Array<SocialLink>
         }
     }
 }
@@ -74,7 +80,7 @@ const date = new Date();
             Open-source library of over 400+ web components and interactive elements built for better web.
         </p> -->
 
-        <div class="flex pt-6 justify-around">
+        <div class="flex pt-6 justify-around footer-links">
             <div class="link-wrapper flex m-auto">
                 <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900">
                     <!-- <p>{JSON.stringify(mainMenu.mainNav)}</p> -->
@@ -114,6 +120,21 @@ const date = new Date();
                 </ul>
             </div>
         </div>
+
+        <div class="social-icons text-sm text-gray-500 sm:text-center ">
+            {
+                mainMenu.footerNav?.socialLinks?.map((socialItem, index) => {
+                    return (
+                        <a href={socialItem.link} target="_blank" class="mr-4 hover:underline md:mr-6 ">
+                            <span set:html={socialItem.svg}></span>
+                        </a>
+                    )
+                
+                })
+            }
+        </div>
+
+
         <span class="text-sm text-gray-500 sm:text-center ">
             © {date.getFullYear()}  – 
             <a href="https://suessstoff-verband.info/" target="_blank" class="hover:underline">
@@ -122,13 +143,15 @@ const date = new Date();
             . All Rights Reserved.
         </span>
     </div>
+
+
+    <!-- <p>
+        {JSON.stringify(mainMenu.footerNav.socialLinks)}
+    </p> -->
 </footer>
 
 
 <style>
-    footer a {
-        display: inline-block;
-    }
 
     
 </style>

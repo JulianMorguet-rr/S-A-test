@@ -29,6 +29,7 @@ import {textSectionType} from  './textSectionType'
 import { textWithTwoColumns } from './textWithTwoColumns'
 import {imageGalleryType} from  './imageGallerieType'
 import {statementType} from  './statementType'
+import {socialLinks} from  './socialLinks'
 import {statementCollection} from  './statementCollection'
 // @ts-ignore
 import {statementCollectionGrid} from  './statementCollectionGrid'
@@ -79,6 +80,7 @@ export const schemaTypes = [
   statementCollection,
   statementCollectionGrid,
   statementType,
+  socialLinks,
   form,
   contactSection,
   // Multistep Form 

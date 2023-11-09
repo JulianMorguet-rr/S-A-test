@@ -39,6 +39,7 @@ export async function getMainMenu() {
     footerNav {
       footerNavLeft[]->,
       footerNavRight[]->,
+      socialLinks[]->,
     } 
   }`; // globalSiteSettings is the name of the schema from '/scr/structure/index.js'
   const siteSettings = await useSanityClient().fetch(query);

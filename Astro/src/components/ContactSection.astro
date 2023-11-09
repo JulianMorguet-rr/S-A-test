@@ -97,15 +97,19 @@ const { data } = Astro.props
                     }
                     {
                         data.phone &&
-                            <p class="mb-6 font-regular text-gray-500 md:text-lg">
-                                { data.phone }
-                            </p>
+                            <a href={`tel:${data.phone}`}>
+                                <p class="mb-6 font-regular text-gray-500 md:text-lg">
+                                    { data.phone }
+                                </p>
+                            </a>
                     }
                     {
                         data.mail &&
-                            <p class="mb-6 font-regular text-gray-500 md:text-lg">
-                                { data.mail }
-                            </p>
+                            <a href={`mailto:${data.mail}`}>
+                                <p class="mb-6 font-regular text-gray-500 md:text-lg">
+                                    { data.mail }
+                                </p>
+                            </a>
                     }
                     {
                         data.cta &&

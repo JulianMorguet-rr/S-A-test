@@ -51,6 +51,18 @@ export default defineType({
                 },
               ],
             }),
+            defineField({
+              name: 'socialLinks',
+              title: 'Social Links',
+              description: 'Select social links and icons for the footer',
+              type: 'array',
+              of: [
+                {
+                  type: 'reference',
+                  to: [{ type: 'socialLinks' }],
+                },
+              ],
+            }),
           ],
       }),
     ],
