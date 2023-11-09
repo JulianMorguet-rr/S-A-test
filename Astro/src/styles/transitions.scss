@@ -363,7 +363,7 @@
             // animation-fill-mode: forwards;
             // animation-play-state: paused;
 
-            transition: all 1s 0.1s;
+            transition: opacity 1s 0.1s, transform 1s 0.1s;
         }
 
         section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-heading, 
@@ -376,7 +376,7 @@
         section > div:not(.disable-scroll-into-view-animation) .section-block-content {
             opacity: 0;
             transform: translate(0, 6rem);
-            transition: all 1s 0.2s;
+            transition: opacity 1s 0.2s, transform 1s 0.2s;
         }
 
         section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-block-content {
@@ -385,7 +385,7 @@
             opacity: 1;
             transform: translate(0, 0);
 
-            transition: all 1s 0.2s;
+            transition: opacity 1s 0.2s, transform 1s 0.2s;
         }
 
 
@@ -441,8 +441,6 @@
             }
         }
 
-
-
         .section-asset-round {
             // clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
             // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
@@ -477,12 +475,20 @@
 .section-block { 
     opacity: 0;
     transform: translate(0, 6rem);
-    transition: all 1s 0.2s;
+    transition: opacity 1s 0.2s, transform 1s 0.2s;
 }
 section.observer-detected .section-block {
     opacity: 1;
     transform: translate(0, 0);
-    transition: all 1s 0.2s;
+    transition: opacity 1s 0.2s, transform 1s 0.2s;
+}
+
+/* Section Block mobile Animation */
+@media screen and (max-width: 999px) {
+    .section-block.no-mobile-scroll-animation { 
+        opacity: 1;
+        transform: translate(0, 0);
+    }
 }
 
 

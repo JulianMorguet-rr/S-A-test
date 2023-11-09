@@ -643,6 +643,19 @@ div:not(.quote-content) .section-heading {
     }
 }
 
+@media screen and (max-width: 999px) {
+    .video-wrapper .play__Button .play__Button__Wrapper {
+        width: 6rem !important;
+        height: 6rem !important;
+    
+        svg {
+            height: 4rem;
+            width: 4rem;
+        }
+    
+    }
+
+}
 
 
 /* Text-with-asset */ 
@@ -889,28 +902,35 @@ div:not(.quote-content) .section-heading {
         width: calc(100vw - 3rem);
     }
 }
-@media (max-width: 1019px) {
-    .single-statement {
-        width: calc(100vw - 2rem);
-        margin-bottom: 2rem; // alt 1rem
+@media (max-width: 999px) {
+    .statement-slider {
 
-        .content-cover {
-
-            .inner-wrapper {
-
-                
-
-                .text-content {
-                    padding: 3rem 2rem 2rem 2rem;
+        .single-statement {
+            width: calc(100vw - 2rem);
+            margin-bottom: 2rem; // alt 1rem
+    
+            .content-cover {
+    
+                .inner-wrapper {
+    
+                    
+    
+                    .text-content {
+                        padding: 3rem 2rem 2rem 2rem;
+                    }
+    
                 }
-
             }
+            
         }
-        
-    }
-
-    .slider-container {
-        flex-direction: column;
+    
+        .slider-container {
+            flex-direction: column;
+        }
+    
+        .slider-nav {
+            display: none;
+        }
     }
 }
 
@@ -1549,6 +1569,37 @@ footer span.svg svg {
     width: 400px;
 }
 
+@media screen and (max-width: 999px) {
+    footer a:has(#logo) {
+        margin: 0px auto;
+        width: 100%;
+    }
+
+    footer span.svg svg {
+        width: auto;
+        height: 44px;
+        margin: auto;
+    }
+
+    footer .link-wrapper {
+        display: block;
+        width: 100%;
+
+        ul {
+            display: block;
+            margin-bottom: 0;
+
+            &:last-child {
+                margin-bottom: 24px;
+            }
+
+            li {
+                padding-bottom: 12px;
+            }
+        }
+    }
+}
+
 
 /* Placeholder Image */
 .placeholder-image {
@@ -1627,7 +1678,7 @@ footer span.svg svg {
 
 @media  screen and (max-width: 768px) {
     .text-4xl {
-        font-size: 32px;
+        font-size: 26px;
         line-height: 1.0625;
         /* font-weight: 600 !important; */
         letter-spacing: -1px;

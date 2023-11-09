@@ -8,7 +8,7 @@ const { reference } = props;
 
  
 
-<div class="section-block quote-component">
+<div class="section-block no-mobile-scroll-animation quote-component">
     <!-- <p>{JSON.stringify(reference)}</p> -->
     <div class="quote-wrapper flex flex-col p-6 mx-auto max-w-screen-md text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow xl:p-8">
 
@@ -19,10 +19,10 @@ const { reference } = props;
                 {reference.quote}
             </h3>
         </div>
-        <p class="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium text-m px-5 text-center">
+        <p class="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium text-m text-center">
             <b>{reference.author}</b>
         </p>
-        <p class="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium text-sm px-5 text-center">
+        <p class="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium text-sm text-center">
             {reference.source}
         </p>
 
