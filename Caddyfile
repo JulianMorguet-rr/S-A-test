@@ -11,4 +11,4 @@ assets.geschmaecker-sind-verschieden.de {
 
 websockets.geschmaecker-sind-verschieden.de {
     reverse_proxy /socket.io/* 127.0.0.1:2002
-}<
+}
