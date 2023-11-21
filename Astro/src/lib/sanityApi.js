@@ -62,6 +62,9 @@ export async function getHomePage() {
     },
     pageBuilder[]{
       ...,
+
+      customThumbnailImage->,
+      
       media {
         ...,
         video->,

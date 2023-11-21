@@ -99,7 +99,7 @@ const bgColor = 'red';
                                 poster={urlFor(pageContent?.textAndVideoModalHero?.videoPoster).width(800).height(450).format('webp').url()}
                                 class="rounded-lg shadow-lg w-full"
                             >
-                                <source src={`${mediaUploadBaseURL}/video-api/${pageContent?.textAndVideoModalHero?.video.mp4Path}`} type="video/mp4">    
+                                <source src={`${mediaUploadBaseURL}/video-api/${pageContent?.textAndVideoModalHero?.video.videoURL}.mp4`} type="video/mp4">    
                             </video>
                             
 
@@ -115,11 +115,12 @@ const bgColor = 'red';
             )
         }
 
-
-        <!-- <p>
-            {JSON.stringify(pageContent)}
-        </p> -->
-
+        <!--
+        <p style={`z-index: 9; font-size: 14px !Important; width: 100%; overflow: hidden;`}>
+            videoURL: {JSON.stringify(pageContent?.textAndVideoModalHero?.video.videoURL)}
+        </p> 
+        -->
+        
         <!-- <source src={`${mediaUploadBaseURL}/video-api/${pageContent.heroBackgroundVideo.webmPath}`} type="video/webm"> -->
         <!-- playsinline autoplay loop muted -->
 

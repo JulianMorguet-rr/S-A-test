@@ -94,6 +94,7 @@ export function VideoUploader() {
           return [...filteredArray, message];
         });
       }
+      
     });
 
     socket.on('webmConversionProgress', (message) => {
@@ -215,107 +216,107 @@ export function VideoUploader() {
 
 export function VideoGallery() {
 
-    const [referenceData, setReferenceData] = useState([]);
+  const [referenceData, setReferenceData] = useState([]);
 
-    useEffect(() => {
-      const getReferences = () => {
-        const query = `*[_type == "uploadedVideo"]{
-          ...,
-        }`;
-        client.fetch(query).then(data => {
-          // sort data by date
-          let sortedData = data.sort((a, b) => {
-            const dateA = new Date(a._createdAt);
-            const dateB = new Date(b._createdAt);
-            return dateB - dateA; // Sortiere absteigend nach Datum
-          });
-          console.log('sortedData: ', sortedData.map((d, index) => (d._createdAt)))
-          setReferenceData(sortedData); // update state with sorted data
-        }).catch(error => {
-          console.error('Fehler beim Laden der Daten:', error);
+  useEffect(() => {
+    const getReferences = () => {
+      const query = `*[_type == "uploadedVideo"]{
+        ...,
+      }`;
+      client.fetch(query).then(data => {
+        // sort data by date
+        let sortedData = data.sort((a, b) => {
+          const dateA = new Date(a._createdAt);
+          const dateB = new Date(b._createdAt);
+          return dateB - dateA; // Sortiere absteigend nach Datum
         });
-      };
-    
-      getReferences();
-    }, []);
-
-    const [videos, setVideos] = useState([]);
-  
-    // useEffect(() => {
-    //     fetchVideos();
-    // }, []); // Lädt Videos automatisch beim Rendern
-  
-    const query = `*[_type == 'uploadedVideo']`;
-
-    // // TODO: hier Sanity Daten laden statt Express Endpoint. So habe ich nur ein Datensatz pro Video statt aktuell mp4, webm und thumbnail
-    const fetchVideos = async () => {
-        // try {
-        //     const response = await fetch('http://localhost:2001/get-videos');
-        //     const data = await response.json();
-        //     setVideos(data);
-        // } catch (error) {
-        //     console.error('Error fetching videos:', error);
-        // }
-
-        try {
-            const response = await client.fetch(query)
-            // const data = await response.json();
-            console.log('response: ', response)
-            setVideos(response);
-        } catch (error) {
-            console.error('Error fetching videos:', error);
-        }
-    };
-
-    // #Hier über Saniyt abrufen 
-    useEffect(() => {
-
-        console.log('Fetch Videos');
-        fetchVideos();
-    }, []);
-  
-    const openVideoLightbox = (videoPath) => {
-        // Hier kannst du eine Methode zum Öffnen der Lightbox implementieren
-        // Du könntest eine Modals-Komponente verwenden oder eine andere Lightbox-Library
+        console.log('sortedData: ', sortedData.map((d, index) => (d._createdAt)))
+        setReferenceData(sortedData); // update state with sorted data
+      }).catch(error => {
+        console.error('Fehler beim Laden der Daten:', error);
+      });
     };
   
-    return (
-        <>
-            <div className="video-gallery">
-                    <h1>Video Gallery! </h1>
-                    <p>nodemailerURL: {nodemailerURL}</p>
-                    <p>mediaUploadBaseURL: {mediaUploadBaseURL}</p>
-                    <p>myStudioTitle: {myStudioTitle}</p>
+    getReferences();
+  }, []);
 
-                    {/* { 
-                        referenceData.map((ref, index) => (
-                            <div key={index}><p>{JSON.stringify(ref)}</p></div>
-                        )) 
-                    } */}
+  const [videos, setVideos] = useState([]);
 
-                    <div className="video-grid">
-                    
-                    {referenceData.map((video, index) => (
-                        <div key={index} className="video-item">
-                        {/* <h2>{video.title}</h2> */}
-                        <h2>{video.name}</h2>
-                        <p>{video.description}</p>
-                        {/* <p>{JSON.stringify(video)}</p> */}
-                        <div className="video-thumbnail" onClick={() => openVideoLightbox(video.path)}>
-                            <video controls>
-                              {/* <source src={`${mediaUploadBaseURL}/video-api/${video.webmPath}`} type="video/webm" /> */}
-                              <source src={`${mediaUploadBaseURL}/video-api/${video.mp4Path}`} type="video/mp4" />
-                              {/* <source src={`https://assets.geschmaecker-sind-verschieden.de/video-api/${video.webmPath}`} type="video/mp4" /> */}
-                              Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        </div>
-                    ))}
-                    </div>
-            </div>
-        </>
-    );
-  }
+  // useEffect(() => {
+  //     fetchVideos();
+  // }, []); // Lädt Videos automatisch beim Rendern
+
+  const query = `*[_type == 'uploadedVideo']`;
+
+  // // TODO: hier Sanity Daten laden statt Express Endpoint. So habe ich nur ein Datensatz pro Video statt aktuell mp4, webm und thumbnail
+  const fetchVideos = async () => {
+      // try {
+      //     const response = await fetch('http://localhost:2001/get-videos');
+      //     const data = await response.json();
+      //     setVideos(data);
+      // } catch (error) {
+      //     console.error('Error fetching videos:', error);
+      // }
+
+      try {
+          const response = await client.fetch(query)
+          // const data = await response.json();
+          console.log('response: ', response)
+          setVideos(response);
+      } catch (error) {
+          console.error('Error fetching videos:', error);
+      }
+  };
+
+  // #Hier über Saniyt abrufen 
+  useEffect(() => {
+
+      console.log('Fetch Videos');
+      fetchVideos();
+  }, []);
+
+  const openVideoLightbox = (videoPath) => {
+      // Hier kannst du eine Methode zum Öffnen der Lightbox implementieren
+      // Du könntest eine Modals-Komponente verwenden oder eine andere Lightbox-Library
+  };
+
+  return (
+      <>
+          <div className="video-gallery">
+                  <h1>Video Gallery! </h1>
+                  <p>nodemailerURL: {nodemailerURL}</p>
+                  <p>mediaUploadBaseURL: {mediaUploadBaseURL}</p>
+                  <p>myStudioTitle: {myStudioTitle}</p>
+
+                  {/* { 
+                      referenceData.map((ref, index) => (
+                          <div key={index}><p>{JSON.stringify(ref)}</p></div>
+                      )) 
+                  } */}
+
+                  <div className="video-grid">
+                  
+                  {referenceData.map((video, index) => (
+                      <div key={index} className="video-item">
+                      {/* <h2>{video.title}</h2> */}
+                      <h2>{video.name}</h2>
+                      <p>{video.description}</p>
+                      {/* <p>{JSON.stringify(video)}</p> */}
+                      <div className="video-thumbnail" onClick={() => openVideoLightbox(video.path)}>
+                          <video controls>
+                            {/* <source src={`${mediaUploadBaseURL}/video-api/${video.webmPath}`} type="video/webm" /> */}
+                            <source src={`${mediaUploadBaseURL}/video-api/${video.mp4Path}`} type="video/mp4" />
+                            {/* <source src={`https://assets.geschmaecker-sind-verschieden.de/video-api/${video.webmPath}`} type="video/mp4" /> */}
+                            Your browser does not support the video tag.
+                          </video>
+                      </div>
+                      </div>
+                  ))}
+                  </div>
+          </div>
+      </>
+  );
+}
 
 
 

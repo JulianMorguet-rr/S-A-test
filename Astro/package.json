@@ -1,8 +1,16 @@
 {
+  "engines": {
+    "node": "18.14.1"
+  },
+  "engineStrict": true,
+  
   "name": "certain-cloud",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "check-node-version": "node check-node-version.cjs",
+    "preinstall": "npm run check-node-version",
+    "predev": "node check-node-version.cjs",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -28,6 +36,7 @@
     "gsap": "^3.12.2",
     "marked": "^9.0.3",
     "nodemailer": "^6.9.4",
+    "semver": "^7.5.4",
     "tailwindcss": "^3.3.3",
     "validator": "^13.11.0",
     "vue": "^3.3.4",

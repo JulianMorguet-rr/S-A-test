@@ -74,7 +74,12 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
     Old way of fullwidth
     fullwidth-background-${data.fullwidth} fullwidth-${data.fullwidth}
 -->
-<div class={`text-with-asset inner-section md:grid ${data.sectionType}`} id={data.id ? data.id : ''} >
+
+
+<div class={`text-with-asset inner-section md:grid ${data.sectionType}`}  > <!-- id={data.id ? data.id : ''} -->
+
+    <div class="section-anchor" id={data.customID ? data.customID : ''}></div>
+
     <!-- <h2>Test: {JSON.stringify(data.sectionType)}</h2> -->
     <div class={`inner-wrapper unset-and-visible`}>
         <div class={`content unset-and-visible gap-8 items-center py-8 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 switch-sides-${data.switchImageToRightSide}`}>
@@ -123,7 +128,7 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                             {
                                 data.media?.videoThumbnail ?
                                     <picture class="video-thumbnail">
-                                        <source srcset={urlFor(data.media.videoThumbnail).width(1600).height(900).format('jpg').url()}} type="image/webp" />
+                                        <source srcset={urlFor(data.media.videoThumbnail).width(1600).height(900).format('jpg').url()}} type="image/jpg" />
                                         <img
                                             width="1600"
                                             height="900"
@@ -192,8 +197,8 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                     <button 
                         type="button" 
                         class={`toggleVideoButton-${uid}-${videoID} text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"`} 
-                        data-modal-toggle={`Das-ist-redundant-da-class-das-schon-macht-videoModal-${uid}-${videoID}`}
                     >
+                    <!-- data-modal-toggle={`Das-ist-redundant-da-class-das-schon-macht-videoModal-${uid}-${videoID}`} -->
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         <span class="sr-only">Close modal</span>
                     </button>
@@ -220,11 +225,11 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                             {
                                 data.media?.video &&
                                 <div class="modal-body">
-                                    <video controls poster={`${mediaUploadBaseURL}/video-api/${data.media.video.thumbnailPath}`} class="hero-background-video">
-                                            <source src={`${mediaUploadBaseURL}/video-api/${data.media.video.webmPath}`} type="video/webm">
+                                    <video controls poster={urlFor(data.media.videoThumbnail).width(1024).height(576).format('jpg').url()}} class="hero-background-video">
                                             <source src={`${mediaUploadBaseURL}/video-api/${data.media.video.mp4Path}`} type="video/mp4">
                                     </video>  
                                 </div>
+                                <!-- <source src={`${mediaUploadBaseURL}/video-api/${data.media.video.webmPath}`} type="video/webm"> -->
                             }
 
                             <div class="videoModal-body py-8 font-light text-gray-500 md:text-lg">

@@ -1,10 +1,16 @@
 ---
+import { urlFor } from '../lib/sanityApi.js';
+
 import BlockContent from "./BlockContent.astro";
 import PlayBtn from "./atomicComponents/PlayBtn.astro";
+
 
 const { statement, uid } = Astro.props
 
 const mediaUploadBaseURL: string = 'https://assets.geschmaecker-sind-verschieden.de'  // import.meta.env.NODEMEDIA_URL;
+
+const video = statement.media?.video
+const thumbnail = statement.media?.video?.customThumbnailImage ? statement.media?.video?.customThumbnailImage : statement.media?.video?.thumbnailPath;
 
 var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(.*?)-thumbnail/)[1]}`;
 
@@ -15,9 +21,17 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(
     {
         statement.media.video &&
         <picture class="teaser teaser-video z-0" >
-            <img 
-                src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.thumbnailPath}`}
-            >    
+            {   
+                statement.media?.video?.customThumbnailImage ?
+                <img 
+                    src={`${urlFor(thumbnail).width(768).height(432).format('jpg').url()}`}
+                >  
+                : 
+                <img 
+                    src={`${mediaUploadBaseURL}/video-api/${thumbnail}`}
+                >   
+            }
+            
         </picture>
 
         <!--
@@ -32,7 +46,7 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(
             aria-label="Nur ein Teaser für das Video"
         >
             
-            <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.mp4Path}`} type="video/mp4" />
+            <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.videoPlayer}.mp4`} type="video/mp4" />
         </video>
         -->
         <!-- <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video?.webmPath}`} type="video/webm" /> -->
@@ -52,6 +66,8 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(
                 </h3>
         
                 <p class="tertiary-color white-shadow text-1xl pb-2 font-medium ">
+                    <!-- <span class="font-bold">videoURL: {JSON.stringify(statement.media.video)}</span> -->
+                    <!-- <span class="font-bold">Thumbnail: {JSON.stringify(statement.media?.video?.customThumbnailImage)}</span> -->
                     { statement.positionOfAuthor }
                 </p>
             </div>

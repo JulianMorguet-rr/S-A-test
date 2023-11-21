@@ -143,6 +143,11 @@ export const textWithIllustrationType = defineType({
       ],
     }),
     defineField({
+      name: 'customID',
+      title: 'Custom Section ID (z.B. für Ankerlinks)',
+      type: 'string',
+    }),
+    defineField({
       name: 'switchImageToRightSide',
       title: 'Switch image to right side',
       type: 'boolean',
