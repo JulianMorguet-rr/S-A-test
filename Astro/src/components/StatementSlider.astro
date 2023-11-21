@@ -1,5 +1,7 @@
 ---
 
+import { urlFor } from '../lib/sanityApi.js';
+
 import SingleStatement from "./SingleStatement.astro";
 
 import BlockContent from "./BlockContent.astro";
@@ -32,7 +34,7 @@ function generateGuid() {
 
                 {
                     data.heading &&
-                    <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold">{data.heading}</h2>
+                    <h2 class="section-heading mb-4 text-4xl tracking-tight">{data.heading}</h2>
                 }
 
                 {
@@ -132,10 +134,17 @@ function generateGuid() {
                         {
                             statement.media?.video &&
                             <div class="modal-body">
-                                <video controls poster={`${mediaUploadBaseURL}/video-api/${statement.media.video.thumbnailPath}`} class="hero-background-video">
-                                        <!-- <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.webmPath}`} type="video/webm"> -->
-                                        <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.mp4Path}`} type="video/mp4">
-                                </video>  
+                                {   data.media?.video?.customThumbnailImage ?
+                                        <video controls poster={`${urlFor(data.media?.video?.customThumbnailImage).width(768).height(432).format('jpg').url()}`} class="hero-background-video">
+                                            <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.mp4Path}`} type="video/mp4">
+                                            <!-- <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.webmPath}`} type="video/webm"> -->
+                                        </video>  
+                                    : 
+                                        <video controls poster={`${mediaUploadBaseURL}/video-api/${statement.media.video.thumbnailPath}`} class="hero-background-video">
+                                            <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.mp4Path}`} type="video/mp4">
+                                            <!-- <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.webmPath}`} type="video/webm"> -->
+                                        </video>  
+                                }
                             </div>
                         }
 

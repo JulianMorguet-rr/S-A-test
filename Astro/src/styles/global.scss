@@ -1,51 +1,54 @@
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/assets/fonts/Montserrat/static/Montserrat-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/assets/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/assets/fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/assets/fonts/Montserrat/static/Montserrat-ExtraBold.ttf') format('truetype');
-    font-weight: 800;
-    font-style: normal;
-}
 // @font-face {
 //     font-family: 'Montserrat';
-//     src: url('../../public/assets/fonts/Montserrat/static/Montserrat-Black.ttf') format('truetype');
-//     font-weight: 900;
+//     src: url('/assets/fonts/Montserrat/static/Montserrat-Light.ttf') format('truetype');
+//     font-weight: 300;
 //     font-style: normal;
 // }
+// @font-face {
+//     font-family: 'Montserrat';
+//     src: url('/assets/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+//     font-weight: 400;
+//     font-style: normal;
+// }
+// @font-face {
+//     font-family: 'Montserrat';
+//     src: url('/assets/fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
+//     font-weight: 500;
+//     font-style: normal;
+// }
+// @font-face {
+//     font-family: 'Montserrat';
+//     src: url('/assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf') format('truetype');
+//     font-weight: 600;
+//     font-style: normal;
+// }
+// @font-face {
+//     font-family: 'Montserrat';
+//     src: url('/assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+//     font-weight: 700;
+//     font-style: normal;
+// }
+// @font-face {
+//     font-family: 'Montserrat';
+//     src: url('/assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+//     font-weight: 700;
+//     font-style: normal;
+// }
+// @font-face {
+//     font-family: 'Montserrat';
+//     src: url('/assets/fonts/Montserrat/static/Montserrat-ExtraBold.ttf') format('truetype');
+//     font-weight: 800;
+//     font-style: normal;
+// }
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900; /* Bereich der unterstützten Gewichte */
+    font-style: normal;
+}
+
+
 
 @import 'variables.scss';
 
@@ -79,6 +82,8 @@ body {
     background-color: #f8f8f8;
     background-color: #ffffff;
     text-wrap: pretty;
+    font-display: swap;
+    text-wrap: pretty;
 }
 
 html.overflow-hidden {
@@ -90,11 +95,13 @@ p, cite {
     margin-bottom: 1rem;
     font-size: 20px;
     line-height: 1.5;
+    text-wrap: pretty;
 }
 
 h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote, cite {
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', Arial, sans-serif;
+    text-wrap: pretty;
 }
 
 h2, h3, h4, h5 {
@@ -435,7 +442,7 @@ main {
 
 h1 {
     // font-size: 3rem;
-    font-weight: 800;
+    font-weight: 700;
     margin: 0;
 }
 .text-gradient {
@@ -546,7 +553,6 @@ h1 {
     h1 {
         // color: white;
         // font-size: 2rem;
-        font-weight: 800;
         margin: 0;
         // color: #333 !important;
 
@@ -1475,7 +1481,7 @@ footer .social-icons a:hover svg {
     --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
 }
 html {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', Arial, sans-serif;
     background-color: #F6F6F6;
 }
 code {
@@ -1707,7 +1713,7 @@ footer span.svg svg {
 .text-4xl {
     font-size: 60px;
     line-height: 1.0625;
-    /* font-weight: 600 !important; */
+    font-weight: 700 !important;
     letter-spacing: -1px;
 }
 

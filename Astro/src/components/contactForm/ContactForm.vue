@@ -75,7 +75,7 @@ const handleSubmit = async () => {
 
       <div class="max-w-screen-md m-auto text-center py-8">
         <p class="section-tagline text-gray-500 sm:text-xl mb-4">{{ props.data.tagline }}</p>
-        <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">{{ props.data.heading }}</h2>
+        <h2 class="section-heading mb-4 text-4xl tracking-tight text-gray-900">{{ props.data.heading }}</h2>
 
         <!-- nodemailerBaseURL: {{nodemailerBaseURL}}<br>
         nodemailerContactFormPath: {{nodemailerContactFormPath}}<br> -->

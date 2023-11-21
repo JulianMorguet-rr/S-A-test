@@ -10,7 +10,8 @@ const { statement, uid } = Astro.props
 const mediaUploadBaseURL: string = 'https://assets.geschmaecker-sind-verschieden.de'  // import.meta.env.NODEMEDIA_URL;
 
 const video = statement.media?.video
-const thumbnail = statement.media?.video?.customThumbnailImage ? statement.media?.video?.customThumbnailImage : statement.media?.video?.thumbnailPath;
+const thumnailFromFfmpeg = `${mediaUploadBaseURL}/video-api/${statement.media.video?.thumbnailPath}`
+const thumbnail = statement.media?.video?.customThumbnailImage ? statement.media?.video?.customThumbnailImage : thumnailFromFfmpeg
 
 var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(.*?)-thumbnail/)[1]}`;
 
@@ -25,10 +26,12 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(
                 statement.media?.video?.customThumbnailImage ?
                 <img 
                     src={`${urlFor(thumbnail).width(768).height(432).format('jpg').url()}`}
+                    width="768"
+                    height="432"
                 >  
                 : 
                 <img 
-                    src={`${mediaUploadBaseURL}/video-api/${thumbnail}`}
+                    src={thumbnail}
                 >   
             }
             
@@ -42,7 +45,7 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(
             autoplay 
             muted 
             playsinline 
-            poster={`${mediaUploadBaseURL}/video-api/${statement.media.video?.thumbnailPath}`}
+            poster={thumbnail}
             aria-label="Nur ein Teaser für das Video"
         >
             
