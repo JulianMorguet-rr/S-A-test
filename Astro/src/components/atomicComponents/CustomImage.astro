@@ -98,6 +98,7 @@ let asyncValue: AsyncValue = setAsyncValue(async)
         src={urlFor(imgSrc).width(width).height(height).format('jpg').url()}
         srcset={`
             ${urlFor(imgSrc).width(width).height(height).format('webp').url()} ${width}w,
+            ${urlFor(imgSrc).width(Math.floor(width / 1.5)).height(Math.floor(height / 1.5)).format('webp').url()} ${Math.floor(width / 1.5)}w,
             ${urlFor(imgSrc).width(width / 2).height(height / 2).format('webp').url()} ${width / 2}w,
             ${urlFor(imgSrc).width(width / 4).height(height / 4).format('webp').url()} ${width / 4}w
         `} 
