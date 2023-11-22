@@ -11,14 +11,48 @@ export default defineType({
             description: 'Select pages for the top menu',
             type: 'array',
             of: [
+              // {
+              //   type: 'reference',
+              //   to: [
+              //     { type: 'page' },
+              //     { type: 'postOverview' },
+              //     { type: 'post' },
+              //   ],
+              // },
               {
-                type: 'reference',
-                to: [
-                  { type: 'page' },
-                  { type: 'postOverview' },
-                  { type: 'post' },
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  {
+                    name: 'linkName',
+                    title: 'Name des Links',
+                    description: 'wird im Frontend so angezeigt',
+                    type: 'string',
+                  },
+                  {
+                    name: 'isReference',
+                    title: 'Use Reference',
+                    description: 'Use Reference (internal Page or Post) or Individual URL',
+                    type: 'boolean',
+                    initialValue: true,
+                  },
+                  {
+                    name: 'pageReference',
+                    title: 'Page Reference',
+                    type: 'reference',
+                    to: [{ type: 'page' }, { type: 'postOverview' }, { type: 'post' }],
+                    hidden: ({parent, value}) => parent?.isReference !== true,
+                  },
+                  {
+                    name: 'individualURL',
+                    title: 'Individueller Link',
+                    description: 'Nur für Ankerlinks oder externe Links',
+                    type: 'string',
+                    hidden: ({parent, value}) => parent?.isReference === true,
+                  },
                 ],
-              },
+              }
             ],
         }),
         defineField({

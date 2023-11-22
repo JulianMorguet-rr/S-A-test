@@ -173,6 +173,11 @@ p {
 $numberOfMobileNavLinks: 10;
 $mobileNavDuration: 0.6;
 
+
+.logo svg {
+    height: 48px;
+}
+
 header {
     position: fixed;
     z-index: 9999;
@@ -419,11 +424,6 @@ header {
 
 .spacing {
     padding: 4rem 0 0 0;
-}
-
-
-.header-space {
-    height: 80px;
 }
 
 main {

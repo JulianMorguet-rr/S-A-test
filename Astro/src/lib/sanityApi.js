@@ -35,7 +35,10 @@ export async function getMainMenu() {
   // TODO: Instead of fetching all Data from the liked sites in the mainNav and footerNav, fetch only the data that is needed for the mainMenu
   const query = groq`*[_type == "mainMenu"][0]{
     ..., 
-    mainNav[]->,
+    mainNav[] {
+      ...,
+      pageReference->,
+    },
     footerNav {
       footerNavLeft[]->,
       footerNavRight[]->,
@@ -64,7 +67,7 @@ export async function getHomePage() {
       ...,
 
       customThumbnailImage->,
-      
+
       media {
         ...,
         video->,

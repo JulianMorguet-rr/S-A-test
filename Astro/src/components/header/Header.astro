@@ -18,8 +18,16 @@ import { Image } from 'astro:assets';
 import { urlFor } from '../../lib/sanityApi.js';
 
 interface NavItem {
-    title: string
-    slug: string
+    linkName: string
+    title: string // "title" is not in use anymore
+    isReference?: boolean
+    // If is Reference is true
+    slug?: string
+    pageReference?: {
+        slug: string
+    }
+    // If is Reference is false
+    individualURL?: string
 }
 interface GlobalSiteSettings {
     title: string
@@ -93,25 +101,51 @@ computedMainNav()
             </a>
             
             <nav role="navigation" class="desktop-nav">
+                <!-- {
+                    <p>mainNav: { JSON.stringify(mainNav) }</p>
+                } -->
                 {mainNav.map((nav, index) => (
                     <div>
-                        
-                        <!--
-                        <p style="color: #000;" onclick={`loadPage("${nav.slug}")`}>
-                            {nav.title}    
-                        </p>
-                        -->
-                        <a
-                            href={nav.slug}
-                            class={
-                                (`${nav.slug}` === currentURL ? 'active' : '')
-                            }
-                        >
-                            {nav.title} 
-                        </a>
+                        {
+                            nav?.isReference ?
+                            <a
+                                href={nav.pageReference?.slug}
+                                class={
+                                    (`${nav.pageReference?.slug}` === currentURL ? 'active' : '')
+                                }
+                            >
+                                {nav.linkName} 
+                            </a>
+                            : 
+                            
+                            <a
+                                href={nav.individualURL}
+                            >
+                                {nav.linkName} 
+                            </a>
+                        }
                     </div>
                 ))}
             </nav>
+
+            <!--
+                av?.isReference ?
+                            <a
+                                href={nav.slug}
+                                class={
+                                    (`${nav.slug}` === currentURL ? 'active' : '')
+                                }
+                            >
+                                {nav.title} 
+                                {JSON.stringify(nav)}
+                            </a>
+                            : 
+                            <a
+                                href={nav.individualURL}
+                            >
+                                {nav.linkName} 
+                            </a>
+             -->
 
 
             
@@ -157,17 +191,7 @@ computedMainNav()
 
 
 
-<div class="header-space"></div>
-
-
-
-<style is:global>
-    .logo svg {
-        height: 48px;
-        /* padding: 6px 0; */
-    }
-</style>
-
+<div class="header-space" style="height: 80px;"></div>
 
 <style lang="scss">
 

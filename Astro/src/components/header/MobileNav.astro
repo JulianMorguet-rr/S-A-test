@@ -10,16 +10,26 @@ const currentURL = Astro.request.url;
 <nav role="navigation" class="toggle-mobile-nav bg-dsv-orange">
     
     {mainNav.map((nav, index) => (
-        <>
-            <a
-                href={nav.slug}
-                class={
-                    (`http://localhost:4321${nav.slug}` === currentURL ? 'active' : '')
-                }
-            >
-                {nav.title} 
-            </a>
-        </>
+        <div>
+            {
+                nav?.isReference ?
+                <a
+                    href={nav.pageReference?.slug}
+                    class={
+                        (`${nav.pageReference?.slug}` === currentURL ? 'active' : '')
+                    }
+                >
+                    {nav.linkName} 
+                </a>
+                : 
+                
+                <a
+                    href={nav.individualURL}
+                >
+                    {nav.linkName} 
+                </a>
+            }
+        </div>
     ))}
 
 </nav>
