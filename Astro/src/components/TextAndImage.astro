@@ -134,9 +134,9 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                                             height="900"
                                             src={urlFor(data.media.videoThumbnail).width(1600).height(900).format('jpg').url()}
                                             srcset={`
-                                                ${urlFor(data.media.videoThumbnail).width(1600).height(900).format('jpg').url()} 2400w,
-                                                ${urlFor(data.media.videoThumbnail).width(1200).height(675).format('jpg').url()} 2000w,
-                                                ${urlFor(data.media.videoThumbnail).width(800).height(450).format('jpg').url()} 1600w,
+                                                ${urlFor(data.media.videoThumbnail).width(1600).height(900).format('webp').url()} 2400w,
+                                                ${urlFor(data.media.videoThumbnail).width(1200).height(675).format('webp').url()} 2000w,
+                                                ${urlFor(data.media.videoThumbnail).width(800).height(450).format('webp').url()} 1600w,
                                             `}
                                             alt="media.video._id || 'Video Thumbnail'"
                                             loading="lazy" 
