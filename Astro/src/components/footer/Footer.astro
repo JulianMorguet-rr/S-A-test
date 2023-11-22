@@ -17,6 +17,7 @@ interface GlobalSiteSettings {
 }
 interface SocialLink {
     link: string
+    title: string
     svg: string
 }
 
@@ -125,7 +126,13 @@ const date = new Date();
             {
                 mainMenu.footerNav?.socialLinks?.map((socialItem, index) => {
                     return (
-                        <a href={socialItem.link} target="_blank" class="mr-4 hover:underline md:mr-6 ">
+                        // <p>{JSON.stringify(socialItem)}</p>
+                        <a 
+                            href={socialItem.link} 
+                            target="_blank" 
+                            aria-label={`Link to Social Media Plattform ${socialItem.title}`}
+                            class="mr-4 hover:underline md:mr-6"
+                        >
                             <span set:html={socialItem.svg}></span>
                         </a>
                     )

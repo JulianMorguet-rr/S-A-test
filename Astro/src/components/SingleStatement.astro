@@ -31,12 +31,18 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(
                     `}
                     width="768"
                     height="432"
+                    alt={statement.media.video.alt}
                     loading="lazy" 
                     decoding="async"
                 >  
                 : 
                 <img 
                     src={thumbnail}
+                    width="768"
+                    height="432"
+                    alt={statement.media?.video?.alt}
+                    loading="lazy" 
+                    decoding="async"
                 >   
             }
             
