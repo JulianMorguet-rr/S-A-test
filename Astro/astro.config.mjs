@@ -3,7 +3,7 @@ import sanity from "astro-sanity";
 import vue from "@astrojs/vue";
 import node from "@astrojs/node";
 import tailwind from "@astrojs/tailwind";
-import 'flowbite';
+// import 'flowbite';
 import robotsTxt from "astro-robots-txt";
 
 import prefetch from "@astrojs/prefetch";
