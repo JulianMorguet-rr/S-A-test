@@ -134,8 +134,13 @@ function generateGuid() {
                         {
                             statement.media?.video &&
                             <div class="modal-body">
-                                {   data.media?.video?.customThumbnailImage ?
-                                        <video controls poster={`${urlFor(data.media?.video?.customThumbnailImage).width(768).height(432).format('jpg').url()}`} class="hero-background-video">
+                                <!-- <p>custom Thumbnail: {JSON.stringify(statement.media?.video?.customThumbnailImage)}</p> -->
+                                {   statement.media?.video?.customThumbnailImage ?
+                                        <video 
+                                            controls 
+                                            poster={`${urlFor(statement.media?.video?.customThumbnailImage).width(768).height(432).format('webp').url()}`} 
+                                            preload="none"
+                                            class="hero-background-video">
                                             <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.mp4Path}`} type="video/mp4">
                                             <!-- <source src={`${mediaUploadBaseURL}/video-api/${statement.media.video.webmPath}`} type="video/webm"> -->
                                         </video>  

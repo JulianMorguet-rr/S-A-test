@@ -128,12 +128,14 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                             {
                                 data.media?.videoThumbnail ?
                                     <picture class="video-thumbnail">
-                                        <source srcset={urlFor(data.media.videoThumbnail).width(1600).height(900).format('jpg').url()}} type="image/jpg" />
+                                        <source srcset={urlFor(data.media.videoThumbnail).width(1600).height(900).format('webp').url()}} type="image/webp" />
                                         <img
                                             width="1600"
                                             height="900"
-                                            src={urlFor(data.media.videoThumbnail).width(1600).height(900).format('webp').url()}
+                                            src={urlFor(data.media.videoThumbnail).width(1600).height(900).format('jpg').url()}
                                             alt="media.video._id || 'Video Thumbnail'"
+                                            loading="lazy" 
+                                            decoding="async"
                                         />
                                     </picture>
                                     :
@@ -144,6 +146,8 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                                             height="900"
                                             src={`${mediaUploadBaseURL}/video-api/${data.media.video?.thumbnailPath}`}
                                             alt="media.video._id || 'Video Thumbnail'"
+                                            loading="lazy" 
+                                            decoding="async"
                                         />
                                     </picture>
                             }
@@ -225,7 +229,7 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                             {
                                 data.media?.video &&
                                 <div class="modal-body">
-                                    <video controls poster={urlFor(data.media.videoThumbnail).width(1024).height(576).format('jpg').url()}} class="hero-background-video">
+                                    <video controls poster={urlFor(data.media.videoThumbnail).width(1024).height(576).format('webp').url()}} class="hero-background-video">
                                             <source src={`${mediaUploadBaseURL}/video-api/${data.media.video.mp4Path}`} type="video/mp4">
                                     </video>  
                                 </div>

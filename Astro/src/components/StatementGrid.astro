@@ -86,12 +86,17 @@ import { urlFor } from '../lib/sanityApi.js';
                                                     </video>
                                                 : statement.media?.image &&
                                                     <picture class="video-thumbnail">
-                                                        <source srcset={urlFor(statement.media.image).width(1600).height(900).format('jpg').url()}} type="image/webp" />
+                                                        <source srcset={urlFor(statement.media.image).width(1600).height(900).format('webp').url()}} type="image/webp" />
                                                         <img
                                                             width="1600"
                                                             height="900"
-                                                            src={urlFor(statement.media.image).width(1600).height(900).format('webp').url()}
+                                                            src={urlFor(statement.media.image).width(1600).height(900).format('jpg').url()}
+                                                            srcset={`
+                                                                ${urlFor(statement.media.image).width(1600).height(900).format('webp').url()}
+                                                            `}
                                                             alt="media.video._id || 'Video Thumbnail'"
+                                                            loading="lazy" 
+                                                            decoding="async"
                                                         />
                                                     </picture>
                                             }
@@ -137,7 +142,7 @@ import { urlFor } from '../lib/sanityApi.js';
                                                     </video>
                                                 : statement.media?.image &&
                                                     <picture class="video-thumbnail">
-                                                        <source srcset={urlFor(statement.media.image).width(1600).height(900).format('jpg').url()}} type="image/webp" />
+                                                        <source srcset={urlFor(statement.media.image).width(1600).height(900).format('webp').url()}} type="image/webp" />
                                                         <img
                                                             width="1600"
                                                             height="900"

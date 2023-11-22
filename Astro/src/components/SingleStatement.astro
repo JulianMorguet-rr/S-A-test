@@ -26,8 +26,13 @@ var videoID = `statement-${statement.media?.video?.thumbnailPath?.match(/video-(
                 statement.media?.video?.customThumbnailImage ?
                 <img 
                     src={`${urlFor(thumbnail).width(768).height(432).format('jpg').url()}`}
+                    srcset={`
+                        ${urlFor(thumbnail).width(768).height(432).format('webp').url()} 768w
+                    `}
                     width="768"
                     height="432"
+                    loading="lazy" 
+                    decoding="async"
                 >  
                 : 
                 <img 
