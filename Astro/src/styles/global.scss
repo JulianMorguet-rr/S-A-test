@@ -356,6 +356,11 @@ header {
                 }
 
 
+                div {
+                    z-index: 99;
+                }
+
+
                 @keyframes mobileNavBefore {
                     0%, 100% {
                         top: -20vw;

@@ -96,10 +96,16 @@ const mainMenu = await getMainMenu();
       const burgerEventListener = () => {
         const hamburger = document.querySelector('.hamburger')
         const mobileNav = document.querySelector('.mobile-nav')
-        if(!hamburger || !mobileNav) return
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav a')
+        if(!hamburger || !mobileNav || !mobileNavLinks) return
         hamburger.addEventListener('click', () => {
           mobileNav.classList.toggle('expanded');
         });
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileNav.classList.remove('expanded');
+          });
+        })
       }
   
       // document.addEventListener('astro:page-load', burgerEventListener);
