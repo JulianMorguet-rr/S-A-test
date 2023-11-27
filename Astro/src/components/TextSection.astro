@@ -12,7 +12,7 @@ const content = convertBlockContentToHTML(data.blockContent);
 ---
 
 
-<div class={`text-section  ${data.sectionType} ${data.disabelScrollIntoViewAnimation ? 'disable-scroll-into-view-animation' : ''}`} >
+<div class={`text-section relative ${data.sectionType} ${data.disabelScrollIntoViewAnimation ? 'disable-scroll-into-view-animation' : ''}`} >
 
     <div class="section-anchor" id={data.id ? data.id : ''}></div>
 
