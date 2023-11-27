@@ -6,7 +6,7 @@ geschmaecker-sind-verschieden.de {
 }
 
 www.geschmaecker-sind-verschieden.de {
-        redir geschmaecker-sind-verschieden.de
+        redir https://geschmaecker-sind-verschieden.de{uri}
 }
 
 assets.geschmaecker-sind-verschieden.de {
