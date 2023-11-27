@@ -5,6 +5,10 @@ geschmaecker-sind-verschieden.de {
         # reverse_proxy /mail-api/* 127.0.0.1:2000
 }
 
+www.geschmaecker-sind-verschieden.de {
+        redir geschmaecker-sind-verschieden.de{uri}
+}
+
 assets.geschmaecker-sind-verschieden.de {
         reverse_proxy /video-api/* 127.0.0.1:2001
 }
