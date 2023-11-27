@@ -120,7 +120,7 @@ picture {
 }
 
 @media screen and (max-width: 999px) {
-    h3, h4, h5, h6 {
+    h3, h4, h5 {
         font-size: 24px;
         line-height: 1.25;
         letter-spacing: -1px;
@@ -621,6 +621,8 @@ div:not(.quote-content) .section-heading {
     line-height: 1.15;
 }
 
+
+
 .quote-component {
     width: calc(50% - 2.5rem);
 
@@ -767,6 +769,9 @@ div:not(.quote-content) .section-heading {
 .statement-slider {
     position: relative;
     
+    .section-cta {
+        text-align: center !important;
+    }
 }
 
 .statement-wrapper.slider {
