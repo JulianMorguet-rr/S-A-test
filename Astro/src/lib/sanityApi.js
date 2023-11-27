@@ -74,6 +74,7 @@ export async function getHomePage() {
       },
       cta {
         ...,
+        ctaLink->,
         ctaReferenz->,
       }, 
 
@@ -88,7 +89,6 @@ export async function getHomePage() {
           video->, 
         },
         extraThumbnail->,
-        test
       },
     }
   }`; // "page" is the name of the schema from '/scr/structure/index.js'

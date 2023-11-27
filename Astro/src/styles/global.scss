@@ -509,6 +509,22 @@ h1 {
     }
 }
 
+.statement-slider .cta {
+    color: #fff;
+    background: none;
+    box-shadow: none;
+    border-radius: 999px;
+    border: solid 2px #fff;
+    // transform: translate(0, 0);
+    // opacity: 1;
+    transition: background-color 0.3s $standard-transition-fn, color 0.3s $standard-transition-fn;
+    &:hover {
+        background-color: #fff;
+        color: $Tertiary-color;
+        border-radius: 999px;
+    }
+}
+
 /* Components */
 .hero {
     width: 100%;
