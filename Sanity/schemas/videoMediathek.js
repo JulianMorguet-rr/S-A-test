@@ -1,21 +1,42 @@
 import { VideoUploader, VideoGallery } from '../components/VideoUploader';
+import { JsonView } from '../components/JsonView';
 
 export default {
     name: 'videoMediathek',
     title: 'Video Mediathek',
     type: 'document',
     fields: [
-    //   {
-    //     name: 'title',
-    //     title: 'Title',
-    //     type: 'string',
-    //     validation: Rule => Rule.required(),
-    //   },
-    //   {
-    //     name: 'description',
-    //     title: 'Description',
-    //     type: 'text',
-    //   },
+
+      {
+        name: 'rawData',
+        title: 'Raw Data',
+        type: 'blockContent', // if i use other other fields like text I should switch for Example to 'string' 
+        components: {
+          input: JsonView,
+        }
+      },
+
+      {
+        name: 'whatever',
+        title: 'Whatever',
+        type: 'string',
+        description: 'jsx Video Uploader (real component)',
+      }, 
+
+      //   {
+      //     name: 'title',
+      //     title: 'Title',
+      //     type: 'string',
+      //     validation: Rule => Rule.required(),
+      //   },
+      //   {
+      //     name: 'description',
+      //     title: 'Description',
+      //     type: 'text',
+      //   },
+
+
+      
       {
         name: 'videoUploader',
         title: 'Video Uploader',
@@ -25,6 +46,7 @@ export default {
           input: VideoUploader
         }
       },
+      
       {
         name: 'videoGallery',
         title: 'Video Gallery',
@@ -34,6 +56,9 @@ export default {
           input: VideoGallery
         }
       },
+
+      
+      
       
     //   {
     //     name: 'video',

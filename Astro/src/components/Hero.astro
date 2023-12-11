@@ -56,12 +56,12 @@ const bgColor = 'red';
 
 
 <div class="hero-wrapper">
-    <div class={`hero ${pageContent ? 'page-hero' : ''} ${pageContent.heroSettings?.heroType === 'textAndVideoModal' ? 'text-and-video-modal-hero' : ''}`} style={``}>
+    <div class={`hero ${pageContent ? 'page-hero' : ''} ${pageContent?.heroSettings?.heroType === 'textAndVideoModal' ? 'text-and-video-modal-hero' : ''}`} style={``}>
 
 
         {
             pageContent &&
-            pageContent.heroSettings?.heroType === 'textAndVideoModal' &&
+            pageContent?.heroSettings?.heroType === 'textAndVideoModal' &&
             (
             <section class="z-10">
                 <div class="py-0 px-4 mx-auto max-w-screen-xl">
@@ -96,6 +96,7 @@ const bgColor = 'red';
 
                             <video 
                                 controls
+                                preload="none"
                                 poster={urlFor(pageContent?.textAndVideoModalHero?.videoPoster).width(800).height(450).format('webp').url()}
                                 class="rounded-lg shadow-lg w-full"
                             >
@@ -189,7 +190,7 @@ const bgColor = 'red';
 
                 {
                     postContent.mainImage ? (
-                        <div class="img-wrapper pt-4 xl:pt-16 px-4 lg:px-6 mx-auto max-w-screen-xl">
+                        <div class="img-wrapper pt-4 xl:pt-8 px-4 lg:px-6 mx-auto max-w-screen-xl">
                             <Image 
                                 width="1280"
                                 height="627"

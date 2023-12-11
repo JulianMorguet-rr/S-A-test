@@ -190,7 +190,12 @@ export async function getPostBySlug(slug) {
       ..., 
       asset->{
         ...,
-      },
+        "_key": _id
+      }
+    },
+    asset->{
+      ...,
+      "_key": _id
     },
     ...,
     author->,

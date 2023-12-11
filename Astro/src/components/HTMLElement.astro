@@ -1,0 +1,66 @@
+---
+
+// Import Composables 
+import { convertBlockContentToHTML } from '../composables/blockContentToHTML';
+
+const { data } = Astro.props // as { pageBuilder: ContentItem };
+
+// const content = convertBlockContentToHTML(data.htmlElement);
+const whatever = 'The Coding Train say choo choo!'
+
+---
+
+
+<div class={`text-section relative ${data.sectionType} ${data.disabelScrollIntoViewAnimation ? 'disable-scroll-into-view-animation' : ''}`} >
+
+    <div class="section-anchor" id={data.id ? data.id : ''}></div>
+
+    <div class={`inner-wrapper ${data.isCentered ? 'text-center' : 'text-left'}`}>
+        <!-- {JSON.stringify(data)} -->
+
+        <div class={`py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 ${data.isCentered ? 'text-center' : 'text-left'}`}>
+            <div class=`${data.smallerWidth ? 'max-w-screen-md' : ''} ${data.isCentered ? 'max-w-screen-md m-auto' : ''}`>
+                
+                <p class="section-tagline text-gray-500 sm:text-xl mb-4">
+                    {data.tagline}
+                    Tagline
+                </p>
+                <h2 class="section-heading mb-4 text-4xl tracking-tight text-gray-900">
+                    {data.heading}
+                </h2>
+
+                <div class="section-block-content font-light text-gray-500 md:text-lg" set:html={data.htmlElement}></div>
+
+                <!-- <p>{ JSON.stringify(data) }</p> -->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  <style lang="scss">
+    .fullwidthBackground {
+        left: calc(50% - 50vw );
+        width: 100vw !important;
+        position: relative;
+    }
+
+    .fullwidthContent {
+        left: calc(50% - 50vw );
+        width: 100vw !important;
+        position: relative;
+
+        div.inner-wrapper{
+
+            > div {
+                width: 100vw !important;
+                max-width: 100vw;
+            }
+        }
+    }
+
+
+  </style>

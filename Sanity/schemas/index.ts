@@ -25,6 +25,7 @@ import {pageType} from './page'
 // Page Sections 
 import {heroType} from './heroType'
 import {textWithIllustrationType} from  './textWithIllustrationType'
+import {textWithStickyImage} from  './textWidthStickyImage'
 import {textSectionType} from  './textSectionType'
 import { textWithTwoColumns } from './textWithTwoColumns'
 import {imageGalleryType} from  './imageGallerieType'
@@ -37,6 +38,7 @@ import {form} from  './formType'
 import {quoteCollection} from './quoteCollection'
 import {singleQuoteType} from './singleQuoteType'
 import {accordionSection} from './accordionSection'
+import { htmlElement } from "./htmlElement";
 
 import contactSection from './contactSection'
 
@@ -73,6 +75,7 @@ export const schemaTypes = [
   textSectionType,
   textWithTwoColumns,
   textWithIllustrationType,
+  textWithStickyImage,
   imageGalleryType,
   accordionSection,
   singleQuoteType,
@@ -83,6 +86,7 @@ export const schemaTypes = [
   socialLinks,
   form,
   contactSection,
+  htmlElement,
   // Multistep Form 
   // multistep,
   multistepQuestions,

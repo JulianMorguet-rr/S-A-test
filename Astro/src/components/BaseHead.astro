@@ -82,9 +82,10 @@ const { page, lang, version, path } =  Astro.params
 <meta http-equiv="Content-Security-Policy" 
 	content="
 		default-src 'self' https://cdn.sanity.io/ https://assets.geschmaecker-sind-verschieden.de/ websockets.geschmaecker-sind-verschieden.de; 
-		style-src 'self' 'unsafe-inline'; 
+		style-src 'self' https://sibforms.com/ 'unsafe-inline'; 
+		font-src 'self' https://assets.brevo.com;
 		media-src 'self' https://geschmaecker-sind-verschieden.de/ https://assets.geschmaecker-sind-verschieden.de/ websockets.geschmaecker-sind-verschieden.de http://localhost:2001 https://placehold.co;
-		img-src 'self' https://cdn.sanity.io/ https://geschmaecker-sind-verschieden.de/ https://assets.geschmaecker-sind-verschieden.de/ http://localhost:2001 https://placehold.co https://uploads-ssl.webflow.com/;
+		img-src 'self' https://cdn.sanity.io/ https://geschmaecker-sind-verschieden.de/ https://assets.geschmaecker-sind-verschieden.de/ http://localhost:2001 https://placehold.co https://uploads-ssl.webflow.com/ https://img.mailinblue.com;
 		script-src 'self' https://cdn.sanity.io/ https://cdnjs.cloudflare.com http://www.etracker.de/ http://code.etracker.com 'unsafe-inline';
 		script-src-elem 'self' https://cdnjs.cloudflare.com http://www.etracker.de/ http://code.etracker.com 'unsafe-inline';
 		connect-src 'self' http://www.etracker.de/ websockets.geschmaecker-sind-verschieden.de http://code.etracker.com;

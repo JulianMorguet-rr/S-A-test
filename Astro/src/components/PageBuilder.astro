@@ -15,6 +15,7 @@ import ContactForm from '../components/contactForm/ContactForm.vue';
 import JustAnImage from './JustAnImage.astro';
 import TextSection from './TextSection.astro';
 import TextAndImage from './TextAndImage.astro';
+import TextWithStickyImage from './TextWithStickyImage.astro';
 // @ts-ignore
 import Quote from './quotes/Quote.astro';
 import SingleQuote from './SingleQuote.astro';
@@ -25,6 +26,7 @@ import TextWithTwoColumns from './TextWithTwoColumns.astro';
 import QuoteCollection from './QuoteCollection.astro';
 import ContactSection from './ContactSection.astro';
 import StatementGrid from './StatementGrid.astro';
+import HTMLElement from './HTMLElement.astro';
 // import { Image } from 'astro:assets';
 
 
@@ -69,6 +71,11 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
         <TextAndImage 
             data={pageBuilder}
         />
+    }
+
+    {
+    pageBuilder._type === 'textWithStickyImage' &&
+        <TextWithStickyImage data={pageBuilder} />
     }
     
     {pageBuilder._type === 'gallery' &&  
@@ -127,7 +134,6 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     }
 
 
-
     {pageBuilder._type === 'accordionSection' && 
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
                 <section class="bg-white dark:bg-gray-900">
@@ -138,7 +144,7 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
                             </p>
                         }
                         { pageBuilder.heading &&
-                        <h2 class="section-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
+                        <h2 class="section-heading mb-4 text-4xl tracking-tight text-gray-900">
                             {pageBuilder.heading}
                         </h2>
                         }
@@ -178,6 +184,12 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
     {
         pageBuilder._type === 'contactSection' &&
             <ContactSection data={pageBuilder} />
+    }
+    
+    
+    {
+        pageBuilder._type === 'htmlElement' &&
+            <HTMLElement data={pageBuilder} />
     }
 
 </section>

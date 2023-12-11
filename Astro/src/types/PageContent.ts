@@ -66,6 +66,12 @@ export type ContentItem =
             video?: any;
             sectionType: 'standard' | 'fullwidthBackground' | 'fullwidthContent' 
         }
+    |   { _type: 'textWithStickyImage'; 
+            heading: string; 
+            text: string; 
+            image: any; 
+            sectionType: 'standard' | 'fullwidthBackground' | 'fullwidthContent' 
+        }
     |   { _type: 'textSection'; 
             heading: string; 
             text: string; 
@@ -134,6 +140,12 @@ export type ContentItem =
             }
             phone?: string;
             mail?: string;
+        }
+    |   { 
+            _type: 'htmlElement'; 
+            title?: string;
+            tagline?: string;
+            htmlElement?: string;
         }
 
 

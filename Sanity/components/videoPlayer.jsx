@@ -120,6 +120,7 @@ const VideoPlayer = (props) => {
                 onFocus={onFocus}
                 onBlur={onBlur} 
                 onChange={handleChange}
+                id={'videoURL'}
             />
         </div>
     );

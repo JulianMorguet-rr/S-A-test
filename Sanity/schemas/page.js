@@ -213,88 +213,127 @@ export const pageType = defineType({
       type: 'array',
       title: 'Page builder',
       of: [
-      {
-        name: 'hero',
-        type: 'hero',
-        title: 'Hero',
-      },
-      {
-        name: 'textSection',
-        type: 'textSection',
-        title: 'Text Section',
-      },
-      {
-        name: 'textWithTwoColumns',
-        type: 'textWithTwoColumns',
-        title: 'Zweispaltiger Text',
-      },
-      {
-        name: 'textWithIllustration',
-        type: 'textWithIllustration',
-        title: 'Text with Illustaion',
-      },
-      {
-        name: 'gallery',
-        type: 'gallery',
-        title: 'Gallery',
-      },
-      {
-        name: 'accordionSection',
-        type: 'accordionSection',
-        title: 'Accordion Section',
-      },
-      
-      {
-        name: 'quoteCollection',
-        type: 'quoteCollection',
-        title: 'Zitat Collection',
-      },
-      {
-        name: 'singleQuote',
-        type: 'singleQuote',
-        title: 'Einzelnes Zitat',
-      },
-      
-      {
-        name: 'statementCollection',
-        type: 'statementCollection',
-        title: 'Statement Collection',
-      },
-      {
-        name: 'statementCollectionGrid',
-        type: 'statementCollectionGrid',
-        title: 'Statement Collection Grid',
-      },
-      {
-        name: 'form',
-        type: 'form',
-        title: 'Form',
-      },
-      {
-        name: 'contactSection',
-        type: 'contactSection',
-        title: 'Kontakt Section',
-      },
-      // defineArrayMember({
-      //   name: 'justAnImage',
-      //   type: 'justAnImage',
-      //   title: 'Just an Image',
-      // }),
-      
-
-
-
-      // defineArrayMember({
-      //   name: 'video',
-      //   type: 'video',
-      // }),
-      // defineArrayMember({
-      //   name: 'callToAction',
-      //   type: 'reference',
-      //   to: [{type: 'promotion'}],
-      // }),
+        {
+          name: 'hero',
+          type: 'hero',
+          title: 'Hero',
+        },
+        {
+          name: 'textSection',
+          type: 'textSection',
+          title: 'Text Section',
+        },
+        {
+          name: 'textWithTwoColumns',
+          type: 'textWithTwoColumns',
+          title: 'Zweispaltiger Text',
+        },
+        {
+          name: 'textWithIllustration',
+          type: 'textWithIllustration',
+          title: 'Text with Illustaion',
+        },
+        {
+          name: 'textWithStickyImage',
+          type: 'textWithStickyImage',
+          title: 'Text mit sticky Image',
+        },
+        {
+          name: 'gallery',
+          type: 'gallery',
+          title: 'Gallery',
+        },
+        {
+          name: 'accordionSection',
+          type: 'accordionSection',
+          title: 'Accordion Section',
+        },
+        
+        {
+          name: 'quoteCollection',
+          type: 'quoteCollection',
+          title: 'Zitat Collection',
+        },
+        {
+          name: 'singleQuote',
+          type: 'singleQuote',
+          title: 'Einzelnes Zitat',
+        },
+        
+        {
+          name: 'statementCollection',
+          type: 'statementCollection',
+          title: 'Statement Collection',
+        },
+        {
+          name: 'statementCollectionGrid',
+          type: 'statementCollectionGrid',
+          title: 'Statement Collection Grid',
+        },
+        {
+          name: 'form',
+          type: 'form',
+          title: 'Form',
+        },
+        {
+          name: 'contactSection',
+          type: 'contactSection',
+          title: 'Kontakt Section',
+        },
+        {
+          name: 'htmlElement',
+          type: 'htmlElement',
+          title: 'HTML Section',
+        },
       ],
     }),
+
+    
+
+        /* Former Array Menber of Page Builder */
+        // defineArrayMember({
+        //   name: 'justAnImage',
+        //   type: 'justAnImage',
+        //   title: 'Just an Image',
+        // }),
+        
+        // defineArrayMember({
+        //   name: 'video',
+        //   type: 'video',
+        // }),
+        // defineArrayMember({
+        //   name: 'callToAction',
+        //   type: 'reference',
+        //   to: [{type: 'promotion'}],
+        // }),
+
+    /*
+    defineField({
+      name: 'pageBuilderAlt',
+      title: 'Page builder alt',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'pageBuilder',
+          title: 'Page builder',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              name: 'textSection',
+              type: 'textSection',
+              title: 'Text Section',
+            }),
+            defineArrayMember({
+              name: 'textWithTwoColumns',
+              type: 'textWithTwoColumns',
+              title: 'Zweispaltiger Text',
+            }),
+          ],
+        }),
+      ],
+    }),
+    */
+    
 
     // Page settings
     defineField({

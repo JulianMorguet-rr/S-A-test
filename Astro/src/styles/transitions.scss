@@ -515,14 +515,15 @@ section.observer-detected mark {
 
 mark.highlight {
     color: #fff !important;
-
-    --color1: #272727;
-    --color2: #047484;
+    --color1: #007983;
+    /* --color2: #047484; */
     --bg-height: 180%;
-        
-    // all: unset;
     background-image: linear-gradient(to right, var(--color1), var(--color2));
     background-size: 100% var(--bg-height);
+    padding: 0px 6px;
+    /* display: inline-block; */
+    box-decoration-break: clone !important;
+    -webkit-box-decoration-break: clone !important;
 }
 
 @keyframes highlight {

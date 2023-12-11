@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Stack, Text, Card, TextInput, Code } from '@sanity/ui'
+
 import './CSS/videoGallery.scss'
 
 import {createClient} from "@sanity/client";
@@ -59,7 +61,11 @@ console.log('VideoUploader wurde aufgerufen')
 const saveVideoAPIEndpoint = `${mediaUploadBaseURL}/video-api/save-video`;
 console.log('saveVideoAPIEndpoint: ', saveVideoAPIEndpoint)
 
-export function VideoUploader() {
+export function VideoUploader(props) {
+
+  const {
+    value 
+  } = props
 
   const [video, setVideo] = useState(null);
   const [title, setTitle] = useState('');
@@ -67,7 +73,7 @@ export function VideoUploader() {
 
   const [uploadStatusData, setUploadStatusData] = useState([]);
   const [webmConversionStatus, setWebmConversionStatus] = useState('');
-
+  
   useEffect(() => {
     // Initialisierung der WebSocket-Verbindung
     socket.on('connect', () => {
@@ -165,9 +171,34 @@ export function VideoUploader() {
     }
   };
 
+
+  const jsonExample = {
+    "name": "name",
+    "description": "description",
+    "mp4Path": "mp4Path",
+    "webmPath": "webmPath",
+    "thumbnailPath": "thumbnailPath",
+    "createdAt": "createdAt",
+    "updatedAt": "updatedAt",
+    "_id": "id"
+  }
+
   return (
     <div>
         <h2>Upload Video</h2>
+        <input type="text" placeholder='title' id="videoUploader"></input>
+        {/* <TextInput 
+          value={value}
+        /> */}
+        {/* <TextInput 
+          onChange={(event) =>
+            setValue(event.currentTarget.value)
+          }  
+          value={value}
+        /> */}
+        {/* <Code language='json'> {JSON.stringify(jsonExample)} </Code> */}
+        
+        
         <input type="file" accept="video/*" onChange={handleVideoChange} />
         <input
             type="text"
@@ -181,6 +212,7 @@ export function VideoUploader() {
             onChange={e => setDescription(e.target.value)}
         />
         <button onClick={handleUpload}>Upload Video</button>
+        
 
         <div className='update-status'>
             { uploadStatusData.length > 0 &&
@@ -284,9 +316,10 @@ export function VideoGallery() {
       <>
           <div className="video-gallery">
                   <h1>Video Gallery! </h1>
-                  <p>nodemailerURL: {nodemailerURL}</p>
+                  {/* <p>nodemailerURL: {nodemailerURL}</p> */}
                   <p>mediaUploadBaseURL: {mediaUploadBaseURL}</p>
                   <p>myStudioTitle: {myStudioTitle}</p>
+                  <input type="text" id="videoGallery" placeholder="Title" />
 
                   {/* { 
                       referenceData.map((ref, index) => (

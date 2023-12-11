@@ -8,16 +8,44 @@ import {DocumentTextIcon} from '@sanity/icons'
 
 import React from 'react'
 
+
+// Props 
+interface Props {
+  children: React.ReactNode | undefined;
+}
+
+// // Decorator-Interface
+// interface Decorator {
+//   title: string;
+//   value: string;
+//   icon?: () => React.ReactNode;
+//   component?: any // ComponentType<DecoratorProps>;
+// }
+
+// // Marks-Interface
+// interface Marks {
+//   decorators: Decorator[];
+// }
+
+// // Block-Typ, basierend auf Ihrer Definition
+// interface Block {
+//   type: string;
+//   marks: Marks[];
+//   children?: React.ReactNode; // Kinder, die an die Komponente übergeben werden
+// }
+
+
 const HighlightIcon = () => (
   <span style={{ fontWeight: 'bold' }}>H</span>
 )
-const HighlightDecorator = props => (
+const HighlightDecorator = (props: Props) => (
   <span style={{ backgroundColor: '#74b730' }}>{props.children}</span>
 )
 
-const MarkDecorator = props => (
+const MarkDecorator = (props: Props) => (
   <span style={{ backgroundColor: 'yellow' }}>{props.children}</span>
 )
+
 
 /**
  * End of customization
@@ -29,6 +57,11 @@ export const textWithIllustrationType = defineType({
   title: 'Text with Illustration',
   icon: DocumentTextIcon,
   fields: [
+    defineField({
+      name: 'backendTitle',
+      title: 'Backend Title | Bezeichnung im Backend',
+      type: 'string',
+    }),
     defineField({
       name: 'heading',
       type: 'string',
@@ -69,30 +102,31 @@ export const textWithIllustrationType = defineType({
       name: 'media',
       title: 'Attach media',
       type: 'object',
+      // @ts-ignore
       fields: [
         defineField({
           name: 'isVideo',
           title: 'Attach Video instead of image',
           type: 'boolean',
+          initialValue: false,
         }),
         defineField({
           name: 'image',
           type: 'image',
           options: {hotspot: true},
-          hidden: ({parent, value}) => !parent?.isVideo !== true,
-          fields: [
-            defineField({
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-            }),
-          ],
+          hidden: ({parent, value}) => parent?.isVideo === false,
+        }),
+        defineField({
+          name: 'imageAltText',
+          title: 'Alternativ text für Bild',
+          type: 'string',
+          hidden: ({parent, value}) => parent?.isVideo === false,
         }),
         defineField({
           name: 'video',
           type: 'reference',
           to: [{type: 'uploadedVideo'}],
-          hidden: ({parent, value}) => !parent?.isVideo !== false,
+          hidden: ({parent, value}) => parent?.isVideo === false,
         }),
         defineField({
           name: 'videoAltText',
@@ -115,30 +149,40 @@ export const textWithIllustrationType = defineType({
       type: 'object',
       fields: [
         defineField({
+          name: 'useCTA',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
           name: 'ctaText',
           type: 'string',
+          hidden: ({parent, value}) => parent?.useCTA !== true,
         }),
         defineField({
           name: 'isCTACustomURL',
           type: 'boolean',
+          initialValue: false,
+          hidden: ({parent, value}) => parent?.useCTA !== true,
         }),
         defineField({
           name: 'ctaReferenz',
           title: 'Referenz to page',
           type: 'reference',
           to: [{type: 'page'}],
-          hidden: ({parent, value}) => !parent?.isCTACustomURL !== true,
+          hidden: ({parent, value}) => parent?.isCTACustomURL !== false || parent?.useCTA !== true,
         }),
         defineField({
           name: 'customCtaURL',
           title: 'Custom URL',
           type: 'string',
-          hidden: ({parent, value}) => !parent?.isCTACustomURL !== false,
+          hidden: ({parent, value}) => parent?.isCTACustomURL !== true || parent?.useCTA !== true,
         }),
         defineField({
           name: 'openInNewTab',
           title: 'Open URL in new Tab',
           type: 'boolean',
+          initialValue: false,
+          hidden: ({parent, value}) => parent?.useCTA !== true,
         }),
       ],
     }),
@@ -151,7 +195,7 @@ export const textWithIllustrationType = defineType({
       name: 'switchImageToRightSide',
       title: 'Switch image to right side',
       type: 'boolean',
-      default: false,
+      initialValue: false,
     }),
     defineField({
       name: 'sectionType',
@@ -178,11 +222,12 @@ export const textWithIllustrationType = defineType({
   preview: {
     select: {
       title: 'heading',
+      backendTitle: 'backendTitle',
       image: 'media.image' || 'media.video',
     },
-    prepare({title, image}) {
+    prepare({title, backendTitle, image}) {
       return {
-        title: title || 'Untitled',
+        title: backendTitle || title || 'Untitled',
         subtitle: 'Text width Media',
         media: image || DocumentTextIcon,
       }
