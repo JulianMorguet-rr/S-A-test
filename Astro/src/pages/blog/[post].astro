@@ -50,12 +50,37 @@ const postImageURLs = await getURLs()
 
 // Import Composables 
 import { convertBlockContentToHTML } from '../../composables/blockContentToHTML';
+
+// import htm from 'htm'
+// import vhtml from 'vhtml'
+import {toHTML} from '@portabletext/to-html'
+import blocksToHtml from '@sanity/block-content-to-html'
+const html = blocksToHtml.h
+
 import { getImageUrl } from "@sanity/block-content-to-html";
 
+const myPortableTextComponents = {
+  types: {
+    image: ({value}) => {
+        if (!value || !value.asset || !value.asset._ref) {
+            return '<p>Keine Bildinformationen verfügbar</p>';
+        }
+        const imageUrl = urlFor(value.asset);
+        return `<img src="${imageUrl}" style="margin: 2rem auto 2rem auto;" alt="" />`;
+    },
+  },
+}
+
+
 // for body Page
+// const body = () => {
+//     return {
+//         blockContent: convertBlockContentToHTML(post.body)
+//     }
+// }
 const body = () => {
     return {
-        blockContent: convertBlockContentToHTML(post.body)
+        blockContent: toHTML(post.body, {components: myPortableTextComponents})
     }
 }
 
@@ -266,11 +291,10 @@ const nessesaryTransitionStyle = `
 
             
             <!-- max-w-screen-xl -->
-            <main class="px-4 lg:px-6 mx-auto max-w-screen-sm">
+            <main class="px-4 lg:px-6 mx-auto max-w-screen-md">
                 <div class="article-inner-wrapper">
 
                     <!-- <p class="sm:pb-16">{JSON.stringify(post.body)}</p> -->
-                    
                     <section class="post-body sm:pb-16" set:html={body().blockContent}></section>
 
                 </div>
@@ -286,70 +310,71 @@ const nessesaryTransitionStyle = `
 <style lang="scss">
 
 .post-header {
-        text-align: center;
-    }
+    text-align: center;
+}
 
 
-    .article-inner-wrapper {
-        max-width: 1280px;
-        margin: 0 auto;
+.article-inner-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
 
-        
-    }
+    
+}
 
 
-    .post-title-wrapper {
-        padding: 18px 0px;
+.post-title-wrapper {
+    padding: 18px 0px;
 
-        .post-title {
+    .post-title {
+        display: flex;
+        justify-content: center;
+        align-items: cen    ter;
+
+        h2 {
+            font-size: 40px;
+            line-height: 60px;
+            padding: 0px 0;
             display: flex;
-            justify-content: center;
-            align-items: cen    ter;
+            flex-wrap: wrap; /* Hier setzen Sie flex-wrap auf wrap */
+            overflow: auto;
 
-            h2 {
-                font-size: 40px;
-                line-height: 60px;
-                padding: 0px 0;
-                display: flex;
-                flex-wrap: wrap; /* Hier setzen Sie flex-wrap auf wrap */
-                overflow: auto;
-
-                span {
-                    text-align: left;
-                }
-
+            span {
+                text-align: left;
             }
+
         }
-
     }
 
-    .post-body h2 {
-        font-size: 32px;
-        font-weight: 700;
-        line-height: 48px;
-        padding-bottom: 24px;
-    }
+}
 
-    .post-body h3 {
+.post-body h2 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 48px;
+    padding-bottom: 24px;
+}
+
+.post-body h3 {
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+    padding-bottom: 24px;
+}
+
+.post-body p {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 300;
+    padding-bottom: 24px;
+}
+
+@media screen and (max-width: 690px) {
+    h2.post-title {
         font-size: 24px;
+        /* height: 36px; */
         line-height: 36px;
-        font-weight: 700;
-        padding-bottom: 24px;
     }
+}
 
-    .post-body p {
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 300;
-        padding-bottom: 24px;
-    }
-
-    @media screen and (max-width: 690px) {
-        h2.post-title {
-            font-size: 24px;
-            /* height: 36px; */
-            line-height: 36px;
-        }
-    }
 
 </style>

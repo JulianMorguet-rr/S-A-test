@@ -11,6 +11,8 @@ const serializers = {
             // h('span', {style: {backgroundColor: props.mark.color}}, props.children)
         )
     ),
+    // image: value => h('code', 'props') // h`<img src="${props?.node?.asset.url}" />`,
+    image: ({value}) => h`<img src="${value?.imageUrl}" />`,
     // marks: {
     //     mark: props => (
     //         h('mark', { style: { backgroundColor: props.mark.color } }, props.children)
@@ -28,6 +30,9 @@ const serializers = {
       h('mark', { class: 'highlight' }, props.children)
     ),
   },
+  // images: {
+  //   image: props => h`<img src="${props?.node?.asset.url}" />`,
+  // },
 }
 
 let blockContentHTML = null

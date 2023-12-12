@@ -1,8 +1,33 @@
+
 import {defineField, defineType} from 'sanity'
+import {DocumentTextIcon} from '@sanity/icons'
 
 // Import custom jsx components
 import {TwitterUrl} from '../components/TwitterUrl'
 import { MyCustomStringInput } from '../components/MyCustomStringInput'
+
+/**
+ * Customize visualization in the studio
+ * @see https://www.sanity.io/docs/customizing-the-portable-text-editor
+ */
+
+import React from 'react'
+
+const HighlightIcon = () => (
+  <span style={{ fontWeight: 'bold' }}>H</span>
+)
+const HighlightDecorator = props => (
+  <span style={{ backgroundColor: '#74b730' }}>{props.children}</span>
+)
+
+const MarkDecorator = props => (
+  <span style={{ backgroundColor: 'yellow' }}>{props.children}</span>
+)
+
+const ImageContent = props => (
+  <image src={props.children}></image>
+)
+
 
 export default {
     name: 'post',
@@ -71,6 +96,36 @@ export default {
         name: 'body',
         title: 'Body',
         type: 'blockContent',
+        // of: [
+        //   {
+        //     type: 'block',
+        //     marks: {
+        //       decorators: [
+        //         {title: 'Strong', value: 'strong'},
+        //         {title: 'Emphasis', value: 'em'},
+        //         {
+        //           title: 'Mark', 
+        //           value: 'mark',
+        //           icon: () => 'M',
+        //           component: MarkDecorator
+        //         },
+        //         { 
+        //           title: 'Highlight', 
+        //           value: 'highlight',
+        //           icon: HighlightIcon,
+        //           component: HighlightDecorator
+        //         },
+        //         {title: 'Code', value: 'code'},
+        //         { 
+        //           title: 'Image', 
+        //           value: 'image',
+        //           icon: HighlightIcon,
+        //           component: ImageContent
+        //         },
+        //       ]
+        //     }
+        //   }
+        // ]
       }),   
 
       {
