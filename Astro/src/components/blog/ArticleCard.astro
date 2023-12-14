@@ -305,13 +305,13 @@ const nessesaryTransitionStyle = `
             {   post.categories ?
                     post.categories.map((category, index) => (
                         <a href={`/blog/category/${category}`}>
-                            <span class="bg-dsv-orange border-dsv-orange text-white text-purple-800 self-start text-xs font-semibold mr-2 px-2.5 py-1 rounded">
+                            <span class="bg-dsv-orange border-dsv-orange text-white self-start text-xs font-semibold mr-2 px-2.5 py-1 rounded">
                                 {category}
                             </span>
                         </a>
                     )) 
                 :
-                    <span class="bg-dsv-orange border-dsv-orange text-white text-purple-800 self-start text-xs font-semibold mr-2 px-2.5 py-1 rounded">
+                    <span class="bg-dsv-orange border-dsv-orange text-white self-start text-xs font-semibold mr-2 px-2.5 py-1 rounded">
                         Keine Kategorie
                     </span>
             }
@@ -395,10 +395,13 @@ const nessesaryTransitionStyle = `
                     alt="Jese Leos avatar"
                 />
         }
-        <div class="font-medium">
-            <div>{`${post.author?.firstName} ${post.author?.lastName}`}</div>
-            <div class="text-sm font-normal text-gray-500">{new Date(post.publishedAt).toLocaleDateString('de-DE', formatDateOptions)}</div>
-        </div>
+        {
+            post.author?.firstName &&
+            <div class="font-medium">
+                <div>{post.author?.firstName} {post.author?.lastName}</div>
+                <div class="text-sm font-normal text-gray-500">{new Date(post.publishedAt).toLocaleDateString('de-DE', formatDateOptions)}</div>
+            </div>
+        }
     </div>
 
 

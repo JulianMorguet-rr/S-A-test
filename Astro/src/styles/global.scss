@@ -210,9 +210,11 @@ header {
             display: flex;
             justify-content: flex-end;
             flex-grow: 3;
-            gap: 2rem;
+            gap: 1rem; // 2rem
 
             a {
+
+                letter-spacing: -0.5px;
                 
                 &.active {
                     text-decoration: none;
