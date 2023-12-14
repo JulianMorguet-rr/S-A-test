@@ -27,6 +27,7 @@ import {heroType} from './heroType'
 import {textWithIllustrationType} from  './textWithIllustrationType'
 import {textWithStickyImage} from  './textWidthStickyImage'
 import {textSectionType} from  './textSectionType'
+import { iconGrid } from "./iconGridType";
 import { textWithTwoColumns } from './textWithTwoColumns'
 import {imageGalleryType} from  './imageGallerieType'
 import {statementType} from  './statementType'
@@ -74,6 +75,7 @@ export const schemaTypes = [
   heroType,
   textSectionType,
   textWithTwoColumns,
+  iconGrid,
   textWithIllustrationType,
   textWithStickyImage,
   imageGalleryType,

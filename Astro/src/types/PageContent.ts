@@ -77,6 +77,18 @@ export type ContentItem =
             text: string; 
             sectionType: 'standard' | 'fullwidthBackground' | 'fullwidthContent' 
         }
+    |   { _type: 'iconGrid'; 
+            heading: string; 
+            tagline: string;
+            text: string; 
+            iconContent: {
+                icon: any;
+                heading: string;
+                item: {
+                    text: string;
+                }
+            }[];
+        }
     |   { _type: 'textWithTwoColumns'; 
             leftText: Object; 
             rightText: Object;

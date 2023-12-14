@@ -158,32 +158,37 @@ const bgColor = 'red';
                         class="w-full"
                     />
                 ) : (
-                    <div class="animated-bg-gradient">
-                    </div>
-
-                    <div class="col-span-6 text-center sm:mb-6 lg:text-left lg:mb-0 max-w-screen-xl">
-                        <h1 class="mb-4 py-4 text-4xl tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
-                            {pageContent?.colorGradient?.title}
-                        </h1>
-                        <div class="relative text-center">
-                            <p class="mx-auto pt-4 text-1xl  mb-6 font-light text-white lg:mx-0 xl:mb-8 md:text-lg xl:text-xl">
-                                {pageContent?.colorGradient?.text}
-                            </p>
-                            <a 
-                                href={pageContent?.colorGradient?.cta?.link?.anchor} 
-                                onclick={`lenis.scrollTo('${pageContent?.colorGradient?.cta?.link?.anchor}')`}
-                                class="inline-block px-8 py-3 text-lg font-semibold text-white transition duration-200 rounded-lg hover:bg-white bg-tertiary-color"
-                                >
-                                <button class="rounded-lg">
-                                    {pageContent?.colorGradient?.cta?.linkName}    
-                                </button>
-                            </a>
+                    <div>
+                        <div class="animated-bg-gradient">
                         </div>
 
-                        <!--
-                        <p class="relative">pageContent?.colorGradient: { JSON.stringify(pageContent?.colorGradient) }</p>
-                        -->
+                        {
+                            pageContent?.colorGradient &&
+                            <div class="col-span-6 text-center sm:mb-6 lg:text-left lg:mb-0 max-w-screen-xl">
+                                <h1 class="mb-4 py-4 text-4xl tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
+                                    {pageContent?.colorGradient?.title}
+                                </h1>
+                                <div class="relative text-center">
+                                    <p class="mx-auto pt-4 text-1xl  mb-6 font-light text-white lg:mx-0 xl:mb-8 md:text-lg xl:text-xl">
+                                        {pageContent?.colorGradient?.text}
+                                    </p>
+                                    <a 
+                                        href={pageContent?.colorGradient?.cta?.link?.anchor} 
+                                        onclick={`lenis.scrollTo('${pageContent?.colorGradient?.cta?.link?.anchor}')`}
+                                        class="inline-block px-8 py-3 text-lg font-semibold text-white transition duration-200 rounded-lg hover:bg-white bg-tertiary-color"
+                                        >
+                                        <button class="rounded-lg">
+                                            {pageContent?.colorGradient?.cta?.linkName}    
+                                        </button>
+                                    </a>
+                                </div>
 
+                                <!--
+                                <p class="relative">pageContent?.colorGradient: { JSON.stringify(pageContent?.colorGradient) }</p>
+                                -->
+
+                            </div>
+                        }
                     </div>
                 )
             }

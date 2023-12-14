@@ -355,6 +355,11 @@ export const pageType = defineType({
           title: 'Form',
         }),
         defineArrayMember({
+          name: 'iconGrid',
+          type: 'iconGrid',
+          title: 'Icon Grid',
+        }),
+        defineArrayMember({
           name: 'contactSection',
           type: 'contactSection',
           title: 'Kontakt Section',

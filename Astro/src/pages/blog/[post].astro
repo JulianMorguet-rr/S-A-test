@@ -31,7 +31,7 @@ export async function getStaticPaths() {
     return paths;
 }
 
-
+// @ts-ignore
 const postSlug = Astro.params.post
 
 import { getPostBySlug } from '../../lib/sanityApi'

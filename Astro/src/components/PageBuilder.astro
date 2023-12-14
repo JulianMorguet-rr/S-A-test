@@ -12,9 +12,9 @@ import { Image } from 'astro:assets';
 import TextWidthImage from '../components/TextWidthImage.vue';
 import ContactForm from '../components/contactForm/ContactForm.vue';
 // @ts-ignore
+import TextAndImage from './TextAndImage.astro';
 import JustAnImage from './JustAnImage.astro';
 import TextSection from './TextSection.astro';
-import TextAndImage from './TextAndImage.astro';
 import TextWithStickyImage from './TextWithStickyImage.astro';
 // @ts-ignore
 import Quote from './quotes/Quote.astro';
@@ -26,6 +26,7 @@ import TextWithTwoColumns from './TextWithTwoColumns.astro';
 import QuoteCollection from './QuoteCollection.astro';
 import ContactSection from './ContactSection.astro';
 import StatementGrid from './StatementGrid.astro';
+import IconList from './IconList.astro';
 import HTMLElement from './HTMLElement.astro';
 // import { Image } from 'astro:assets';
 
@@ -186,6 +187,11 @@ let roundetImageGalleryWidth = Math.floor(imageGalleryWidth);
             <ContactSection data={pageBuilder} />
     }
     
+    
+    {
+        pageBuilder._type === 'iconGrid' &&
+            <IconList data={pageBuilder} />
+    }
     
     {
         pageBuilder._type === 'htmlElement' &&

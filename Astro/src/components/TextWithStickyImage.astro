@@ -50,14 +50,14 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
     <div class="section-anchor" id={data.customID ? data.customID : ''}></div>
 
     <div class={`inner-wrapper unset-and-visible`}>
-        <div class={`content unset-and-visible gap-8 py-8 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 
+        <div class={`content unset-and-visible gap-8 py-0 px-4 lg:px-6 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 
                     switch-sides-${data.switchImageToRightSide} 
                     ${data.media?.position === 'top' ? '' : 'items-center'}
                     ${data?.gridCols === 'oneThirdTwoThirds' ? 'grid-cols-1fr-2fr' : ''}
                     ${data?.gridCols === 'twoThirdsOneThird' ? 'grid-cols-2fr-1fr' : ''}
         `}>
             <div class="unset-and-visible section-asset image-edge-grid__img">
-                <div class={`${data.media?.isSticky ? 'sticky' : ''} top-0 py-24`}>
+                <div class={`${data.media?.isSticky ? 'sticky' : ''} top-0 py-4 lg:py-24`}>
                     { 
                         !data.media || !data.media.image ? 
                             <div class="w-full h-full bg-gray-200 p-16">
@@ -168,7 +168,7 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                     </div>
             </div>
 
-            <div class="mt-4 md:mt-0 overflow-visible py-24">
+            <div class="mt-4 md:mt-0 overflow-visible py-4 lg:py-24">
                 { data.tagline &&
                     <p class="section-tagline mb-4 md:text-lg text-gray-600 font-bold">
                         {data.tagline}
@@ -484,5 +484,11 @@ div.inner-wrapper {
 
 .grid-cols-2fr-1fr {
     grid-template-columns: 2fr 1fr !important;
+}
+
+@media screen and (max-width: 1199px) {
+    .grid-cols-1fr-2fr, .grid-cols-2fr-1fr {
+        grid-template-columns: 1fr!important;
+    }
 }
 </style>

@@ -429,7 +429,7 @@
             }
         }
 
-        section.observer-detected .section-asset {
+        section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-asset {
             // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
             opacity: 1;
             transform: translate(0, 0);
@@ -465,6 +465,31 @@
             img {
                 scale: 1;
                 transition: all 1s 0.3s;
+            }
+        }
+
+        /* just for Icon List elem */
+        section > div:not(.disable-scroll-into-view-animation) .section-icon-content {
+            opacity: 0;
+            transform: translate(0, 6rem);
+            transition: opacity 1s, transform 1s;
+        
+            @for $i from 1 through 10 {
+                &:nth-child(#{$i}) {
+                    transition-delay: 0.2s + 0.2s * $i;
+                }
+            }
+        }
+        
+        section.observer-detected > div:not(.disable-scroll-into-view-animation) .section-icon-content {
+            opacity: 1;
+            transform: translate(0, 0);
+            transition: opacity 1s, transform 1s;
+        
+            @for $i from 1 through 10 {
+                &:nth-child(#{$i}) {
+                    transition-delay: 0.2s + 0.2s * $i;
+                }
             }
         }
 }
