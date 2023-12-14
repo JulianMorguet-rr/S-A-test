@@ -32,7 +32,7 @@ const MarkDecorator = (props: Props) => (
 export const textWithStickyImage = defineType({
   name: 'textWithStickyImage',
   type: 'object',
-  title: 'Text with sticky Image',
+  title: 'Advanced Text with Sticky Image',
   icon: DocumentTextIcon,
   fields: [
     defineField({
@@ -118,6 +118,31 @@ export const textWithStickyImage = defineType({
           options: {hotspot: true},
           hidden: ({parent, value}) => !parent?.isVideo !== false,
         }),
+        defineField({
+          name: 'position',
+          title: 'Position',
+          type: 'string',
+          initialValue: 'center',
+          options: {
+            list: [
+              { 
+                title: "center", 
+                value: "center" 
+              },
+              { 
+                title: "top", 
+                value: "top" 
+              },
+            ],
+          },
+        }),
+        defineField({
+          name: 'isSticky',
+          title: 'Sticky',
+          type: 'boolean',
+          initialValue: false,
+          hidden: ({parent, value}) => parent?.position !== 'top',
+        })
       ],
     }),
     defineField({
@@ -175,6 +200,28 @@ export const textWithStickyImage = defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'gridCols',
+      title: 'Grid Columns',
+      type: 'string',
+      initialValue: 'oneHalfOneHalf',
+      options: {
+        list: [
+          { 
+            title: "50/50", 
+            value: "oneHalfOneHalf" 
+          },
+          { 
+            title: "33/66", 
+            value: "oneThirdTwoThirds" 
+          },
+          { 
+            title: "66/33", 
+            value: "twoThirdsOneThird" 
+          },
+        ],
+      },
+    }),
+    defineField({
       name: 'sectionType',
       type: 'string',
       initialValue: 'standard',
@@ -195,6 +242,12 @@ export const textWithStickyImage = defineType({
         ],
       },
     }),
+    defineField({
+      name: 'disabelScrollIntoViewAnimation',
+      title: 'Disable scroll-into-view animation',
+      type: 'boolean',
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {
@@ -205,7 +258,7 @@ export const textWithStickyImage = defineType({
     prepare({title, backendTitle, image}) {
       return {
         title: backendTitle || title || 'Untitled',
-        subtitle: 'Text width sticky image',
+        subtitle: 'Advanced Text with Image',
         media: image || DocumentTextIcon,
       }
     },

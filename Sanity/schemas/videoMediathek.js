@@ -8,20 +8,26 @@ export default {
     fields: [
 
       {
-        name: 'rawData',
-        title: 'Raw Data',
-        type: 'blockContent', // if i use other other fields like text I should switch for Example to 'string' 
-        components: {
-          input: JsonView,
-        }
-      },
-
-      {
-        name: 'whatever',
-        title: 'Whatever',
+        name: 'name',
         type: 'string',
-        description: 'jsx Video Uploader (real component)',
-      }, 
+        title: 'Video Name (uploadedVideo)',
+      }
+
+      // {
+      //   name: 'rawData',
+      //   title: 'Raw Data',
+      //   type: 'blockContent', // if i use other other fields like text I should switch for Example to 'string' 
+      //   components: {
+      //     input: JsonView,
+      //   }
+      // },
+
+      // {
+      //   name: 'whatever',
+      //   title: 'Whatever',
+      //   type: 'string',
+      //   description: 'jsx Video Uploader (real component)',
+      // }, 
 
       //   {
       //     name: 'title',
@@ -35,27 +41,26 @@ export default {
       //     type: 'text',
       //   },
 
-
       
-      {
-        name: 'videoUploader',
-        title: 'Video Uploader',
-        type: 'string',
-        description: 'jsx Video Uploader (real component)',
-        components: {
-          input: VideoUploader
-        }
-      },
+      // {
+      //   name: 'videoUploader',
+      //   title: 'Video Uploader',
+      //   type: 'string',
+      //   description: 'jsx Video Uploader (real component)',
+      //   components: {
+      //     input: VideoUploader
+      //   }
+      // },
       
-      {
-        name: 'videoGallery',
-        title: 'Video Gallery',
-        type: 'string',
-        description: 'jsx Video Gallery (real component)',
-        components: {
-          input: VideoGallery
-        }
-      },
+      // {
+      //   name: 'videoGallery',
+      //   title: 'Video Gallery',
+      //   type: 'string',
+      //   description: 'jsx Video Gallery (real component)',
+      //   components: {
+      //     input: VideoGallery
+      //   }
+      // },
 
       
       

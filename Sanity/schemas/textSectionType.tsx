@@ -3,7 +3,7 @@ import {DocumentTextIcon} from '@sanity/icons'
 
 /**
  * Customize visualization in the studio
- * @see https://www.sanity.io/docs/customizing-the-portable-text-editor
+ * 
  */
 
 import React from 'react'
@@ -11,18 +11,17 @@ import React from 'react'
 const HighlightIcon = () => (
   <span style={{ fontWeight: 'bold' }}>H</span>
 )
-const HighlightDecorator = props => (
+const HighlightDecorator = (props: any) => (
   <span style={{ backgroundColor: '#74b730' }}>{props.children}</span>
 )
 
-const MarkDecorator = props => (
+const MarkDecorator = (props: any) => (
   <span style={{ backgroundColor: 'yellow' }}>{props.children}</span>
 )
 
 /**
  * End of customization
  */
-
 export const textSectionType = defineType({
   name: 'textSection',
   type: 'object',
@@ -36,6 +35,12 @@ export const textSectionType = defineType({
     defineField({
       name: 'tagline',
       type: 'string',
+    }),
+    defineField({
+      name: 'isCentered',
+      title: 'Centered Content?',
+      type: 'boolean',
+      initialValue: false,
     }),
     defineField({
       name: 'blockContent',
@@ -77,14 +82,15 @@ export const textSectionType = defineType({
         defineField({
           name: 'isCTACustomURL',
           type: 'boolean',
+          initialValue: false,
         }),
-        defineField({
-          name: 'ctaReferenz',
-          title: 'Referenz to page',
-          type: 'reference',
-          to: [{type: 'page'}],
-          hidden: ({parent, value}) => !parent?.isCTACustomURL !== true,
-        }),
+        // defineField({
+        //   name: 'ctaReferenz',
+        //   title: 'Referenz to page',
+        //   type: 'reference',
+        //   to: [{type: 'page'}],
+        //   hidden: ({parent, value}) => !parent?.isCTACustomURL !== true,
+        // }),
         defineField({
           name: 'customCtaURL',
           title: 'Custom URL',
@@ -95,15 +101,12 @@ export const textSectionType = defineType({
           name: 'openInNewTab',
           title: 'Open URL in new Tab',
           type: 'boolean',
+          initialValue: false,
         }),
       ],
     }),
     
-    defineField({
-      name: 'isCentered',
-      title: 'Centered Content?',
-      type: 'boolean',
-    }),
+    
     defineField({
       name: 'maxWidth',
       title: 'Max Width',
@@ -156,6 +159,7 @@ export const textSectionType = defineType({
       name: 'disabelScrollIntoViewAnimation',
       title: 'Disable scroll-into-view animation',
       type: 'boolean',
+      initialValue: false,
     }),
   ],
   preview: {

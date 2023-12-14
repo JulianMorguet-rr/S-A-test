@@ -21,10 +21,10 @@ export const seoSection = defineType({
         {
             name: 'metaDescription', 
             title: 'Meta Description',
-            type: 'string',
-            components: {
-              input: metaDescriptionInput
-            }
+            type: 'text',
+            // components: {
+            //   input: metaDescriptionInput
+            // }
         },
 
         {

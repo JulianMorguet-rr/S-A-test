@@ -63,6 +63,27 @@ export const textWithIllustrationType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'columnType',
+      type: 'string',
+      initialValue: 'oneHalfOneHalf',
+      options: {
+        list: [
+          { 
+            title: "50/50", 
+            value: "oneHalfOneHalf" 
+          },
+          { 
+            title: "33/66", 
+            value: "oneThirdTwoThirds" 
+          },
+          { 
+            title: "66/33", 
+            value: "twoThirdsOneThird" 
+          },
+        ],
+      },
+    }),
+    defineField({
       name: 'heading',
       type: 'string',
     }),
@@ -114,32 +135,32 @@ export const textWithIllustrationType = defineType({
           name: 'image',
           type: 'image',
           options: {hotspot: true},
-          hidden: ({parent, value}) => parent?.isVideo === false,
+          hidden: ({parent, value}) => parent?.isVideo === true,
         }),
         defineField({
           name: 'imageAltText',
           title: 'Alternativ text für Bild',
           type: 'string',
-          hidden: ({parent, value}) => parent?.isVideo === false,
+          hidden: ({parent, value}) => parent?.isVideo === true,
         }),
-        defineField({
-          name: 'video',
-          type: 'reference',
-          to: [{type: 'uploadedVideo'}],
-          hidden: ({parent, value}) => parent?.isVideo === false,
-        }),
+        // defineField({
+        //   name: 'video',
+        //   type: 'reference',
+        //   to: [{type: 'uploadedVideo'}],
+        //   hidden: ({parent, value}) => parent?.isVideo === false,
+        // }),
         defineField({
           name: 'videoAltText',
           title: 'Alternativ text für Video',
           type: 'string',
-          hidden: ({parent, value}) => !parent?.isVideo !== false,
+          hidden: ({parent, value}) => parent?.isVideo === false,
         }),
         defineField({
           name: 'videoThumbnail',
           title: 'Video Thumbnail',
           type: 'image',
           options: {hotspot: true},
-          hidden: ({parent, value}) => !parent?.isVideo !== false,
+          hidden: ({parent, value}) => parent?.isVideo === false,
         }),
       ],
     }),
@@ -164,13 +185,13 @@ export const textWithIllustrationType = defineType({
           initialValue: false,
           hidden: ({parent, value}) => parent?.useCTA !== true,
         }),
-        defineField({
-          name: 'ctaReferenz',
-          title: 'Referenz to page',
-          type: 'reference',
-          to: [{type: 'page'}],
-          hidden: ({parent, value}) => parent?.isCTACustomURL !== false || parent?.useCTA !== true,
-        }),
+        // defineField({
+        //   name: 'ctaReferenz',
+        //   title: 'Referenz to page',
+        //   type: 'reference',
+        //   to: [{type: 'page'}],
+        //   hidden: ({parent, value}) => parent?.isCTACustomURL !== false || parent?.useCTA !== true,
+        // }),
         defineField({
           name: 'customCtaURL',
           title: 'Custom URL',

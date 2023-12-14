@@ -52,14 +52,11 @@ export default {
         options: {
           source: 'title',  // Hier nehmen wir an, dass Sie ein "title" Feld haben, von dem der Slug abgeleitet wird
           maxLength: 96,
-        },
-        options: {
-          source: 'title',
-          slugify: input => input
-                             .toLowerCase()
-                             .replace(/\s+/g, '-')
-                             .replace(/[^\w\-]+/g, '')
-                             .replace(/\-\-+/g, '-')
+          // slugify: input => input
+          //                    .toLowerCase()
+          //                    .replace(/\s+/g, '-')
+          //                    .replace(/[^\w\-]+/g, '')
+          //                    .replace(/\-\-+/g, '-')
         },
         validation: Rule => Rule.required()
       },

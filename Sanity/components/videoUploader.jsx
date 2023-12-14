@@ -199,7 +199,7 @@ export function VideoUploader(props) {
         {/* <Code language='json'> {JSON.stringify(jsonExample)} </Code> */}
         
         
-        <input type="file" accept="video/*" onChange={handleVideoChange} />
+        {/* <input type="file" accept="video/*" onChange={handleVideoChange} />
         <input
             type="text"
             placeholder="Title"
@@ -210,8 +210,9 @@ export function VideoUploader(props) {
             placeholder="Description"
             value={description}
             onChange={e => setDescription(e.target.value)}
-        />
+        /> 
         <button onClick={handleUpload}>Upload Video</button>
+        */}
         
 
         <div className='update-status'>

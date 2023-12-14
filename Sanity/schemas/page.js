@@ -52,6 +52,85 @@ export const pageType = defineType({
       ],
     }),
     
+    // ColorGradient Hero
+    defineField({
+      name: 'colorGradient',
+      title: 'Image Hero',
+      type: 'object',
+      hidden: ({parent, value}) => parent?.heroSettings?.heroType !== 'colorGradient',
+      fields: [
+        defineField({
+          name: 'title', 
+          title: 'Frontend Title',
+          type: 'string'
+        }),
+        defineField({
+          name: 'text',
+          title: 'Absatz',
+          type: 'text'
+        }),
+        defineField({
+          name: 'cta',
+          title: 'CTA auf Hero',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'linkName',
+              title: 'Link Name',
+              type: 'string'
+            }),
+            defineField({
+              name: 'link',
+              title: 'Link',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'linkType',
+                  title: 'Link Type',
+                  type: 'string',
+                  options: {
+                    list: [
+                      {
+                        title: 'Internal',
+                        value: 'internal'
+                      },
+                      {
+                        title: 'External',
+                        value: 'external'
+                      },
+                      {
+                        title: 'Anchor',
+                        value: 'anchor'
+                      }
+                    ]
+                  }
+                }),
+                defineField({
+                  name: 'internalLink',
+                  title: 'Interner Link',
+                  type: 'reference',
+                  to: [{type: 'page'}],
+                  hidden: ({parent, value}) => parent?.linkType !== 'internal',
+                }),
+                defineField({
+                  name: 'externalLink',
+                  title: 'Externer Link',
+                  type: 'string',
+                  hidden: ({parent, value}) => parent?.linkType !== 'external'
+                }),
+                defineField({
+                  name: 'anchor',
+                  title: 'Anchor',
+                  type: 'string',
+                  hidden: ({parent, value}) => parent?.linkType !== 'anchor'
+                }),
+              ]
+            }),
+          ],
+        }),
+      ],
+    }),
+
     // Image Hero
     defineField({
       name: 'imageHero',
@@ -213,78 +292,78 @@ export const pageType = defineType({
       type: 'array',
       title: 'Page builder',
       of: [
-        {
+        defineArrayMember({
           name: 'hero',
           type: 'hero',
           title: 'Hero',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'textSection',
           type: 'textSection',
           title: 'Text Section',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'textWithTwoColumns',
           type: 'textWithTwoColumns',
           title: 'Zweispaltiger Text',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'textWithIllustration',
           type: 'textWithIllustration',
           title: 'Text with Illustaion',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'textWithStickyImage',
           type: 'textWithStickyImage',
-          title: 'Text mit sticky Image',
-        },
-        {
+          title: 'Advanced Text with Image',
+        }),
+        defineArrayMember({
           name: 'gallery',
           type: 'gallery',
           title: 'Gallery',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'accordionSection',
           type: 'accordionSection',
           title: 'Accordion Section',
-        },
+        }),
         
-        {
+        defineArrayMember({
           name: 'quoteCollection',
           type: 'quoteCollection',
           title: 'Zitat Collection',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'singleQuote',
           type: 'singleQuote',
           title: 'Einzelnes Zitat',
-        },
+        }),
         
-        {
+        defineArrayMember({
           name: 'statementCollection',
           type: 'statementCollection',
           title: 'Statement Collection',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'statementCollectionGrid',
           type: 'statementCollectionGrid',
           title: 'Statement Collection Grid',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'form',
           type: 'form',
           title: 'Form',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'contactSection',
           type: 'contactSection',
           title: 'Kontakt Section',
-        },
-        {
+        }),
+        defineArrayMember({
           name: 'htmlElement',
           type: 'htmlElement',
           title: 'HTML Section',
-        },
+        }),
       ],
     }),
 
@@ -349,7 +428,8 @@ export const pageType = defineType({
     defineField({
       title: 'is Homepage',
       name: 'isHomepage',
-      type: 'boolean'
+      type: 'boolean',
+      initialValue: false,
     }),
 
 
@@ -377,12 +457,6 @@ export const pageType = defineType({
         {field: 'title', direction: 'asc'}
       ]
     },
-    // {
-    //   title: 'Popularity',
-    //   name: 'popularityDesc',
-    //   by: [
-    //     {field: 'popularity', direction: 'desc'}
-    //   ]
-    // }
+
   ]
 })

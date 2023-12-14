@@ -195,12 +195,15 @@ const mainMenu = await getMainMenu();
      </script> -->
 
 
-    <!-- <script>
+    <script>
       import Lenis from '@studio-freight/lenis'
       
       function smoothScroll() {
 
         const lenis = new Lenis()
+
+        // @ts-ignore
+        window.lenis = lenis;
 
         lenis.on('scroll', (e) => {
           // console.log(e)
@@ -215,8 +218,9 @@ const mainMenu = await getMainMenu();
       }
 
       document.addEventListener('astro:page-load', smoothScroll);
+      document.addEventListener("DOMContentLoaded", smoothScroll);
 
-    </script> -->
+    </script>
 
     <!-- <script>
       // TODO: Scripte auslagern 
@@ -256,7 +260,7 @@ const mainMenu = await getMainMenu();
             // console.log(entry)
           });
         }, {
-          threshold: 0.5
+          threshold: 0.3
         });
     
         sections.forEach(section => {

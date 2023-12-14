@@ -269,19 +269,21 @@ const nessesaryTransitionStyle = `
                             transition:name={postAuthorAndDateTransitionName}
                         >
                             {
-                                post.author.authorImage &&
+                                post.author?.authorImage &&
                                     <Image 
                                         width={40}
                                         height={40}
                                         class="w-10 h-10 rounded-full" 
-                                        src={urlFor(post.author.authorImage).width(40).height(40).format('webp').url()}
+                                        src={urlFor(post.author?.authorImage).width(40).height(40).format('webp').url()}
                                         alt="Jese Leos avatar"
                                     />
                             }
-                            <div class="font-medium">
-                                <div>{`${post.author.firstName} ${post.author.lastName}`}</div>
-                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{new Date(post.publishedAt).toLocaleDateString('de-DE', formatDateOptions)}</div>
-                            </div>
+                            {  post.author?.firstName &&
+                                <div class="font-medium">
+                                    <div>{post.author?.firstName} {post.author?.lastName}</div>
+                                    <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{new Date(post.publishedAt).toLocaleDateString('de-DE', formatDateOptions)}</div>
+                                </div>
+                            }
                         </div>
                     </div>
 

@@ -386,7 +386,7 @@ const nessesaryTransitionStyle = `
         transition:name={postAuthorAndDateTransitionName}
     >
         {
-            post.author.authorImage &&
+            post.author?.authorImage &&
                 <Image 
                     width={40}
                     height={40}
@@ -396,7 +396,7 @@ const nessesaryTransitionStyle = `
                 />
         }
         <div class="font-medium">
-            <div>{`${post.author.firstName} ${post.author.lastName}`}</div>
+            <div>{`${post.author?.firstName} ${post.author?.lastName}`}</div>
             <div class="text-sm font-normal text-gray-500">{new Date(post.publishedAt).toLocaleDateString('de-DE', formatDateOptions)}</div>
         </div>
     </div>

@@ -1565,8 +1565,12 @@ padding: 0;
 
 
 .section-anchor {
-    position: absolute;
-    top: calc(-80px - 2rem);
+    // position: absolute;
+    top: calc(-80px - 1.9rem);
+    height: 0;
+    width: 100%;
+    background: #f00;
+    z-index: 9999;
 }
 
 // Alt aus Index

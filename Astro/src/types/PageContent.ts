@@ -156,6 +156,19 @@ export interface PageContent {
         useHero: boolean;
         heroType: 'colorGradient' | 'image' | 'video' | 'textAndVideoModal' ;
     }
+    colorGradient?: {
+        title?: string;
+        text?: string;
+        cta: {
+            linkName?: string;
+            link?: {
+                linkType: 'internal' | 'external' | 'anchor';
+                internalLink?: any;
+                externalLink?: string;
+                anchor?: string;
+            }
+        }
+    }
     imageHero?: {
         title?: string;
         heroImage?: any;

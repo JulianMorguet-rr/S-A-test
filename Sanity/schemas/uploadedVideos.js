@@ -12,14 +12,14 @@ export const uploadedVideo = defineType({
         title: 'Video Name (uploadedVideo)',
         validation: Rule => Rule.required(),
       },
-      {
-        name: 'videoURL',
-        title: 'Video Player',
-        type: 'string',
-        components: {
-          input: VideoPlayer
-        }
-      },
+      // {
+      //   name: 'videoURL',
+      //   title: 'Video Player',
+      //   type: 'string',
+      //   // components: {
+      //   //   input: VideoPlayer
+      //   // }
+      // },
       {
         name: 'description',
         type: 'text',

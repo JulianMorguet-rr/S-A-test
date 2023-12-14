@@ -414,7 +414,7 @@
         // }
 
 
-        .section-asset {
+        section > div:not(.disable-scroll-into-view-animation) .section-asset {
             // clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
             // clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
             opacity: 0;
