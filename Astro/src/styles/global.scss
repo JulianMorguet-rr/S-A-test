@@ -136,6 +136,10 @@ picture {
 // }
 
 
+.leading-5 {
+    line-height: 1.25 !important;
+}
+
 a {
     text-decoration: none;
 
@@ -1125,6 +1129,12 @@ div:not(.quote-content) .section-heading {
         aspect-ratio: 16 / 9;
         width: 100%;
     }
+}
+
+/* Icon Grid */ 
+.icon-grid li {
+    list-style: disc;
+    margin-left: 20px;
 }
 
 

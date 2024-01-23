@@ -101,13 +101,17 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                             />
                         :   data.cta && data.cta?.ctaReferenz &&
                             data.cta?.ctaReferenz?.heroImage ? 
-                                <CustomImage 
-                                    imgSrc={data.cta.ctaReferenz.heroImage} 
-                                    altText="dashboard image"
-                                    width={800}
-                                    height={450}
-                                    rounded={false}
-                                    class="w-full"
+                                // <CustomImage 
+                                //     imgSrc={data.cta.ctaReferenz.heroImage} 
+                                //     altText="dashboard image"
+                                //     width={800}
+                                //     height={450}
+                                //     rounded={false}
+                                //     class="w-full"
+                                // />
+                                <img 
+                                    src={data.cta.ctaReferenz.heroImage} 
+                                    alt="alt text for image"
                                 />
                         : data.media?.video ? 
                                 <div class={`video-wrapper toggleVideoButton-${uid}-${videoID}`}>

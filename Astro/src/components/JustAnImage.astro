@@ -58,10 +58,12 @@ interface ReferenceToPage {
 
 type JustAnImage =  { 
     _type: 'justAnImage'; 
-    heading: string; 
+    tagline?: string;
+    heading?: string; 
     text: string; 
     image: any;
     referenceToPage: ReferenceToPage;
+    alt?: string;
 }
 
 
@@ -73,22 +75,28 @@ const data = Astro.props as Props
 ---
 
 
-<div>
+<div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+  {
+    data.data.tagline && <h2 class="section-tagline mb-4 md:text-lg text-gray-600 font-bold">{ data.data.tagline}</h2>
+  }
+  {
+    data.data.heading && <h2 class="section-heading mb-4 text-4xl tracking-tight text-gray-900">{ data.data.heading}</h2>
+  }
 
-    <!-- <h1>Just An Image</h1> -->
-    <!-- <p>{JSON.stringify(data.data.referenceToPage)}</p> -->
-    <a href={data.data.referenceToPage.slug}>
+
+  <div class="section-asset pt-4">
+    <img src={urlFor(data.data.image).width(1280).format('webp').url()} alt={data.data.alt} />
+  </div>
+
+
+      <!-- <p>{JSON.stringify(data.data.referenceToPage)}</p> -->
         <!-- <h2>{data.data.referenceToPage.slug}</h2> -->
-        <Image 
-            width={'600'}
+
+        <!-- <Image 
+            width={'1280'}
             height={'200'}
             src={urlFor(data.data.referenceToPage.heroImage).width(600).height(200).format('webp').url()} 
             alt={'just a test'}
-        />
-        <!-- transition:name={`hero-image-${data.data.referenceToPage.slug}`} -->
-        
-        <!-- alt={data.data.image.alt} -->
-    </a>
-    <!-- transition:animate="initial" -->
-
+        /> -->
+    
 </div>

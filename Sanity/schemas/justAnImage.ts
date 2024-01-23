@@ -4,8 +4,12 @@ import {DocumentTextIcon} from '@sanity/icons'
 export const justAnImage = defineType({
   name: 'justAnImage',
   type: 'object',
-  title: 'Just an Site Reference for testing View-Transitions',
+  title: 'Just an fullwidth image',
   fields: [
+    defineField({
+      name: 'tagline',
+      type: 'string',
+    }),
     defineField({
       name: 'heading',
       type: 'string',
@@ -22,11 +26,11 @@ export const justAnImage = defineType({
         }),
       ],
     }),
-    defineField({
-      name: 'referenceToPage',
-      type: 'reference',
-      to: [{type: 'page' }]
-    }),
+    // defineField({
+    //   name: 'referenceToPage',
+    //   type: 'reference',
+    //   to: [{type: 'page' }]
+    // }),
   ],
   icon: DocumentTextIcon,
   preview: {
@@ -37,7 +41,7 @@ export const justAnImage = defineType({
     prepare({title, image}) {
       return {
         title: title || 'Untitled',
-        subtitle: 'Just An Image for testing View-Transitions',
+        subtitle: 'Just An Image',
         media: image || DocumentTextIcon,
       }
     },

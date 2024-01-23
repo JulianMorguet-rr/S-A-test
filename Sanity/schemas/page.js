@@ -298,6 +298,11 @@ export const pageType = defineType({
           title: 'Hero',
         }),
         defineArrayMember({
+          name: 'justAnImage',
+          type: 'justAnImage',
+          title: 'Fullwidth Image',
+        }),
+        defineArrayMember({
           name: 'textSection',
           type: 'textSection',
           title: 'Text Section',

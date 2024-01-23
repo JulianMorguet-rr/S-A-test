@@ -16,7 +16,7 @@ const content = convertBlockContentToHTML(data.blockContent);
 ---
 
 
-<div class="bg-white dark:bg-gray-900">
+<div class="icon-grid bg-white dark:bg-gray-900">
 
     <!-- <p>{ JSON.stringify(data.iconItems) }</p> -->
 
@@ -38,8 +38,13 @@ const content = convertBlockContentToHTML(data.blockContent);
             { 
                 data.iconItems && data.iconItems.map((item, index) => (
                     <div class={`section-icon-content ${!data.isCentered ? '' : 'flex-item'}`}>
-                        <div class="flex justify-center items-center mb-8 w-12 h-12 rounded-full bg-primary-100 lg:h-20 lg:w-20 dark:bg-primary-900">
-                            <img src={urlFor(item.icon).width(80).height(80).format('webp').url()} >
+                        <div class="flex justify-start items-center mb-8 w-auto h-12 rounded-full bg-primary-100 lg:h-20 lg:w-auto dark:bg-primary-900">
+                            {
+                                // <img src={urlFor(item.icon).width(80).height(80).format('webp').url()} >
+                                // check if icon is an image or an svg icon
+                                // <p>item.icon:  | { urlFor(item.icon) }</p>
+                                <img src={urlFor(item.icon).width(80).height(80).url()} style="max-height: 80px;" >
+                            }
                         </div>
                         <h3 class="mb-2 text-xl font-bold dark:text-white">{item.heading}</h3>
                         <div class="mb-6 font-light text-gray-500 md:text-lg" set:html={convertBlockContentToHTML(item.text)}></div>
@@ -57,5 +62,5 @@ const content = convertBlockContentToHTML(data.blockContent);
 .flex-item {
   flex: 0 0 calc(33.333% - 3rem);
 }
-    
+  
 </style>

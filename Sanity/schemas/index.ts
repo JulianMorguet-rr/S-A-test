@@ -52,7 +52,7 @@ import multistep from './multistep'
 import multistepQuestions from './multistepQuestions'
 import multistepComposition from './multistepComposition'
 
-// import { justAnImage } from './justAnImage'
+import { justAnImage } from './justAnImage'
 
 // Testing Categories in Sanity (übergeordnete Kategorien)
 import category from "./category"
@@ -73,6 +73,7 @@ export const schemaTypes = [
   // Page Sections
   blockContent, 
   heroType,
+  justAnImage,
   textSectionType,
   textWithTwoColumns,
   iconGrid,
@@ -91,8 +92,10 @@ export const schemaTypes = [
   htmlElement,
   // Multistep Form 
   // multistep,
+  /*
   multistepQuestions,
   multistepComposition,
+  */
   // Categoriy
   category,
 ]

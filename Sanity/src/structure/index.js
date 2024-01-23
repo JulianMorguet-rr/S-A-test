@@ -100,7 +100,7 @@ export const structure = (S, context) => (
                         ].includes(listItem.getId())
                 ),
 
-                S.divider(),
+                // S.divider(),
 
                 videothekFormStructure('category', S, context.documentStore),
 
