@@ -92,12 +92,16 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                             </div>
                         :
                         data.media?.image ? 
-                            <CustomImage 
-                                imgSrc={data.media.image} 
-                                altText="dashboard image"
-                                width={800}
-                                rounded={false}
-                                class="w-full"
+                            // <CustomImage 
+                            //     imgSrc={data.media.image} 
+                            //     altText="dashboard image"
+                            //     width={800}
+                            //     rounded={false}
+                            //     class="w-full"
+                            // />
+                            <img 
+                                src={urlFor(data.media.image).format('webp').url()} 
+                                alt="alt text for image"
                             />
                         :   data.cta && data.cta?.ctaReferenz &&
                             data.cta?.ctaReferenz?.heroImage ? 
@@ -179,7 +183,10 @@ const uid = generateUID() // Date.now().toString(36) + Math.random().toString(36
                     </p>
                 }
                 { data.heading &&
-                    <h2 class="section-heading mb-4 text-4xl tracking-tight text-gray-900">
+                    <h2 class="section-heading mb-4 text-4xl tracking-tight text-gray-900" 
+                    style={data.useCustomColorGradiend ? `background: linear-gradient(45deg, ${data.customColorGradient.color1} -20%, ${data.customColorGradient.color2} 80%); -webkit-text-fill-color: transparent;
+    background-clip: text;` : ''}
+                    >
                         {data.heading}
                     </h2>
                 }

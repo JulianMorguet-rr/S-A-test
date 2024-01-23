@@ -60,6 +60,12 @@ type JustAnImage =  {
     _type: 'justAnImage'; 
     tagline?: string;
     heading?: string; 
+    centerText: boolean;
+    useCustomColorGradient?: boolean;
+    customColorGradient?: {
+      color1: string;
+      color2: string;
+    }
     text: string; 
     image: any;
     referenceToPage: ReferenceToPage;
@@ -72,16 +78,33 @@ export interface Props {
 };
 const data = Astro.props as Props
 
+
+const customGradientStyle = data.data.useCustomColorGradient 
+    ? `background: linear-gradient(45deg, ${data.data.customColorGradient?.color1} -20%, ${data.data.customColorGradient?.color2} 80%); -webkit-text-fill-color: transparent; background-clip: text;`
+    : '';
+
+const centerTextStyle = data.data.centerText 
+    ? 'text-align: center;'
+    : '';
+
 ---
 
 
 <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-  {
-    data.data.tagline && <h2 class="section-tagline mb-4 md:text-lg text-gray-600 font-bold">{ data.data.tagline}</h2>
-  }
-  {
-    data.data.heading && <h2 class="section-heading mb-4 text-4xl tracking-tight text-gray-900">{ data.data.heading}</h2>
-  }
+  <div style={centerTextStyle}>
+    {
+      data.data.tagline && <h2 class="section-tagline mb-4 md:text-lg text-gray-600 font-bold">{ data.data.tagline}</h2>
+    }
+    {
+      data.data.heading && 
+      <h2
+        class="section-heading mb-4 text-4xl tracking-tight text-gray-900"
+        style={customGradientStyle}
+      >
+        { data.data.heading}
+      </h2>
+    }
+  </div>
 
 
   <div class="section-asset pt-4">

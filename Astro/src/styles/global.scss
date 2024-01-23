@@ -96,9 +96,10 @@ h1, h2, h3, h4, h5, h6, p, a, li, ul, figure, figcaption, blockquote, cite {
 h2, h3, h4, h5 {
     font-size: 32px;
     line-height: 1.25;
+    margin-bottom: 1rem;
     letter-spacing: -1px;
     font-weight: 600;
-    color: $Tertiary-color
+    color: $Tertiary-color;
 }
 
 h6 {
@@ -107,6 +108,13 @@ h6 {
     font-weight: 400;
     letter-spacing: 0;
     color: rgb(107 114 128);
+}
+
+p {
+    margin-bottom: 2rem;
+}
+p:last-child {
+    margin-bottom: 0;
 }
 
 picture {
@@ -154,9 +162,7 @@ a {
 }
 
 
-p {
-    margin-bottom: 1rem;
-}
+
 
 .section-block-content {
     padding: 1rem 0 0 0;

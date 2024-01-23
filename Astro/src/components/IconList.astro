@@ -43,6 +43,7 @@ const content = convertBlockContentToHTML(data.blockContent);
                                 // <img src={urlFor(item.icon).width(80).height(80).format('webp').url()} >
                                 // check if icon is an image or an svg icon
                                 // <p>item.icon:  | { urlFor(item.icon) }</p>
+                                item.icon &&
                                 <img src={urlFor(item.icon).width(80).height(80).url()} style="max-height: 80px;" >
                             }
                         </div>
