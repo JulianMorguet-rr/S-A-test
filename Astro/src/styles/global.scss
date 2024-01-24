@@ -225,6 +225,9 @@ header {
             a {
 
                 letter-spacing: -0.5px;
+                padding: 14px 0;
+                align-items: center;
+                display: flex;
                 
                 &.active {
                     text-decoration: none;

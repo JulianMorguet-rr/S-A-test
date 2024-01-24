@@ -29,10 +29,7 @@ export const documentNodeResolver = (S, {schemaType}) => {
     }
   }
 
-
-// import S from '@sanity/desk-tool/structure-builder';
-
-
+  
 
 export const structure = (S, context) => (
         S.list()
@@ -105,14 +102,55 @@ export const structure = (S, context) => (
                         ].includes(listItem.getId())
                 ),
 
-                S.divider(),
+                // S.divider(),
 
                 videothekFormStructure('category', S, context.documentStore),
 
                 S.divider(),
 
+
+                /*
+                // Import "multistepFormStructure" Type
+                multistepFormStructure('category', S, context.documentStore),
+
+                S.divider(),
+
+                */
+
+                /*
+                // Import "recruiting" Type
+                S.listItem()
+                    .title('Recruiting')
+                    .child(
+                        S.editor()
+                            .id('recruiting')
+                            .schemaType('recruiting')
+                            .documentId('recruiting')
+                            .title('recruiting')
+                    ), 
+
+                S.divider(),
+                */
+
+
+                // Import "siteSettings" Type
                 siteSettingsStructure('category', S, context.documentStore),
+
+                // S.listItem()
+                //     .title('Site Settings')
+                //     .child(
+                //         S.editor()
+                //             .id('siteSettings')
+                //             .schemaType('siteSettings')
+                //             .documentId('siteSettings')
+                //             .title('siteSettings'),
+                //         S.editor()
+                //             .id('appearance')
+                //             .schemaType('appearance')
+                //             .documentId('appearance')
+                //             .title('appearance')
+                //     ), 
 
             ])
 )
-
+    

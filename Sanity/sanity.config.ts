@@ -1,12 +1,19 @@
 import {defineConfig, isDev} from 'sanity'
 import {visionTool} from '@sanity/vision'
-import {deskTool} from 'sanity/desk'
+
+// deprecated 
+// import {deskTool} from 'sanity/desk'
+// New way to structure the desk
+import {structureTool} from 'sanity/structure'
+import { structure  } from './src/structure/index.js'
+
 import {schemaTypes} from './schemas'
 import {getStartedPlugin} from './plugins/sanity-plugin-tutorial'
 
 import {myStudioTitle} from './src/environment' // env variable
 
-import { structure  } from './src/structure/index.js'
+// AI Assist 
+// import { assist } from '@sanity/assist'
 
 import {documentInternationalization} from '@sanity/document-internationalization'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
@@ -24,6 +31,8 @@ export default defineConfig({
 
   plugins: [
     
+    // assist(),
+
     colorInput(),
 
     // deskTool({
@@ -56,6 +65,7 @@ export default defineConfig({
     //   //   return S.documentTypeList('post')
     //   // },
     // }), 
+    /*
     deskTool({
       // name: 'category',
       // title: 'Category',
@@ -66,6 +76,13 @@ export default defineConfig({
       //   return S.documentTypeList('post')
       // },
     }), 
+    */
+
+    // structureTool(structure),
+    structureTool({
+      structure: structure,
+    }),
+    
 
     visionTool(), 
     

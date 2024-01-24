@@ -7,7 +7,7 @@ const currentURL = Astro.request.url;
 ---
 
 
-<nav role="navigation" class="toggle-mobile-nav bg-dsv-orange">
+<nav role="navigation" class="toggle-mobile-nav bg-dsv-orange justify-center">
     
     {mainNav.map((nav, index) => (
         <div>
@@ -29,9 +29,36 @@ const currentURL = Astro.request.url;
                     {nav.linkName} 
                 </a>
             }
+
+            {
+                nav.hasSubmenu && nav.submenu ? 
+                <ul class="submenu w-auto whitespace-nowrap justify-center">
+                    {
+                        nav.submenu.map((nav, index) => (
+                            <li class="p-0 ">
+                                <a
+                                    href={nav.pageReference?.slug ? nav.pageReference?.slug : nav.individualURL}
+                                    class={'whitespace-nowrap' + 
+                                        (`${nav.pageReference?.slug}` === currentURL ? 'active' : '')
+                                    }
+                                >
+                                    {nav.linkName}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+                : 
+                ''
+            }
         </div>
     ))}
 
 </nav>
 
 
+<style>
+a {
+    justify-content: center;
+}
+</style>
