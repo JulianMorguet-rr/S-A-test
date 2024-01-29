@@ -10,6 +10,12 @@ const postOverview = await getPostOverview();
 import { getPosts } from '../../lib/sanityApi';
 const posts = await getPosts();
 
+posts.sort((a, b) => {
+  const dateA = new Date(a.publishedAt).getTime();
+  const dateB = new Date(b.publishedAt).getTime();
+  return dateB - dateA;
+});
+
 // Import Components
 import ArticleCard from '../../components/blog/ArticleCard.astro';
 
@@ -89,7 +95,7 @@ const params = Astro.params
 
                 <!-- {JSON.stringify(prefetch)} -->
                 <!-- {JSON.stringify(posts)} -->
-                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="post-grid grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     
                     { 
                         posts.map((post, index) => (
@@ -106,3 +112,13 @@ const params = Astro.params
 </Layout>
 
 
+<style>
+    .post-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(min-content, max-content); /* Automatische Anpassung der Höhe */
+        grid-gap: 10px;
+        /* grid-auto-flow: row dense; */
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+</style>

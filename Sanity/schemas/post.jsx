@@ -86,7 +86,9 @@ export default {
       {
         name: 'publishedAt',
         title: 'Published at',
-        type: 'datetime'
+        type: 'datetime',
+        // required
+        validation: Rule => Rule.required().error('Ein Veröffentlichungsdatum ist erforderlich.')
       },
 
       defineField({
