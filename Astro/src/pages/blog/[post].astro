@@ -146,7 +146,7 @@ const nessesaryTransitionStyle = `
 
 ---
 
-<Layout prefetch={posts} prefetchType={'single-post'}>
+<Layout seoSection={post?.seoSection} prefetch={posts} prefetchType={'single-post'}>
 
     <!-- <div
         transition:name={`post-wrapper-${post.slug}`}
