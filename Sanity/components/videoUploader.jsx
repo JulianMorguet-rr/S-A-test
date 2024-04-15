@@ -199,7 +199,7 @@ export function VideoUploader(props) {
         {/* <Code language='json'> {JSON.stringify(jsonExample)} </Code> */}
         
         
-        {/* <input type="file" accept="video/*" onChange={handleVideoChange} />
+        <input type="file" accept="video/*" onChange={handleVideoChange} />
         <input
             type="text"
             placeholder="Title"
@@ -212,7 +212,7 @@ export function VideoUploader(props) {
             onChange={e => setDescription(e.target.value)}
         /> 
         <button onClick={handleUpload}>Upload Video</button>
-        */}
+        
         
 
         <div className='update-status'>
@@ -318,9 +318,9 @@ export function VideoGallery() {
           <div className="video-gallery">
                   <h1>Video Gallery! </h1>
                   {/* <p>nodemailerURL: {nodemailerURL}</p> */}
-                  <p>mediaUploadBaseURL: {mediaUploadBaseURL}</p>
-                  <p>myStudioTitle: {myStudioTitle}</p>
-                  <input type="text" id="videoGallery" placeholder="Title" />
+                  <p>mediaUploadBaseURL: {mediaUploadBaseURL}</p> 
+                  {/* <p>myStudioTitle: {myStudioTitle}</p> */}
+                  {/* <input type="text" id="videoGallery" placeholder="Title" /> */}
 
                   {/* { 
                       referenceData.map((ref, index) => (
