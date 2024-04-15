@@ -41,6 +41,11 @@ export const statementCollectionGrid = defineType({
             }),
         ],
     }),
+    defineField({
+      name: 'id',
+      title: 'Define custom ID',
+      type: 'string',
+    }),
   ],
   preview: {
     select: {
